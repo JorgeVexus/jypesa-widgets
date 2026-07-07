@@ -1,0 +1,421 @@
+/* CSS para el Widget de Colecciones Recomendadas Jypesa */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Rubik:wght@300;400;500;600&display=swap');
+
+:root {
+  --jypesa-col-bg: #EEF7FA;
+  --jypesa-col-slate: #506D85;
+  --jypesa-col-blue: #48A9C5;
+  --jypesa-col-border: rgba(80, 109, 133, 0.2);
+}
+
+.jypesa-colecciones-widget {
+  position: relative;
+  width: 100%;
+  background: var(--jypesa-col-bg);
+  font-family: 'Rubik', sans-serif;
+  color: var(--jypesa-col-slate);
+  padding: 60px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   TÍTULO DE LA SECCIÓN */
+.jypesa-col-section-header {
+  max-width: 940px;
+  margin: 0 auto 48px;
+  text-align: center;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.jypesa-col-section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 37px;
+  line-height: 1.1;
+  color: var(--jypesa-col-slate);
+  margin: 0;
+}
+
+.jypesa-col-section-desc {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--jypesa-col-slate);
+  margin: 0;
+}
+
+/* ==========================================================================
+   CONTENEDOR DE PRODUCTOS (FLEX / SCROLL) */
+.jypesa-col-slider-outer {
+  position: relative;
+  width: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.jypesa-col-products-container {
+  display: flex;
+  gap: 25px;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 15px 15px 30px;
+  margin: -15px -15px -30px;
+  box-sizing: border-box;
+  scrollbar-width: none; /* Hide scrollbar for cleaner look with dots navigation */
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 40px;
+}
+
+.jypesa-col-products-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in Chrome/Safari */
+}
+
+/* ==========================================================================
+   BOTONES DE NAVEGACIÓN HORIZONTAL (DESKTOP) */
+.jypesa-col-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(80, 109, 133, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(80, 109, 133, 0.1);
+  color: var(--jypesa-col-slate);
+  transition: all 0.25s ease;
+  user-select: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.jypesa-col-slider-outer:hover .jypesa-col-nav-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.jypesa-col-nav-btn:hover {
+  background: #ffffff;
+  color: var(--jypesa-col-blue);
+  box-shadow: 0 6px 16px rgba(80, 109, 133, 0.18);
+  border-color: rgba(80, 109, 133, 0.3);
+}
+
+.jypesa-col-nav-btn.prev-btn { left: 10px; }
+.jypesa-col-nav-btn.next-btn { right: 10px; }
+
+.jypesa-col-nav-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* ==========================================================================
+   PAGINACIÓN POR PUNTOS (PUNTOS Y PILLS MULTIDISPOSITIVO) */
+.jypesa-col-dots-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.jypesa-col-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(80, 109, 133, 0.25);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.jypesa-col-dot.active {
+  background: var(--jypesa-col-blue);
+  width: 24px;
+  border-radius: 100px;
+}
+
+/* ==========================================================================
+   TARJETAS TIPO 1: COLECCIONES (ALMOND / ELEMENTS) */
+.jypesa-card-brand {
+  flex: 0 0 311px;
+  width: 311px;
+  height: 532px;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 14.4px rgba(80, 109, 133, 0.1);
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+}
+
+.jypesa-card-brand:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(80, 109, 133, 0.18);
+}
+
+.jypesa-card-brand-img-wrap {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+}
+
+.jypesa-card-brand-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.jypesa-card-brand:hover .jypesa-card-brand-img {
+  transform: scale(1.05);
+}
+
+.jypesa-card-brand-info {
+  background: #ffffff;
+  padding: 24px 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.jypesa-brand-logo-container {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jypesa-brand-logo-container img {
+  max-height: 100%;
+  max-width: 180px;
+  object-fit: contain;
+}
+
+/* ==========================================================================
+   TARJETAS TIPO 2: PRODUCTO (AMENIDADES / SET VERSÁTIL / PREMIUM) */
+.jypesa-card-product {
+  flex: 0 0 330px;
+  width: 330px;
+  height: 535px;
+  background: #ffffff;
+  border: 2px solid var(--jypesa-col-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+}
+
+.jypesa-card-product:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(80, 109, 133, 0.18);
+  border-color: rgba(80, 109, 133, 0.4);
+}
+
+.jypesa-card-product-img-wrap {
+  width: 100%;
+  height: 330px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.jypesa-card-product-img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.jypesa-card-product:hover .jypesa-card-product-img {
+  transform: scale(1.05);
+}
+
+.jypesa-card-product-details {
+  padding: 16px 20px 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.jypesa-product-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.jypesa-product-title {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 1.2;
+  color: var(--jypesa-col-slate);
+  margin: 0 0 4px;
+}
+
+.jypesa-product-pack {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--jypesa-col-slate);
+  margin: 0 0 8px;
+}
+
+.jypesa-product-specs {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--jypesa-col-slate);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ==========================================================================
+   BOTONES Y SUS ANIMACIONES DE HOVER */
+.jypesa-btn-col {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 39px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  box-sizing: border-box;
+}
+
+/* Botón Colección (Azul) */
+.jypesa-btn-col.btn-brand {
+  background-color: var(--jypesa-col-blue);
+  color: #ffffff;
+  width: 218px;
+  font-size: 18px;
+  letter-spacing: 0.9px;
+  border: none;
+}
+
+.jypesa-btn-col.btn-brand:hover {
+  background-color: #3b91a9;
+  box-shadow: 0 4px 12px rgba(72, 169, 197, 0.25);
+}
+
+/* Botón Amazon (Gris Pizarra) */
+.jypesa-btn-col.btn-amazon {
+  background-color: var(--jypesa-col-slate);
+  border: 2px solid var(--jypesa-col-slate);
+  color: #ffffff;
+  width: 206px;
+  font-size: 14px;
+  letter-spacing: 0.7px;
+  height: 38px;
+}
+
+.jypesa-btn-col.btn-amazon:hover {
+  background-color: #3e5568;
+  border-color: #3e5568;
+  box-shadow: 0 4px 12px rgba(80, 109, 133, 0.25);
+}
+
+/* Iconos de Botones */
+.jypesa-btn-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.jypesa-btn-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* Animación de Hover en Botón (Flecha/Amazon se desliza a la derecha) */
+.jypesa-btn-col:hover .jypesa-btn-icon {
+  transform: translateX(6px);
+}
+
+/* ==========================================================================
+   RESPONSIVIDAD */
+@media (max-width: 768px) {
+  .jypesa-colecciones-widget {
+    padding: 40px 0;
+  }
+  .jypesa-col-section-header {
+    margin-bottom: 30px;
+  }
+  .jypesa-col-section-title {
+    font-size: 28px;
+  }
+  .jypesa-col-section-desc {
+    font-size: 14px;
+  }
+  
+  .jypesa-col-slider-outer {
+    padding: 0 20px;
+  }
+  
+  .jypesa-col-products-container {
+    scroll-padding: 0 20px;
+    gap: 16px;
+  }
+
+  .jypesa-card-brand {
+    flex: 0 0 calc(100% - 20px);
+    width: calc(100% - 20px);
+    scroll-snap-align: center;
+  }
+
+  .jypesa-card-product {
+    flex: 0 0 calc(100% - 20px);
+    width: calc(100% - 20px);
+    scroll-snap-align: center;
+  }
+
+  .jypesa-col-nav-btn {
+    display: none !important; /* Hide arrows on mobile viewports */
+  }
+}
