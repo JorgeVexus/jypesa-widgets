@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #506D85;
+            --secondary: #48A9C5;
+            --text-dark: #25282A;
+            --text-muted: rgba(37, 40, 42, 0.5);
+            --white: #FFFFFF;
+            --nav-bg: rgba(255, 255, 255, 0.01);
+            --nav-blur: 20px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --mega-width: 1440px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #fcfcfc;
+        }
+
+        .jypesa-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 2000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(var(--nav-blur));
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .jypesa-nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .nav-container {
+            max-width: var(--mega-width);
+            margin: 0 auto;
+            height: 90px;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 24px;
+            color: var(--text-dark);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            height: 100%;
+        }
+
+        .nav-link-item {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--secondary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .action-icon {
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            padding: 8px;
+            transition: var(--transition);
+        }
+
+        .action-icon:hover {
+            color: var(--secondary);
+        }
+
+        .smart-order {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .btn-contact {
+            background: var(--primary);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .btn-contact:hover {
+            background: var(--secondary);
+            transform: translateY(-1px);
+        }
+
+        /* Mega Menu */
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+            box-shadow: inset 0px 0px 16.9px 0px rgba(0,0,0,0.1);
+        }
+
+        .nav-link-item:hover .mega-menu {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mega-content {
+            max-width: var(--mega-width);
+            margin: 0 auto;
+            min-height: 480px;
+            display: flex;
+            position: relative;
+            padding: 40px 110px 60px 40px;
+        }
+
+        /* CROSS-FADE VISUAL BLOCK */
+        .visual-block {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 660px;
+            height: 100%;
+            background: #F9F9F9;
+            overflow: hidden;
+        }
+
+        .visual-block img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .visual-block img.inactive {
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .visual-block img.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .visual-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent 70%, white 100%);
+            z-index: 5;
+        }
+
+        .links-container {
+            margin-left: 705px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .cat-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .sections-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            width: 100%;
+        }
+
+        .menu-section {
+            min-width: 120px;
+        }
+
+        .section-header {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: var(--primary);
+            letter-spacing: 0.8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--primary);
+            margin-bottom: 16px;
+            display: inline-block;
+            opacity: 0.9;
+        }
+
+        .options-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-link {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--primary);
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .option-link:hover {
+            color: var(--secondary);
+            padding-left: 4px;
+        }
+
+        .dispensadores-row {
+            display: flex;
+            gap: 120px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            width: 25px;
+            height: 18px;
+            cursor: pointer;
+            position: relative;
+            z-index: 2001;
+        }
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: #333;
+            transition: .25s ease-in-out;
+        }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 8px; }
+        .hamburger span:nth-child(3) { top: 16px; }
+
+        .hamburger.active span:nth-child(1) { top: 8px; transform: rotate(135deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; left: -60px; }
+        .hamburger.active span:nth-child(3) { top: 8px; transform: rotate(-135deg); }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1000;
+            padding: 120px 30px;
+            visibility: hidden;
+            opacity: 0;
+            transition: var(--transition);
+            overflow-y: auto;
+        }
+        .mobile-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .mob-nav-list {
+            list-style: none;
+        }
+        .mob-item {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .mob-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+        .mob-trigger span {
+            font-size: 20px;
+            color: var(--text-muted);
+            transition: transform 0.3s;
+        }
+        .mob-item.open .mob-trigger span {
+            transform: rotate(45deg);
+        }
+        .mob-submenu {
+            display: none;
+            padding: 0 0 20px 15px;
+        }
+        .mob-item.open .mob-submenu {
+            display: block;
+        }
+        .mob-cat-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin: 15px 0 10px;
+        }
+        .mob-link {
+            display: block;
+            padding: 8px 0;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 1200px) {
+            .nav-links, .nav-actions { display: none; }
+            .hamburger { display: flex; }
+            .nav-container { height: 70px; padding: 0 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="jypesa-nav" id="nav">
+    <div class="nav-container">
+        <a href="/" class="logo">JYPESA</a>
+
+        <ul class="nav-links">
+            <li class="nav-link-item"><a href="/nosotros" class="nav-link">Nosotros</a></li>
+            <li class="nav-link-item">
+                <span class="nav-link">Productos</span>
+                <div class="mega-menu">
+                    <div class="mega-content">
+                        <div class="visual-block" id="v-block">
+                            <!-- Dual buffere for cross-fade -->
+                            <img id="img-1" class="active" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1efc9fb63da3bbe96f_Elements%20menu%C3%8C%C2%81.webp" alt="">
+                            <img id="img-2" class="inactive" src="" alt="">
+                            <div class="visual-overlay"></div>
+                        </div>
+                        <div class="links-container">
+                            <div class="category-block">
+                                <p class="cat-label">COLECCIONES</p>
+                                <div class="sections-row">
+                                    <div class="menu-section">
+                                        <div class="section-header">Estándar</div>
+                                        <ul class="options-list">
+                                            <li><a href="#" class="option-link" data-p="Elements">Elements</a></li>
+                                            <li><a href="#" class="option-link" data-p="Tea Leaf">Tea Leaf</a></li>
+                                            <li><a href="#" class="option-link" data-p="Rainforest">Rainforest</a></li>
+                                            <li><a href="#" class="option-link" data-p="Almond">Almond & Olive</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">Superior</div>
+                                        <ul class="options-list">
+                                            <li><a href="#" class="option-link" data-p="Cava">Cava</a></li>
+                                            <li><a href="#" class="option-link" data-p="Biogena">Biogena</a></li>
+                                            <li><a href="#" class="option-link" data-p="Lavarino">Lavarino Cosso</a></li>
+                                            <li><a href="#" class="option-link" data-p="Dove">Dove</a></li>
+                                            <li><a href="#" class="option-link" data-p="Tresemme">Tresemme</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">Premium</div>
+                                        <ul class="options-list">
+                                            <li><a href="#" class="option-link" data-p="Vervan">Vervan</a></li>
+                                            <li><a href="#" class="option-link" data-p="Hawaiian">Hawaiian Tropic</a></li>
+                                            <li><a href="#" class="option-link" data-p="For All Folks">For All Folks</a></li>
+                                            <li><a href="#" class="option-link" data-p="Persea">Persea</a></li>
+                                            <li><a href="#" class="option-link" data-p="Agavia">Agavia</a></li>
+                                            <li><a href="#" class="option-link" data-p="Valquer">Valquer</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">Lujo</div>
+                                        <ul class="options-list">
+                                            <li><a href="#" class="option-link" data-p="Botanicaromatica">Botanicaromatica</a></li>
+                                            <li><a href="#" class="option-link" data-p="Xinu">Xinu</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="category-block">
+                                <p class="cat-label">DISPENSADORES</p>
+                                <div class="dispensadores-row">
+                                    <a href="#" class="option-link" data-p="Soportes">Soportes</a>
+                                    <a href="#" class="option-link" data-p="Sistemas">Sistemas de dispensación</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-link-item">
+                <span class="nav-link">Soluciones</span>
+                <div class="mega-menu">
+                    <div class="mega-content">
+                        <div class="visual-block">
+                            <img src="https://placehold.co/800x600/f8f8f8/506d85?text=Soluciones" alt="">
+                            <div class="visual-overlay"></div>
+                        </div>
+                        <div class="links-container">
+                            <div class="category-block">
+                                <p class="cat-label">SOLUCIONES INTEGRALES</p>
+                                <div class="sections-row">
+                                    <div class="menu-section">
+                                        <div class="section-header">Hotelería</div>
+                                        <ul class="options-list">
+                                            <li><a href="#" class="option-link">Independientes</a></li>
+                                            <li><a href="#" class="option-link">Cadenas</a></li>
+                                            <li><a href="#" class="option-link">Operadores</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">Hospitalidad</div>
+                                        <ul class="options-list">
+                                            <li><a href="#" class="option-link">Airbnb</a></li>
+                                            <li><a href="#" class="option-link">STR</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">Empresarial</div>
+                                        <ul class="options-list">
+                                            <li><a href="#" class="option-link">Corporativo</a></li>
+                                            <li><a href="#" class="option-link">Regalos</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-link-item"><a href="/desarrollo" class="nav-link">Desarrollo personalizado</a></li>
+            <li class="nav-link-item"><a href="/sustentabilidad" class="nav-link">Sustentabilidad</a></li>
+            <li class="nav-link-item"><a href="/blog" class="nav-link">Blog</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <a href="#" class="action-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            </a>
+            <a href="/order" class="smart-order">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Smart order
+            </a>
+            <a href="/contacto" class="btn-contact">Contáctanos</a>
+        </div>
+
+        <div class="hamburger" id="h-trigger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="mobile-overlay" id="m-overlay">
+    <ul class="mob-nav-list">
+        <li class="mob-item">
+            <div class="mob-trigger">Nosotros</div>
+        </li>
+        <li class="mob-item">
+            <div class="mob-trigger">Productos <span>+</span></div>
+            <div class="mob-submenu">
+                <div class="mob-cat-title">Colecciones</div>
+                <a href="#" class="mob-link">Estándar (Elements, Tea Leaf...)</a>
+                <a href="#" class="mob-link">Superior (Cava, Biogena...)</a>
+                <a href="#" class="mob-link">Premium (Vervan, Hawaiian...)</a>
+                <a href="#" class="mob-link">Lujo (Botanicaromatica, Xinu)</a>
+                <div class="mob-cat-title">Dispensadores</div>
+                <a href="#" class="mob-link">Soportes</a>
+                <a href="#" class="mob-link">Sistemas de dispensación</a>
+            </div>
+        </li>
+        <li class="mob-item">
+            <div class="mob-trigger">Soluciones <span>+</span></div>
+            <div class="mob-submenu">
+                <div class="mob-cat-title">Hotelería</div>
+                <a href="#" class="mob-link">Independientes / Cadenas</a>
+                <div class="mob-cat-title">Airbnb</div>
+                <a href="#" class="mob-link">Hospitalidad alternativa</a>
+            </div>
+        </li>
+        <li class="mob-item"><div class="mob-trigger">Destacados</div></li>
+        <li class="mob-item"><div class="mob-trigger">Blog</div></li>
+        <li class="mob-item" style="padding: 40px 0;">
+            <a href="/contacto" class="btn-contact" style="display: block; text-align: center;">Contáctanos</a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    const IMAGES = {
+        'Valquer': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1fe7ff3cfa3d446df1_Valque%20menu%C3%8C%20%C2%81.webp',
+        'Hawaiian': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1fb3721bd1607834ee_Hawaiian%20Tropic%20menu%C3%8C%C2%81.webp',
+        'Xinu': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1fce91ebe09257f40e_Xinu%C3%8C%C2%81%20menu%C3%8C%C2%81.webp',
+        'Persea': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e1fc216bcbf94bff1_Persea%20menu%C3%8C%C2%81.webp',
+        'Lavarino': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e54ff69caf5c7db28_Lavarino%20menu%C3%8C%C2%81.webp',
+        'Elements': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1efc9fb63da3bbe96f_Elements%20menu%C3%8C%C2%81.webp',
+        'Tresemme': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e66dcf59e15d3c2ca_Tresemme%20menu%C3%8C%C2%81.webp',
+        'Tea Leaf': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d8292eb38827b77f0_Tea%20Leaf%20manu%C3%8C%C2%81.webp',
+        'Botanicaromatica': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1df209c74d9a0bf46c_botanicaromatica%20menu%C3%8C%C2%81.webp',
+        'Dove': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d527cb5a0a41eed38_Dove%20menu%C3%8C%C2%81.webp',
+        'Cava': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d2fd55338e35d58ea_Cava%20menu%C3%8C%C2%81.webp',
+        'Agavia': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d40c2a13025483ff0_Agavia%20menu%C3%8C%C2%81.webp',
+        'Biogena': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d8ecf2458e29f0dec_Biogena%20menu%C3%8C%C2%81.webp',
+    };
+
+    const nav = document.getElementById('nav');
+    const images = [document.getElementById('img-1'), document.getElementById('img-2')];
+    let activeIdx = 0;
+    const links = document.querySelectorAll('.option-link[data-p]');
+
+    // Scroll effect
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // SMOOTH CROSS-FADE LOGIC
+    links.forEach(l => {
+        l.addEventListener('mouseenter', () => {
+            const key = l.getAttribute('data-p');
+            const nextSrc = IMAGES[key];
+            
+            if (nextSrc && images[activeIdx].src !== nextSrc) {
+                const nextIdx = (activeIdx + 1) % 2;
+                
+                // Set the next image source
+                images[nextIdx].src = nextSrc;
+                
+                // Toggle classes for CSS transition
+                images[nextIdx].classList.remove('inactive');
+                images[nextIdx].classList.add('active');
+                
+                images[activeIdx].classList.remove('active');
+                images[activeIdx].classList.add('inactive');
+                
+                activeIdx = nextIdx;
+            }
+        });
+    });
+
+    // Mobile logic
+    const hTrigger = document.getElementById('h-trigger');
+    const mOverlay = document.getElementById('m-overlay');
+    hTrigger.addEventListener('click', () => {
+        mOverlay.classList.toggle('active');
+        hTrigger.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.mob-trigger').forEach(t => {
+        t.addEventListener('click', () => {
+            const parent = t.parentElement;
+            parent.classList.toggle('open');
+        });
+    });
+</script>
+
+</body>
+</html>

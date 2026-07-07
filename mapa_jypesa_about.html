@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Mapa Mundi Interactivo - Oficinas y Fábricas</title>
+    <!-- D3.js para mapa vectorial SVG -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- TopoJSON para convertir datos topológicos a GeoJSON -->
+    <script src="https://cdn.jsdelivr.net/npm/topojson@3.0.2/dist/topojson.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .map-wrapper {
+            width: 100%;
+            background: #eef5fa;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .world-map-svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            background: #cde5f5;
+            cursor: crosshair;
+            border-radius: 20px;
+        }
+
+        /* Estilo base de los marcadores */
+        .map-marker {
+            transition: r 0.2s ease, filter 0.2s ease;
+            cursor: pointer;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+        }
+
+        .map-marker:hover {
+            filter: drop-shadow(0 0 12px rgba(0, 160, 255, 0.9));
+            r: 9.5;
+        }
+
+        /* Modal / tooltip personalizado (hover) */
+        .custom-tooltip {
+            position: fixed;
+            background: rgba(15, 25, 35, 0.94);
+            backdrop-filter: blur(14px);
+            color: #f5f9ff;
+            padding: 0.9rem 1.4rem;
+            border-radius: 32px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+            z-index: 1000;
+            transition: opacity 0.2s ease, transform 0.1s;
+            max-width: 300px;
+            width: max-content;
+            line-height: 1.45;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.01em;
+        }
+
+        .custom-tooltip .city-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .custom-tooltip .groups-badge {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 8px 0 4px;
+        }
+
+        .group-tag {
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 0.3px;
+            background: #1e4a6e;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        /* color específico para cada tipo en las etiquetas */
+        .group-tag.oficinas {
+            background: #0089C1;
+        }
+
+        .group-tag.jypesa {
+            background: #4AA25D;
+        }
+
+        .group-tag.asociadas {
+            background: #FBB31F;
+            color: #2d2a1f;
+        }
+
+        .coord-text {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 6px;
+            font-family: monospace;
+        }
+
+        .custom-tooltip::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 20px;
+            width: 16px;
+            height: 16px;
+            background: rgba(15, 25, 35, 0.94);
+            backdrop-filter: blur(14px);
+            transform: rotate(45deg);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .map-footer {
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 12px;
+            background: #d4e3ef;
+            color: #1f4868;
+            border-top: 1px solid #b8cfE2;
+        }
+
+        @media (max-width: 700px) {
+            .custom-tooltip {
+                max-width: 240px;
+                padding: 0.7rem 1.2rem;
+                font-size: 0.8rem;
+            }
+
+            .custom-tooltip .city-name {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="map-wrapper">
+        <div id="map-container" style="position: relative; width: 100%;">
+            <svg class="world-map-svg" width="1000" height="600" viewBox="0 0 1000 600"
+                preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+        <div class="map-footer">
+            🌍 Mapa interactivo | Oficinas de representación <span
+                style="background:#0089C1; display:inline-block; width:12px; height:12px; border-radius:20px;"></span> |
+            Fábricas Jypesa <span
+                style="background:#4AA25D; display:inline-block; width:12px; height:12px; border-radius:20px;"></span> |
+            Fábricas Asociadas <span
+                style="background:#FBB31F; display:inline-block; width:12px; height:12px; border-radius:20px;"></span> •
+            Pasa el cursor sobre los puntos
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // ----------------------------------------------------------------
+            // NUEVOS GRUPOS SEGÚN REQUERIMIENTO: Oficinas, Fábricas Jypesa, Fábricas Asociadas
+            // Cada ciudad con sus coordenadas (verificadas del dataset original)
+            // ----------------------------------------------------------------
+            const gruposConColores = {
+                "Oficinas de representación": {
+                    color: "#0089C1",
+                    ciudades: [
+                        { "name": "Guadalajara, México", "latitude": 20.6597, "longitude": -103.3496 },
+                        { "name": "Cancún, México", "latitude": 21.1619, "longitude": -86.8515 },
+                        { "name": "Punta Cana, RD", "latitude": 18.5601, "longitude": -68.3725 },
+                        { "name": "Kingston, Jamaica", "latitude": 17.9712, "longitude": -76.7936 },
+                        { "name": "Las Vegas, USA", "latitude": 36.1699, "longitude": -115.1398 },
+                        { "name": "Dallas, USA", "latitude": 32.7767, "longitude": -96.7970 },
+                        { "name": "Guatemala, Guatemala", "latitude": 14.6349, "longitude": -90.5069 },
+                        { "name": "San José, Costa Rica", "latitude": 9.9281, "longitude": -84.0907 },
+                        { "name": "Bogotá, Colombia", "latitude": 4.7110, "longitude": -74.0721 },
+                        { "name": "Lima, Perú", "latitude": -12.0464, "longitude": -77.0428 },
+                        { "name": "Santiago, Chile", "latitude": -33.4489, "longitude": -70.6693 },
+                        { "name": "Alicante, España", "latitude": 38.3452, "longitude": -0.4810 },
+                        { "name": "Guangzhou, China", "latitude": 23.1291, "longitude": 113.2644 },
+                        { "name": "Sydney, Australia", "latitude": -33.8688, "longitude": 151.2093 }
+                    ]
+                },
+                "Fábricas Jypesa": {
+                    color: "#4AA25D",
+                    ciudades: [
+                        { "name": "Guadalajara, México", "latitude": 20.6597, "longitude": -103.3496 },
+                        { "name": "Toledo, España", "latitude": 39.8628, "longitude": -4.0273 },
+                        { "name": "Yangzhou, China", "latitude": 32.3932, "longitude": 119.4127 }
+                    ]
+                },
+                "Fábricas Asociadas": {
+                    color: "#FBB31F",
+                    ciudades: [
+                        { "name": "Medellín, Colombia", "latitude": 6.2442, "longitude": -75.5812 },
+                        { "name": "Buenos Aires, Argentina", "latitude": -34.6037, "longitude": -58.3816 },
+                        { "name": "Kuala Lumpur, Malasia", "latitude": 3.1390, "longitude": 101.6869 }
+                    ]
+                }
+            };
+
+            // Consolidar ubicaciones únicas y almacenar a qué grupos pertenecen (con sus colores)
+            function consolidateMarkersWithGroups(groupData) {
+                const locationMap = new Map(); // key: "lat,lon"
+
+                for (const [groupName, groupInfo] of Object.entries(groupData)) {
+                    const groupColor = groupInfo.color;
+                    const cities = groupInfo.ciudades;
+                    for (const city of cities) {
+                        const key = `${city.latitude},${city.longitude}`;
+                        if (!locationMap.has(key)) {
+                            locationMap.set(key, {
+                                name: city.name,
+                                latitude: city.latitude,
+                                longitude: city.longitude,
+                                groups: [{ name: groupName, color: groupColor }]
+                            });
+                        } else {
+                            const existing = locationMap.get(key);
+                            // evitar duplicados del mismo grupo (por si hay repetición)
+                            const alreadyHasGroup = existing.groups.some(g => g.name === groupName);
+                            if (!alreadyHasGroup) {
+                                existing.groups.push({ name: groupName, color: groupColor });
+                            }
+                        }
+                    }
+                }
+                return Array.from(locationMap.values());
+            }
+
+            const markersData = consolidateMarkersWithGroups(gruposConColores);
+            console.log("Marcadores únicos consolidados:", markersData.length);
+
+            // ----------------------------------------------------------------
+            // Definir orden de prioridad visual para el color principal del marcador
+            // Prioridad: Oficinas > Jypesa > Asociadas (para mostrar relleno y borde secundario)
+            // ----------------------------------------------------------------
+            function getMarkerColorScheme(groupsArray) {
+                // Prioridad por índice
+                const priorityOrder = ["Oficinas de representación", "Fábricas Jypesa", "Fábricas Asociadas"];
+                // Ordenar grupos según prioridad
+                const sorted = [...groupsArray].sort((a, b) => {
+                    return priorityOrder.indexOf(a.name) - priorityOrder.indexOf(b.name);
+                });
+                const primaryGroup = sorted[0];
+                const secondaryGroup = sorted.length > 1 ? sorted[1] : null;
+                return {
+                    primaryColor: primaryGroup.color,
+                    secondaryColor: secondaryGroup ? secondaryGroup.color : null,
+                    hasMultiple: sorted.length > 1
+                };
+            }
+
+            // ----------------------------------------------------------------
+            // CONFIGURACIÓN DEL MAPA (excluyendo Antártida)
+            // ----------------------------------------------------------------
+            const width = 1000, height = 600;
+            const projection = d3.geoMercator()
+                .scale(135)
+                .translate([width / 2, height / 2])
+                .center([0, 20]);   // centrado para mostrar bien todo el mundo sin Antártida
+
+            const pathGenerator = d3.geoPath().projection(projection);
+            const svg = d3.select(".world-map-svg");
+            svg.selectAll("*").remove();
+
+            // Fondo del océano
+            svg.append("rect")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("fill", "#cde5f5")
+                .attr("rx", 16);
+
+            const mapGroup = svg.append("g").attr("class", "countries-group");
+
+            // Tooltip personalizado (flotante)
+            const tooltipDiv = document.createElement("div");
+            tooltipDiv.classList.add("custom-tooltip");
+            tooltipDiv.style.opacity = "0";
+            tooltipDiv.style.visibility = "hidden";
+            document.body.appendChild(tooltipDiv);
+
+            function showTooltip(event, marker) {
+                const cityName = marker.name;
+                const groups = marker.groups;
+                const lat = marker.latitude.toFixed(3);
+                const lon = marker.longitude.toFixed(3);
+
+                let groupsHtml = '';
+                groups.forEach(g => {
+                    let extraClass = '';
+                    if (g.name === "Oficinas de representación") extraClass = 'oficinas';
+                    else if (g.name === "Fábricas Jypesa") extraClass = 'jypesa';
+                    else if (g.name === "Fábricas Asociadas") extraClass = 'asociadas';
+                    groupsHtml += `<span class="group-tag ${extraClass}">${g.name}</span>`;
+                });
+
+                const contentHtml = `
+                <div class="city-name">
+                    📍 ${escapeHtml(cityName)}
+                </div>
+                <div style="margin: 6px 0 2px 0; font-size: 0.75rem; opacity:0.8;">Categorías:</div>
+                <div class="groups-badge">
+                    ${groupsHtml}
+                </div>
+                <div class="coord-text">
+                    🧭 ${lat}° / ${lon}°
+                </div>
+            `;
+                tooltipDiv.innerHTML = contentHtml;
+
+                let x = event.clientX + 18;
+                let y = event.clientY - 45;
+                if (x + tooltipDiv.offsetWidth > window.innerWidth - 15) {
+                    x = event.clientX - tooltipDiv.offsetWidth - 15;
+                }
+                if (y < 10) y = event.clientY + 25;
+                if (y + tooltipDiv.offsetHeight > window.innerHeight - 20) {
+                    y = window.innerHeight - tooltipDiv.offsetHeight - 20;
+                }
+                tooltipDiv.style.left = `${x}px`;
+                tooltipDiv.style.top = `${y}px`;
+                tooltipDiv.style.opacity = "1";
+                tooltipDiv.style.visibility = "visible";
+            }
+
+            function hideTooltip() {
+                tooltipDiv.style.opacity = "0";
+                tooltipDiv.style.visibility = "hidden";
+            }
+
+            function escapeHtml(str) {
+                if (!str) return '';
+                return str.replace(/[&<>]/g, function (m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    return m;
+                });
+            }
+
+            // ----------------------------------------------------------------
+            // CARGAR MAPA MUNDI (sin Antártida)
+            // ----------------------------------------------------------------
+            const worldAtlasUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json";
+
+            d3.json(worldAtlasUrl).then(worldData => {
+                const countries = topojson.feature(worldData, worldData.objects.countries);
+                const filteredCountries = {
+                    type: "FeatureCollection",
+                    features: countries.features.filter(f => {
+                        const name = f.properties && f.properties.name;
+                        return !(name && name.toLowerCase().includes("antarctica"));
+                    })
+                };
+
+                mapGroup.selectAll(".country")
+                    .data(filteredCountries.features)
+                    .enter()
+                    .append("path")
+                    .attr("class", "country")
+                    .attr("d", d => pathGenerator(d))
+                    .attr("fill", "#f2eddd")
+                    .attr("stroke", "#96abbb")
+                    .attr("stroke-width", 0.6)
+                    .attr("stroke-linejoin", "round");
+
+                // Grupo de marcadores
+                const markersGroup = svg.append("g").attr("class", "markers-group");
+
+                // Definir filtro de brillo/glow opcional
+                const defs = svg.append("defs");
+                const filter = defs.append("filter")
+                    .attr("id", "glow")
+                    .attr("x", "-30%")
+                    .attr("y", "-30%")
+                    .attr("width", "160%")
+                    .attr("height", "160%");
+                filter.append("feGaussianBlur").attr("stdDeviation", "2.8").attr("result", "blur");
+                filter.append("feMerge")
+                    .selectAll("feMergeNode")
+                    .data(["blur", "SourceGraphic"])
+                    .enter()
+                    .append("feMergeNode")
+                    .attr("in", d => d);
+
+                // Dibujar cada marcador con estilo según pertenencia a grupos múltiples
+                markersData.forEach(marker => {
+                    const coords = projection([marker.longitude, marker.latitude]);
+                    if (!coords || isNaN(coords[0]) || isNaN(coords[1])) return;
+                    if (coords[0] < -200 || coords[0] > width + 200 || coords[1] < -200 || coords[1] > height + 200) return;
+
+                    const colorScheme = getMarkerColorScheme(marker.groups);
+                    const primary = colorScheme.primaryColor;
+                    const hasMultiple = colorScheme.hasMultiple;
+                    const secondary = colorScheme.secondaryColor;
+
+                    // Crear grupo para el marcador (facilita la gestión)
+                    const markerGroup = markersGroup.append("g")
+                        .attr("class", "marker-unit")
+                        .attr("transform", `translate(${coords[0]}, ${coords[1]})`);
+
+                    // Si hay grupos múltiples: marcador con relleno primario + anillo secundario
+                    if (hasMultiple && secondary) {
+                        // Círculo externo (secundario) simula borde grueso
+                        markerGroup.append("circle")
+                            .attr("r", 8)
+                            .attr("fill", secondary)
+                            .attr("stroke", "white")
+                            .attr("stroke-width", 1.5)
+                            .attr("class", "map-marker multi-outer");
+                        // Círculo interno (color principal)
+                        markerGroup.append("circle")
+                            .attr("r", 5.2)
+                            .attr("fill", primary)
+                            .attr("stroke", "white")
+                            .attr("stroke-width", 1.2)
+                            .attr("class", "map-marker multi-inner");
+                    } else {
+                        // Un solo grupo: círculo sólido con el color del grupo
+                        markerGroup.append("circle")
+                            .attr("r", 7)
+                            .attr("fill", primary)
+                            .attr("stroke", "#ffffff")
+                            .attr("stroke-width", 2)
+                            .attr("class", "map-marker single-marker");
+                    }
+
+                    // Añadir un pequeño punto central brilloso (efecto visual)
+                    markerGroup.append("circle")
+                        .attr("r", 2.5)
+                        .attr("fill", "#fff9e0")
+                        .attr("opacity", 0.85)
+                        .attr("stroke", "none");
+
+                    // Eventos hover sobre el grupo entero
+                    const groupElement = markerGroup.node();
+                    markerGroup.on("mouseenter", function (event) {
+                        showTooltip(event, marker);
+                        // Efecto de aumento en todos los círculos hijos
+                        markerGroup.selectAll("circle").transition().duration(120)
+                            .attr("r", function () {
+                                const currentR = parseFloat(d3.select(this).attr("r"));
+                                if (d3.select(this).classed("multi-outer")) return 10;
+                                if (d3.select(this).classed("multi-inner")) return 6.8;
+                                if (d3.select(this).classed("single-marker")) return 9;
+                                return currentR + 2;
+                            })
+                            .attr("stroke-width", 2.5);
+                        markerGroup.selectAll("circle").attr("filter", "url(#glow)");
+                    });
+
+                    markerGroup.on("mousemove", function (event) {
+                        if (tooltipDiv.style.visibility === "visible") {
+                            let x = event.clientX + 18;
+                            let y = event.clientY - 45;
+                            if (x + tooltipDiv.offsetWidth > window.innerWidth - 15) {
+                                x = event.clientX - tooltipDiv.offsetWidth - 15;
+                            }
+                            if (y < 10) y = event.clientY + 25;
+                            if (y + tooltipDiv.offsetHeight > window.innerHeight - 20) {
+                                y = window.innerHeight - tooltipDiv.offsetHeight - 20;
+                            }
+                            tooltipDiv.style.left = `${x}px`;
+                            tooltipDiv.style.top = `${y}px`;
+                        }
+                    });
+
+                    markerGroup.on("mouseleave", function () {
+                        hideTooltip();
+                        markerGroup.selectAll("circle").transition().duration(150)
+                            .attr("r", function () {
+                                if (d3.select(this).classed("multi-outer")) return 8;
+                                if (d3.select(this).classed("multi-inner")) return 5.2;
+                                if (d3.select(this).classed("single-marker")) return 7;
+                                return 2.5;
+                            })
+                            .attr("stroke-width", function () {
+                                if (d3.select(this).classed("multi-outer")) return 1.5;
+                                if (d3.select(this).classed("multi-inner")) return 1.2;
+                                if (d3.select(this).classed("single-marker")) return 2;
+                                return 0;
+                            });
+                        markerGroup.selectAll("circle").attr("filter", null);
+                    });
+                });
+
+                // Pequeña leyenda visual sutil sobre el SVG
+                svg.append("text")
+                    .attr("x", width - 18)
+                    .attr("y", 30)
+                    .attr("text-anchor", "end")
+                    .attr("fill", "#1c4a6e")
+                    .attr("font-size", "10px")
+                    .attr("font-weight", "500")
+                    .attr("opacity", 0.75)
+                    .text("⭐ Marcador con borde = doble categoría");
+
+                console.log("Mapa renderizado con grupos: Oficinas, Jypesa, Asociadas - Marcadores multicolor incluidos.");
+            }).catch(error => {
+                console.error("Error cargando mapa mundial: ", error);
+                svg.append("text")
+                    .attr("x", width / 2)
+                    .attr("y", height / 2)
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "#a13535")
+                    .attr("font-size", "18px")
+                    .attr("font-weight", "bold")
+                    .text("⚠️ No se pudo cargar el mapa base");
+                svg.append("text")
+                    .attr("x", width / 2)
+                    .attr("y", height / 2 + 35)
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "#3c5e7c")
+                    .attr("font-size", "14px")
+                    .text("Pero los marcadores aún son funcionales");
+                // Aun así intentar dibujar marcadores sin mapa? pero ya se intentó, solo falló la base topojson.
+            });
+
+            // Manejo de scroll/resize para ocultar tooltip
+            window.addEventListener('scroll', () => { if (tooltipDiv.style.visibility === 'visible') hideTooltip(); });
+            window.addEventListener('resize', () => { if (tooltipDiv.style.visibility === 'visible') hideTooltip(); });
+        })();
+    </script>
+</body>
+
+</html>

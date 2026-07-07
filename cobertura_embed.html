@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Instrument+Serif:ital@1&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #506D85;
+            --blue: #0089C1;
+            --green: #4AA25D;
+            --yellow: #F9B623;
+            --bg-light: #EEF7FA;
+            --text-muted: #506D85;
+        }
+
+        .cobertura-section {
+            position: relative;
+            width: 100%;
+            background-color: var(--bg-light);
+            overflow: hidden;
+            padding-bottom: 80px;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .cobertura-header {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cobertura-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 42px;
+            line-height: 1.1;
+            color: var(--primary);
+            max-width: 500px;
+            margin: 0;
+        }
+
+        .cobertura-desc {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 400;
+            font-size: 17px;
+            line-height: 1.5;
+            color: var(--text-muted);
+            max-width: 550px;
+            text-align: right;
+            margin: 0;
+        }
+
+        /* Contenedor del Mapa */
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            /* Proporción exacta del SVG (1518x738) */
+            aspect-ratio: 1518 / 738;
+        }
+
+        .map-object {
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: auto;
+        }
+
+        /* Información Inferior */
+        .cobertura-info {
+            max-width: 1440px;
+            margin: 40px auto 0;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr;
+            gap: 50px;
+        }
+
+        .info-category {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-top: 1px solid rgba(80, 109, 133, 0.15);
+            padding-top: 20px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .category-title {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .category-count {
+            font-weight: 500;
+            font-size: 18px;
+        }
+
+        .blue-cat { color: var(--blue); }
+        .green-cat { color: var(--green); }
+        .yellow-cat { color: var(--yellow); }
+
+        .location-lists {
+            display: flex;
+            gap: 30px;
+        }
+
+        .location-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .location-list li {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .location-list li::before {
+            content: "";
+            width: 4px;
+            height: 4px;
+            background-color: currentColor;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .cobertura-header { flex-direction: column; padding: 40px 20px; }
+            .cobertura-desc { text-align: left; max-width: 100%; }
+            .cobertura-info { grid-template-columns: 1fr; padding: 0 20px; gap: 30px; }
+            .location-lists { flex-direction: column; gap: 0; }
+            .cobertura-title { font-size: 32px; }
+            .map-wrapper {
+                aspect-ratio: auto;
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<section class="cobertura-section">
+    <div class="cobertura-header">
+        <h2 class="cobertura-title">Cobertura estratégica y distribución eficiente</h2>
+        <p class="cobertura-desc">Integramos producción, operación y distribución para asegurar cobertura, rapidez y consistencia en cada entrega, donde sea que nos necesites.</p>
+    </div>
+
+    <div class="map-wrapper">
+        <object id="map-svg" type="image/svg+xml" data="mapa_con_pines.svg" class="map-object">
+            <img src="mapa_con_pines.svg" alt="Mapa de Cobertura Jypesa">
+        </object>
+    </div>
+
+    <div class="cobertura-info">
+        <div class="info-category blue-cat">
+            <div class="category-header">
+                <h3 class="category-title">Oficinas de representación</h3>
+                <span class="category-count">14</span>
+            </div>
+            <div class="location-lists">
+                <ul class="location-list">
+                    <li>Guadalajara, México</li>
+                    <li>Cancún, México</li>
+                    <li>Punta Cana, RD</li>
+                    <li>Kingston, Jamaica</li>
+                    <li>Las Vegas, USA</li>
+                    <li>Dallas, USA</li>
+                    <li>Guatemala, Guatemala</li>
+                </ul>
+                <ul class="location-list">
+                    <li>San José, Costa Rica</li>
+                    <li>Bogotá, Colombia</li>
+                    <li>Lima, Perú</li>
+                    <li>Santiago, Chile</li>
+                    <li>Alicante, España</li>
+                    <li>Guangzhou, China</li>
+                    <li>Sydney, Australia</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-category green-cat">
+            <div class="category-header">
+                <h3 class="category-title">Fábricas Jypesa</h3>
+                <span class="category-count">3</span>
+            </div>
+            <ul class="location-list">
+                <li>Guadalajara, México</li>
+                <li>Toledo, España</li>
+                <li>Yangzhou, China</li>
+            </ul>
+        </div>
+
+        <div class="info-category yellow-cat">
+            <div class="category-header">
+                <h3 class="category-title">Fábricas Asociadas</h3>
+                <span class="category-count">3</span>
+            </div>
+            <ul class="location-list">
+                <li>Medellín, Colombia</li>
+                <li>Buenos Aires, Argentina</li>
+                <li>Kuala Lumpur, Malasia</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Script mejorado para inyectar estilos de hover en el SVG local
+    window.addEventListener('load', function() {
+        const svgObject = document.getElementById('map-svg');
+        
+        function injectStyles() {
+            try {
+                const svgDoc = svgObject.contentDocument;
+                if (!svgDoc) {
+                    console.warn("No se pudo acceder al contenido del SVG. Asegúrate de que el archivo sea local o el servidor permita acceso CORS.");
+                    return;
+                }
+
+                const style = svgDoc.createElementNS("http://www.w3.org/2000/svg", "style");
+                style.textContent = `
+                    /* Estilos para los pines */
+                    path[fill="#0089C1"], path[fill="#0088BD"],
+                    path[fill="#4AA25D"], path[fill="#43A047"],
+                    path[fill="#F9B623"], path[fill="#FFC107"] {
+                        cursor: pointer;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        transform-box: fill-box;
+                        transform-origin: center center;
+                    }
+
+                    path[fill="#0089C1"]:hover, path[fill="#0088BD"]:hover,
+                    path[fill="#4AA25D"]:hover, path[fill="#43A047"]:hover,
+                    path[fill="#F9B623"]:hover, path[fill="#FFC107"]:hover {
+                        transform: scale(1.3) translateY(-5px);
+                        filter: brightness(1.1) drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+                    }
+                `;
+                svgDoc.documentElement.appendChild(style);
+                console.log("Estilos de hover inyectados correctamente.");
+            } catch (e) {
+                console.error("Error al inyectar estilos:", e);
+            }
+        }
+
+        if (svgObject.contentDocument) {
+            injectStyles();
+        } else {
+            svgObject.addEventListener('load', injectStyles);
+        }
+    });
+</script>
+
+</body>
+</html>
