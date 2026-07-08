@@ -18,7 +18,7 @@
 .jypesa-colecciones-widget {
   position: relative;
   width: 100%;
-  background: var(--jypesa-col-bg);
+  background: transparent;
   font-family: 'Rubik', sans-serif;
   color: var(--jypesa-col-slate);
   padding: 60px 0;
@@ -521,7 +521,7 @@
         </div>
         <div class="jypesa-card-brand-info">
           <div class="jypesa-brand-logo-container">
-            <img src="http://localhost:3845/assets/44e7051936c2329ccd997d83d5aa0675c71e72ef.png" alt="Almond Logo">
+            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b52eaf112499de5983e3f_almond%20brown.avif" alt="Almond Logo">
           </div>
           <a href="#" class="jypesa-btn-col btn-brand">
             Ver colección
@@ -537,7 +537,7 @@
         </div>
         <div class="jypesa-card-brand-info">
           <div class="jypesa-brand-logo-container">
-            <img src="http://localhost:3845/assets/b57ac30eea62db614255df54635093649a5f1a25.png" alt="Elements Logo">
+            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e8ef22f4266f0cc0e2496e_elements%20logo%20color.avif" alt="Elements Logo">
           </div>
           <a href="#" class="jypesa-btn-col btn-brand">
             Ver colección
