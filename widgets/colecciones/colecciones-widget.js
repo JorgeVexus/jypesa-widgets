@@ -201,6 +201,94 @@
   .jypesa-col-mobile-nav {
     display: none !important;
   }
+
+  /* Desktop: 5 cards fijas en una sola fila */
+  .jypesa-col-slider-outer {
+    padding: 0 20px;
+  }
+
+  .jypesa-col-products-container {
+    overflow-x: hidden !important;
+    scroll-snap-type: none !important;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .jypesa-col-nav-btn {
+    display: none !important;
+  }
+
+  .jypesa-card-brand {
+    flex: 0 0 220px;
+    width: 220px;
+    height: auto;
+  }
+
+  .jypesa-card-brand-img-wrap {
+    height: 220px;
+  }
+
+  .jypesa-brand-logo-container {
+    height: 45px;
+  }
+
+  .jypesa-brand-logo-container img {
+    max-width: 140px;
+  }
+
+  .jypesa-card-brand-info {
+    padding: 18px 16px;
+  }
+
+  .jypesa-btn-col.btn-brand {
+    width: 180px;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    height: 34px;
+  }
+
+  .jypesa-card-product {
+    flex: 0 0 235px;
+    width: 235px;
+    height: auto;
+  }
+
+  .jypesa-card-product-img-wrap {
+    height: 220px;
+  }
+
+  .jypesa-card-product-details {
+    padding: 14px 16px 20px;
+  }
+
+  .jypesa-product-title {
+    font-size: 17px;
+  }
+
+  .jypesa-product-pack {
+    font-size: 13px;
+  }
+
+  .jypesa-product-specs {
+    font-size: 12px;
+  }
+
+  .jypesa-btn-col.btn-amazon {
+    width: 180px;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    height: 34px;
+  }
+
+  .jypesa-col-controls-mobile {
+    display: none !important;
+  }
+
+  .jypesa-col-dots-container {
+    display: none !important;
+  }
 }
 
 /* TARJETAS TIPO 1: COLECCIONES (ALMOND / ELEMENTS) */
