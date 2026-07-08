@@ -71,8 +71,8 @@
   justify-content: flex-start;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 15px 15px 30px;
-  margin: -15px -15px -30px;
+  padding: 20px;
+  margin: 0;
   box-sizing: border-box;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
