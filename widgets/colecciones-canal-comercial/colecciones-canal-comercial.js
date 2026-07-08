@@ -1,33 +1,33 @@
 (function () {
   // Evitar doble inicialización
-  if (window.__JypesaColeccionesInstitucionalWidgetInitialized) return;
-  window.__JypesaColeccionesInstitucionalWidgetInitialized = true;
+  if (window.__JypesaColeccionesCanalComercialWidgetInitialized) return;
+  window.__JypesaColeccionesCanalComercialWidgetInitialized = true;
 
   // Inyectar CSS
   const cssStyles = `
-/* CSS para el Widget de Colecciones Institucional Jypesa */
+/* CSS para el Widget de Colecciones Canal Comercial Jypesa */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Rubik:wght@300;400;500;600&display=swap');
 
 :root {
-  --jypesa-colinst-bg: transparent;
-  --jypesa-colinst-slate: #506D85;
-  --jypesa-colinst-blue: #48A9C5;
-  --jypesa-colinst-border: rgba(80, 109, 133, 0.2);
+  --jypesa-colcanalcomercial-bg: transparent;
+  --jypesa-colcanalcomercial-slate: #506D85;
+  --jypesa-colcanalcomercial-blue: #48A9C5;
+  --jypesa-colcanalcomercial-border: rgba(80, 109, 133, 0.2);
 }
 
-.jypesa-colecciones-institucional-widget {
+.jypesa-colecciones-canal-comercial-widget {
   position: relative;
   width: 100%;
   background: transparent;
   font-family: 'Rubik', sans-serif;
-  color: var(--jypesa-colinst-slate);
+  color: var(--jypesa-colcanalcomercial-slate);
   padding: 60px 0;
   box-sizing: border-box;
   overflow: hidden;
 }
 
 /* TÍTULO DE LA SECCIÓN */
-.jypesa-colinst-section-header {
+.jypesa-colcanalcomercial-section-header {
   max-width: 940px;
   margin: 0 auto 48px;
   text-align: center;
@@ -38,33 +38,33 @@
   box-sizing: border-box;
 }
 
-.jypesa-colinst-section-title {
+.jypesa-colcanalcomercial-section-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 37px;
   line-height: 1.1;
-  color: var(--jypesa-colinst-slate);
+  color: var(--jypesa-colcanalcomercial-slate);
   margin: 0;
 }
 
-.jypesa-colinst-section-desc {
+.jypesa-colcanalcomercial-section-desc {
   font-family: 'Rubik', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.35;
-  color: var(--jypesa-colinst-slate);
+  color: var(--jypesa-colcanalcomercial-slate);
   margin: 0;
 }
 
 /* CONTENEDOR DE PRODUCTOS (FLEX / SCROLL) */
-.jypesa-colinst-slider-outer {
+.jypesa-colcanalcomercial-slider-outer {
   position: relative;
   width: 100%;
-  padding: 20px 40px;
+  padding: 0 40px;
   box-sizing: border-box;
 }
 
-.jypesa-colinst-products-container {
+.jypesa-colcanalcomercial-products-container {
   display: flex;
   gap: 25px;
   align-items: stretch;
@@ -80,12 +80,12 @@
   scroll-padding: 0 40px;
 }
 
-.jypesa-colinst-products-container::-webkit-scrollbar {
+.jypesa-colcanalcomercial-products-container::-webkit-scrollbar {
   display: none;
 }
 
 /* BOTONES DE NAVEGACIÓN HORIZONTAL (DESKTOP) */
-.jypesa-colinst-nav-btn {
+.jypesa-colcanalcomercial-nav-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -100,36 +100,36 @@
   cursor: pointer;
   z-index: 10;
   box-shadow: 0 4px 12px rgba(80, 109, 133, 0.1);
-  color: var(--jypesa-colinst-slate);
+  color: var(--jypesa-colcanalcomercial-slate);
   transition: all 0.25s ease;
   user-select: none;
   opacity: 0;
   visibility: hidden;
 }
 
-.jypesa-colinst-slider-outer:hover .jypesa-colinst-nav-btn {
+.jypesa-colcanalcomercial-slider-outer:hover .jypesa-colcanalcomercial-nav-btn {
   opacity: 1;
   visibility: visible;
 }
 
-.jypesa-colinst-nav-btn:hover {
+.jypesa-colcanalcomercial-nav-btn:hover {
   background: #ffffff;
-  color: var(--jypesa-colinst-blue);
+  color: var(--jypesa-colcanalcomercial-blue);
   box-shadow: 0 6px 16px rgba(80, 109, 133, 0.18);
   border-color: rgba(80, 109, 133, 0.3);
 }
 
-.jypesa-colinst-nav-btn.prev-btn { left: 10px; }
-.jypesa-colinst-nav-btn.next-btn { right: 10px; }
+.jypesa-colcanalcomercial-nav-btn.prev-btn { left: 10px; }
+.jypesa-colcanalcomercial-nav-btn.next-btn { right: 10px; }
 
-.jypesa-colinst-nav-btn svg {
+.jypesa-colcanalcomercial-nav-btn svg {
   width: 18px;
   height: 18px;
   fill: currentColor;
 }
 
 /* PAGINACIÓN POR PUNTOS */
-.jypesa-colinst-dots-container {
+.jypesa-colcanalcomercial-dots-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -138,7 +138,7 @@
   width: 100%;
 }
 
-.jypesa-colinst-dot {
+.jypesa-colcanalcomercial-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -147,14 +147,14 @@
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.jypesa-colinst-dot.active {
-  background: var(--jypesa-colinst-blue);
+.jypesa-colcanalcomercial-dot.active {
+  background: var(--jypesa-colcanalcomercial-blue);
   width: 24px;
   border-radius: 100px;
 }
 
 /* CONTROLES DE DESPLAZAMIENTO MÓVIL */
-.jypesa-colinst-controls-mobile {
+.jypesa-colcanalcomercial-controls-mobile {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -164,7 +164,7 @@
   box-sizing: border-box;
 }
 
-.jypesa-colinst-mobile-nav {
+.jypesa-colcanalcomercial-mobile-nav {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -173,7 +173,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--jypesa-colinst-slate);
+  color: var(--jypesa-colcanalcomercial-slate);
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(80, 109, 133, 0.08);
   transition: all 0.2s ease;
@@ -181,26 +181,26 @@
   outline: none;
 }
 
-.jypesa-colinst-mobile-nav:active {
-  background: var(--jypesa-colinst-bg);
-  color: var(--jypesa-colinst-blue);
+.jypesa-colcanalcomercial-mobile-nav:active {
+  background: var(--jypesa-colcanalcomercial-bg);
+  color: var(--jypesa-colcanalcomercial-blue);
   transform: scale(0.95);
 }
 
-.jypesa-colinst-mobile-nav.disabled {
+.jypesa-colcanalcomercial-mobile-nav.disabled {
   opacity: 0.3;
   cursor: not-allowed;
   pointer-events: none;
 }
 
-.jypesa-colinst-mobile-nav svg {
+.jypesa-colcanalcomercial-mobile-nav svg {
   width: 18px;
   height: 18px;
   fill: currentColor;
 }
 
 /* TARJETAS TIPO 1: COLECCIONES (ALMOND / BIOGENA / LAVARINO / PERSEA) */
-.jypesa-colinst-card-brand {
+.jypesa-colcanalcomercial-card-brand {
   flex: 0 0 311px;
   width: 311px;
   height: 532px;
@@ -216,19 +216,19 @@
   scroll-snap-align: start;
 }
 
-.jypesa-colinst-card-brand:hover {
+.jypesa-colcanalcomercial-card-brand:hover {
   transform: translateY(-8px);
   box-shadow: 0 16px 36px rgba(80, 109, 133, 0.18);
 }
 
-.jypesa-colinst-card-brand-img-wrap {
+.jypesa-colcanalcomercial-card-brand-img-wrap {
   width: 100%;
   height: 350px;
   overflow: hidden;
   position: relative;
 }
 
-.jypesa-colinst-card-brand-img {
+.jypesa-colcanalcomercial-card-brand-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -236,11 +236,11 @@
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.jypesa-colinst-card-brand:hover .jypesa-colinst-card-brand-img {
+.jypesa-colcanalcomercial-card-brand:hover .jypesa-colcanalcomercial-card-brand-img {
   transform: scale(1.05);
 }
 
-.jypesa-colinst-card-brand-info {
+.jypesa-colcanalcomercial-card-brand-info {
   background: #ffffff;
   padding: 24px 20px;
   flex-grow: 1;
@@ -251,21 +251,21 @@
   box-sizing: border-box;
 }
 
-.jypesa-colinst-brand-logo-container {
+.jypesa-colcanalcomercial-brand-logo-container {
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.jypesa-colinst-brand-logo-container img {
+.jypesa-colcanalcomercial-brand-logo-container img {
   max-height: 100%;
   max-width: 180px;
   object-fit: contain;
 }
 
 /* BOTONES Y SUS ANIMACIONES DE HOVER */
-.jypesa-colinst-btn {
+.jypesa-colcanalcomercial-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -281,8 +281,8 @@
 }
 
 /* Botún Colección (Azul) */
-.jypesa-colinst-btn.btn-brand {
-  background-color: var(--jypesa-colinst-blue);
+.jypesa-colcanalcomercial-btn.btn-brand {
+  background-color: var(--jypesa-colcanalcomercial-blue);
   color: #ffffff;
   width: 218px;
   font-size: 18px;
@@ -290,13 +290,13 @@
   border: none;
 }
 
-.jypesa-colinst-btn.btn-brand:hover {
+.jypesa-colcanalcomercial-btn.btn-brand:hover {
   background-color: #3b91a9;
   box-shadow: 0 4px 12px rgba(72, 169, 197, 0.25);
 }
 
 /* Iconos de Botones */
-.jypesa-colinst-btn-icon {
+.jypesa-colcanalcomercial-btn-icon {
   width: 16px;
   height: 16px;
   display: flex;
@@ -306,63 +306,63 @@
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.jypesa-colinst-btn-icon svg {
+.jypesa-colcanalcomercial-btn-icon svg {
   width: 100%;
   height: 100%;
   fill: currentColor;
 }
 
 /* Animación de Hover en Botón */
-.jypesa-colinst-btn:hover .jypesa-colinst-btn-icon {
+.jypesa-colcanalcomercial-btn:hover .jypesa-colcanalcomercial-btn-icon {
   transform: translateX(6px);
 }
 
 /* RESPONSIVIDAD */
 @media (max-width: 768px) {
-  .jypesa-colecciones-institucional-widget {
+  .jypesa-colecciones-canal-comercial-widget {
     padding: 40px 0;
   }
-  .jypesa-colinst-section-header {
+  .jypesa-colcanalcomercial-section-header {
     margin-bottom: 30px;
   }
-  .jypesa-colinst-section-title {
+  .jypesa-colcanalcomercial-section-title {
     font-size: 28px;
   }
-  .jypesa-colinst-section-desc {
+  .jypesa-colcanalcomercial-section-desc {
     font-size: 14px;
   }
   
-  .jypesa-colinst-slider-outer {
+  .jypesa-colcanalcomercial-slider-outer {
     padding: 0 20px;
   }
   
-  .jypesa-colinst-products-container {
+  .jypesa-colcanalcomercial-products-container {
     scroll-padding: 0 20px;
     gap: 16px;
   }
 
-  .jypesa-colinst-card-brand {
+  .jypesa-colcanalcomercial-card-brand {
     flex: 0 0 calc(100% - 20px);
     width: calc(100% - 20px);
     scroll-snap-align: center;
   }
 
-  .jypesa-colinst-nav-btn {
+  .jypesa-colcanalcomercial-nav-btn {
     display: none !important;
   }
 }
 
 /* Desktop: 4 cards fijas en una sola fila */
 @media (min-width: 769px) {
-  .jypesa-colinst-mobile-nav {
+  .jypesa-colcanalcomercial-mobile-nav {
     display: none !important;
   }
 
-  .jypesa-colinst-slider-outer {
+  .jypesa-colcanalcomercial-slider-outer {
     padding: 0 20px;
   }
 
-  .jypesa-colinst-products-container {
+  .jypesa-colcanalcomercial-products-container {
     overflow-x: hidden !important;
     scroll-snap-type: none !important;
     justify-content: center;
@@ -371,44 +371,44 @@
     margin: 0;
   }
 
-  .jypesa-colinst-nav-btn {
+  .jypesa-colcanalcomercial-nav-btn {
     display: none !important;
   }
 
-  .jypesa-colinst-card-brand {
+  .jypesa-colcanalcomercial-card-brand {
     flex: 0 0 235px;
     width: 235px;
     height: auto;
   }
 
-  .jypesa-colinst-card-brand-img-wrap {
+  .jypesa-colcanalcomercial-card-brand-img-wrap {
     height: 235px;
   }
 
-  .jypesa-colinst-brand-logo-container {
+  .jypesa-colcanalcomercial-brand-logo-container {
     height: 50px;
   }
 
-  .jypesa-colinst-brand-logo-container img {
+  .jypesa-colcanalcomercial-brand-logo-container img {
     max-width: 160px;
   }
 
-  .jypesa-colinst-card-brand-info {
+  .jypesa-colcanalcomercial-card-brand-info {
     padding: 20px 16px;
   }
 
-  .jypesa-colinst-btn.btn-brand {
+  .jypesa-colcanalcomercial-btn.btn-brand {
     width: 195px;
     font-size: 14px;
     letter-spacing: 0.4px;
     height: 34px;
   }
 
-  .jypesa-colinst-controls-mobile {
+  .jypesa-colcanalcomercial-controls-mobile {
     display: none !important;
   }
 
-  .jypesa-colinst-dots-container {
+  .jypesa-colcanalcomercial-dots-container {
     display: none !important;
   }
 }
@@ -428,105 +428,105 @@
 
   // HTML Base del Widget
   const widgetHtml = `
-<div class="jypesa-colecciones-institucional-widget">
+<div class="jypesa-colecciones-canal-comercial-widget">
   
   <!-- Encabezado de la sección -->
-  <div class="jypesa-colinst-section-header">
-    <h2 class="jypesa-colinst-section-title">Colecciones recomendadas</h2>
-    <p class="jypesa-colinst-section-desc">Colecciones diseñadas para adaptarse a distintos niveles de servicio, desde opciones funcionales hasta experiencias premium.</p>
+  <div class="jypesa-colcanalcomercial-section-header">
+    <h2 class="jypesa-colcanalcomercial-section-title">Colecciones recomendadas</h2>
+    <p class="jypesa-colcanalcomercial-section-desc">Colecciones diseñadas para adaptarse a distintos niveles de servicio, desde opciones funcionales hasta experiencias premium.</p>
   </div>
 
   <!-- Contenedor Deslizador -->
-  <div class="jypesa-colinst-slider-outer">
+  <div class="jypesa-colcanalcomercial-slider-outer">
     
     <!-- Botones de Navegación (Desktop) -->
-    <div class="jypesa-colinst-nav-btn prev-btn">
+    <div class="jypesa-colcanalcomercial-nav-btn prev-btn">
       <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
     </div>
-    <div class="jypesa-colinst-nav-btn next-btn">
+    <div class="jypesa-colcanalcomercial-nav-btn next-btn">
       <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
     </div>
 
     <!-- Contenedor de Tarjetas -->
-    <div class="jypesa-colinst-products-container">
+    <div class="jypesa-colcanalcomercial-products-container">
       
-      <!-- Tarjeta 1 (Brand): Almond -->
-      <div class="jypesa-colinst-card-brand">
-        <div class="jypesa-colinst-card-brand-img-wrap">
-          <img class="jypesa-colinst-card-brand-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif" alt="Colección Almond">
+      <!-- Tarjeta 1 (Brand): Biogena -->
+      <div class="jypesa-colcanalcomercial-card-brand">
+        <div class="jypesa-colcanalcomercial-card-brand-img-wrap">
+          <img class="jypesa-colcanalcomercial-card-brand-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e902b07bcb3cb0c9342a5_biogena%20card.avif" alt="Colección Biogena">
         </div>
-        <div class="jypesa-colinst-card-brand-info">
-          <div class="jypesa-colinst-brand-logo-container">
-            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b52eaf112499de5983e3f_almond%20brown.avif" alt="Almond Logo">
-          </div>
-          <a href="#" class="jypesa-colinst-btn btn-brand">
-            Ver colección
-            <span class="jypesa-colinst-btn-icon">${arrowRightIcon}</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Tarjeta 2 (Brand): Biogena -->
-      <div class="jypesa-colinst-card-brand">
-        <div class="jypesa-colinst-card-brand-img-wrap">
-          <img class="jypesa-colinst-card-brand-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e902b07bcb3cb0c9342a5_biogena%20card.avif" alt="Colección Biogena">
-        </div>
-        <div class="jypesa-colinst-card-brand-info">
-          <div class="jypesa-colinst-brand-logo-container">
+        <div class="jypesa-colcanalcomercial-card-brand-info">
+          <div class="jypesa-colcanalcomercial-brand-logo-container">
             <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a45942a20a286e2747e72b2_biogena%20logo.avif" alt="Biogena Logo">
           </div>
-          <a href="#" class="jypesa-colinst-btn btn-brand">
+          <a href="#" class="jypesa-colcanalcomercial-btn btn-brand">
             Ver colección
-            <span class="jypesa-colinst-btn-icon">${arrowRightIcon}</span>
+            <span class="jypesa-colcanalcomercial-btn-icon">${arrowRightIcon}</span>
           </a>
         </div>
       </div>
 
-      <!-- Tarjeta 3 (Brand): Cava -->
-      <div class="jypesa-colinst-card-brand">
-        <div class="jypesa-colinst-card-brand-img-wrap">
-          <img class="jypesa-colinst-card-brand-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ea0d8372fd3ff8ea740cf_cava%20card.avif" alt="Colección Cava">
+      <!-- Tarjeta 2 (Brand): Almond -->
+      <div class="jypesa-colcanalcomercial-card-brand">
+        <div class="jypesa-colcanalcomercial-card-brand-img-wrap">
+          <img class="jypesa-colcanalcomercial-card-brand-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif" alt="Colección Almond">
         </div>
-        <div class="jypesa-colinst-card-brand-info">
-          <div class="jypesa-colinst-brand-logo-container">
-            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ea0d760af0a672aea1dac_cava-logo%20color.avif" alt="Cava Logo">
+        <div class="jypesa-colcanalcomercial-card-brand-info">
+          <div class="jypesa-colcanalcomercial-brand-logo-container">
+            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b52eaf112499de5983e3f_almond%20brown.avif" alt="Almond Logo">
           </div>
-          <a href="#" class="jypesa-colinst-btn btn-brand">
+          <a href="#" class="jypesa-colcanalcomercial-btn btn-brand">
             Ver colección
-            <span class="jypesa-colinst-btn-icon">${arrowRightIcon}</span>
+            <span class="jypesa-colcanalcomercial-btn-icon">${arrowRightIcon}</span>
           </a>
         </div>
       </div>
 
-      <!-- Tarjeta 4 (Brand): Persea -->
-      <div class="jypesa-colinst-card-brand">
-        <div class="jypesa-colinst-card-brand-img-wrap">
-          <img class="jypesa-colinst-card-brand-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e902bbfa0dffa388036ad_persea%20card.avif" alt="Colección Persea">
+      <!-- Tarjeta 3 (Brand): Lavarino -->
+      <div class="jypesa-colcanalcomercial-card-brand">
+        <div class="jypesa-colcanalcomercial-card-brand-img-wrap">
+          <img class="jypesa-colcanalcomercial-card-brand-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a45942ac73f0b8f46f83099_lavarino.avif" alt="Colección Lavarino">
         </div>
-        <div class="jypesa-colinst-card-brand-info">
-          <div class="jypesa-colinst-brand-logo-container">
-            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e9029fdb871d2a4e0f94f_persea%20black%20logo.avif" alt="Persea Logo">
+        <div class="jypesa-colcanalcomercial-card-brand-info">
+          <div class="jypesa-colcanalcomercial-brand-logo-container">
+            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4594281a9344acaeb8027d_lavarino%20logo.avif" alt="Lavarino Logo">
           </div>
-          <a href="#" class="jypesa-colinst-btn btn-brand">
+          <a href="#" class="jypesa-colcanalcomercial-btn btn-brand">
             Ver colección
-            <span class="jypesa-colinst-btn-icon">${arrowRightIcon}</span>
+            <span class="jypesa-colcanalcomercial-btn-icon">${arrowRightIcon}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Tarjeta 4 (Brand): Botanica -->
+      <div class="jypesa-colcanalcomercial-card-brand">
+        <div class="jypesa-colcanalcomercial-card-brand-img-wrap">
+          <img class="jypesa-colcanalcomercial-card-brand-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ea675c893eee24a7cf4a3_botanica%20card%2001.png" alt="Colección Botanica">
+        </div>
+        <div class="jypesa-colcanalcomercial-card-brand-info">
+          <div class="jypesa-colcanalcomercial-brand-logo-container">
+            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ea674336b9ada8e17984a_botanica%20logo%20color.png" alt="Botanica Logo">
+          </div>
+          <a href="#" class="jypesa-colcanalcomercial-btn btn-brand">
+            Ver colección
+            <span class="jypesa-colcanalcomercial-btn-icon">${arrowRightIcon}</span>
           </a>
         </div>
       </div>
     </div>
 
     <!-- Paginación por Puntos (Controles de Desplazamiento Celular/Desktop) -->
-    <div class="jypesa-colinst-controls-mobile">
-      <button class="jypesa-colinst-mobile-nav prev-mobile-btn" aria-label="Anterior">
+    <div class="jypesa-colcanalcomercial-controls-mobile">
+      <button class="jypesa-colcanalcomercial-mobile-nav prev-mobile-btn" aria-label="Anterior">
         <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
       </button>
-      <div class="jypesa-colinst-dots-container">
-        <span class="jypesa-colinst-dot active" data-index="0"></span>
-        <span class="jypesa-colinst-dot" data-index="1"></span>
-        <span class="jypesa-colinst-dot" data-index="2"></span>
-        <span class="jypesa-colinst-dot" data-index="3"></span>
+      <div class="jypesa-colcanalcomercial-dots-container">
+        <span class="jypesa-colcanalcomercial-dot active" data-index="0"></span>
+        <span class="jypesa-colcanalcomercial-dot" data-index="1"></span>
+        <span class="jypesa-colcanalcomercial-dot" data-index="2"></span>
+        <span class="jypesa-colcanalcomercial-dot" data-index="3"></span>
       </div>
-      <button class="jypesa-colinst-mobile-nav next-mobile-btn" aria-label="Siguiente">
+      <button class="jypesa-colcanalcomercial-mobile-nav next-mobile-btn" aria-label="Siguiente">
         <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
       </button>
     </div>
@@ -535,25 +535,24 @@
 </div>
 `;
 
-  // Renderizado del Widget
-  function initColeccionesInstitucionalWidget() {
-    const target = document.getElementById('jypesa-colecciones-institucional-widget') || document.querySelector('[data-jypesa-colecciones-institucional-widget]');
+  function initColeccionesCanalComercialWidget() {
+    const target = document.getElementById('jypesa-colecciones-canal-comercial-widget') || document.querySelector('[data-jypesa-colecciones-canal-comercial-widget]');
     if (!target) return;
 
     target.innerHTML = widgetHtml;
 
-    const container = target.querySelector('.jypesa-colinst-products-container');
-    const prevBtn = target.querySelector('.jypesa-colinst-nav-btn.prev-btn');
-    const nextBtn = target.querySelector('.jypesa-colinst-nav-btn.next-btn');
+    const container = target.querySelector('.jypesa-colcanalcomercial-products-container');
+    const prevBtn = target.querySelector('.jypesa-colcanalcomercial-nav-btn.prev-btn');
+    const nextBtn = target.querySelector('.jypesa-colcanalcomercial-nav-btn.next-btn');
     const prevMobileBtn = target.querySelector('.prev-mobile-btn');
     const nextMobileBtn = target.querySelector('.next-mobile-btn');
-    const dots = target.querySelectorAll('.jypesa-colinst-dot');
+    const dots = target.querySelectorAll('.jypesa-colcanalcomercial-dot');
 
     if (!container) return;
 
     // Calcular desplazamiento entre tarjetas
     const getScrollStep = () => {
-      const cardEl = container.querySelector('.jypesa-colinst-card-brand');
+      const cardEl = container.querySelector('.jypesa-colcanalcomercial-card-brand');
       if (!cardEl) return 340;
       const cardWidth = cardEl.offsetWidth;
       const gap = window.innerWidth <= 768 ? 16 : 25;
@@ -652,8 +651,8 @@
 
   // Cargar widget
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initColeccionesInstitucionalWidget);
+    document.addEventListener('DOMContentLoaded', initColeccionesCanalComercialWidget);
   } else {
-    initColeccionesInstitucionalWidget();
+    initColeccionesCanalComercialWidget();
   }
 })();
