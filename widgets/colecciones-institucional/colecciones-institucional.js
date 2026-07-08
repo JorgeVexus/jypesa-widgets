@@ -1,4 +1,4 @@
-(function() {
+(function () {
   // Evitar doble inicialización
   if (window.__JypesaColeccionesInstitucionalWidgetInitialized) return;
   window.__JypesaColeccionesInstitucionalWidgetInitialized = true;
@@ -60,7 +60,7 @@
 .jypesa-colinst-slider-outer {
   position: relative;
   width: 100%;
-  padding: 0 40px;
+  padding: 20px 40px;
   box-sizing: border-box;
 }
 
@@ -592,7 +592,7 @@
       const scrollLeft = container.scrollLeft;
       const step = getScrollStep();
       const maxScroll = container.scrollWidth - container.clientWidth;
-      
+
       // Calcular índice activo
       const activeIndex = Math.min(
         dots.length - 1,
@@ -645,7 +645,7 @@
 
     container.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScroll);
-    
+
     // Configuración inicial
     setTimeout(handleScroll, 300);
   }

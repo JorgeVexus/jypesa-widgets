@@ -61,7 +61,7 @@
   justify-content: flex-start;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 15px 15px 30px;
+  padding: 15px 15px 30px !important;
   margin: -15px -15px -30px;
   box-sizing: border-box;
   scrollbar-width: none;
@@ -108,8 +108,13 @@
   border-color: rgba(80, 109, 133, 0.3);
 }
 
-.jypesa-colhot-nav-btn.prev-btn { left: 10px; }
-.jypesa-colhot-nav-btn.next-btn { right: 10px; }
+.jypesa-colhot-nav-btn.prev-btn {
+  left: 10px;
+}
+
+.jypesa-colhot-nav-btn.next-btn {
+  right: 10px;
+}
 
 .jypesa-colhot-nav-btn svg {
   width: 18px;

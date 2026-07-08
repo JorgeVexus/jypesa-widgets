@@ -1,4 +1,4 @@
-(function() {
+(function () {
   // Evitar doble inicialización
   if (window.__JypesaColeccionesHoteleriaWidgetInitialized) return;
   window.__JypesaColeccionesHoteleriaWidgetInitialized = true;
@@ -71,7 +71,7 @@
   justify-content: flex-start;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 20px;
+  padding: 20px !important;
   margin: 0;
   box-sizing: border-box;
   scrollbar-width: none;
@@ -592,7 +592,7 @@
       const scrollLeft = container.scrollLeft;
       const step = getScrollStep();
       const maxScroll = container.scrollWidth - container.clientWidth;
-      
+
       // Calcular índice activo
       const activeIndex = Math.min(
         dots.length - 1,
@@ -645,7 +645,7 @@
 
     container.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScroll);
-    
+
     // Configuración inicial
     setTimeout(handleScroll, 300);
   }
