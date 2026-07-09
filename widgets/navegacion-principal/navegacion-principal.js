@@ -295,8 +295,13 @@
   position: absolute;
   height: 2px;
   width: 100%;
-  background: #333;
+  background: var(--white);
   transition: .25s ease-in-out;
+}
+
+.jypesa-nav-principal-widget .jypesa-nav.scrolled .hamburger span,
+.jypesa-nav-principal-widget .hamburger.active span {
+  background: var(--text-dark);
 }
 
 .jypesa-nav-principal-widget .hamburger span:nth-child(1) { top: 0; }
@@ -343,6 +348,7 @@
   font-size: 18px;
   font-weight: 600;
   color: var(--text-dark);
+  text-decoration: none;
   cursor: pointer;
 }
 
@@ -561,7 +567,7 @@
 <div class="mobile-overlay" id="m-overlay">
     <ul class="mob-nav-list">
         <li class="mob-item">
-            <div class="mob-trigger">Nosotros</div>
+            <a href="/nosotros" class="mob-trigger">Nosotros</a>
         </li>
         <li class="mob-item">
             <div class="mob-trigger">Productos <span>+</span></div>
@@ -585,8 +591,15 @@
                 <a href="#" class="mob-link">Hospitalidad alternativa</a>
             </div>
         </li>
-        <li class="mob-item"><div class="mob-trigger">Destacados</div></li>
-        <li class="mob-item"><div class="mob-trigger">Blog</div></li>
+        <li class="mob-item">
+            <a href="/desarrollo" class="mob-trigger">Desarrollo personalizado</a>
+        </li>
+        <li class="mob-item">
+            <a href="/sustentabilidad" class="mob-trigger">Sustentabilidad</a>
+        </li>
+        <li class="mob-item">
+            <a href="/blog" class="mob-trigger">Blog</a>
+        </li>
         <li class="mob-item" style="padding: 40px 0;">
             <a href="/contacto" class="btn-contact" style="display: block; text-align: center;">Contáctanos</a>
         </li>
@@ -660,9 +673,13 @@
     }
 
     target.querySelectorAll('.mob-trigger').forEach(t => {
-      t.addEventListener('click', () => {
-        t.parentElement.classList.toggle('open');
-      });
+      const submenu = t.nextElementSibling;
+      if (submenu && submenu.classList.contains('mob-submenu')) {
+        t.addEventListener('click', (e) => {
+          e.preventDefault();
+          t.parentElement.classList.toggle('open');
+        });
+      }
     });
   }
 
