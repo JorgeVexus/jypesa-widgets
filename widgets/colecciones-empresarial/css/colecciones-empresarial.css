@@ -1,0 +1,475 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Rubik:wght@300;400;500;600&display=swap');
+
+:root {
+  --jypesa-colemp-bg: transparent;
+  --jypesa-colemp-slate: #506D85;
+  --jypesa-colemp-blue: #48A9C5;
+  --jypesa-colemp-border: rgba(80, 109, 133, 0.2);
+}
+
+.jypesa-colecciones-empresarial-widget {
+  position: relative;
+  width: 100%;
+  background: var(--jypesa-colemp-bg);
+  font-family: 'Rubik', sans-serif;
+  color: var(--jypesa-colemp-slate);
+  padding: 60px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.jypesa-colemp-section-header {
+  max-width: 940px;
+  margin: 0 auto 48px;
+  text-align: center;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.jypesa-colemp-section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 37px;
+  line-height: 1.1;
+  color: var(--jypesa-colemp-slate);
+  margin: 0;
+}
+
+.jypesa-colemp-section-desc {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--jypesa-colemp-slate);
+  margin: 0;
+}
+
+.jypesa-colemp-slider-outer {
+  position: relative;
+  width: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.jypesa-colemp-products-container {
+  display: flex;
+  gap: 25px;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 15px 15px 30px !important;
+  margin: -15px -15px -30px;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 40px;
+}
+
+.jypesa-colemp-products-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Nav buttons desktop */
+.jypesa-colemp-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(80, 109, 133, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(80, 109, 133, 0.1);
+  color: var(--jypesa-colemp-slate);
+  transition: all 0.25s ease;
+  user-select: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.jypesa-colemp-slider-outer:hover .jypesa-colemp-nav-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.jypesa-colemp-nav-btn:hover {
+  background: #ffffff;
+  color: var(--jypesa-colemp-blue);
+  box-shadow: 0 6px 16px rgba(80, 109, 133, 0.18);
+  border-color: rgba(80, 109, 133, 0.3);
+}
+
+.jypesa-colemp-nav-btn.prev-btn { left: 10px; }
+.jypesa-colemp-nav-btn.next-btn { right: 10px; }
+
+.jypesa-colemp-nav-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Dots */
+.jypesa-colemp-dots-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.jypesa-colemp-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(80, 109, 133, 0.25);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.jypesa-colemp-dot.active {
+  background: var(--jypesa-colemp-blue);
+  width: 24px;
+  border-radius: 100px;
+}
+
+/* Mobile controls */
+.jypesa-colemp-controls-mobile {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.jypesa-colemp-mobile-nav {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(80, 109, 133, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--jypesa-colemp-slate);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(80, 109, 133, 0.08);
+  transition: all 0.2s ease;
+  padding: 0;
+  outline: none;
+}
+
+.jypesa-colemp-mobile-nav:active {
+  background: var(--jypesa-colemp-bg);
+  color: var(--jypesa-colemp-blue);
+  transform: scale(0.95);
+}
+
+.jypesa-colemp-mobile-nav.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.jypesa-colemp-mobile-nav svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* =====================
+   TARJETA TIPO 1: FULL IMAGE (Card 1)
+   ===================== */
+.jypesa-colemp-card-full {
+  flex: 0 0 311px;
+  width: 311px;
+  height: 532px;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 14.4px rgba(80, 109, 133, 0.1);
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+}
+
+.jypesa-colemp-card-full:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(80, 109, 133, 0.18);
+}
+
+.jypesa-colemp-card-full-img-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  flex-grow: 1;
+}
+
+.jypesa-colemp-card-full-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.jypesa-colemp-card-full:hover .jypesa-colemp-card-full-img {
+  transform: scale(1.05);
+}
+
+/* =====================
+   TARJETA TIPO 2: BRAND NORMAL (Cards 2 y 3)
+   ===================== */
+.jypesa-colemp-card-brand {
+  flex: 0 0 311px;
+  width: 311px;
+  height: 532px;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 14.4px rgba(80, 109, 133, 0.1);
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+}
+
+.jypesa-colemp-card-brand:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(80, 109, 133, 0.18);
+}
+
+.jypesa-colemp-card-brand-img-wrap {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+}
+
+.jypesa-colemp-card-brand-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.jypesa-colemp-card-brand:hover .jypesa-colemp-card-brand-img {
+  transform: scale(1.05);
+}
+
+.jypesa-colemp-card-brand-info {
+  background: #ffffff;
+  padding: 24px 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.jypesa-colemp-brand-logo-container {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.jypesa-colemp-brand-logo-container img {
+  max-height: 100%;
+  max-width: 180px;
+  object-fit: contain;
+}
+
+.jypesa-btn-colemp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 39px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  box-sizing: border-box;
+}
+
+.jypesa-btn-colemp.btn-brand {
+  background-color: var(--jypesa-colemp-blue);
+  color: #ffffff;
+  width: 218px;
+  font-size: 18px;
+  letter-spacing: 0.9px;
+  border: none;
+}
+
+.jypesa-btn-colemp.btn-brand:hover {
+  background-color: #3b91a9;
+  box-shadow: 0 4px 12px rgba(72, 169, 197, 0.25);
+}
+
+.jypesa-btn-colemp-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.jypesa-btn-colemp-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.jypesa-btn-colemp:hover .jypesa-btn-colemp-icon {
+  transform: translateX(6px);
+}
+
+/* Mobile dots responsive */
+@media (max-width: 768px) {
+  .jypesa-colecciones-empresarial-widget {
+    padding: 40px 0;
+  }
+
+  .jypesa-colemp-section-header {
+    margin-bottom: 30px;
+  }
+
+  .jypesa-colemp-section-title {
+    font-size: 28px;
+  }
+
+  .jypesa-colemp-section-desc {
+    font-size: 14px;
+  }
+
+  .jypesa-colemp-slider-outer {
+    padding: 0 20px;
+  }
+
+  .jypesa-colemp-products-container {
+    scroll-padding: 0 20px;
+    gap: 16px;
+  }
+
+  .jypesa-colemp-card-full,
+  .jypesa-colemp-card-brand {
+    flex: 0 0 calc(100% - 20px);
+    width: calc(100% - 20px);
+    height: auto;
+    scroll-snap-align: center;
+  }
+
+  .jypesa-colemp-card-full-img-wrap {
+    height: 400px;
+    flex-grow: 0;
+  }
+
+  .jypesa-colemp-card-brand-img-wrap {
+    height: 280px;
+  }
+
+  .jypesa-colemp-nav-btn {
+    display: none !important;
+  }
+
+  .jypesa-colemp-mobile-nav {
+    display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  .jypesa-colemp-mobile-nav {
+    display: none !important;
+  }
+
+  .jypesa-colemp-slider-outer {
+    padding: 0 20px;
+  }
+
+  .jypesa-colemp-products-container {
+    overflow-x: hidden !important;
+    scroll-snap-type: none !important;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .jypesa-colemp-nav-btn {
+    display: none !important;
+  }
+
+  .jypesa-colemp-card-full {
+    flex: 0 0 235px;
+    width: 235px;
+    height: auto;
+  }
+
+  .jypesa-colemp-card-full-img-wrap {
+    height: 340px;
+    flex-grow: 0;
+  }
+
+  .jypesa-colemp-card-brand {
+    flex: 0 0 235px;
+    width: 235px;
+    height: auto;
+  }
+
+  .jypesa-colemp-card-brand-img-wrap {
+    height: 235px;
+  }
+
+  .jypesa-colemp-brand-logo-container {
+    height: 50px;
+  }
+
+  .jypesa-colemp-brand-logo-container img {
+    max-width: 160px;
+  }
+
+  .jypesa-colemp-card-brand-info {
+    padding: 20px 16px;
+  }
+
+  .jypesa-btn-colemp.btn-brand {
+    width: 195px;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    height: 34px;
+  }
+
+  .jypesa-colemp-controls-mobile {
+    display: none !important;
+  }
+
+  .jypesa-colemp-dots-container {
+    display: none !important;
+  }
+}
