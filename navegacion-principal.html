@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navegación Principal — JYPESA Preview</title>
+  <style>
+    body { margin: 0; background: #f5f5f5; font-family: 'Montserrat', sans-serif; }
+    .preview-area { height: 100vh; }
+    .demo-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #25282a;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 13px;
+      z-index: 9999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+    }
+    .demo-bar code {
+      background: #0f1113;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .spacer { height: 50px; }
+    .note {
+      padding: 20px;
+      color: #506D85;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .note code {
+      background: #eef1f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-bar">
+    <span>NAVEGACIÓN PRINCIPAL — PREVIEW LOCAL</span>
+    <code>jypesa-nav-principal-widget</code>
+  </div>
+  <div class="spacer"></div>
+
+  <div class="preview-area">
+    <div id="jypesa-nav-principal-widget"></div>
+  </div>
+
+  <div class="note">
+    <strong>Embed para Webflow</strong>
+    <pre style="background:#f8fafc;padding:14px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;margin-top:8px;overflow-x:auto;"><code>&lt;div id="jypesa-nav-principal-widget"&gt;&lt;/div&gt;
+&lt;script src="https://jypesa-widgets.vercel.app/widgets/navegacion-principal/navegacion-principal.js"&gt;&lt;/script&gt;</code></pre>
+  </div>
+
+  <script src="./widgets/navegacion-principal/navegacion-principal.js"></script>
+</body>
+</html>
