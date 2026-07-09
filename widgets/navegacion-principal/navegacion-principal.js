@@ -501,7 +501,7 @@
                 </div>
             </li>
             <li class="nav-link-item">
-                <span class="nav-link">Soluciones</span>
+                <a href="/soluciones" class="nav-link">Soluciones</a>
                 <div class="mega-menu">
                     <div class="mega-content">
                         <div class="visual-block">
