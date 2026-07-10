@@ -438,7 +438,7 @@
     </svg>
   `;
 
-  const certifications = [
+  const defaultCertifications = [
     {
       id: 'iso-22716',
       title: 'ISO 22716',
@@ -489,7 +489,47 @@
     }
   ];
 
-  const widgetHtml = `
+  // Lee las certificaciones desde una Collection List de Webflow (oculta) si el equipo
+  // ya migró el contenido al CMS; si no existe, se usa defaultCertifications como fallback.
+  // Se busca en todo el documento (no solo dentro de target) porque el Collection List vive
+  // como elemento hermano del embed en el Designer, no puede anidarse dentro de su HTML crudo.
+  function readCertificationsFromCMS(target) {
+    const source = document.querySelector('.jypesa-cert-cms-source');
+    if (!source) return null;
+
+    const items = Array.from(source.querySelectorAll('.w-dyn-item'));
+    if (!items.length) return null;
+
+    const parsed = items.map((item, idx) => {
+      const titleEl = item.querySelector('.jypesa-cert-cms-title');
+      const imgEl = item.querySelector('.jypesa-cert-cms-img');
+      if (!titleEl || !imgEl) return null;
+
+      const phraseEl = item.querySelector('.jypesa-cert-cms-phrase');
+      const descEl = item.querySelector('.jypesa-cert-cms-desc');
+      const title = titleEl.textContent.trim();
+      const paragraphs = descEl
+        ? Array.from(descEl.querySelectorAll('p')).map(p => p.textContent.trim()).filter(Boolean)
+        : [];
+
+      return {
+        id: title.toLowerCase().normalize('NFD').replace(new RegExp('[' + String.fromCharCode(0x0300) + '-' + String.fromCharCode(0x036f) + ']', 'g'), '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || `cert-${idx}`,
+        title,
+        // Webflow no permite bindear un campo Switch al valor de un atributo custom,
+        // asi que el tamano de titulo se infiere del largo del texto en vez de un campo CMS aparte.
+        smallTitle: title.length > 14,
+        phrase: phraseEl ? phraseEl.textContent.trim() : '',
+        src: imgEl.getAttribute('src') || '',
+        alt: imgEl.getAttribute('alt') || title,
+        paragraphs
+      };
+    }).filter(Boolean);
+
+    return parsed.length ? parsed : null;
+  }
+
+  function buildWidgetHtml(certifications) {
+    return `
 <div class="jypesa-slider-certificaciones-widget">
   <div class="jypesa-cert-section-header">
     <h2 class="jypesa-cert-section-title">Certifications Section</h2>
@@ -526,10 +566,7 @@
         <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
       </button>
       <div class="jypesa-cert-dots-container">
-        <span class="jypesa-cert-dot active" data-index="0"></span>
-        <span class="jypesa-cert-dot" data-index="1"></span>
-        <span class="jypesa-cert-dot" data-index="2"></span>
-        <span class="jypesa-cert-dot" data-index="3"></span>
+        ${certifications.map((_, idx) => `<span class="jypesa-cert-dot${idx === 0 ? ' active' : ''}" data-index="${idx}"></span>`).join('')}
       </div>
       <button class="jypesa-cert-mobile-nav next-mobile-btn" aria-label="Siguiente">
         <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
@@ -538,12 +575,15 @@
   </div>
 </div>
 `;
+  }
 
   function initSliderCertificacionesWidget() {
     const target = document.getElementById('jypesa-slider-certificaciones-widget') || document.querySelector('[data-jypesa-slider-certificaciones-widget]');
     if (!target) return;
 
-    target.innerHTML = widgetHtml;
+    const certifications = readCertificationsFromCMS(target) || defaultCertifications;
+
+    target.innerHTML = buildWidgetHtml(certifications);
 
     const container = target.querySelector('.jypesa-cert-products-container-desktop');
     const prevBtn = target.querySelector('.prev-btn');
