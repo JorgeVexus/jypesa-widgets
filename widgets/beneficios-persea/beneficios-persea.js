@@ -30,9 +30,12 @@
       "@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@500&family=Rubik:wght@400;500&display=swap');",
       "",
       ".bp-widget{",
-      "  position:relative;width:100%;max-width:1320px;margin:0 auto;padding:60px 24px;",
-      "  box-sizing:border-box;color:#506D85;",
+      "  position:relative;width:100%;padding:60px 0;",
+      "  box-sizing:border-box;background-position:center;background-size:cover;background-repeat:no-repeat;color:#506D85;",
       "  font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;",
+      "}",
+      ".bp-widget-inner{",
+      "  width:100%;max-width:1320px;margin:0 auto;padding:0 24px;box-sizing:border-box;position:relative;",
       "}",
       "",
       ".bp-header{text-align:center;margin-bottom:30px;padding:0 16px;}",
@@ -71,7 +74,8 @@
       "",
       "/* Posiciones escalonadas tipo reloj, simétricas (desktop) */",
       "@media (min-width:901px){",
-      "  .bp-widget{display:flex;flex-direction:column;height:min(1028px, 100vh);padding:24px;}",
+      "  .bp-widget{height:min(1028px, 100vh);padding:24px 0;}",
+      "  .bp-widget-inner{display:flex;flex-direction:column;height:100%;}",
       "  .bp-header{position:relative;width:901px;height:175px;margin:0 auto 38px;padding:0;}",
       "  .bp-title{",
       "    position:absolute;left:22px;top:0;width:379px;height:80px;",
@@ -137,13 +141,15 @@
 
     return '' +
       '<div class="bp-widget">' +
-        '<div class="bp-header">' +
-          '<h2 class="bp-title">Beneficios</h2>' +
-          '<p class="bp-slogan"><span class="bp-slogan-desktop-spaces">                   </span>que marcan la diferencia</p>' +
-        '</div>' +
-        '<div class="bp-stage">' +
-          '<img class="bp-soap" src="' + (centralImg || SOAP_IMG) + '" alt="Jabón Persea">' +
-          items +
+        '<div class="bp-widget-inner">' +
+          '<div class="bp-header">' +
+            '<h2 class="bp-title">Beneficios</h2>' +
+            '<p class="bp-slogan"><span class="bp-slogan-desktop-spaces">                   </span>que marcan la diferencia</p>' +
+          '</div>' +
+          '<div class="bp-stage">' +
+            '<img class="bp-soap" src="' + (centralImg || SOAP_IMG) + '" alt="Jabón Persea">' +
+            items +
+          '</div>' +
         '</div>' +
       '</div>';
   }
@@ -270,11 +276,9 @@
 
       target.innerHTML = buildHtml(centralImg);
 
-      if (bgImg) {
-        target.style.backgroundImage = "url('" + bgImg + "')";
-        target.style.backgroundPosition = "center";
-        target.style.backgroundSize = "cover";
-        target.style.backgroundRepeat = "no-repeat";
+      var widgetEl = target.querySelector('.bp-widget');
+      if (widgetEl && bgImg) {
+        widgetEl.style.backgroundImage = "url('" + bgImg + "')";
       }
 
       initAnimation(target);
