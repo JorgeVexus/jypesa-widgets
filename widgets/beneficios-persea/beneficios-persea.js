@@ -31,7 +31,7 @@
       "",
       ".bp-widget{",
       "  position:relative;width:100%;max-width:1320px;margin:0 auto;padding:60px 24px;",
-      "  box-sizing:border-box;background-position:center;background-size:cover;background-repeat:no-repeat;color:#506D85;",
+      "  box-sizing:border-box;color:#506D85;",
       "  font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;",
       "}",
       "",
@@ -270,9 +270,11 @@
 
       target.innerHTML = buildHtml(centralImg);
 
-      var widgetEl = target.querySelector('.bp-widget');
-      if (widgetEl && bgImg) {
-        widgetEl.style.backgroundImage = "url('" + bgImg + "')";
+      if (bgImg) {
+        target.style.backgroundImage = "url('" + bgImg + "')";
+        target.style.backgroundPosition = "center";
+        target.style.backgroundSize = "cover";
+        target.style.backgroundRepeat = "no-repeat";
       }
 
       initAnimation(target);
