@@ -60,45 +60,45 @@
   }
 
   .jypesa-tabs-nav-subtitle {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 21px;
+    font-weight: 400;
     color: var(--jypesa-tabs-slate);
-    letter-spacing: 1.5px;
-    position: relative;
+    letter-spacing: 1.05px;
+    border-bottom: 2px solid var(--jypesa-tabs-slate);
     padding-bottom: 8px;
     display: inline-block;
-  }
-
-  .jypesa-tabs-nav-subtitle::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--jypesa-tabs-slate);
+    text-transform: none;
+    margin-bottom: 12px;
   }
 
   .jypesa-tabs-nav-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     font-size: 26px;
-    line-height: 1.25;
+    line-height: 1.1;
     color: var(--jypesa-tabs-slate);
     margin: 0;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
   }
 
   .jypesa-tabs-nav-title span {
     font-family: 'Instrument Serif', serif;
     font-style: italic;
     font-weight: 400;
+    font-size: 52px;
+    line-height: 1;
     background: linear-gradient(135deg, var(--jypesa-tabs-blue) 0%, var(--jypesa-tabs-dark-blue) 50%, var(--jypesa-tabs-light-cyan) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
+    margin-top: -4px;
+    letter-spacing: 2px;
   }
 
   /* Menú horizontal en móvil */
@@ -130,13 +130,15 @@
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     user-select: none;
     line-height: 1.1;
     flex-shrink: 0;
+    border-bottom: 1.5px solid transparent;
+    letter-spacing: 1.1px;
   }
 
   .jypesa-tabs-menu-item:hover {
@@ -145,29 +147,7 @@
 
   .jypesa-tabs-menu-item.active {
     opacity: 1;
-    font-weight: 500;
-  }
-
-  /* SVG Underline activo */
-  .jypesa-tabs-active-underline {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 4px;
-    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    overflow: visible;
-  }
-
-  .jypesa-tabs-menu-item.active .jypesa-tabs-active-underline {
-    width: 100%;
-  }
-
-  .jypesa-tabs-active-underline path {
-    stroke: var(--jypesa-tabs-slate);
-    stroke-width: 2.5;
-    fill: none;
-    stroke-linecap: round;
+    border-bottom: 1.5px solid var(--jypesa-tabs-slate);
   }
 
   /* COLUMNA DERECHA (CONTENIDO DINÁMICO) */
@@ -190,7 +170,7 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ÁREA DE INFORMACIÓN */
+  /* ÁREA DE INFORMACIÓN (FIGMA STYLE) */
   .jypesa-tabs-info-area {
     display: flex;
     flex-direction: column;
@@ -202,103 +182,77 @@
     align-items: stretch;
   }
 
-  .jypesa-tabs-info-left {
-    width: 100%;
+  .jypesa-tabs-fragrance-block {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    justify-content: center;
     box-sizing: border-box;
   }
 
-  .jypesa-tabs-info-label {
+  .jypesa-tabs-fragrance-line {
+    display: none; /* Oculto en móvil */
+  }
+
+  .jypesa-tabs-fragrance-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .jypesa-tabs-fragrance-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 14px;
+    text-transform: none;
     margin: 0;
     color: var(--jypesa-tabs-slate);
+    line-height: 1.1;
   }
 
   .jypesa-tabs-fragrance-details {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-  }
-
-  .jypesa-tabs-fragrance-mood {
-    font-size: 15px;
+    gap: 6px;
+    align-items: center;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: var(--jypesa-tabs-slate);
     line-height: 1.4;
   }
 
-  .jypesa-tabs-fragrance-mood .detail-label {
-    font-weight: 500;
-    color: var(--jypesa-tabs-slate);
+  .jypesa-tabs-fragrance-mood {
+    margin: 0;
   }
 
-  .jypesa-tabs-fragrance-mood .detail-val {
-    color: var(--jypesa-tabs-slate);
-  }
-
-  /* Notas Olfativas en móvil (carrusel flexible sin bordes) */
   .jypesa-tabs-fragrance-notes {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px 16px;
-    font-size: 13px;
+    margin: 0;
+    white-space: normal;
   }
 
-  .jypesa-tabs-note-item {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .jypesa-tabs-note-label {
-    font-weight: 500;
+  .jypesa-tabs-refill-label {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(80, 109, 133, 0.5);
     text-transform: uppercase;
-    font-size: 11px;
-    letter-spacing: 0.5px;
-    color: var(--jypesa-tabs-slate-50);
-  }
-
-  .jypesa-tabs-note-val {
-    color: var(--jypesa-tabs-slate);
-  }
-
-  .jypesa-tabs-note-divider {
-    display: none; /* Oculto en móvil */
-  }
-
-  .jypesa-tabs-info-right {
+    margin: 0;
+    text-align: center;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    box-sizing: border-box;
-  }
-
-  .jypesa-tabs-refill-badge {
-    align-self: flex-start;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 11px;
-    letter-spacing: 1px;
-    padding: 4px 10px;
-    background-color: var(--jypesa-tabs-slate-15);
-    color: var(--jypesa-tabs-slate);
-    border-radius: 4px;
-    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .jypesa-tabs-collection-desc {
     font-family: 'Rubik', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.6;
     margin: 0;
     color: var(--jypesa-tabs-slate);
+    text-align: center;
   }
 
   /* SLIDERS DE PRODUCTOS */
@@ -333,15 +287,15 @@
     display: none !important;
   }
 
-  /* TARJETA DE PRODUCTO */
+  /* TARJETA DE PRODUCTO (FIGMA STYLE) */
   .jypesa-tabs-product-card {
     flex: 0 0 258px;
     width: 258px;
-    background: transparent;
-    border: none;
-    border-radius: 0;
+    background-color: var(--jypesa-tabs-white);
+    border: 2px solid transparent;
+    border-radius: 15px;
     overflow: visible;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -349,10 +303,13 @@
     scroll-snap-align: center;
     text-decoration: none;
     color: inherit;
+    gap: 33px;
+    padding-bottom: 38px;
   }
 
   .jypesa-tabs-product-card:hover {
     transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(80, 109, 133, 0.08);
   }
 
   .jypesa-tabs-card-img-wrap {
@@ -363,9 +320,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #FFFFFF;
-    box-shadow: 0 4px 12px rgba(80, 109, 133, 0.05);
-    border-radius: 4px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 15px;
     box-sizing: border-box;
   }
 
@@ -381,21 +338,21 @@
   }
 
   .jypesa-tabs-card-details {
-    padding: 16px 0 0 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
     box-sizing: border-box;
     text-align: center;
-    width: 100%;
+    width: 152px;
+    margin: 0 auto;
   }
 
   .jypesa-tabs-card-title {
     font-family: 'Rubik', sans-serif;
     font-weight: 500;
     font-size: 21px;
-    line-height: 1.25;
+    line-height: 1;
     color: var(--jypesa-tabs-slate);
     margin: 0;
   }
@@ -404,9 +361,10 @@
     font-family: 'Rubik', sans-serif;
     font-weight: 500;
     font-size: 16px;
-    line-height: 1.25;
+    line-height: 1;
     color: var(--jypesa-tabs-slate);
-    margin: 0;
+    margin: 10px 0 0 0;
+    display: block;
   }
 
   .jypesa-tabs-card-specs {
@@ -414,8 +372,8 @@
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    width: 152px;
-    margin: 0 auto;
+    width: 100%;
+    margin-top: 20px;
     box-sizing: border-box;
   }
 
@@ -424,7 +382,7 @@
     font-weight: 400;
     font-size: 14px;
     color: var(--jypesa-tabs-slate);
-    line-height: 1.35;
+    line-height: 1;
     display: block;
     text-align: center;
   }
@@ -513,14 +471,14 @@
     /* LAYOUT A DOS COLUMNAS */
     .jypesa-tabs-layout {
       flex-direction: row;
-      gap: 48px;
+      gap: 120px;
       padding: 0 24px;
       align-items: flex-start;
     }
 
     /* NAVEGACIÓN LATERAL FIJA */
     .jypesa-tabs-left-col {
-      width: 290px;
+      width: 320px;
       flex-shrink: 0;
       position: -webkit-sticky;
       position: sticky;
@@ -534,8 +492,16 @@
     }
 
     .jypesa-tabs-nav-title {
-      font-size: 32px;
+      font-size: 37px;
       text-align: left;
+      align-items: flex-start;
+    }
+
+    .jypesa-tabs-nav-title span {
+      font-size: 75px;
+      margin-left: 90px;
+      margin-top: -8px;
+      letter-spacing: 3.75px;
     }
 
     /* Menú vertical */
@@ -549,16 +515,13 @@
       border-bottom: none;
       overflow-x: visible;
       justify-content: flex-start;
+      width: 100%;
     }
 
     .jypesa-tabs-menu-item {
-      font-size: 28px;
-      padding-bottom: 8px;
+      font-size: 22px;
+      padding-bottom: 12px;
       flex-shrink: 1;
-    }
-
-    .jypesa-tabs-active-underline {
-      height: 6px;
     }
 
     /* CONTENIDO DERECHO */
@@ -567,35 +530,49 @@
       min-width: 0;
     }
 
-    /* Información en dos columnas */
+    /* Figma vertical stack overrides for desktop */
     .jypesa-tabs-info-area {
-      flex-direction: row;
-      justify-content: space-between;
-      gap: 40px;
+      flex-direction: column;
+      gap: 20px;
       margin-bottom: 36px;
       padding-bottom: 24px;
       align-items: flex-start;
+      border-bottom: 1px solid var(--jypesa-tabs-slate-15);
     }
 
-    .jypesa-tabs-info-left {
-      flex: 1;
+    .jypesa-tabs-fragrance-block {
+      gap: 23px;
+      width: max-content;
+      max-width: 100%;
+      justify-content: flex-start;
     }
 
-    .jypesa-tabs-info-right {
-      flex: 1.2;
-    }
-
-    /* Restaurar Notas Olfativas con divisores */
-    .jypesa-tabs-fragrance-notes {
-      flex-wrap: nowrap;
-      gap: 14px;
-    }
-
-    .jypesa-tabs-note-divider {
+    .jypesa-tabs-fragrance-line {
       display: block;
       width: 1px;
-      height: 16px;
+      height: 49px;
       background-color: var(--jypesa-tabs-slate-15);
+      flex-shrink: 0;
+    }
+
+    .jypesa-tabs-fragrance-content {
+      gap: 9px;
+      text-align: left;
+      align-items: flex-start;
+      width: auto;
+    }
+
+    .jypesa-tabs-fragrance-details {
+      align-items: flex-start;
+    }
+
+    .jypesa-tabs-refill-label {
+      text-align: left;
+      width: auto;
+    }
+
+    .jypesa-tabs-collection-desc {
+      text-align: left;
     }
 
     /* Slider de productos desktop */
@@ -671,12 +648,7 @@
   const arrowLeftSvg = `<svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>`;
   const arrowRightSvg = `<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" /></svg>`;
 
-  // Underline SVG dinámico
-  const underlineSvgHtml = `
-    <svg class="jypesa-tabs-active-underline" viewBox="0 0 100 10" preserveAspectRatio="none">
-      <path d="M3,5 Q50,9 97,5" />
-    </svg>
-  `;
+  // No active underline SVG definition needed (handled via CSS border-bottom)
 
   // 3. Colecciones por defecto (Fallback)
   const defaultCollections = [
@@ -892,11 +864,7 @@
   }
 
   // 5. Construir HTML del Widget
-  function buildWidgetHtml(collections, parentBrand = '') {
-    const titleHtml = parentBrand 
-      ? `Descubre los productos de <span>${parentBrand}</span>`
-      : `Descubre nuestros <span>productos</span>`;
-
+  function buildWidgetHtml(collections) {
     return `
       <div class="jypesa-tabs-layout">
         <!-- Columna Izquierda (Navegación) -->
@@ -904,12 +872,11 @@
           <div class="jypesa-tabs-nav-header">
             <span class="jypesa-tabs-nav-subtitle">Productos de la colección</span>
           </div>
-          <h2 class="jypesa-tabs-nav-title">${titleHtml}</h2>
+          <h2 class="jypesa-tabs-nav-title">Descubre nuestros <span>productos</span></h2>
           <div class="jypesa-tabs-menu">
             ${collections.map((col, idx) => `
               <div class="jypesa-tabs-menu-item ${idx === 0 ? 'active' : ''}" data-tab="${col.id}">
                 ${col.name}
-                ${underlineSvgHtml}
               </div>
             `).join('')}
           </div>
@@ -921,51 +888,37 @@
             const hasNotes = col.salida || col.corazon || col.fondo;
             return `
               <div class="jypesa-tab-content-panel ${idx === 0 ? 'active' : ''}" id="panel-${col.id}">
-                <!-- Cabecera de Información -->
+                <!-- Cabecera de Información (Figma Style) -->
                 <div class="jypesa-tabs-info-area">
-                  <div class="jypesa-tabs-info-left">
-                    <h3 class="jypesa-tabs-info-label">Sobre la fragancia</h3>
-                    <div class="jypesa-tabs-fragrance-details">
-                      ${col.mood ? `
-                        <div class="jypesa-tabs-fragrance-mood">
-                          <span class="detail-label">Mood:</span>
-                          <span class="detail-val">${col.mood}</span>
-                        </div>
-                      ` : ''}
-                      
-                      ${hasNotes ? `
-                        <div class="jypesa-tabs-fragrance-notes">
-                          ${col.salida ? `
-                            <div class="jypesa-tabs-note-item">
-                              <span class="jypesa-tabs-note-label">Salida</span>
-                              <span class="jypesa-tabs-note-val">${col.salida}</span>
-                            </div>
-                          ` : ''}
-                          ${col.salida && (col.corazon || col.fondo) ? `<div class="jypesa-tabs-note-divider"></div>` : ''}
-                          
-                          ${col.corazon ? `
-                            <div class="jypesa-tabs-note-item">
-                              <span class="jypesa-tabs-note-label">Corazón</span>
-                              <span class="jypesa-tabs-note-val">${col.corazon}</span>
-                            </div>
-                          ` : ''}
-                          ${col.corazon && col.fondo ? `<div class="jypesa-tabs-note-divider"></div>` : ''}
-                          
-                          ${col.fondo ? `
-                            <div class="jypesa-tabs-note-item">
-                              <span class="jypesa-tabs-note-label">Base</span>
-                              <span class="jypesa-tabs-note-val">${col.fondo}</span>
-                            </div>
-                          ` : ''}
-                        </div>
-                      ` : ''}
+                  
+                  <!-- Fragrance Block with lines -->
+                  <div class="jypesa-tabs-fragrance-block">
+                    <div class="jypesa-tabs-fragrance-line"></div>
+                    
+                    <div class="jypesa-tabs-fragrance-content">
+                      <h4 class="jypesa-tabs-fragrance-title">Sobre la fragancia</h4>
+                      <div class="jypesa-tabs-fragrance-details">
+                        ${col.mood ? `<p class="jypesa-tabs-fragrance-mood">Mood: ${col.mood}</p>` : ''}
+                        ${hasNotes ? `
+                          <p class="jypesa-tabs-fragrance-notes">
+                            ${col.salida ? `<span>Salida: ${col.salida}</span>` : ''}
+                            ${col.salida && (col.corazon || col.fondo) ? ' &nbsp;|&nbsp; ' : ''}
+                            ${col.corazon ? `<span>Corazón: ${col.corazon}</span>` : ''}
+                            ${col.corazon && col.fondo ? ' &nbsp;|&nbsp; ' : ''}
+                            ${col.fondo ? `<span>Base: ${col.fondo}</span>` : ''}
+                          </p>
+                        ` : ''}
+                      </div>
                     </div>
+                    
+                    <div class="jypesa-tabs-fragrance-line"></div>
                   </div>
                   
-                  <div class="jypesa-tabs-info-right">
-                    ${col.refill ? `<div class="jypesa-tabs-refill-badge">${col.refill}</div>` : ''}
-                    <p class="jypesa-tabs-collection-desc">${col.desc}</p>
-                  </div>
+                  <!-- Refill label -->
+                  ${col.refill ? `<div class="jypesa-tabs-refill-label">${col.refill}</div>` : ''}
+                  
+                  <!-- Description -->
+                  ${col.desc ? `<p class="jypesa-tabs-collection-desc">${col.desc}</p>` : ''}
                 </div>
 
                 <!-- Slider / Carrusel de Productos -->
@@ -1159,9 +1112,8 @@
 
       const data = readCollectionsFromCMS(target);
       const collections = data ? data.collections : defaultCollections;
-      const parentBrand = data ? data.parentBrand : '';
 
-      target.innerHTML = buildWidgetHtml(collections, parentBrand);
+      target.innerHTML = buildWidgetHtml(collections);
 
       setupWidgetInteractions(target, collections);
     });
