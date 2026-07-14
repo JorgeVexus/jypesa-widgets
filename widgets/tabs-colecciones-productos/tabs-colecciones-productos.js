@@ -35,7 +35,7 @@
     display: flex;
     flex-direction: column;
     gap: 28px;
-    max-width: 1240px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 16px;
     box-sizing: border-box;
@@ -484,7 +484,7 @@
     /* LAYOUT A DOS COLUMNAS */
     .jypesa-tabs-layout {
       flex-direction: row;
-      gap: 160px;
+      gap: 200px !important;
       padding: 0 24px;
       align-items: flex-start;
     }
