@@ -5,6 +5,7 @@
 
   var SLUG = 'beneficios-persea';
   var GSAP_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+  var ST_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
   var SOAP_IMG = 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a566ccb56a4028bde4f9216_persea%20beneficios.avif';
 
   var BENEFITS = [
@@ -34,22 +35,23 @@
       "  font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;",
       "}",
       "",
-      ".bp-header{text-align:center;margin-bottom:38px;}",
+      ".bp-header{text-align:center;margin-bottom:30px;padding:0 16px;}",
       ".bp-title{",
       "  font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;",
-      "  font-size:clamp(44px,6vw,68px);line-height:1;margin:0;color:#506D85;",
+      "  font-size:44px;line-height:1;margin:0;color:#506D85;letter-spacing:1px;",
       "}",
       ".bp-slogan{",
-      "  font-family:'Montserrat',sans-serif;font-weight:500;font-size:16px;",
-      "  letter-spacing:.4px;margin:12px 0 0;color:#506D85;",
+      "  font-family:'Montserrat',sans-serif;font-weight:500;font-size:24px;",
+      "  line-height:1.25;margin:10px 0 0;color:#506D85;",
       "}",
+      ".bp-slogan-desktop-spaces{display:none;}",
       "",
       ".bp-stage{position:relative;width:100%;max-width:1210px;margin:0 auto;",
       "  aspect-ratio:1210 / 1028;}",
       "",
       ".bp-soap{",
       "  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);",
-      "  width:min(600px,48%);height:auto;z-index:1;pointer-events:none;",
+      "  height:min(600px,58vh);width:auto;max-width:90%;z-index:1;pointer-events:none;",
       "  filter:drop-shadow(0 12px 30px rgba(80,109,133,0.18));",
       "}",
       "",
@@ -69,7 +71,17 @@
       "",
       "/* Posiciones escalonadas tipo reloj, simétricas (desktop) */",
       "@media (min-width:901px){",
-      "  .bp-widget{display:flex;flex-direction:column;height:1028px;padding:24px;}",
+      "  .bp-widget{display:flex;flex-direction:column;height:min(1028px, 100vh);padding:24px;}",
+      "  .bp-header{position:relative;width:901px;height:175px;margin:0 auto 38px;padding:0;}",
+      "  .bp-title{",
+      "    position:absolute;left:22px;top:0;width:379px;height:80px;",
+      "    font-size:90px;letter-spacing:4.5px;text-align:center;",
+      "  }",
+      "  .bp-slogan{",
+      "    position:absolute;left:50%;transform:translateX(-50%);top:5px;width:901px;",
+      "    font-size:75px;line-height:1.13;text-align:center;white-space:pre-wrap;margin:0;",
+      "  }",
+      "  .bp-slogan-desktop-spaces{display:inline;}",
       "  .bp-stage{flex:1 1 auto;aspect-ratio:auto;max-height:none;}",
       "  .bp-item.bp-pos-1{left:12%;top:4%}",
       "  .bp-item.bp-pos-2{left:6%;top:22%}",
@@ -127,7 +139,7 @@
       '<div class="bp-widget">' +
         '<div class="bp-header">' +
           '<h2 class="bp-title">Beneficios</h2>' +
-          '<p class="bp-slogan">que marcan la diferencia</p>' +
+          '<p class="bp-slogan"><span class="bp-slogan-desktop-spaces">                   </span>que marcan la diferencia</p>' +
         '</div>' +
         '<div class="bp-stage">' +
           '<img class="bp-soap" src="' + SOAP_IMG + '" alt="Jabón Persea">' +
@@ -139,51 +151,78 @@
   function initAnimation(root) {
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var gsap = window.gsap;
-    if (!gsap || reduce) {
+    var ST = window.ScrollTrigger;
+    // Sin GSAP, sin ScrollTrigger o reduced-motion -> todo visible (fallback)
+    if (!gsap || !ST || reduce) {
       root.classList.add('bp-fallback');
       return;
     }
+    if (gsap.registerPlugin && ST) gsap.registerPlugin(ST);
 
     var header = root.querySelector('.bp-header');
     var items = root.querySelectorAll('.bp-item');
+    var section = root.querySelector('.bp-widget') || root;
 
-    // Estados iniciales explícitos para GSAP
-    gsap.set(header, { opacity: 0, y: -20 });
-    items.forEach(function (item) {
-      gsap.set(item.querySelector('.bp-num'), { opacity: 0, scale: 0.6 });
-      gsap.set(item.querySelector('.bp-sep'), { opacity: 0, scaleY: 0 });
-      gsap.set(item.querySelector('.bp-text'), { opacity: 0, x: -24 });
-    });
-
-    // Timeline coreografiada: encabezado -> 1..11 (número -> línea -> texto)
-    var tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
-    tl.to(header, { opacity: 1, y: 0, duration: 0.6 });
-
-    var pos = 0.35;
-    items.forEach(function (item) {
-      var num = item.querySelector('.bp-num');
-      var sep = item.querySelector('.bp-sep');
-      var txt = item.querySelector('.bp-text');
-      tl.to(num, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.7)' }, pos);
-      tl.to(sep, { opacity: 1, scaleY: 1, duration: 0.3 }, pos + 0.18);
-      tl.to(txt, { opacity: 1, x: 0, duration: 0.4 }, pos + 0.32);
-      pos += 0.42; // siguiente beneficio aparece en secuencia
-    });
-
-    var played = false;
-    var play = function () { if (played) return; played = true; tl.play(); };
-
-    var stage = root.querySelector('.bp-stage');
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { play(); io.disconnect(); }
-        });
-      }, { threshold: 0.2 });
-      io.observe(stage);
-    } else {
-      play();
+    // Construye la timeline coreografiada (número -> línea -> texto) 1..11
+    function buildTimeline(triggerCfg) {
+      var tl = gsap.timeline({
+        defaults: { ease: 'power2.out' },
+        scrollTrigger: triggerCfg
+      });
+      tl.to(header, { opacity: 1, y: 0, duration: 0.4 });
+      var pos = 0.5;
+      items.forEach(function (item) {
+        var num = item.querySelector('.bp-num');
+        var sep = item.querySelector('.bp-sep');
+        var txt = item.querySelector('.bp-text');
+        tl.to(num, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.7)' }, pos);
+        tl.to(sep, { opacity: 1, scaleY: 1, duration: 0.3 }, pos + 0.18);
+        tl.to(txt, { opacity: 1, x: 0, duration: 0.4 }, pos + 0.32);
+        pos += 0.5; // cada beneficio avanza en el scroll
+      });
+      return tl;
     }
+
+    // Estados iniciales ocultos (se reaplican por matchMedia al cambiar breakpoint)
+    function hideAll() {
+      gsap.set(header, { opacity: 0, y: -20 });
+      items.forEach(function (item) {
+        gsap.set(item.querySelector('.bp-num'), { opacity: 0, scale: 0.6 });
+        gsap.set(item.querySelector('.bp-sep'), { opacity: 0, scaleY: 0 });
+        gsap.set(item.querySelector('.bp-text'), { opacity: 0, x: -24 });
+      });
+    }
+
+    var mm = gsap.matchMedia();
+    // Desktop: sección FIJA (pin) a pantalla completa; al hacer scroll aparecen 1..11
+    mm.add('(min-width: 901px)', function () {
+      hideAll();
+      buildTimeline({
+        trigger: section,
+        start: 'top top',
+        end: '+=1700',
+        scrub: 0.6,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      });
+    });
+    // Móvil: reveal atado al scroll, sin pin (la lista apilada es alta)
+    mm.add('(max-width: 900px)', function () {
+      hideAll();
+      buildTimeline({
+        trigger: section,
+        start: 'top 80%',
+        end: 'bottom 55%',
+        scrub: 0.6,
+        invalidateOnRefresh: true
+      });
+    });
+
+    // Recalcula posiciones cuando cargan fuentes/imágenes (clave con pin)
+    var refresh = function () { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); };
+    window.addEventListener('load', refresh);
+    setTimeout(refresh, 400);
   }
 
   function boot() {
@@ -195,14 +234,21 @@
     initAnimation(target);
   }
 
-  function ensureGsap(cb) {
-    if (window.gsap) return cb();
+  function loadScript(src, ondone) {
     var s = document.createElement('script');
-    s.src = GSAP_SRC;
+    s.src = src;
     s.async = true;
-    s.onload = cb;
-    s.onerror = function () { cb(); }; // fallback: sin animación, pero contenido visible
+    s.onload = ondone;
+    s.onerror = ondone; // si falla, seguimos (fallback muestra todo)
     document.head.appendChild(s);
+  }
+
+  function ensureGsap(cb) {
+    if (window.gsap && window.ScrollTrigger) return cb();
+    loadScript(GSAP_SRC, function () {
+      if (window.ScrollTrigger) return cb();
+      loadScript(ST_SRC, cb);
+    });
   }
 
   if (document.readyState === 'loading') {
