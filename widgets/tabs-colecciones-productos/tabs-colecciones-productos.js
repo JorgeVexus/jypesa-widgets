@@ -901,11 +901,11 @@
                         ${col.mood ? `<p class="jypesa-tabs-fragrance-mood">Mood: ${col.mood}</p>` : ''}
                         ${hasNotes ? `
                           <p class="jypesa-tabs-fragrance-notes">
-                            ${col.salida ? `<span>Salida: ${col.salida}</span>` : ''}
+                            ${col.salida ? ((col.corazon || col.fondo) ? `<span>Salida: ${col.salida}</span>` : `<span>${col.salida}</span>`) : ''}
                             ${col.salida && (col.corazon || col.fondo) ? ' &nbsp;|&nbsp; ' : ''}
-                            ${col.corazon ? `<span>Corazón: ${col.corazon}</span>` : ''}
+                            ${col.corazon ? ((col.salida || col.fondo) ? `<span>Corazón: ${col.corazon}</span>` : `<span>${col.corazon}</span>`) : ''}
                             ${col.corazon && col.fondo ? ' &nbsp;|&nbsp; ' : ''}
-                            ${col.fondo ? `<span>Base: ${col.fondo}</span>` : ''}
+                            ${col.fondo ? ((col.salida || col.corazon) ? `<span>Base: ${col.fondo}</span>` : `<span>${col.fondo}</span>`) : ''}
                           </p>
                         ` : ''}
                       </div>
