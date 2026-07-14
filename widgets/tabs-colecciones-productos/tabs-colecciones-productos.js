@@ -66,11 +66,21 @@
     font-weight: 400;
     color: var(--jypesa-tabs-slate);
     letter-spacing: 1.05px;
-    border-bottom: 2px solid var(--jypesa-tabs-slate);
-    padding-bottom: 8px;
+    position: relative;
+    padding-bottom: 10px;
     display: inline-block;
     text-transform: none;
     margin-bottom: 12px;
+  }
+
+  .jypesa-tabs-nav-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 75%;
+    height: 2px;
+    background-color: var(--jypesa-tabs-slate);
   }
 
   .jypesa-tabs-nav-title {
@@ -474,7 +484,7 @@
     /* LAYOUT A DOS COLUMNAS */
     .jypesa-tabs-layout {
       flex-direction: row;
-      gap: 120px;
+      gap: 160px;
       padding: 0 24px;
       align-items: flex-start;
     }
@@ -527,6 +537,7 @@
       font-size: 22px;
       padding-bottom: 12px;
       flex-shrink: 1;
+      width: 206px;
     }
 
     /* CONTENIDO DERECHO */
