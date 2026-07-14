@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabs con Sliders de Productos — JYPESA Preview</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #EEF7FA;
+      font-family: 'Rubik', sans-serif;
+      padding-top: 60px;
+    }
+    
+    /* Control de Demostración */
+    .demo-bar {
+      background-color: #25282a;
+      color: #fff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10000;
+      font-size: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .demo-brand {
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #9EF4F5;
+      font-size: 13px;
+    }
+    
+    .demo-section-label {
+      max-width: 1240px;
+      margin: 40px auto 10px;
+      padding: 0 24px;
+      box-sizing: border-box;
+    }
+    .demo-section-label h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 0;
+      border-left: 4px solid #48a9c5;
+      padding-left: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .widget-preview-area {
+      padding: 20px 0;
+      background: white;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 12px rgba(80,109,133,0.05);
+    }
+    
+    .demo-info {
+      max-width: 1240px;
+      margin: 40px auto 60px;
+      padding: 24px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(80,109,133,0.05);
+      color: #506D85;
+      font-size: 15px;
+      line-height: 1.6;
+      box-sizing: border-box;
+    }
+    .demo-info h2 {
+      font-size: 20px;
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #506D85;
+    }
+    .demo-info code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-bar">
+    <span class="demo-brand">JYPESA TABS & PRODUCTS SLIDERS &bull; WEBFLOW EMBED PREVIEW</span>
+  </div>
+
+  <!-- INSTANCIA 1: CON FALLBACK HARDCODEADO -->
+  <div class="demo-section-label">
+    <h2>Instancia 1: Vista Previa Fallback (Sin CMS en la página)</h2>
+  </div>
+  <div class="widget-preview-area">
+    <!-- Target para Instancia 1 -->
+    <div id="jypesa-tabs-colecciones-widget"></div>
+  </div>
+
+  <!-- INSTANCIA 2: LEYENDO DE CMS COLLECTION LIST (OCULTA) -->
+  <div class="demo-section-label">
+    <h2>Instancia 2: Cargado dinámicamente desde el CMS oculto</h2>
+  </div>
+  <div class="widget-preview-area">
+    
+    <!-- MOCK DE LA CMS COLLECTION LIST DE WEBFLOW (OCULTA EN SITIO EN VIVO) -->
+    <!-- En Webflow, el usuario añade un Collection List Wrapper con clase jypesa-tabs-colecciones-cms-source -->
+    <div class="jypesa-tabs-colecciones-cms-source-test" style="display: none;">
+      <span class="jypesa-tabs-col-parent-brand">Persea</span>
+      
+      <!-- Producto 1 de la Colección "Cítrica" -->
+      <div class="w-dyn-item">
+        <span class="jypesa-tabs-col-name">Colección Cítrica (CMS)</span>
+        <span class="jypesa-tabs-col-mood">Energizante, cítrico y fresco</span>
+        <span class="jypesa-tabs-col-refill">RELLENABLE</span>
+        <span class="jypesa-tabs-col-notes-salida">Naranja dulce</span>
+        <span class="jypesa-tabs-col-notes-corazon">Verbena</span>
+        <span class="jypesa-tabs-col-notes-fondo">Almizcle</span>
+        <p class="jypesa-tabs-col-desc">Cargado de notas frescas y chispeantes que despiertan el cuerpo y la mente de sus huéspedes. Especialmente diseñada para climas tropicales y resorts de playa.</p>
+        <span class="jypesa-tabs-prod-name">Jabón de Manos CMS</span>
+        <span class="jypesa-tabs-prod-sku">CYT-01</span>
+        <span class="jypesa-tabs-prod-weight">30 gr | 1.0 oz</span>
+        <span class="jypesa-tabs-prod-packaging">Flowpack Reciclable</span>
+        <span class="jypesa-tabs-prod-qty">400 pzs/Caja</span>
+        <img class="jypesa-tabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif" alt="Jabón de Manos CMS">
+        <a class="jypesa-tabs-prod-link" href="#hands-soap-cms">Ver Producto</a>
+      </div>
+
+      <!-- Producto 2 de la Colección "Cítrica" -->
+      <div class="w-dyn-item">
+        <span class="jypesa-tabs-col-name">Colección Cítrica (CMS)</span>
+        <span class="jypesa-tabs-col-mood">Energizante, cítrico y fresco</span>
+        <span class="jypesa-tabs-col-refill">RELLENABLE</span>
+        <span class="jypesa-tabs-col-notes-salida">Naranja dulce</span>
+        <span class="jypesa-tabs-col-notes-corazon">Verbena</span>
+        <span class="jypesa-tabs-col-notes-fondo">Almizcle</span>
+        <p class="jypesa-tabs-col-desc">Cargado de notas frescas y chispeantes que despiertan el cuerpo y la mente de sus huéspedes. Especialmente diseñada para climas tropicales y resorts de playa.</p>
+        <span class="jypesa-tabs-prod-name">Loción Hidratante CMS</span>
+        <span class="jypesa-tabs-prod-sku">CYT-02</span>
+        <span class="jypesa-tabs-prod-weight">40 ml | 1.3 oz</span>
+        <span class="jypesa-tabs-prod-packaging">Botella de Plástico Reciclado</span>
+        <span class="jypesa-tabs-prod-qty">250 pzs/Caja</span>
+        <img class="jypesa-tabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif" alt="Loción Hidratante CMS">
+        <a class="jypesa-tabs-prod-link" href="#lotion-cms">Ver Producto</a>
+      </div>
+
+      <!-- Producto 1 de la Colección "Luxury Wood" -->
+      <div class="w-dyn-item">
+        <span class="jypesa-tabs-col-name">Luxury Wood (CMS)</span>
+        <span class="jypesa-tabs-col-mood">Opulento, amaderado y cálido</span>
+        <span class="jypesa-tabs-col-refill">NO RELLENABLE</span>
+        <span class="jypesa-tabs-col-notes-salida">Cardamomo</span>
+        <span class="jypesa-tabs-col-notes-corazon">Cedro Blanco</span>
+        <span class="jypesa-tabs-col-notes-fondo">Vainilla Negra</span>
+        <p class="jypesa-tabs-col-desc">Una colección de alta gama diseñada en exclusiva para hoteles de lujo y huéspedes sofisticados. Combina aceites de maderas nobles con un fondo cremoso.</p>
+        <span class="jypesa-tabs-prod-name">Champú Premium CMS</span>
+        <span class="jypesa-tabs-prod-sku">WD-01</span>
+        <span class="jypesa-tabs-prod-weight">50 ml | 1.7 oz</span>
+        <span class="jypesa-tabs-prod-packaging">Botella Boston Ámbar</span>
+        <span class="jypesa-tabs-prod-qty">150 pzs/Caja</span>
+        <img class="jypesa-tabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif" alt="Champú Premium CMS">
+        <a class="jypesa-tabs-prod-link" href="#shampoo-cms">Ver Producto</a>
+      </div>
+
+      <!-- Producto 2 de la Colección "Luxury Wood" -->
+      <div class="w-dyn-item">
+        <span class="jypesa-tabs-col-name">Luxury Wood (CMS)</span>
+        <span class="jypesa-tabs-col-mood">Opulento, amaderado y cálido</span>
+        <span class="jypesa-tabs-col-refill">NO RELLENABLE</span>
+        <span class="jypesa-tabs-col-notes-salida">Cardamomo</span>
+        <span class="jypesa-tabs-col-notes-corazon">Cedro Blanco</span>
+        <span class="jypesa-tabs-col-notes-fondo">Vainilla Negra</span>
+        <p class="jypesa-tabs-col-desc">Una colección de alta gama diseñada en exclusiva para hoteles de lujo y huéspedes sofisticados. Combina aceites de maderas nobles con un fondo cremoso.</p>
+        <span class="jypesa-tabs-prod-name">Jabón Exfoliante en Barra CMS</span>
+        <span class="jypesa-tabs-prod-sku">WD-02</span>
+        <span class="jypesa-tabs-prod-weight">60 gr | 2.1 oz</span>
+        <span class="jypesa-tabs-prod-packaging">Papel Plisado Biodegradable</span>
+        <span class="jypesa-tabs-prod-qty">200 pzs/Caja</span>
+        <img class="jypesa-tabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif" alt="Jabón Exfoliante CMS">
+        <a class="jypesa-tabs-prod-link" href="#soap-bar-cms">Ver Producto</a>
+      </div>
+      
+    </div>
+
+    <!-- Target para Instancia 2. Le indicamos explicitamente de qué fuente leer -->
+    <!-- usando el selector de origen para evitar conflictos entre instancias -->
+    <div class="jypesa-tabs-colecciones-widget-container" data-cms-source=".jypesa-tabs-colecciones-cms-source-test"></div>
+  </div>
+
+  <!-- INTEGRACIÓN DOCUMENTACIÓN -->
+  <div class="demo-info">
+    <h2>Integración en Webflow</h2>
+    <p>Para insertar este widget de colecciones con sliders en tu proyecto de Webflow, sigue estos pasos:</p>
+    
+    <h3>Paso 1: Agregar el bloque del Widget (Embed)</h3>
+    <p>Inserta un componente <strong>Embed</strong> en el lugar donde desees que aparezca el selector e inserta el siguiente contenedor:</p>
+    <pre style="background: #f8fafc; padding: 16px; border-radius: 6px; overflow-x: auto; border: 1px solid #e2e8f0; font-size: 13px; margin: 12px 0;"><code>&lt;!-- Contenedor para el Widget de Colecciones --&gt;
+&lt;div id="jypesa-tabs-colecciones-widget"&gt;&lt;/div&gt;</code></pre>
+
+    <h3>Paso 2: Enlazar tu CMS Collection List en Webflow</h3>
+    <p>Crea una Collection List (de tus productos de colección o amenidades) en la misma página (puede estar oculta, por ejemplo con <code>style="display: none;"</code> o <code>display: none</code> en Webflow). Asegúrate de agregar las siguientes clases CSS a cada elemento correspondiente:</p>
+    <ul>
+      <li>Wrapper de la lista entera: <code>jypesa-tabs-colecciones-cms-source</code></li>
+      <li>Nombre de la Colección (Texto): <code>jypesa-tabs-col-name</code></li>
+      <li>Mood de la fragancia (Texto): <code>jypesa-tabs-col-mood</code></li>
+      <li>Indicador de Relleno ("RELLENABLE" / "NO RELLENABLE"): <code>jypesa-tabs-col-refill</code></li>
+      <li>Nota de Salida (Texto, Opcional): <code>jypesa-tabs-col-notes-salida</code></li>
+      <li>Nota de Corazón (Texto, Opcional): <code>jypesa-tabs-col-notes-corazon</code></li>
+      <li>Nota de Base (Texto, Opcional): <code>jypesa-tabs-col-notes-fondo</code></li>
+      <li>Descripción de la Colección (Texto): <code>jypesa-tabs-col-desc</code></li>
+      <li>Nombre del Producto (Texto): <code>jypesa-tabs-prod-name</code></li>
+      <li>SKU (Texto): <code>jypesa-tabs-prod-sku</code></li>
+      <li>Peso/Volumen (Texto): <code>jypesa-tabs-prod-weight</code></li>
+      <li>Tipo de Empaque (Texto): <code>jypesa-tabs-prod-packaging</code></li>
+      <li>Cantidad por Caja (Texto): <code>jypesa-tabs-prod-qty</code></li>
+      <li>Imagen del Producto (Imagen): <code>jypesa-tabs-prod-img</code></li>
+      <li>Link del Producto (Link Block): <code>jypesa-tabs-prod-link</code></li>
+    </ul>
+
+    <h3>Paso 3: Cargar el Script</h3>
+    <p>Al final de la página (en el panel Custom Code antes del cierre de <code>&lt;/body&gt;</code>), agrega la llamada al script de producción:</p>
+    <pre style="background: #f8fafc; padding: 16px; border-radius: 6px; overflow-x: auto; border: 1px solid #e2e8f0; font-size: 13px; margin: 12px 0;"><code>&lt;!-- Enlace del Script del Widget (Vercel) --&gt;
+&lt;script src="https://jypesa-widgets.vercel.app/widgets/tabs-colecciones-productos/tabs-colecciones-productos.js"&gt;&lt;/script&gt;</code></pre>
+  </div>
+
+  <!-- Carga Local del Script -->
+  <script src="./widgets/tabs-colecciones-productos/tabs-colecciones-productos.js"></script>
+
+</body>
+</html>
