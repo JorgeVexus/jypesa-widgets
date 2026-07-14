@@ -30,7 +30,7 @@
       "@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@500&family=Rubik:wght@400;500&display=swap');",
       "",
       ".bp-widget{",
-      "  position:relative;width:100%;max-width:1320px;margin:0 auto;padding:60px 24px;",
+      "  position:relative;width:100%;margin:0 auto;padding:60px 24px;",
       "  box-sizing:border-box;background:url('https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a567e82b6dd63d7d58888a8_background%20beneficios%20persea.webp') center/cover no-repeat;color:#506D85;",
       "  font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;",
       "}",
