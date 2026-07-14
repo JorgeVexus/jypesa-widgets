@@ -85,6 +85,7 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
+    white-space: nowrap;
   }
 
   .jypesa-tabs-nav-title span {
@@ -97,7 +98,9 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
-    margin-top: -4px;
+    padding: 6px 10px;
+    margin-top: -10px;
+    margin-bottom: -6px;
     letter-spacing: 2px;
   }
 
@@ -499,8 +502,10 @@
 
     .jypesa-tabs-nav-title span {
       font-size: 75px;
-      margin-left: 90px;
-      margin-top: -8px;
+      padding: 10px 15px;
+      margin-left: 75px;
+      margin-top: -18px;
+      margin-bottom: -10px;
       letter-spacing: 3.75px;
     }
 
