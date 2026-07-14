@@ -797,10 +797,31 @@
     if (!source) {
       source = document.querySelector('.jypesa-tabs-colecciones-cms-source');
     }
+    if (!source) {
+      // Auto-detectar buscando cualquier elemento de producto en el DOM
+      const sampleProdName = document.querySelector('.jypesa-tabs-prod-name');
+      if (sampleProdName) {
+        source = sampleProdName.closest('.w-dyn-list') || 
+                 sampleProdName.closest('.w-dyn-items') || 
+                 sampleProdName.closest('.jypesa-tabs-colecciones-cms-source-test') || 
+                 sampleProdName.parentElement;
+      }
+    }
 
     if (!source) return null;
 
-    const items = Array.from(source.querySelectorAll('.w-dyn-item'));
+    let items = Array.from(source.querySelectorAll('.w-dyn-item'));
+    if (!items.length) {
+      if (source.classList.contains('w-dyn-item')) {
+        items = [source];
+      } else {
+        // En caso de que no tenga w-dyn-item (por ejemplo, maquetación manual o modificada)
+        items = Array.from(source.querySelectorAll('.w-dyn-item, div')).filter(el => el.querySelector('.jypesa-tabs-prod-name'));
+        // Quitar duplicados si hay anidación
+        items = items.filter((el, idx, self) => !self.some((other, oIdx) => oIdx !== idx && other.contains(el)));
+      }
+    }
+
     if (!items.length) return null;
 
     // Leer la marca/colección padre desde el primer elemento
