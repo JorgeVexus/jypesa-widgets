@@ -30,8 +30,8 @@
       "@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@500&family=Rubik:wght@400;500&display=swap');",
       "",
       ".bp-widget{",
-      "  position:relative;width:100%;margin:0 auto;padding:60px 24px;",
-      "  box-sizing:border-box;background:url('https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a567e82b6dd63d7d58888a8_background%20beneficios%20persea.webp') center/cover no-repeat;color:#506D85;",
+      "  position:relative;width:100%;max-width:1320px;margin:0 auto;padding:60px 24px;",
+      "  box-sizing:border-box;background-position:center;background-size:cover;background-repeat:no-repeat;color:#506D85;",
       "  font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;",
       "}",
       "",
@@ -122,7 +122,7 @@
     document.head.appendChild(style);
   }
 
-  function buildHtml() {
+  function buildHtml(centralImg) {
     var items = BENEFITS.map(function (b) {
       return '' +
         '<div class="bp-item bp-pos-' + b.n + '" data-index="' + b.n + '">' +
@@ -142,7 +142,7 @@
           '<p class="bp-slogan"><span class="bp-slogan-desktop-spaces">                   </span>que marcan la diferencia</p>' +
         '</div>' +
         '<div class="bp-stage">' +
-          '<img class="bp-soap" src="' + SOAP_IMG + '" alt="Jabón Persea">' +
+          '<img class="bp-soap" src="' + (centralImg || SOAP_IMG) + '" alt="Jabón Persea">' +
           items +
         '</div>' +
       '</div>';
@@ -225,13 +225,58 @@
     setTimeout(refresh, 400);
   }
 
+  // Leer imágenes desde un listado dinámico del CMS en la página
+  function readImagesFromCMS() {
+    var source = document.querySelector('.jypesa-beneficios-cms-source');
+    if (!source) {
+      var sampleImg = document.querySelector('.jypesa-beneficios-col-central-img');
+      if (sampleImg) {
+        source = sampleImg.closest('.w-dyn-list') || sampleImg.closest('.w-dyn-items') || sampleImg.parentElement;
+      }
+    }
+    if (!source) return null;
+
+    var centralImgEl = source.querySelector('.jypesa-beneficios-col-central-img');
+    var bgImgEl = source.querySelector('.jypesa-beneficios-col-bg-img');
+
+    var centralImg = centralImgEl ? (centralImgEl.getAttribute('src') || centralImgEl.src) : null;
+    var bgImg = bgImgEl ? (bgImgEl.getAttribute('src') || bgImgEl.src) : null;
+
+    if (!centralImg && !bgImg) return null;
+
+    return {
+      centralImg: centralImg,
+      bgImg: bgImg
+    };
+  }
+
   function boot() {
-    var target = document.getElementById('jypesa-beneficios-persea-widget') ||
-                 document.querySelector('[data-jypesa-beneficios-persea-widget]');
-    if (!target) return;
+    var targets = document.querySelectorAll('#jypesa-beneficios-persea-widget, [data-jypesa-beneficios-persea-widget], .jypesa-beneficios-persea-widget');
+    if (!targets.length) return;
+
     injectStyles();
-    target.innerHTML = buildHtml();
-    initAnimation(target);
+
+    var cmsData = readImagesFromCMS();
+
+    targets.forEach(function (target) {
+      if (target.getAttribute('data-initialized') === 'true') return;
+      target.setAttribute('data-initialized', 'true');
+
+      var customCentralImg = target.getAttribute('data-central-img');
+      var customBgImg = target.getAttribute('data-bg-img');
+
+      var centralImg = customCentralImg || (cmsData && cmsData.centralImg) || SOAP_IMG;
+      var bgImg = customBgImg || (cmsData && cmsData.bgImg) || 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a567e82b6dd63d7d58888a8_background%20beneficios%20persea.webp';
+
+      target.innerHTML = buildHtml(centralImg);
+
+      var widgetEl = target.querySelector('.bp-widget');
+      if (widgetEl && bgImg) {
+        widgetEl.style.backgroundImage = "url('" + bgImg + "')";
+      }
+
+      initAnimation(target);
+    });
   }
 
   function loadScript(src, ondone) {
