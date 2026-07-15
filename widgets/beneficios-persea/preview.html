@@ -41,7 +41,7 @@
   <div class="preview-info">
     <h1>Panel de Pruebas - Beneficios Persea Dinámico</h1>
     <p>
-      Este panel demuestra cómo el script ahora lee y renderiza las imágenes central y de fondo dinámicamente desde el CMS de Webflow.
+      Este panel demuestra cómo el script ahora lee y renderiza las imágenes central, de fondo y el color de texto dinámicamente desde el CMS de Webflow.
       Soporta dos métodos de integración:
     </p>
     <ol style="margin: 0 0 15px 0; padding-left: 20px; color: #555; line-height: 1.5;">
@@ -53,37 +53,38 @@
   <!-- INSTANCIA 1: POR DEFECTO -->
   <div class="preview-info" style="margin-top: 20px; background: #eaf2f8;">
     <strong>Instancia 1: Valores por Defecto (Fallback de Persea)</strong>
-    <p style="margin: 5px 0 0;">Cargado sin atributos y sin lista del CMS en la página.</p>
+    <p style="margin: 5px 0 0;">Cargado sin atributos y sin lista del CMS en la página (color azul pizarra por defecto).</p>
   </div>
-  <!-- Para aislar las pruebas de CMS, esta instancia corre primero. Las de abajo usan contenedores específicos. -->
   <div class="jypesa-beneficios-persea-widget" id="instance-default"></div>
 
   <div class="preview-divider"></div>
 
-  <!-- INSTANCIA 2: ATRIBUTOS DE DATOS -->
+  <!-- INSTANCIA 2: ATRIBUTOS DE DATOS CON TEXTO BLANCO -->
   <div class="preview-info" style="background: #eafaf1;">
-    <strong>Instancia 2: Método A - CMS por Atributos de Datos (Simulado Vervan)</strong>
-    <p style="margin: 5px 0 0;">Usa <code>data-bg-img</code> y <code>data-central-img</code> en el propio div.</p>
+    <strong>Instancia 2: Método A - CMS por Atributos de Datos (Simulado Vervan con Texto Blanco)</strong>
+    <p style="margin: 5px 0 0;">Usa <code>data-bg-img</code> (fondo verde oscuro), <code>data-central-img</code> y <code>data-text-color="#ffffff"</code> (blanco) en el propio div.</p>
   </div>
   <div class="jypesa-beneficios-persea-widget"
        data-central-img="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a566cd08d1323315a6b0c2a_boston%20beneficios.avif"
-       data-bg-img="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a567e88c03b1448b111cb89_background%20beneficios%20vervan.webp">
+       data-bg-img="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a567e88c03b1448b111cb89_background%20beneficios%20vervan.webp"
+       data-text-color="#ffffff">
   </div>
 
   <div class="preview-divider"></div>
 
-  <!-- INSTANCIA 3: COLECCIÓN CMS DINÁMICA OCULTA -->
+  <!-- INSTANCIA 3: COLECCIÓN CMS DINÁMICA OCULTA CON COLOR CREMA -->
   <div class="preview-info" style="background: #fdf2e9;">
-    <strong>Instancia 3: Método B - Desde Collection List Dinámica (Simulada para otra marca)</strong>
-    <p style="margin: 5px 0 0;">Lee las imágenes de una lista dinámica oculta en el DOM con las clases correspondientes.</p>
+    <strong>Instancia 3: Método B - Desde Collection List Dinámica (Simulada con Texto Crema)</strong>
+    <p style="margin: 5px 0 0;">Lee las imágenes y el color de texto de una lista dinámica oculta en el DOM con las clases correspondientes.</p>
     <p style="margin: 5px 0 0; font-size: 13px; color: #777;">
-      <em>Estructura de la lista oculta en el DOM:</em>
+      <em>Estructura de la lista oculta en el DOM con color de texto:</em>
     </p>
     <pre style="background: #272822; color: #f8f8f2; padding: 12px; border-radius: 6px; font-size: 12px; margin: 5px 0 0;">
 &lt;div class="jypesa-beneficios-cms-source" style="display:none;"&gt;
   &lt;div class="w-dyn-item"&gt;
     &lt;img class="jypesa-beneficios-col-central-img" src="..." /&gt;
     &lt;img class="jypesa-beneficios-col-bg-img" src="..." /&gt;
+    &lt;span class="jypesa-beneficios-col-text-color"&gt;#f5f5dc&lt;/span&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre>
   </div>
@@ -91,10 +92,12 @@
   <!-- Origen de datos CMS simulado (en Webflow se asocian a tu colección CMS y se filtra la lista) -->
   <div class="jypesa-beneficios-cms-source" style="display: none;">
     <div class="w-dyn-item">
-      <!-- Imagen Central: Botella Boston (ejemplo) -->
+      <!-- Imagen Central: Botella Boston -->
       <img class="jypesa-beneficios-col-central-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a566cd08d1323315a6b0c2a_boston%20beneficios.avif" alt="Central CMS">
-      <!-- Imagen de Fondo: Vervan verde (ejemplo) -->
+      <!-- Imagen de Fondo: Vervan verde -->
       <img class="jypesa-beneficios-col-bg-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a567e88c03b1448b111cb89_background%20beneficios%20vervan.webp" alt="Fondo CMS">
+      <!-- Color de Texto: Crema claro -->
+      <span class="jypesa-beneficios-col-text-color">#f5f5dc</span>
     </div>
   </div>
 

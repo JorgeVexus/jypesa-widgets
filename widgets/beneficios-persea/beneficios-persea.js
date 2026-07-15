@@ -31,7 +31,8 @@
       "",
       ".bp-widget{",
       "  position:relative;width:100%;padding:60px 0;",
-      "  box-sizing:border-box;background-position:center;background-size:cover;background-repeat:no-repeat;color:#506D85;",
+      "  box-sizing:border-box;background-position:center;background-size:cover;background-repeat:no-repeat;",
+      "  --bp-text-color:#506D85;color:var(--bp-text-color);",
       "  font-family:'Rubik',sans-serif;-webkit-font-smoothing:antialiased;",
       "}",
       ".bp-widget-inner{",
@@ -41,11 +42,11 @@
       ".bp-header{text-align:center;margin-bottom:30px;padding:0 16px;}",
       ".bp-title{",
       "  font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;",
-      "  font-size:44px;line-height:1;margin:0;color:#506D85;letter-spacing:1px;",
+      "  font-size:44px;line-height:1;margin:0;color:inherit;letter-spacing:1px;",
       "}",
       ".bp-slogan{",
       "  font-family:'Montserrat',sans-serif;font-weight:500;font-size:24px;",
-      "  line-height:1.25;margin:10px 0 0;color:#506D85;",
+      "  line-height:1.25;margin:10px 0 0;color:inherit;",
       "}",
       ".bp-slogan-desktop-spaces{display:none;}",
       "",
@@ -61,16 +62,16 @@
       ".bp-item{position:absolute;z-index:2;display:flex;align-items:center;}",
       ".bp-num{",
       "  font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;",
-      "  font-size:40px;line-height:1;color:#506D85;",
+      "  font-size:40px;line-height:1;color:inherit;",
       "  margin-right:18px;flex:0 0 auto;",
       "}",
       ".bp-sep{display:block;width:1px;height:45px;",
-      "  background:rgba(80,109,133,0.35);margin-right:18px;flex:0 0 auto;}",
+      "  background:var(--bp-text-color);opacity:0.35;margin-right:18px;flex:0 0 auto;}",
       ".bp-text{max-width:200px;}",
       ".bp-item-title{font-family:'Rubik',sans-serif;font-weight:500;",
-      "  font-size:21px;line-height:1.15;color:#506D85;margin:0;}",
+      "  font-size:21px;line-height:1.15;color:inherit;margin:0;}",
       ".bp-item-desc{font-family:'Rubik',sans-serif;font-weight:400;",
-      "  font-size:14px;line-height:1.35;color:rgba(80,109,133,0.78);margin-top:4px;}",
+      "  font-size:14px;line-height:1.35;color:inherit;opacity:0.78;margin-top:4px;}",
       "",
       "/* Posiciones escalonadas tipo reloj, simétricas (desktop) */",
       "@media (min-width:901px){",
@@ -231,7 +232,7 @@
     setTimeout(refresh, 400);
   }
 
-  // Leer imágenes desde un listado dinámico del CMS en la página
+  // Leer imágenes y configuraciones desde un listado dinámico del CMS en la página
   function readImagesFromCMS() {
     var source = document.querySelector('.jypesa-beneficios-cms-source');
     if (!source) {
@@ -244,15 +245,16 @@
 
     var centralImgEl = source.querySelector('.jypesa-beneficios-col-central-img');
     var bgImgEl = source.querySelector('.jypesa-beneficios-col-bg-img');
+    var textColorEl = source.querySelector('.jypesa-beneficios-col-text-color');
 
     var centralImg = centralImgEl ? (centralImgEl.getAttribute('src') || centralImgEl.src) : null;
     var bgImg = bgImgEl ? (bgImgEl.getAttribute('src') || bgImgEl.src) : null;
-
-    if (!centralImg && !bgImg) return null;
+    var textColor = textColorEl ? textColorEl.textContent.trim() : null;
 
     return {
       centralImg: centralImg,
-      bgImg: bgImg
+      bgImg: bgImg,
+      textColor: textColor
     };
   }
 
@@ -270,15 +272,22 @@
 
       var customCentralImg = target.getAttribute('data-central-img');
       var customBgImg = target.getAttribute('data-bg-img');
+      var customTextColor = target.getAttribute('data-text-color');
 
       var centralImg = customCentralImg || (cmsData && cmsData.centralImg) || SOAP_IMG;
       var bgImg = customBgImg || (cmsData && cmsData.bgImg) || 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a567e82b6dd63d7d58888a8_background%20beneficios%20persea.webp';
+      var textColor = customTextColor || (cmsData && cmsData.textColor) || null;
 
       target.innerHTML = buildHtml(centralImg);
 
       var widgetEl = target.querySelector('.bp-widget');
-      if (widgetEl && bgImg) {
-        widgetEl.style.backgroundImage = "url('" + bgImg + "')";
+      if (widgetEl) {
+        if (bgImg) {
+          widgetEl.style.backgroundImage = "url('" + bgImg + "')";
+        }
+        if (textColor) {
+          widgetEl.style.setProperty('--bp-text-color', textColor);
+        }
       }
 
       initAnimation(target);

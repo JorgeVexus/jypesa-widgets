@@ -34,8 +34,7 @@
   left: 0;
   width: 100%;
   z-index: 2000;
-  background: var(--nav-bg);
-  backdrop-filter: blur(var(--nav-blur));
+  background: transparent;
   transition: var(--transition);
   border-bottom: 1px solid rgba(0,0,0,0.03);
 }
@@ -43,6 +42,21 @@
 .jypesa-nav-principal-widget .jypesa-nav.scrolled {
   background: rgba(255, 255, 255, 0.98);
   box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+
+/* Hover en la parte superior: fondo blanco (sin glass) igual que en scroll */
+.jypesa-nav-principal-widget .jypesa-nav:not(.scrolled):not(.nav-hidden):hover {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+.jypesa-nav-principal-widget .jypesa-nav:not(.scrolled):not(.nav-hidden):hover .logo,
+.jypesa-nav-principal-widget .jypesa-nav:not(.scrolled):not(.nav-hidden):hover .nav-link,
+.jypesa-nav-principal-widget .jypesa-nav:not(.scrolled):not(.nav-hidden):hover .action-icon,
+.jypesa-nav-principal-widget .jypesa-nav:not(.scrolled):not(.nav-hidden):hover .smart-order {
+  color: var(--text-dark);
+}
+.jypesa-nav-principal-widget .jypesa-nav:not(.scrolled):not(.nav-hidden):hover .hamburger span {
+  background: var(--text-dark);
 }
 
 .jypesa-nav-principal-widget .jypesa-nav.nav-hidden {
