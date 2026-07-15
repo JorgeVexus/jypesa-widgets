@@ -53,10 +53,10 @@
 .jypesa-nav-principal-widget .jypesa-nav:not(.scrolled):not(.nav-hidden):hover .nav-link,
 .jypesa-nav-principal-widget .jypesa-nav:not(.scrolled):not(.nav-hidden):hover .action-icon,
 .jypesa-nav-principal-widget .jypesa-nav:not(.scrolled):not(.nav-hidden):hover .smart-order {
-  color: var(--text-dark);
+  color: #506D85;
 }
 .jypesa-nav-principal-widget .jypesa-nav:not(.scrolled):not(.nav-hidden):hover .hamburger span {
-  background: var(--text-dark);
+  background: #506D85;
 }
 
 .jypesa-nav-principal-widget .jypesa-nav.nav-hidden {
@@ -162,7 +162,7 @@
 .jypesa-nav-principal-widget .jypesa-nav.scrolled .nav-link,
 .jypesa-nav-principal-widget .jypesa-nav.scrolled .action-icon,
 .jypesa-nav-principal-widget .jypesa-nav.scrolled .smart-order {
-  color: var(--text-dark);
+  color: #506D85;
 }
 
 .jypesa-nav-principal-widget .mega-menu {
@@ -320,7 +320,7 @@
 
 .jypesa-nav-principal-widget .jypesa-nav.scrolled .hamburger span,
 .jypesa-nav-principal-widget .hamburger.active span {
-  background: var(--text-dark);
+  background: #506D85;
 }
 
 .jypesa-nav-principal-widget .hamburger span:nth-child(1) { top: 0; }
