@@ -28,6 +28,7 @@
     gap: 12px;
     margin-bottom: 16px;
     width: 100%;
+    padding-right: 100px;
     box-sizing: border-box;
   }
 
