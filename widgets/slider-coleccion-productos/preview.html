@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview — Slider Colección Productos</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Rubik:wght@300;400;500;600&display=swap">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: #eaf2f6;
+    }
+
+    /* Sección demo con fondo */
+    .page-section {
+      padding: 60px 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Fondo para que las flechas glassmorphism sean visibles */
+    .section-bg {
+      background: linear-gradient(135deg, #506D85 0%, #48a9c5 100%);
+      padding: 48px 32px;
+      border-radius: 8px;
+    }
+
+    .section-bg-2 {
+      background: linear-gradient(135deg, #0e2333 0%, #506D85 100%);
+      padding: 48px 32px;
+      border-radius: 8px;
+    }
+
+    .demo-label {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 11px;
+      font-family: monospace;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .demo-divider {
+      border: none;
+      border-top: 1px solid rgba(80,109,133,0.12);
+      margin: 48px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DEMO 1: Todos los productos (sin filtro) -->
+  <div class="page-section">
+    <div class="section-bg">
+      <span class="demo-label">SIN FILTRO — todos los productos</span>
+      <div data-jypesa-scol-widget></div>
+    </div>
+  </div>
+
+  <hr class="demo-divider">
+
+  <!-- DEMO 2: Filtrado por "Botanicus" -->
+  <div class="page-section">
+    <div class="section-bg-2">
+      <span class="demo-label">data-page-filter="Botanicus"</span>
+      <div data-jypesa-scol-widget data-page-filter="Botanicus"></div>
+    </div>
+  </div>
+
+  <hr class="demo-divider">
+
+  <!-- DEMO 3: Filtrado por "Persea" -->
+  <div class="page-section">
+    <div class="section-bg">
+      <span class="demo-label">data-page-filter="Persea"</span>
+      <div data-jypesa-scol-widget data-page-filter="Persea"></div>
+    </div>
+  </div>
+
+  <script src="slider-coleccion-productos.js"></script>
+</body>
+</html>
