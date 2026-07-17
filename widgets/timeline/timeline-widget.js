@@ -42,7 +42,7 @@
 .jypesa-timeline .timeline-track {
   position: absolute;
   top: calc(75px + 37px); /* Centrado perfecto con el centro vertical de los círculos */
-  left: 0;
+  left: 17.5px; /* Comienza exactamente en el centro del primer círculo */
   width: 75%; /* Del primer dot al último dot (3 intervalos de 4 columnas = 75%) */
   height: 2px;
   z-index: 1;
@@ -249,38 +249,25 @@
 
 /* ==========================================================================
    ESTADOS DE ACTIVIDAD Y VISITA */
-.jypesa-timeline .timeline-item.active .timeline-year {
+.jypesa-timeline .timeline-item.active .timeline-year,
+.jypesa-timeline .timeline-item.visited .timeline-year {
   opacity: 1 !important;
   transform: translateY(0) !important;
   transition-delay: 0s !important;
 }
-.jypesa-timeline .timeline-item.visited:not(.active) .timeline-year {
-  opacity: 0.5 !important;
-  transform: translateY(0) !important;
-  transition-delay: 0s !important;
-}
 
-.jypesa-timeline .timeline-item.active .timeline-dot {
+.jypesa-timeline .timeline-item.active .timeline-dot,
+.jypesa-timeline .timeline-item.visited .timeline-dot {
   opacity: 1 !important;
   transform: scale(1) !important;
   transition-delay: 0s !important;
 }
-.jypesa-timeline .timeline-item.visited:not(.active) .timeline-dot {
-  opacity: 0.5 !important;
-  transform: scale(1) !important;
-  transition-delay: 0s !important;
-}
 
-.jypesa-timeline .timeline-item.active .timeline-body {
+.jypesa-timeline .timeline-item.active .timeline-body,
+.jypesa-timeline .timeline-item.visited .timeline-body {
   opacity: 1 !important;
   transform: translateY(0) !important;
   border-left-color: #48A9C5;
-  transition-delay: 0s !important;
-}
-.jypesa-timeline .timeline-item.visited:not(.active) .timeline-body {
-  opacity: 0.5 !important;
-  transform: translateY(0) !important;
-  border-left-color: rgba(72, 169, 197, 0.3);
   transition-delay: 0s !important;
 }
 
