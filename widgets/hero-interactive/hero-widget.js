@@ -227,7 +227,8 @@
 .jypesa-stat-block {
   display: flex;
   flex-direction: column;
-  text-align: left;
+  align-items: center;
+  text-align: center;
   opacity: 0;
   transform: translateY(20px);
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
@@ -236,6 +237,7 @@
 .jypesa-stat-number-wrapper {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   margin-bottom: 8px;
 }
 
@@ -278,6 +280,7 @@
   line-height: 1.5;
   color: var(--jypesa-kpis-text-muted);
   max-width: 260px;
+  margin: 0 auto;
 }
 
 @keyframes flowRight {
