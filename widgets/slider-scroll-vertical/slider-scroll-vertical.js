@@ -55,7 +55,7 @@
     padding: 6vh 6vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     position: relative;
     z-index: 10;
   }
