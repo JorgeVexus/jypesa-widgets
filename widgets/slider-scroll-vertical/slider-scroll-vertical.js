@@ -140,7 +140,7 @@
     width: 228px;
     height: 1px;
     background-color: var(--jypesa-sust-text);
-    margin: 25px 0;
+    margin: 45px 0;
     transition: opacity 0.5s ease;
     opacity: 0;
   }
@@ -445,7 +445,7 @@
       padding: 12px 24px;
     }
     .jypesa-sust-divider {
-      margin: 15px 0;
+      margin: 30px 0;
     }
     .jypesa-sust-desktop-bottom {
       height: 240px; /* Altura fija en pixel estable */
@@ -485,7 +485,7 @@
       padding: 10px 20px;
     }
     .jypesa-sust-divider {
-      margin: 10px 0;
+      margin: 20px 0;
     }
     .jypesa-sust-desktop-bottom {
       height: 220px; /* Altura fija reducida */
@@ -517,7 +517,7 @@
       gap: 10px;
     }
     .jypesa-sust-divider {
-      margin: 8px 0;
+      margin: 18px 0;
     }
     .jypesa-sust-desktop-bottom {
       height: 220px; /* Altura fija reducida para pantallas de baja altura */
