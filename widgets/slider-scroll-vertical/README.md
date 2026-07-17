@@ -30,6 +30,7 @@ Crea una colección llamada **Diapositivas de Sustentabilidad** en Webflow para 
 | **Descripción** | Plain Text / Rich | `.jypesa-sust-prod-desc` | Texto descriptivo de la diapositiva | `Sistemas de dispensación recargables...` |
 | **Imagen Principal** | Image | `.jypesa-sust-prod-img` | Imagen lateral derecha (desktop) o superior (móvil) | (Imagen del CMS) |
 | **Logo Especial** | Image (Opcional) | `.jypesa-sust-prod-logo` | Logo que reemplaza al título (ej: Nocean en Slide 1) | (Logo de Nocean) |
+| **Imagen de Certificaciones** | Image (Opcional) | `.jypesa-sust-prod-certs-img` | Imagen de contenedor de certificaciones (Slide 4) | (Imagen Certifications Container.png) |
 | **Mostrar Certificaciones** | Switch / Boolean | `.jypesa-sust-prod-show-certs` | Activa la fila de certificaciones en el Slide 4 | `True` o `False` |
 
 ---
@@ -47,6 +48,7 @@ Dentro del **Collection Item** (`.w-dyn-item`), debes enlazar los elementos a su
 | **`.jypesa-sust-prod-desc`** | Text Block | **Descripción** |
 | **`.jypesa-sust-prod-img`** | Image | **Imagen Principal** (elemento `img` nativo) |
 | **`.jypesa-sust-prod-logo`** | Image | **Logo Especial** (elemento `img` nativo) |
+| **`.jypesa-sust-prod-certs-img`** | Image | **Imagen de Certificaciones** (elemento `img` nativo) |
 | **`.jypesa-sust-prod-show-certs`** | Text Block | **Mostrar Certificaciones** (añadir texto dinámico ej: `true` / `false`) |
 
 ---

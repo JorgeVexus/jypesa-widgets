@@ -545,6 +545,7 @@
         slideDesc: getVal('.jypesa-sust-prod-desc'),
         slideImg: getVal('.jypesa-sust-prod-img', 'src'),
         logoSpecial: getVal('.jypesa-sust-prod-logo', 'src'),
+        certsImgSrc: getVal('.jypesa-sust-prod-certs-img', 'src'),
         showCerts: showCerts
       });
     });
@@ -573,8 +574,17 @@
           ? `<img class="jypesa-sust-slide-logo" src="${slide.logoSpecial}" alt="Logo">`
           : `<h3 class="jypesa-sust-slide-title">${slide.slideTitle}</h3>`;
 
+        const hasCertsImg = slide.certsImgSrc && 
+                            slide.certsImgSrc.trim() !== '' && 
+                            !slide.certsImgSrc.includes('placeholder') &&
+                            slide.certsImgSrc !== '#';
+
+        const certsImgToUse = hasCertsImg 
+          ? slide.certsImgSrc 
+          : `${basePath}assets/images/slider scroll vertical home/Certifications Container.png`;
+
         const certsRow = slide.showCerts
-          ? `<img class="jypesa-sust-certs-img" src="${basePath}assets/images/slider scroll vertical home/Certifications Container.png" alt="Certificaciones" loading="lazy">`
+          ? `<img class="jypesa-sust-certs-img" src="${certsImgToUse}" alt="Certificaciones" loading="lazy">`
           : '';
 
         return `
@@ -609,8 +619,17 @@
           ? `<img class="jypesa-sust-slide-logo" src="${slide.logoSpecial}" alt="Logo" style="height: 55px;">`
           : `<h3 class="jypesa-sust-mobile-slide-title">${slide.slideTitle}</h3>`;
 
+        const hasCertsImg = slide.certsImgSrc && 
+                            slide.certsImgSrc.trim() !== '' && 
+                            !slide.certsImgSrc.includes('placeholder') &&
+                            slide.certsImgSrc !== '#';
+
+        const certsImgToUse = hasCertsImg 
+          ? slide.certsImgSrc 
+          : `${basePath}assets/images/slider scroll vertical home/Certifications Container.png`;
+
         const certsRow = slide.showCerts
-          ? `<img class="jypesa-sust-certs-img-mobile" src="${basePath}assets/images/slider scroll vertical home/Certifications Container.png" alt="Certificaciones" loading="lazy">`
+          ? `<img class="jypesa-sust-certs-img-mobile" src="${certsImgToUse}" alt="Certificaciones" loading="lazy">`
           : '';
 
         return `
