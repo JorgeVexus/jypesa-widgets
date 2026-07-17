@@ -253,7 +253,7 @@
         <h3 class="jypesa-card-title">Producción</h3>
         <p class="jypesa-card-desc">Desarrollo y fabricación de amenidades con control de calidad en cada etapa.</p>
         <button class="jypesa-card-btn" tabindex="-1">
-          Ver colecciones
+          Saber más
           ${arrowSvg}
         </button>
       </div>
