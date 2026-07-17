@@ -149,7 +149,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 56px;
+    padding: 0; /* Padding lateral removido según solicitud */
     overflow: hidden;
     max-width: 1850px;
     margin: 0 auto;
@@ -192,7 +192,7 @@
 
   /* Columna central de textos */
   .jypesa-disp-split-col-center {
-    width: calc(100% - 930px - 112px); /* Ancho restante del contenedor */
+    width: calc(100% - 930px); /* Ancho restante del contenedor (sin padding lateral) */
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -301,19 +301,54 @@
   }
 
   /* ── RESPONSIVIDAD GENERAL ── */
-  @media (max-width: 1440px) {
+  /* ── RESPONSIVIDAD GENERAL DE ESCRITORIO (Laptops & Pantallas Medianas/Pequeñas) ── */
+  @media (min-width: 992px) and (max-width: 1440px) {
     .jypesa-disp-split-desktop-sticky {
-      padding: 0 30px;
+      padding: 0;
     }
     .jypesa-disp-split-col-left,
     .jypesa-disp-split-col-right {
-      width: 32%;
+      width: 380px; /* Ancho reducido de imágenes */
     }
     .jypesa-disp-split-col-center {
-      width: 32%;
+      width: calc(100% - 760px); /* Ancho dinámico restante */
     }
     .jypesa-disp-main-title {
       font-size: 50px;
+    }
+    .jypesa-disp-intro-desc {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1200px) {
+    .jypesa-disp-split-desktop-sticky {
+      padding: 0;
+    }
+    .jypesa-disp-split-col-left,
+    .jypesa-disp-split-col-right {
+      width: 300px; /* Ancho de imágenes más compacto */
+    }
+    .jypesa-disp-split-col-center {
+      width: calc(100% - 600px); /* Más espacio libre para los textos */
+    }
+    .jypesa-disp-main-title {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+    .jypesa-disp-intro-desc {
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+    .jypesa-disp-destacable {
+      margin-bottom: 15px;
+    }
+    .jypesa-disp-destacable p {
+      font-size: 18px;
+    }
+    .jypesa-disp-btn {
+      font-size: 16px;
+      padding: 12px 24px;
     }
   }
 
