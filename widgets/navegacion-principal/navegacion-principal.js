@@ -104,11 +104,31 @@
   font-weight: 500;
   padding: 10px 0;
   cursor: pointer;
+  position: relative;
   transition: var(--transition);
+}
+
+.jypesa-nav-principal-widget .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--secondary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .jypesa-nav-principal-widget .nav-link:hover {
   color: var(--secondary);
+}
+
+.jypesa-nav-principal-widget .nav-link:hover::after,
+.jypesa-nav-principal-widget .nav-link-item:hover .nav-link::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .jypesa-nav-principal-widget .nav-actions {
@@ -137,7 +157,31 @@
   font-weight: 500;
   color: var(--white);
   text-decoration: none;
+  position: relative;
+  padding: 10px 0;
   transition: var(--transition);
+}
+
+.jypesa-nav-principal-widget .smart-order::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--secondary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.jypesa-nav-principal-widget .smart-order:hover {
+  color: var(--secondary);
+}
+
+.jypesa-nav-principal-widget .smart-order:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .jypesa-nav-principal-widget .btn-contact {
@@ -295,9 +339,35 @@
   padding-left: 4px;
 }
 
-.jypesa-nav-principal-widget .dispensadores-row {
+/* Fila inferior de Dispensadores y Accesorios */
+.jypesa-nav-principal-widget .category-block-bottom {
+  border-top: 1px solid rgba(80, 109, 133, 0.2);
+  padding-top: 24px;
+  margin-top: 10px;
+  display: flex;
+  gap: 150px;
+}
+
+.jypesa-nav-principal-widget .dispensadores-col,
+.jypesa-nav-principal-widget .accesorios-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.jypesa-nav-principal-widget .dispensadores-col .dispensadores-row,
+.jypesa-nav-principal-widget .accesorios-col .accesorios-row {
   display: flex;
   gap: 120px;
+}
+
+.jypesa-nav-principal-widget .cat-label-link {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.jypesa-nav-principal-widget .cat-label-link:hover .cat-label {
+  color: var(--secondary);
 }
 
 .jypesa-nav-principal-widget .hamburger {
@@ -509,11 +579,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="category-block">
-                                <p class="cat-label">DISPENSADORES</p>
-                                <div class="dispensadores-row">
-                                    <a href="#" class="option-link" data-p="Soportes">Soportes</a>
-                                    <a href="#" class="option-link" data-p="Sistemas">Sistemas de dispensación</a>
+                            <div class="category-block-bottom">
+                                <div class="dispensadores-col">
+                                    <p class="cat-label">DISPENSADORES</p>
+                                    <div class="dispensadores-row">
+                                        <a href="/soportes" class="option-link" data-p="Soportes">Soportes</a>
+                                        <a href="/sistemas-de-dispensacion" class="option-link" data-p="Sistemas">Sistemas de dispensación</a>
+                                    </div>
+                                </div>
+                                <div class="accesorios-col">
+                                    <a href="/accesorios" class="cat-label-link"><p class="cat-label">ACCESORIOS</p></a>
+                                    <div class="accesorios-row">
+                                        <a href="/accesorios" class="option-link" data-p="Lavarino">Lavarino</a>
+                                        <a href="/accesorios" class="option-link" data-p="Nocean">Nocean</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -569,7 +648,7 @@
             <a href="#" class="action-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
             </a>
-            <a href="/order" class="smart-order">
+            <a href="https://sm.jypesa.com/jypesa/public/login" class="smart-order" target="_blank" rel="noopener noreferrer">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 Smart order
             </a>
@@ -593,13 +672,17 @@
             <div class="mob-trigger">Productos <span>+</span></div>
             <div class="mob-submenu">
                 <div class="mob-cat-title">Colecciones</div>
-                <a href="#" class="mob-link">Estándar (Elements, Tea Leaf...)</a>
-                <a href="#" class="mob-link">Superior (Cava, Biogena...)</a>
-                <a href="#" class="mob-link">Premium (Vervan, Hawaiian...)</a>
-                <a href="#" class="mob-link">Lujo (Botanicaromatica, Xinu)</a>
+                <a href="/productos#colecciones" class="mob-link">Estándar (Elements, Tea Leaf...)</a>
+                <a href="/productos#colecciones" class="mob-link">Superior (Cava, Biogena...)</a>
+                <a href="/productos#colecciones" class="mob-link">Premium (Vervan, Hawaiian...)</a>
+                <a href="/productos#colecciones" class="mob-link">Lujo (Botanicaromatica, Xinu)</a>
                 <div class="mob-cat-title">Dispensadores</div>
-                <a href="#" class="mob-link">Soportes</a>
-                <a href="#" class="mob-link">Sistemas de dispensación</a>
+                <a href="/soportes" class="mob-link">Soportes</a>
+                <a href="/sistemas-de-dispensacion" class="mob-link">Sistemas de dispensación</a>
+                <div class="mob-cat-title">Accesorios</div>
+                <a href="/accesorios" class="mob-link">Ver todos los accesorios</a>
+                <a href="/accesorios" class="mob-link">Lavarino</a>
+                <a href="/accesorios" class="mob-link">Nocean</a>
             </div>
         </li>
         <li class="mob-item">
@@ -640,7 +723,10 @@
         'Xinu': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1fce91ebe09257f40e_Xinu%C3%8C%C2%81%20menu%C3%8C%C2%81.webp',
         'Persea': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e1fc216bcbf94bff1_Persea%20menu%C3%8C%C2%81.webp',
         'Lavarino': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e54ff69caf5c7db28_Lavarino%20menu%C3%8C%C2%81.webp',
+        'Nocean': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e54ff69caf5c7db28_Lavarino%20menu%C3%8C%C2%81.webp',
         'Elements': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1efc9fb63da3bbe96f_Elements%20menu%C3%8C%C2%81.webp',
+        'Sistemas': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1efc9fb63da3bbe96f_Elements%20menu%C3%8C%C2%81.webp',
+        'Soportes': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1efc9fb63da3bbe96f_Elements%20menu%C3%8C%C2%81.webp',
         'Tresemme': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e66dcf59e15d3c2ca_Tresemme%20menu%C3%8C%C2%81.webp',
         'Tea Leaf': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d8292eb38827b77f0_Tea%20Leaf%20manu%C3%8C%C2%81.webp',
         'Botanicaromatica': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1df209c74d9a0bf46c_botanicaromatica%20menu%C3%8C%C2%81.webp',

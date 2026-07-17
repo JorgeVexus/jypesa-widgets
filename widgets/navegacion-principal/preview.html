@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview — Navegación Principal Premium</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0b0f19;
+      color: #eaecee;
+      font-family: 'Montserrat', sans-serif;
+      min-height: 250vh;
+    }
+
+    /* CONTENEDOR HERO DE SIMULACIÓN */
+    .hero-simulation {
+      height: 100vh;
+      width: 100%;
+      background: linear-gradient(135deg, #1b2530 0%, #0d121b 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .hero-simulation h1 {
+      font-size: 48px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
+    }
+
+    .hero-simulation p {
+      font-size: 18px;
+      color: #9cb4c5;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .scroll-down-hint {
+      position: absolute;
+      bottom: 40px;
+      font-weight: bold;
+      color: #48A9C5;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-10px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* SECCIÓN DE CONTENIDO SCROLLABLE */
+    .scroll-content-simulation {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+
+    .content-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+
+    .content-box h2 {
+      font-size: 24px;
+      color: #ffffff;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #506D85;
+      padding-bottom: 10px;
+      width: fit-content;
+    }
+
+    .content-box p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #cfd6dc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Contenedor del Widget de Navegación Principal -->
+  <div id="jypesa-nav-principal-widget"></div>
+
+  <!-- Hero de Simulación -->
+  <div class="hero-simulation">
+    <h1>Cabecera Navegación Principal</h1>
+    <p>
+      Este panel simula el header del sitio web de Jypesa. En la parte superior, la navegación es transparente con textos blancos. Al deslizarse hacia abajo, se activa el modo sólido y los textos cambian al color primario.
+    </p>
+    <div class="scroll-down-hint">
+      👇 Desliza hacia abajo para ver la barra en modo scroll sólido 👇
+    </div>
+  </div>
+
+  <!-- Contenido de Relleno para Scroll -->
+  <div class="scroll-content-simulation">
+    <div class="content-box">
+      <h2>Prueba de Mega Menú (Productos)</h2>
+      <p>
+        Pasa el cursor sobre el enlace <strong>Productos</strong> en el header superior para abrir el Mega Menú de diseño Figma. Observa que en la parte inferior se ha incorporado la fila con la columna de <strong>Dispensadores</strong> y la columna de <strong>Accesorios</strong> (Lavarino y Nocean).
+      </p>
+    </div>
+
+    <div class="content-box">
+      <h2>Efecto de Subrayado (Hover Underline)</h2>
+      <p>
+        Al posar el cursor sobre cualquiera de los enlaces de la navegación principal (Nosotros, Productos, Soluciones, Desarrollo, Sustentabilidad o Blog), una línea azulada de 2px de altura se despliega fluidamente. Si entras a un Mega Menú, la línea del enlace correspondiente se mantiene activa para denotar la sección abierta.
+      </p>
+    </div>
+
+    <div class="content-box">
+      <h2>Actualización de Enlaces</h2>
+      <p>
+        El botón de <strong>Smart Order</strong> ha sido configurado para redirigir directamente al sitio externo <code>https://sm.jypesa.com/jypesa/public/login</code> abriéndose en una pestaña nueva. Los enlaces de Sistemas de Dispensación y Accesorios enrutan a las direcciones relativas correspondientes del dominio actual de producción.
+      </p>
+    </div>
+  </div>
+
+  <!-- Cargar Widget JS -->
+  <script src="./navegacion-principal.js"></script>
+</body>
+</html>
