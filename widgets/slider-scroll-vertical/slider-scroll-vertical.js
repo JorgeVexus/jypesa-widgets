@@ -535,7 +535,9 @@
       };
 
       const showCertsText = getVal('.jypesa-sust-prod-show-certs').toLowerCase();
-      const showCerts = ['true', 'yes', '1', 'si', 'sí'].includes(showCertsText);
+      // Si es el slide 04 o 4, o si el switch está activado, mostrar certificaciones
+      const isFourthSlide = indexNumber === '04' || indexNumber === '4';
+      const showCerts = isFourthSlide || ['true', 'yes', '1', 'si', 'sí'].includes(showCertsText);
 
       slides.push({
         indexNumber: indexNumber,
@@ -547,6 +549,13 @@
       });
     });
 
+    // Ordenar las diapositivas ascendente según su número de índice para evitar orden invertido de Webflow
+    slides.sort((a, b) => {
+      const idxA = parseInt(a.indexNumber, 10) || 0;
+      const idxB = parseInt(b.indexNumber, 10) || 0;
+      return idxA - idxB;
+    });
+
     return slides.length ? slides : null;
   }
 
@@ -555,7 +564,12 @@
     // ── HTML Desktop Left Column Blocks ──
     const desktopLeftBlocks = slides
       .map((slide, idx) => {
-        const titleOrLogo = slide.logoSpecial 
+        const hasLogo = slide.logoSpecial && 
+                        slide.logoSpecial.trim() !== '' && 
+                        !slide.logoSpecial.includes('placeholder') &&
+                        slide.logoSpecial !== '#';
+
+        const titleOrLogo = hasLogo 
           ? `<img class="jypesa-sust-slide-logo" src="${slide.logoSpecial}" alt="Logo">`
           : `<h3 class="jypesa-sust-slide-title">${slide.slideTitle}</h3>`;
 
@@ -586,7 +600,12 @@
     // ── HTML Mobile Swipe Carousel Slides ──
     const mobileSlides = slides
       .map((slide, idx) => {
-        const titleOrLogo = slide.logoSpecial 
+        const hasLogo = slide.logoSpecial && 
+                        slide.logoSpecial.trim() !== '' && 
+                        !slide.logoSpecial.includes('placeholder') &&
+                        slide.logoSpecial !== '#';
+
+        const titleOrLogo = hasLogo 
           ? `<img class="jypesa-sust-slide-logo" src="${slide.logoSpecial}" alt="Logo" style="height: 55px;">`
           : `<h3 class="jypesa-sust-mobile-slide-title">${slide.slideTitle}</h3>`;
 
