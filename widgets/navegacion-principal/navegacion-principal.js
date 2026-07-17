@@ -233,7 +233,6 @@
   margin: 0 auto;
   min-height: 480px;
   display: flex;
-  position: relative;
   padding: 40px 110px 60px 40px;
 }
 
@@ -245,6 +244,12 @@
   height: 100%;
   background: #F9F9F9;
   overflow: hidden;
+}
+
+@media (min-width: 1441px) {
+  .jypesa-nav-principal-widget .visual-block {
+    width: calc(50vw - 60px);
+  }
 }
 
 .jypesa-nav-principal-widget .visual-block img {
