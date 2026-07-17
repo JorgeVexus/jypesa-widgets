@@ -49,7 +49,7 @@
      ESTILOS
      ========================================================== */
   const cssStyles = `
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Rubik:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Rubik:wght@300;400;500;600&display=swap');
 
 .jypesa-cobertura-global-widget {
   --jypesa-cg-bg: #EEF7FA;
@@ -75,52 +75,56 @@
 .jypesa-cg-header {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem 2rem 0;
+  padding: 3rem 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
   opacity: 0;
   animation: jypesaCgFadeUp 0.7s ease forwards;
 }
 
-.jypesa-cg-eyebrow {
-  font-family: 'Rubik', sans-serif;
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--jypesa-cg-accent-office);
-  margin-bottom: 0.4rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.jypesa-cg-eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 18px;
-  height: 2px;
-  background: var(--jypesa-cg-accent-office);
-  border-radius: 2px;
-}
-
-.jypesa-cg-header h1 {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
-  font-weight: 400;
-  font-style: italic;
+.jypesa-cg-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 50px; /* Exactos 50px en desktop */
+  font-weight: 500;
   line-height: 1.15;
-  color: #1a2e3f;
-  max-width: 440px;
+  color: #506D85;
   margin: 0;
+  text-align: left;
+}
+
+.jypesa-cg-title-line {
+  display: block;
+  white-space: nowrap;
 }
 
 .jypesa-cg-subtitle {
-  margin-top: 0.5rem;
   font-family: 'Rubik', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 300;
-  color: var(--jypesa-cg-text-city);
-  max-width: 420px;
-  line-height: 1.5;
+  font-size: clamp(14px, 1.2vw, 18px);
+  font-weight: 400;
+  color: #506D85;
+  max-width: 671px;
+  line-height: 1.35;
+  margin: 0;
+  text-align: right;
+}
+
+@media (max-width: 991px) {
+  .jypesa-cg-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 2rem 1.5rem 0;
+  }
+  .jypesa-cg-title {
+    font-size: clamp(20px, 6.2vw, 42px); /* Escala responsiva en pantallas medianas y chicas */
+  }
+  .jypesa-cg-subtitle {
+    max-width: 100%;
+    text-align: left;
+    font-size: 15px;
+  }
 }
 
 .jypesa-cg-map-section {
@@ -422,8 +426,10 @@
   function buildWidgetHtml() {
     return `
 <div class="jypesa-cg-header">
-  <div class="jypesa-cg-eyebrow">Presencia global</div>
-  <h1>Cobertura estratégica y distribución eficiente</h1>
+  <h1 class="jypesa-cg-title">
+    <span class="jypesa-cg-title-line">Cobertura estratégica</span>
+    <span class="jypesa-cg-title-line">y distribución eficiente</span>
+  </h1>
   <p class="jypesa-cg-subtitle">Integramos producción, operación y distribución para asegurar cobertura, rapidez y consistencia en cada entrega, donde sea que nos necesites.</p>
 </div>
 
