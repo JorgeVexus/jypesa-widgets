@@ -25,7 +25,7 @@
     flex-wrap: nowrap;
     width: max-content;
     will-change: transform;
-    animation: jypesa-partners-marquee-scroll var(--jypesa-marquee-duration, 40s) linear infinite;
+    animation: jypesa-partners-marquee-scroll var(--jypesa-marquee-duration, 20s) linear infinite;
   }
 
   .jypesa-partners-marquee-item {
@@ -153,9 +153,9 @@
       if (target.getAttribute('data-initialized') === 'true') return;
       target.setAttribute('data-initialized', 'true');
 
-      // Leer la duración del scroll desde el data attribute (ej: data-duration="50s")
-      // Por defecto irá a 40s (súper suave y lento)
-      const duration = target.getAttribute('data-duration') || '40s';
+      // Leer la duración del scroll desde el data attribute (ej: data-duration="30s")
+      // Por defecto irá a 20s
+      const duration = target.getAttribute('data-duration') || '20s';
 
       // Inyectar HTML del carrusel
       target.innerHTML = `
