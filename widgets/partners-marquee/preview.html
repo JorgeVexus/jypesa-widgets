@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview — Carrusel Infinito de Socios (Marquee)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      background: #f4f6f8;
+      color: #333333;
+      padding: 40px 20px;
+    }
+
+    .preview-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .preview-info {
+      background: #eaf2f8;
+      border-left: 4px solid #506D85;
+      padding: 20px;
+      margin-bottom: 40px;
+      border-radius: 4px;
+      color: #506D85;
+    }
+
+    .preview-info h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .preview-info p {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .preview-section {
+      margin-bottom: 50px;
+      padding: 20px;
+      background: #fafbfc;
+      border-radius: 8px;
+      border: 1px solid rgba(80,109,133,0.1);
+    }
+
+    .preview-section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #506D85;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="preview-container">
+    
+    <div class="preview-info">
+      <h1>Panel de Pruebas — Carrusel Infinito de Socios (Marquee)</h1>
+      <p>
+        Este widget crea un carrusel de desplazamiento horizontal continuo y sutil. Resuelve la duplicidad automática de los logos en JavaScript para garantizar un bucle infinito seamless en Webflow sin tener que cargar múltiples logos repetidos en el CMS.
+      </p>
+    </div>
+
+    <!-- SECCIÓN 1: CON CONFIGURACIÓN POR DEFECTO (40s - LENTO Y SUAVE) -->
+    <div class="preview-section">
+      <div class="preview-section-title">
+        Instancia 1 — Velocidad por Defecto (Muy Suave / 40s de ciclo)
+      </div>
+      <!-- Widget Contenedor -->
+      <div class="jypesa-partners-marquee-widget"></div>
+    </div>
+
+    <!-- SECCIÓN 2: VELOCIDAD PERSONALIZADA (20s - MÁS RÁPIDO) -->
+    <div class="preview-section">
+      <div class="preview-section-title">
+        Instancia 2 — Velocidad Personalizada (data-duration="20s" - Ciclo más rápido)
+      </div>
+      <!-- Widget Contenedor con duración personalizada -->
+      <div class="jypesa-partners-marquee-widget" data-duration="20s"></div>
+    </div>
+
+    <!-- SECCIÓN 3: SIMULACIÓN DE POCOS LOGOS CMS (REPLICACIÓN AUTOMÁTICA) -->
+    <div class="preview-section">
+      <div class="preview-section-title">
+        Instancia 3 — Simulación CMS Dinámico (Solo 3 logos en la colección - Autoreplicados en JS)
+      </div>
+      <p style="font-size: 14px; color: #666; margin-bottom: 20px;">
+        Esta instancia lee el CMS de abajo que solo tiene 3 logos (Elements, Tea Leaf, Rainforest). El JS los repite automáticamente hasta superar el ancho de pantalla para evitar gaps antes de iniciar el loop.
+      </p>
+
+      <!-- CMS List simulado (display: none) -->
+      <div class="jypesa-partners-marquee-cms-source" style="display: none;">
+        <div class="w-dyn-item">
+          <img class="jypesa-partners-marquee-cms-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e72767d30050a400a0bcf_elements%2001.avif" alt="Logo 1">
+        </div>
+        <div class="w-dyn-item">
+          <img class="jypesa-partners-marquee-cms-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7276ffc51ee72ae73f41_tea%20leaf%2002.avif" alt="Logo 2">
+        </div>
+        <div class="w-dyn-item">
+          <img class="jypesa-partners-marquee-cms-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7277d307b0bb54574407_rainforest%2003.avif" alt="Logo 3">
+        </div>
+      </div>
+
+      <!-- El script leerá la fuente del CMS simulado arriba e inyectará el carrusel en esta instancia -->
+      <div data-jypesa-partners-marquee-widget data-duration="30s"></div>
+    </div>
+
+  </div>
+
+  <!-- Cargar Widget JS -->
+  <script src="./partners-marquee.js"></script>
+</body>
+</html>
