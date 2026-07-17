@@ -10,841 +10,588 @@
   document.head.appendChild(fontLink);
 
   const css = `
-  /* ── VARIABLES & RESET ── */
+  /* ── VARIABLES Y ESTILOS GENERALES ── */
   :root {
     --jypesa-disp-slate: #506D85;
-    --jypesa-disp-blue: #48A9C5;
-    --jypesa-disp-blue-hover: #398ea7;
     --jypesa-disp-border: rgba(80, 109, 133, 0.3);
-    --jypesa-disp-text-dim: rgba(37, 40, 42, 0.5);
   }
 
-  .jypesa-disp-widget-wrapper {
+  .jypesa-disp-split-widget {
     width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
+    background-color: #ffffff;
     font-family: 'Rubik', sans-serif;
     color: var(--jypesa-disp-slate);
     box-sizing: border-box;
-    padding: 16px 12px;
-    background: transparent;
+    overflow: hidden;
   }
 
-  .jypesa-disp-widget-wrapper * {
+  .jypesa-disp-split-widget * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
 
-  /* ── CABECERA ── */
-  .jypesa-disp-header {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin-bottom: 35px;
-    width: 100%;
-    align-items: flex-start;
+  /* ── COLUMNA CENTRAL: TEXTOS Y BOTONES ── */
+  .jypesa-disp-destacable {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid var(--jypesa-disp-slate);
+    padding: 10px 0;
+    margin-bottom: 25px;
+    width: fit-content;
   }
 
-  .jypesa-disp-title-wrap {
-    border-bottom: 2px solid var(--jypesa-disp-slate);
-    padding-bottom: 10px;
+  .jypesa-disp-destacable p {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 1.05px;
+    color: var(--jypesa-disp-slate);
+    text-transform: none;
+  }
+
+  .jypesa-disp-main-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 70px;
+    line-height: 1.15;
+    color: var(--jypesa-disp-slate);
+    text-align: center;
+    max-width: 1148px;
+    margin-bottom: 25px;
+  }
+
+  /* Cursiva con degradado para el título */
+  .jypesa-disp-split-italic-highlight {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    background: linear-gradient(90deg, #48A9C5 0%, #0088BD 50%, #9EF4F5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     display: inline-block;
   }
 
-  .jypesa-disp-section-title {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-size: 25px;
-    font-weight: 400;
-    line-height: normal;
-    color: var(--jypesa-disp-slate);
-    letter-spacing: 1.05px;
-    white-space: nowrap;
-  }
-
-  .jypesa-disp-section-desc {
+  .jypesa-disp-intro-desc {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
     font-size: 18px;
-    line-height: 1.35;
+    line-height: 1.45;
     color: var(--jypesa-disp-slate);
-    width: 100%;
-  }
-
-  /* ── CONTENEDOR GRID / SCROLL ── */
-  .jypesa-disp-track {
-    display: flex;
-    gap: 20px;
-    align-items: stretch;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none; /* Firefox */
-    -webkit-overflow-scrolling: touch;
-    padding: 10px 4px 30px 4px;
-    margin: 0 -4px -10px -4px;
-  }
-
-  .jypesa-disp-track::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
-  }
-
-  /* ── COLUMNA DE PRODUCTO ── */
-  .jypesa-disp-column {
-    flex: 0 0 100%;
-    width: 100%;
-    background: #ffffff;
-    padding: 20px 16px 30px 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    scroll-snap-align: center;
-    border-radius: 8px;
-    border: 1px solid rgba(80, 109, 133, 0.15);
-    box-shadow: 0 4px 12px rgba(80, 109, 133, 0.04);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .jypesa-disp-column:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 32px rgba(80, 109, 133, 0.1);
-  }
-
-  .jypesa-disp-card {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    width: 100%;
-    height: 100%;
-    justify-content: space-between;
-  }
-
-  .jypesa-disp-card-top {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    width: 100%;
-  }
-
-  /* ── DISPLAY DE IMAGEN PRINCIPAL ── */
-  .jypesa-disp-display {
-    width: 100%;
-    height: 287px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .jypesa-disp-main-img-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-  }
-
-  .jypesa-disp-main-img {
-    max-width: 90%;
-    max-height: 90%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    transition: opacity 0.25s ease-in-out, transform 0.4s ease;
-  }
-
-  .jypesa-disp-column:hover .jypesa-disp-main-img {
-    transform: scale(1.03);
-  }
-
-  /* TAG DE CATEGORÍA */
-  .jypesa-disp-tag {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 4px 12px;
-    border-radius: 2px;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .jypesa-disp-tag p {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: normal;
-    color: #ffffff;
-    white-space: nowrap;
-  }
-
-  /* ── MINIATURAS (THUMBNAILS) ── */
-  .jypesa-disp-thumbs-container {
-    border-top: 1px solid var(--jypesa-disp-border);
-    padding-top: 8px;
-    display: flex;
-    gap: 8px;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    min-height: 60px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  
-  .jypesa-disp-thumbs-container::-webkit-scrollbar {
-    display: none;
-  }
-
-  .jypesa-disp-thumb-btn {
-    width: 50px;
-    height: 50px;
-    background: #ffffff;
-    border: 1.5px solid transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px;
-    transition: border-color 0.2s ease, opacity 0.2s ease;
-    flex-shrink: 0;
-    outline: none;
-  }
-
-  .jypesa-disp-thumb-btn:hover {
-    border-color: var(--jypesa-disp-blue);
-  }
-
-  .jypesa-disp-thumb-btn.active {
-    border-color: var(--jypesa-disp-slate);
-  }
-
-  .jypesa-disp-thumb-img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-  }
-
-  /* ── INFORMACIÓN Y DETALLES ── */
-  .jypesa-disp-info-container {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    width: 100%;
-    padding-top: 14px;
-  }
-
-  .jypesa-disp-name {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    font-size: 28px; /* Reducido a 28px en móvil */
-    line-height: 1.1;
-    color: var(--jypesa-disp-slate);
-    letter-spacing: -0.5px;
-  }
-
-  .jypesa-disp-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px 16px;
-    width: 100%;
-  }
-
-  .jypesa-disp-grid-cell {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .jypesa-disp-grid-label {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: normal;
-    color: var(--jypesa-disp-text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .jypesa-disp-grid-value {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.3;
-    color: var(--jypesa-disp-slate);
-  }
-
-  .jypesa-disp-desc {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.35;
-    color: var(--jypesa-disp-slate);
-    width: 100%;
-    min-height: auto; /* Sin altura mínima en móvil */
-  }
-
-  /* ── BOTONES DE ACCIÓN ── */
-  .jypesa-disp-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-    margin-top: auto;
+    text-align: center;
+    max-width: 732px;
+    margin-bottom: 35px;
   }
 
   .jypesa-disp-btn {
-    width: 100%;
-    height: 40px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    border-radius: 6px;
-    text-decoration: none;
+    background-color: var(--jypesa-disp-slate);
+    color: #ffffff;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: 13px; /* figma era 14px */
-    letter-spacing: 0.7px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    font-size: 18px;
+    letter-spacing: 0.9px;
+    padding: 15px 30px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
     border: none;
     outline: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
   }
 
-  .jypesa-disp-btn-primary {
-    background: var(--jypesa-disp-blue);
-    color: #ffffff;
-  }
-
-  .jypesa-disp-btn-primary:hover {
-    background: var(--jypesa-disp-blue-hover);
-    box-shadow: 0 4px 10px rgba(72, 169, 197, 0.2);
-  }
-
-  .jypesa-disp-btn-secondary {
-    background: transparent;
-    color: var(--jypesa-disp-slate);
-    border: 2px solid var(--jypesa-disp-slate);
-  }
-
-  .jypesa-disp-btn-secondary:hover {
-    background: var(--jypesa-disp-slate);
-    color: #ffffff;
+  .jypesa-disp-btn:hover {
+    background-color: #3b5264;
+    transform: translateY(-2px);
   }
 
   .jypesa-disp-btn svg {
-    flex-shrink: 0;
-    transition: transform 0.2s ease;
-  }
-  
-  .jypesa-disp-btn:hover svg {
-    transform: translateY(1px);
+    transition: transform 0.3s ease;
   }
 
-  /* ── DOTS DE NAVEGACIÓN MÓVIL ── */
-  .jypesa-disp-dots-bar {
+  .jypesa-disp-btn:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* ── LAYOUT DESKTOP SCROLL INTERACTIVE (>= 992px) ── */
+  .jypesa-disp-split-desktop-wrapper {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 200vh; /* Altura del contenedor de scroll */
+  }
+
+  .jypesa-disp-split-desktop-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 8px;
-    margin-top: 20px;
+    justify-content: space-between;
+    padding: 0 56px;
+    overflow: hidden;
+    max-width: 1850px;
+    margin: 0 auto;
+  }
+
+  /* Columnas laterales de imágenes */
+  .jypesa-disp-split-col-left,
+  .jypesa-disp-split-col-right {
+    width: 465px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+    padding: 80px 0;
+  }
+
+  .jypesa-disp-split-inner-track {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    will-change: transform;
+  }
+
+  .jypesa-disp-split-img-box {
+    width: 100%;
+    height: calc(100vh - 160px); /* 100vh - padding superior/inferior */
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .jypesa-disp-split-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Columna central de textos */
+  .jypesa-disp-split-col-center {
+    width: calc(100% - 930px - 112px); /* Ancho restante del contenedor */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    padding: 80px 20px;
+  }
+
+  .jypesa-disp-split-center-textbox {
+    position: absolute;
+    top: 80px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    will-change: transform;
+  }
+
+  /* ── LAYOUT MÓVIL (< 992px) ── */
+  .jypesa-disp-split-mobile-wrapper {
+    display: none;
+    width: 100%;
+    padding: 60px 24px;
+    background-color: #ffffff;
+  }
+
+  .jypesa-disp-split-mobile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
     width: 100%;
   }
 
-  .jypesa-disp-dot {
+  .jypesa-disp-split-mobile-header .jypesa-disp-main-title {
+    font-size: 42px;
+    line-height: 1.2;
+  }
+
+  .jypesa-disp-split-mobile-header .jypesa-disp-intro-desc {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* Carrusel móvil responsivo y estético */
+  .jypesa-disp-split-mobile-carousel {
+    width: 100%;
+    margin-top: 30px;
+    position: relative;
+  }
+
+  .jypesa-disp-split-mobile-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 0;
+  }
+
+  .jypesa-disp-split-mobile-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .jypesa-disp-split-mobile-slide {
+    flex: 0 0 82%;
+    scroll-snap-align: center;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1.15;
+    box-shadow: 0 4px 15px rgba(80, 109, 133, 0.08);
+  }
+
+  .jypesa-disp-split-mobile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .jypesa-disp-split-mobile-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .jypesa-disp-split-mobile-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(80, 109, 133, 0.25);
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background-color: rgba(80, 109, 133, 0.25);
     border: none;
-    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
   }
 
-  .jypesa-disp-dot.active {
-    background: var(--jypesa-disp-blue);
-    width: 20px;
-    border-radius: 100px;
+  .jypesa-disp-split-mobile-dot.active {
+    background-color: var(--jypesa-disp-slate);
+    transform: scale(1.2);
   }
 
-  /* ── ESTADOS VACÍOS ── */
-  .jypesa-disp-empty {
-    text-align: center;
-    padding: 60px 24px;
-    font-size: 16px;
-    color: var(--jypesa-disp-text-dim);
-    width: 100%;
+  /* ── RESPONSIVIDAD GENERAL ── */
+  @media (max-width: 1440px) {
+    .jypesa-disp-split-desktop-sticky {
+      padding: 0 30px;
+    }
+    .jypesa-disp-split-col-left,
+    .jypesa-disp-split-col-right {
+      width: 32%;
+    }
+    .jypesa-disp-split-col-center {
+      width: 32%;
+    }
+    .jypesa-disp-main-title {
+      font-size: 50px;
+    }
   }
 
-  /* ════════════════════════════════════════
-     DESKTOP (>= 992px)
-     Pixel Perfect Grid & Separadores
-  ════════════════════════════════════════ */
-  @media (min-width: 992px) {
-    .jypesa-disp-widget-wrapper {
-      padding: 24px;
-    }
-
-    .jypesa-disp-track {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      overflow: visible;
-      padding: 0;
-      margin: 0;
-    }
-
-    .jypesa-disp-column {
-      flex: none;
-      width: 100%;
-      scroll-snap-align: none;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-      border-right: 1px solid var(--jypesa-disp-border);
-      padding: 20px 24px 30px 24px;
-    }
-
-    .jypesa-disp-column:last-child {
-      border-right: none;
-    }
-
-    .jypesa-disp-column:hover {
-      transform: none;
-      box-shadow: none;
-    }
-    
-    .jypesa-disp-dots-bar {
+  @media (max-width: 991px) {
+    .jypesa-disp-split-desktop-wrapper {
       display: none !important;
     }
-
-    .jypesa-disp-tag {
-      padding: 4px 18px;
+    .jypesa-disp-split-mobile-wrapper {
+      display: block !important;
     }
+  }
 
-    .jypesa-disp-tag p {
-      font-size: 25px;
+  @media (max-width: 576px) {
+    .jypesa-disp-split-mobile-wrapper {
+      padding: 40px 16px;
     }
-
-    .jypesa-disp-thumbs-container {
-      min-height: 91px;
-      gap: 12px;
+    .jypesa-disp-split-mobile-header .jypesa-disp-main-title {
+      font-size: 32px;
     }
-
-    .jypesa-disp-thumb-btn {
-      width: 83px;
-      height: 83px;
-      padding: 6px;
-    }
-
-    .jypesa-disp-name {
-      font-size: 37px;
-    }
-
-    .jypesa-disp-desc {
-      min-height: 110px;
+    .jypesa-disp-split-mobile-grid {
+      grid-template-columns: 1fr; /* 1 columna en celulares pequeños */
+      gap: 20px;
     }
   }
   `;
 
+  // Inyectar estilos en el head
   const styleEl = document.createElement('style');
   styleEl.textContent = css;
   document.head.appendChild(styleEl);
 
-  // ─── 2. SVG ICON DE DESCARGA (Fuerza color de texto con currentColor) ───────
-  const downloadIcon = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <mask id="jypesa-mask-download" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="14" height="14">
-      <rect width="14" height="14" fill="#D9D9D9"/>
-    </mask>
-    <g mask="url(#jypesa-mask-download)">
-      <path d="M6.72519 9.7389C6.64039 9.70759 6.55975 9.65369 6.48325 9.5772L3.94383 7.03777C3.82242 6.91622 3.76246 6.77406 3.76396 6.61127C3.76559 6.44848 3.82555 6.30372 3.94383 6.177C4.07055 6.05042 4.21605 5.98502 4.38034 5.9808C4.54476 5.97658 4.69033 6.03783 4.81705 6.16455L6.3875 7.735V1.4875C6.3875 1.31369 6.44616 1.16818 6.56349 1.05099C6.68068 0.933664 6.82619 0.875 7 0.875C7.17381 0.875 7.31932 0.933664 7.43651 1.05099C7.55384 1.16818 7.6125 1.31369 7.6125 1.4875V7.735L9.18295 6.16455C9.3045 6.04314 9.44871 5.98318 9.61558 5.98468C9.78259 5.98631 9.92945 6.05042 10.0562 6.177C10.1745 6.30372 10.2357 6.44718 10.2399 6.60739C10.2441 6.76759 10.1829 6.91105 10.0562 7.03777L7.51675 9.5772C7.44025 9.65369 7.35961 9.70759 7.27481 9.7389C7.19001 9.77034 7.09841 9.78606 7 9.78606C6.90159 9.78606 6.80999 9.77034 6.72519 9.7389ZM2.35133 13.125C1.93878 13.125 1.58958 12.9821 1.30375 12.6962C1.01792 12.4104 0.875 12.0612 0.875 11.6487V10.0468C0.875 9.87296 0.933664 9.72746 1.05099 9.61027C1.16818 9.49294 1.31369 9.43428 1.4875 9.43428C1.66131 9.43428 1.80682 9.49294 1.92401 9.61027C2.04134 9.72746 2.1 9.87296 2.1 10.0468V11.6487C2.1 11.7116 2.1262 11.7691 2.1786 11.8214C2.23087 11.8738 2.28845 11.9 2.35133 11.9H11.6487C11.7116 11.9 11.7691 11.8738 11.8214 11.8214C11.8738 11.7691 11.9 11.7116 11.9 11.6487V10.0468C11.9 9.87296 11.9587 9.72746 12.076 9.61027C12.1932 9.49294 12.3387 9.43428 12.5125 9.43428C12.6863 9.43428 12.8318 9.49294 12.949 9.61027C13.0663 9.72746 13.125 9.87296 13.125 10.0468V11.6487C13.125 12.0612 12.9821 12.4104 12.6962 12.6962C12.4104 12.9821 12.0612 13.125 11.6487 13.125H2.35133Z" fill="currentColor"/>
-    </g>
-  </svg>`;
-
-  // ─── 3. MOCK DATA / FALLBACKS (Alineado a Figma y servido localmente) ───────
-  const fallbackProducts = [
-    {
-      name: 'Easy Snap',
-      categoryName: 'Economy',
-      categoryColor: '#4aa25d',
-      categoryTitle: 'Sistemas de dispensación',
-      categoryDesc: 'Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.',
-      code: '-',
-      capacity: '400 ml / 13.5 oz',
-      material: 'HDPE — Material reciclable',
-      security: 'Media (llave exclusiva)',
-      description: 'Sistema de dispensación recargable y no recargable, diseñado con un look flotante que aporta ligereza visual y elegancia en la pared, reduce residuos plásticos, previene robos, optimiza costos operativos y ofrece al huésped una experiencia limpia, segura y profesional.',
-      images: [
-        'http://localhost:3845/assets/1fe019cde4bfdbce5e683bf4427d646fc4614f19.png',
-        'http://localhost:3845/assets/cb1fe94c2e4fcf4e1ebea04e7d932082bf2a6e1a.png',
-        'http://localhost:3845/assets/ffa5030f13f9f057515b6a1a3f434c31b26af357.png',
-        'http://localhost:3845/assets/8d8d76980dcea84d2cc1baa69ecd576b65de1c37.png',
-        'http://localhost:3845/assets/af021db665d1b71876c3099a1001967ce7521b9f.png'
-      ],
-      fileInstallation: '#',
-      fileTechnical: '#'
-    },
-    {
-      name: 'Emperor',
-      categoryName: 'Economy',
-      categoryColor: '#4aa25d',
-      categoryTitle: 'Sistemas de dispensación',
-      categoryDesc: 'Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.',
-      code: 'JHJY-0065',
-      capacity: '400 ml / 13.5 oz',
-      material: 'HDPE — Material reciclable',
-      security: 'Media (llave exclusiva)',
-      description: 'Sistema de dispensación recargable y no recargable, diseñado para lucir integrado a la pared, reducir residuos plásticos, prevenir robos, optimizar costos operativos y ofrecer al huésped una experiencia limpia, segura y profesional.',
-      images: [
-        'http://localhost:3845/assets/cf8b2d0a4bb0f7ba7952abfe4dbc9478a6b30a3f.png',
-        'http://localhost:3845/assets/db723466f4bfe4ba5a5635c130d31579c5211e0c.png',
-        'http://localhost:3845/assets/a90fbd6388dfc9f5a4a6936ec7cc26537b2a8e0c.png',
-        'http://localhost:3845/assets/d597d935de591c0dc8329644669c19c6ae960eff.png',
-        'http://localhost:3845/assets/63b23f3a89dd22c59e0a2e9400bc40515dcaddc7.png'
-      ],
-      fileInstallation: '#',
-      fileTechnical: '#'
-    },
-    {
-      name: 'Dovelock',
-      categoryName: 'Economy',
-      categoryColor: '#4aa25d',
-      categoryTitle: 'Sistemas de dispensación',
-      categoryDesc: 'Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.',
-      code: '-',
-      capacity: '345 ml / 13.5 oz',
-      material: 'HDPE — Material reciclable',
-      security: 'Alta (llave exclusiva)',
-      description: 'Sistema de dispensación recargable y no recargable, diseñado con un look flotante que aporta ligereza visual y elegancia en la pared, reduce residuos plásticos, previene robos, optimiza costos operativos y ofrece al huésped una experiencia limpia, segura y profesional.',
-      images: [
-        'http://localhost:3845/assets/1fe019cde4bfdbce5e683bf4427d646fc4614f19.png',
-        'http://localhost:3845/assets/4c94314893b55535f7d5a6dc93f41a72146b2516.png',
-        'http://localhost:3845/assets/2816b85fd04a0c6337857065fbcc02303963535c.png',
-        'http://localhost:3845/assets/9fc25b793d37297e6a5886cccae489344b8cdc76.png',
-        'http://localhost:3845/assets/aaa0bcf6a03ea27ee140dc3dfefec6961e239794.png'
-      ],
-      fileInstallation: '#',
-      fileTechnical: '#'
-    },
-    {
-      name: 'The Nurture',
-      categoryName: 'Economy',
-      categoryColor: '#4aa25d',
-      categoryTitle: 'Sistemas de dispensación',
-      categoryDesc: 'Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.',
-      code: 'JHJY-0064',
-      capacity: '414 ml / 14 oz',
-      material: 'HDPE — Material reciclable',
-      security: 'Media (llave exclusiva)',
-      description: 'Sistema de dispensación recargable y no recargable, diseñado para lucir integrado a la pared, reducir residuos plásticos, prevenir robos, optimizar costos operativos y ofrecer al huésped una experiencia limpia, segura y profesional.',
-      images: [
-        'http://localhost:3845/assets/1fe019cde4bfdbce5e683bf4427d646fc4614f19.png',
-        'http://localhost:3845/assets/cb1fe94c2e4fcf4e1ebea04e7d932082bf2a6e1a.png',
-        'http://localhost:3845/assets/7520c24b560b1329e243ca2f090b77e8a1dc0c4f.png',
-        'http://localhost:3845/assets/2ca227916222490bbd29ae77674a22d397fbfe7f.png',
-        'http://localhost:3845/assets/df4cf40d78adff896fc2acf0aa0c69b4a6c1b29b.png'
-      ],
-      fileInstallation: '#',
-      fileTechnical: '#'
+  // ─── 2. OBTENER RUTA BASE DEL SCRIPT PARA ASSETS ──────────────────────────────
+  let basePath = './';
+  const scripts = document.getElementsByTagName('script');
+  for (let i = 0; i < scripts.length; i++) {
+    const src = scripts[i].src;
+    if (src && src.includes('sistemas-dispensacion.js')) {
+      basePath = src.substring(0, src.indexOf('widgets/'));
+      break;
     }
-  ];
-
-  // ─── 4. PARSEO DE DATOS CMS DESDE EL DOM ─────────────────────────────────────
-  function readProductsFromCMS() {
-    const sourceContainer = document.querySelector('.jypesa-disp-cms-source');
-    if (!sourceContainer) return null;
-
-    const items = Array.from(sourceContainer.querySelectorAll('.w-dyn-item'));
-    if (!items.length) return null;
-
-    const products = [];
-    items.forEach((item) => {
-      const nameEl = item.querySelector('.jypesa-disp-prod-name');
-      if (!nameEl) return;
-      const name = nameEl.textContent.trim();
-      if (!name) return;
-
-      const getVal = (selector, attr = '') => {
-        const el = item.querySelector(selector);
-        if (!el) return '';
-        if (attr) return el.getAttribute(attr) || '';
-        return el.textContent.trim();
-      };
-
-      // Recopilar hasta 5 imágenes cargadas
-      const images = [];
-      for (let i = 1; i <= 5; i++) {
-        const img = getVal(`.jypesa-disp-prod-img${i}`, 'src');
-        if (img) images.push(img);
-      }
-
-      products.push({
-        name: name,
-        categoryName: getVal('.jypesa-disp-prod-cat-name'),
-        categoryColor: getVal('.jypesa-disp-prod-cat-color') || '#4AA25D',
-        categoryTitle: getVal('.jypesa-disp-prod-cat-title') || 'Sistemas de dispensación',
-        categoryDesc: getVal('.jypesa-disp-prod-cat-desc') || '',
-        code: getVal('.jypesa-disp-prod-code') || '-',
-        capacity: getVal('.jypesa-disp-prod-capacity') || '-',
-        material: getVal('.jypesa-disp-prod-material') || '-',
-        security: getVal('.jypesa-disp-prod-security') || '-',
-        description: getVal('.jypesa-disp-prod-description') || '',
-        images: images.length ? images : ['https://via.placeholder.com/300x300?text=No+Image'],
-        fileInstallation: getVal('.jypesa-disp-prod-file-installation', 'href') || '#',
-        fileTechnical: getVal('.jypesa-disp-prod-file-technical', 'href') || '#'
-      });
-    });
-
-    return products.length ? products : null;
   }
 
+  // ─── 3. DATOS DE FALLBACK (VALORES POR DEFECTO DE FIGMA) ──────────────────────
+  // ─── 3. DATOS DE DISEÑO ESTÁTICOS (FIGMA REF) ────────────────────────────────
+  const fallbackData = {
+    title: 'Menos residuos, mayor <span class="jypesa-disp-split-italic-highlight">eficiencia</span>',
+    subtitle: 'Sistemas de dispensación',
+    desc: 'Dispensadores que combinan estética, practicidad y sostenibilidad para mejorar la presentación y gestión de amenidades en hoteles.',
+    btnText: 'Ver sistemas de dispensación',
+    btnLink: '/sistemas-de-dispensacion',
+    images: [
+      'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a517650cc0f99d3d0a0d182_elements%2003.avif', // Izquierda 1
+      'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a51765121c2aa4efdc14b0b_elements%2004.avif', // Izquierda 2
+      'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a51765095d88faa906532c8_elements%2001.avif', // Derecha 1
+      'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5176510c1099a1f3814e4d_elements%2002.avif'  // Derecha 2
+    ]
+  };
+
   // ─── 5. GENERACIÓN HTML DINÁMICO ───────────────────────────────────────────
-  function buildCardHtml(prod, cardId) {
-    const mainImg = prod.images[0] || 'https://via.placeholder.com/300x300?text=No+Image';
-
-    // Generar miniaturas (thumbnails)
-    let thumbsHtml = '';
-    if (prod.images.length > 1) {
-      thumbsHtml = prod.images
-        .map((imgSrc, index) => `
-          <button class="jypesa-disp-thumb-btn${index === 0 ? ' active' : ''}" 
-                  data-thumb-index="${index}" 
-                  data-card-id="${cardId}" 
-                  aria-label="Ver imagen ${index + 1}">
-            <img class="jypesa-disp-thumb-img" src="${imgSrc}" alt="${prod.name} thumbnail ${index + 1}" loading="lazy">
-          </button>
-        `)
-        .join('');
-    }
-
-    // Configurar botones de descarga (se ocultan si la url es '#' o vacía)
-    const hasInst = prod.fileInstallation && prod.fileInstallation !== '#';
-    const hasTech = prod.fileTechnical && prod.fileTechnical !== '#';
-
-    let buttonsHtml = '';
-    if (hasInst) {
-      buttonsHtml += `
-        <a href="${prod.fileInstallation}" class="jypesa-disp-btn jypesa-disp-btn-primary" download target="_blank" rel="noopener">
-          Descargar guía de instalación ${downloadIcon}
-        </a>
-      `;
-    }
-    if (hasTech) {
-      buttonsHtml += `
-        <a href="${prod.fileTechnical}" class="jypesa-disp-btn jypesa-disp-btn-secondary" download target="_blank" rel="noopener">
-          Descargar ficha técnica ${downloadIcon}
-        </a>
-      `;
-    }
-
-    // Tag Color
-    const tagBgColor = prod.categoryColor || '#4AA25D';
+  function buildWidgetHtml(data) {
+    const leftColImages = [data.images[0], data.images[1]];
+    const rightColImages = [data.images[2], data.images[3]];
 
     return `
-      <div class="jypesa-disp-column" data-card-id="${cardId}">
-        <div class="jypesa-disp-card">
-          <div class="jypesa-disp-card-top">
-            
-            <!-- Imagen Principal -->
-            <div class="jypesa-disp-display">
-              <div class="jypesa-disp-tag" style="background-color: ${tagBgColor};">
-                <p>${prod.categoryName || 'Economy'}</p>
+      <!-- DESKTOP SCROLL INTERACTIVE LAYOUT -->
+      <div class="jypesa-disp-split-desktop-wrapper">
+        <div class="jypesa-disp-split-desktop-sticky">
+          <!-- Columna Izquierda (Sube) -->
+          <div class="jypesa-disp-split-col-left">
+            <div class="jypesa-disp-split-inner-track">
+              <div class="jypesa-disp-split-img-box">
+                <img class="jypesa-disp-split-img" src="${leftColImages[0]}" alt="Imagen Izquierda 1" loading="lazy">
               </div>
-              <div class="jypesa-disp-main-img-container">
-                <img class="jypesa-disp-main-img" src="${mainImg}" alt="${prod.name}" id="main-img-${cardId}" loading="lazy">
-              </div>
-            </div>
-
-            <!-- Miniaturas -->
-            <div class="jypesa-disp-thumbs-container">
-              ${thumbsHtml}
-            </div>
-
-            <!-- Información -->
-            <div class="jypesa-disp-info-container">
-              <h3 class="jypesa-disp-name">${prod.name}</h3>
-              <div class="jypesa-disp-grid">
-                <div class="jypesa-disp-grid-cell">
-                  <p class="jypesa-disp-grid-label">Código</p>
-                  <p class="jypesa-disp-grid-value">${prod.code}</p>
-                </div>
-                <div class="jypesa-disp-grid-cell">
-                  <p class="jypesa-disp-grid-label">Capacidad</p>
-                  <p class="jypesa-disp-grid-value">${prod.capacity}</p>
-                </div>
-                <div class="jypesa-disp-grid-cell">
-                  <p class="jypesa-disp-grid-label">Material</p>
-                  <p class="jypesa-disp-grid-value">${prod.material}</p>
-                </div>
-                <div class="jypesa-disp-grid-cell">
-                  <p class="jypesa-disp-grid-label">Seguridad</p>
-                  <p class="jypesa-disp-grid-value">${prod.security}</p>
-                </div>
+              <div class="jypesa-disp-split-img-box">
+                <img class="jypesa-disp-split-img" src="${leftColImages[1]}" alt="Imagen Izquierda 2" loading="lazy">
               </div>
             </div>
-
-            <!-- Descripción -->
-            <p class="jypesa-disp-desc">${prod.description}</p>
           </div>
 
-          <!-- Botones de Descarga -->
-          <div class="jypesa-disp-actions">
-            ${buttonsHtml}
+          <!-- Columna Central (Baja contenido) -->
+          <div class="jypesa-disp-split-col-center">
+            <div class="jypesa-disp-split-center-textbox">
+              <div class="jypesa-disp-destacable">
+                <p>${data.subtitle}</p>
+              </div>
+              <h2 class="jypesa-disp-main-title">${data.title}</h2>
+              <p class="jypesa-disp-intro-desc">${data.desc}</p>
+              <a href="${data.btnLink}" class="jypesa-disp-btn">
+                ${data.btnText}
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Columna Derecha (Sube) -->
+          <div class="jypesa-disp-split-col-right">
+            <div class="jypesa-disp-split-inner-track">
+              <div class="jypesa-disp-split-img-box">
+                <img class="jypesa-disp-split-img" src="${rightColImages[0]}" alt="Imagen Derecha 1" loading="lazy">
+              </div>
+              <div class="jypesa-disp-split-img-box">
+                <img class="jypesa-disp-split-img" src="${rightColImages[1]}" alt="Imagen Derecha 2" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOBILE STATIC/SWIPE CAROUSEL LAYOUT (< 992px) -->
+      <div class="jypesa-disp-split-mobile-wrapper">
+        <div class="jypesa-disp-split-mobile-header">
+          <div class="jypesa-disp-destacable">
+            <p>${data.subtitle}</p>
+          </div>
+          <h2 class="jypesa-disp-main-title">${data.title}</h2>
+          <p class="jypesa-disp-intro-desc">${data.desc}</p>
+          <a href="${data.btnLink}" class="jypesa-disp-btn">
+            ${data.btnText}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="jypesa-disp-split-mobile-carousel">
+          <div class="jypesa-disp-split-mobile-track">
+            <div class="jypesa-disp-split-mobile-slide">
+              <img class="jypesa-disp-split-mobile-img" src="${leftColImages[0]}" alt="Foto 1" loading="lazy">
+            </div>
+            <div class="jypesa-disp-split-mobile-slide">
+              <img class="jypesa-disp-split-mobile-img" src="${leftColImages[1]}" alt="Foto 2" loading="lazy">
+            </div>
+            <div class="jypesa-disp-split-mobile-slide">
+              <img class="jypesa-disp-split-mobile-img" src="${rightColImages[0]}" alt="Foto 3" loading="lazy">
+            </div>
+            <div class="jypesa-disp-split-mobile-slide">
+              <img class="jypesa-disp-split-mobile-img" src="${rightColImages[1]}" alt="Foto 4" loading="lazy">
+            </div>
+          </div>
+          <div class="jypesa-disp-split-mobile-dots">
+            <button class="jypesa-disp-split-mobile-dot active" data-index="0" aria-label="Ir a foto 1"></button>
+            <button class="jypesa-disp-split-mobile-dot" data-index="1" aria-label="Ir a foto 2"></button>
+            <button class="jypesa-disp-split-mobile-dot" data-index="2" aria-label="Ir a foto 3"></button>
+            <button class="jypesa-disp-split-mobile-dot" data-index="3" aria-label="Ir a foto 4"></button>
           </div>
         </div>
       </div>
     `;
   }
 
-  // ─── 6. LÓGICA DE INTERACTIVIDAD ───────────────────────────────────────────
-  function setupWidgetInteractions(targetEl, products) {
-    const track = targetEl.querySelector('.jypesa-disp-track');
-    const dots = targetEl.querySelectorAll('.jypesa-disp-dot');
+  // ─── 6. LÓGICA DE INTERACTIVIDAD DE SCROLL DESKTOP ──────────────────────────
+  function setupDesktopScroll(wrapper) {
+    const desktopWrapper = wrapper.querySelector('.jypesa-disp-split-desktop-wrapper');
+    const leftCol = wrapper.querySelector('.jypesa-disp-split-col-left');
+    const leftTrack = wrapper.querySelector('.jypesa-disp-split-col-left .jypesa-disp-split-inner-track');
+    const rightTrack = wrapper.querySelector('.jypesa-disp-split-col-right .jypesa-disp-split-inner-track');
+    const centerCol = wrapper.querySelector('.jypesa-disp-split-col-center');
+    const textBox = wrapper.querySelector('.jypesa-disp-split-center-textbox');
 
-    // Cambiar Imagen Principal con las Miniaturas
-    const thumbBtns = targetEl.querySelectorAll('.jypesa-disp-thumb-btn');
-    thumbBtns.forEach((btn) => {
-      btn.addEventListener('click', function () {
-        const thumbIdx = parseInt(this.getAttribute('data-thumb-index'), 10);
-        const cardId = parseInt(this.getAttribute('data-card-id'), 10);
-        
-        // Remover clase activa de miniaturas de la tarjeta actual
-        const cardThumbs = targetEl.querySelectorAll(`.jypesa-disp-thumb-btn[data-card-id="${cardId}"]`);
-        cardThumbs.forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
+    if (!desktopWrapper || !leftCol || !leftTrack || !rightTrack || !centerCol || !textBox) return;
 
-        // Cambiar imagen principal con efecto fundido suave
-        const mainImg = targetEl.querySelector(`#main-img-${cardId}`);
-        if (mainImg) {
-          mainImg.style.opacity = '0';
-          setTimeout(() => {
-            mainImg.src = products[cardId].images[thumbIdx];
-            mainImg.style.opacity = '1';
-          }, 200);
+    const handleScroll = () => {
+      // 1. Verificar si el elemento está en pantalla
+      const rect = desktopWrapper.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Si la sección no está visible, retornar
+      if (rect.bottom < 0 || rect.top > windowHeight) return;
+
+      // 2. Calcular progreso del scroll en la sección
+      const scrolled = -rect.top;
+      const scrollRange = rect.height - windowHeight;
+      const progress = Math.min(1, Math.max(0, scrolled / scrollRange)); // Rango [0, 1]
+
+      // 3. Obtener dimensiones dinámicas para las transformaciones
+      const colHeight = leftCol.offsetHeight;
+      const imgBox = leftCol.querySelector('.jypesa-disp-split-img-box');
+      if (!imgBox) return;
+      const imgHeight = imgBox.offsetHeight;
+
+      // El gap es de 80px (según CSS)
+      const gap = 80;
+      const totalImgTravel = imgHeight + gap;
+
+      // Desplazar imágenes hacia arriba
+      leftTrack.style.transform = `translateY(-${progress * totalImgTravel}px)`;
+      rightTrack.style.transform = `translateY(-${progress * totalImgTravel}px)`;
+
+      // Desplazar caja de texto central hacia abajo
+      const textBoxHeight = textBox.offsetHeight;
+      const padding = 80; // Padding superior/inferior del contenedor central
+      const maxCenterTravel = colHeight - textBoxHeight - (padding * 2);
+
+      if (maxCenterTravel > 0) {
+        textBox.style.transform = `translateY(${progress * maxCenterTravel}px)`;
+      } else {
+        textBox.style.transform = 'translateY(0px)';
+      }
+    };
+
+    // Escuchar el evento de scroll de la ventana
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+
+    // Ejecutar una vez al inicio
+    handleScroll();
+  }
+
+  // ─── 7. LÓGICA DE INTERACTIVIDAD DE CAROUSEL MÓVIL ──────────────────────────
+  function setupMobileCarousel(wrapper) {
+    const track = wrapper.querySelector('.jypesa-disp-split-mobile-track');
+    const dots = wrapper.querySelectorAll('.jypesa-disp-split-mobile-dot');
+
+    if (!track || !dots.length) return;
+
+    const handleScroll = () => {
+      const scrollLeft = track.scrollLeft;
+      const width = track.offsetWidth;
+      const activeIdx = Math.min(dots.length - 1, Math.max(0, Math.round(scrollLeft / width)));
+
+      dots.forEach((dot, idx) => {
+        if (idx === activeIdx) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
         }
+      });
+    };
+
+    track.addEventListener('scroll', handleScroll);
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        const slide = track.querySelector('.jypesa-disp-split-mobile-slide');
+        if (!slide) return;
+        const width = slide.offsetWidth + 16; // width + gap
+        track.scrollTo({ left: index * width, behavior: 'smooth' });
       });
     });
 
-    // Control de scroll y dots para móvil
-    if (track && dots.length) {
-      const handleScroll = () => {
-        const scrollLeft = track.scrollLeft;
-        const column = track.querySelector('.jypesa-disp-column');
-        if (!column) return;
-        const width = column.offsetWidth + 20; // card width + gap
-        const activeIdx = Math.min(
-          dots.length - 1,
-          Math.max(0, Math.round(scrollLeft / width))
-        );
+    // Drag to scroll con el mouse en simulador
+    let isDown = false;
+    let startX;
+    let scrollLeft;
 
-        dots.forEach((dot, i) => {
-          if (i === activeIdx) {
-            dot.classList.add('active');
-          } else {
-            dot.classList.remove('active');
-          }
-        });
-      };
-
-      track.addEventListener('scroll', handleScroll);
-      window.addEventListener('resize', handleScroll);
-      
-      dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-          const column = track.querySelector('.jypesa-disp-column');
-          if (!column) return;
-          const width = column.offsetWidth + 20;
-          track.scrollTo({ left: index * width, behavior: 'smooth' });
-        });
-      });
-    }
+    track.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    });
+    track.addEventListener('mouseleave', () => {
+      isDown = false;
+    });
+    track.addEventListener('mouseup', () => {
+      isDown = false;
+    });
+    track.addEventListener('mousemove', (e) => {
+      if(!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      track.scrollLeft = scrollLeft - walk;
+    });
   }
 
-  // ─── 7. INICIALIZADOR ──────────────────────────────────────────────────────
+  // ─── 8. INICIALIZADOR DEL WIDGET ─────────────────────────────────────────────
   function initSistemasDispensacionWidget() {
     const targets = document.querySelectorAll(
-      '.jypesa-dispensadores-widget, [data-jypesa-dispensadores-widget], #jypesa-dispensadores-widget'
+      '.jypesa-sistemas-dispensacion-widget, [data-jypesa-sistemas-dispensacion-widget], #jypesa-sistemas-dispensacion-widget'
     );
     if (!targets.length) return;
 
-    // Leer del CMS (Si existe, sino fallback)
-    const cmsProducts = readProductsFromCMS();
-    const sourceProducts = cmsProducts || fallbackProducts;
-
-    targets.forEach((target, widgetIndex) => {
+    targets.forEach((target) => {
       if (target.getAttribute('data-initialized') === 'true') return;
       target.setAttribute('data-initialized', 'true');
 
-      // Filtrado por categoría si se especifica en el div contenedor
-      // Uso: <div data-jypesa-dispensadores-widget data-category-filter="Economy">
-      const filterCategory = (target.getAttribute('data-category-filter') || '').trim();
-      let products = sourceProducts;
-      if (filterCategory) {
-        const fl = filterCategory.toLowerCase();
-        products = sourceProducts.filter(
-          (p) => p.categoryName.toLowerCase() === fl
-        );
-      }
+      // Cargar HTML
+      target.innerHTML = buildWidgetHtml(fallbackData);
 
-      // Si no quedan productos tras el filtrado
-      if (!products.length) {
-        target.innerHTML = `<div class="jypesa-disp-empty">No hay dispensadores disponibles en la categoría "${filterCategory}".</div>`;
-        return;
-      }
+      // Configurar scroll interactivo desktop
+      setupDesktopScroll(target);
 
-      // Tomar metadatos de categoría desde el primer producto de la lista resultante
-      const sectionTitle = products[0].categoryTitle || 'Sistemas de dispensación';
-      const sectionDesc = products[0].categoryDesc || 'Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.';
-
-      // Construcción del HTML
-      const cardsHtml = products
-        .map((p, idx) => buildCardHtml(p, idx))
-        .join('');
-
-      const dotsHtml = products
-        .map((_, idx) => `
-          <button class="jypesa-disp-dot${idx === 0 ? ' active' : ''}" data-index="${idx}" aria-label="Ir a producto ${idx + 1}"></button>
-        `)
-        .join('');
-
-      target.innerHTML = `
-        <div class="jypesa-disp-widget-wrapper">
-          <!-- Cabecera -->
-          <div class="jypesa-disp-header">
-            <div class="jypesa-disp-title-wrap">
-              <h2 class="jypesa-disp-section-title">${sectionTitle}</h2>
-            </div>
-            <p class="jypesa-disp-section-desc">${sectionDesc}</p>
-          </div>
-
-          <!-- Grid/Track Deslizador -->
-          <div class="jypesa-disp-track">
-            ${cardsHtml}
-          </div>
-
-          <!-- Dots de navegación móvil -->
-          <div class="jypesa-disp-dots-bar">
-            ${dotsHtml}
-          </div>
-        </div>
-      `;
-
-      // Inicializar eventos de interacción
-      setupWidgetInteractions(target, products);
+      // Configurar carrusel móvil
+      setupMobileCarousel(target);
     });
   }
 
-  // Ejecución al estar listo el DOM
+  // Ejecución al estar listo el DOM o inmediatamente si ya cargó
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initSistemasDispensacionWidget);
   } else {
