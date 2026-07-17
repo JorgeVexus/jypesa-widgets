@@ -203,7 +203,7 @@
     font-size: 18px;
     line-height: 1.45;
     color: var(--jypesa-sust-text);
-    max-width: 590px;
+    max-width: 460px; /* Ajustado según Figma a un ancho máximo de 460px */
   }
 
   .jypesa-sust-slide-logo {
@@ -217,7 +217,7 @@
   /* CERTIFICATIONS IMAGE */
   .jypesa-sust-certs-img {
     width: 100%;
-    max-width: 480px; /* Casi el mismo width que el bloque de texto anterior */
+    max-width: 460px; /* Cubre casi todo el ancho del bloque de texto anterior (460px) */
     height: auto;
     object-fit: contain;
     display: block;
@@ -461,7 +461,7 @@
       font-size: 15px;
     }
     .jypesa-sust-certs-img {
-      max-width: 380px;
+      max-width: 420px;
       margin-top: 15px;
     }
   }
@@ -501,7 +501,7 @@
       font-size: 14px;
     }
     .jypesa-sust-certs-img {
-      max-width: 320px;
+      max-width: 360px;
       margin-top: 12px;
     }
   }
@@ -533,7 +533,7 @@
       font-size: 14px;
     }
     .jypesa-sust-certs-img {
-      max-width: 320px;
+      max-width: 360px;
       margin-top: 12px;
     }
   }
