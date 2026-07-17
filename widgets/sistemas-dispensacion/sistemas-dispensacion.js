@@ -68,12 +68,17 @@
   .jypesa-disp-main-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: 70px;
+    font-size: clamp(34px, 3.8vw, 70px); /* Tamaño fluido según el ancho de pantalla */
     line-height: 1.15;
     color: var(--jypesa-disp-slate);
     text-align: center;
     max-width: 1148px;
     margin-bottom: 25px;
+  }
+
+  .jypesa-disp-title-line {
+    display: block;
+    white-space: nowrap; /* Evita que el texto de la línea se divida */
   }
 
   /* Cursiva con degradado para el título */
@@ -308,10 +313,10 @@
     }
     .jypesa-disp-split-col-left,
     .jypesa-disp-split-col-right {
-      width: 380px; /* Ancho reducido de imágenes */
+      width: 360px; /* Ancho reducido de imágenes para más espacio central */
     }
     .jypesa-disp-split-col-center {
-      width: calc(100% - 760px); /* Ancho dinámico restante */
+      width: calc(100% - 720px); /* Ancho dinámico restante */
     }
     .jypesa-disp-main-title {
       font-size: 50px;
@@ -327,10 +332,10 @@
     }
     .jypesa-disp-split-col-left,
     .jypesa-disp-split-col-right {
-      width: 300px; /* Ancho de imágenes más compacto */
+      width: 280px; /* Ancho de imágenes aún más compacto */
     }
     .jypesa-disp-split-col-center {
-      width: calc(100% - 600px); /* Más espacio libre para los textos */
+      width: calc(100% - 560px); /* Más espacio libre para los textos */
     }
     .jypesa-disp-main-title {
       font-size: 40px;
@@ -394,7 +399,7 @@
   // ─── 3. DATOS DE FALLBACK (VALORES POR DEFECTO DE FIGMA) ──────────────────────
   // ─── 3. DATOS DE DISEÑO ESTÁTICOS (FIGMA REF) ────────────────────────────────
   const fallbackData = {
-    title: 'Menos residuos, mayor <span class="jypesa-disp-split-italic-highlight">eficiencia</span>',
+    title: '<span class="jypesa-disp-title-line">Menos residuos,</span><span class="jypesa-disp-title-line">mayor <span class="jypesa-disp-split-italic-highlight">eficiencia</span></span>',
     subtitle: 'Sistemas de dispensación',
     desc: 'Dispensadores que combinan estética, practicidad y sostenibilidad para mejorar la presentación y gestión de amenidades en hoteles.',
     btnText: 'Ver sistemas de dispensación',
