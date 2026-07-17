@@ -178,7 +178,7 @@
   .jypesa-disp-split-img-box {
     width: 100%;
     height: calc(100vh - 160px); /* 100vh - padding superior/inferior */
-    border-radius: 12px;
+    border-radius: 0;
     overflow: hidden;
     position: relative;
   }
@@ -265,7 +265,7 @@
   .jypesa-disp-split-mobile-slide {
     flex: 0 0 82%;
     scroll-snap-align: center;
-    border-radius: 12px;
+    border-radius: 0;
     overflow: hidden;
     aspect-ratio: 1 / 1.15;
     box-shadow: 0 4px 15px rgba(80, 109, 133, 0.08);
