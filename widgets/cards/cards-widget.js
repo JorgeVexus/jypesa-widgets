@@ -1,4 +1,4 @@
-(function() {
+(function () {
   // Guard against multiple initializations
   if (window.__JypesaCardsWidgetInitialized) return;
   window.__JypesaCardsWidgetInitialized = true;
@@ -31,7 +31,7 @@
 /* Tarjeta Individual */
 .jypesa-card {
   background: #ffffff;
-  border-radius: 8px;
+  border-radius: 0px;
   overflow: hidden;
   box-shadow: 4px 5px 14.4px 0px rgba(0, 0, 0, 0.08);
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
@@ -106,7 +106,7 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: 0.7px;
-  text-transform: uppercase;
+  text-transform: none;
   border-radius: 6px;
   width: 213px;
   height: 40px;
