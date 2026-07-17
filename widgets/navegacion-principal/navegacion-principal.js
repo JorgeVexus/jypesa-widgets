@@ -604,7 +604,7 @@
                 <div class="mega-menu">
                     <div class="mega-content">
                         <div class="visual-block">
-                            <img src="https://placehold.co/800x600/f8f8f8/506d85?text=Soluciones" alt="">
+                            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5a93f331191cd8cd4670a3_soluciones%20menu.avif" alt="Soluciones">
                             <div class="visual-overlay"></div>
                         </div>
                         <div class="links-container">
@@ -614,23 +614,43 @@
                                     <div class="menu-section">
                                         <div class="section-header">Hotelería</div>
                                         <ul class="options-list">
-                                            <li><a href="#" class="option-link">Independientes</a></li>
-                                            <li><a href="#" class="option-link">Cadenas</a></li>
-                                            <li><a href="#" class="option-link">Operadores</a></li>
+                                            <li><a href="/soluciones/hoteleria/independientes" class="option-link">Hoteles independientes</a></li>
+                                            <li><a href="/soluciones/hoteleria/cadenas" class="option-link">Cadenas hoteleras</a></li>
+                                            <li><a href="/soluciones/hoteleria/grupos-operadores" class="option-link">Grupos hoteleros & operadores</a></li>
                                         </ul>
                                     </div>
                                     <div class="menu-section">
-                                        <div class="section-header">Hospitalidad</div>
+                                        <div class="section-header">Hospitalidad alternativa</div>
                                         <ul class="options-list">
-                                            <li><a href="#" class="option-link">Airbnb</a></li>
-                                            <li><a href="#" class="option-link">STR</a></li>
+                                            <li><a href="/soluciones/hospitalidad/airbnb" class="option-link">Airbnb</a></li>
+                                            <li><a href="/soluciones/hospitalidad/str" class="option-link">STR</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">Institucional</div>
+                                        <ul class="options-list">
+                                            <li><a href="/soluciones/institucional/hospitales" class="option-link">Hospitales</a></li>
+                                            <li><a href="/soluciones/institucional/restaurantes-clubes" class="option-link">Restaurante & Clubes</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="sections-row" style="margin-top: 30px;">
+                                    <div class="menu-section">
+                                        <div class="section-header">Canal comercial</div>
+                                        <ul class="options-list">
+                                            <li><a href="/soluciones/canal-comercial/distribuidores" class="option-link">Distribuidores</a></li>
                                         </ul>
                                     </div>
                                     <div class="menu-section">
                                         <div class="section-header">Empresarial</div>
                                         <ul class="options-list">
-                                            <li><a href="#" class="option-link">Corporativo</a></li>
-                                            <li><a href="#" class="option-link">Regalos</a></li>
+                                            <li><a href="/soluciones/empresarial/corporativo-regalos" class="option-link">Corporativo & Regalos empresariales</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">Hospitalidad especializada</div>
+                                        <ul class="options-list">
+                                            <li><a href="/soluciones/hospitalidad-especializada/cruceros-campamentos" class="option-link">Cruceros & Campamentos</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -640,8 +660,82 @@
                 </div>
             </li>
             <li class="nav-link-item"><a href="/desarrollo" class="nav-link">Desarrollo personalizado</a></li>
-            <li class="nav-link-item"><a href="/sustentabilidad" class="nav-link">Sustentabilidad</a></li>
-            <li class="nav-link-item"><a href="/blog" class="nav-link">Blog</a></li>
+            <li class="nav-link-item">
+                <a href="/sustentabilidad" class="nav-link">Sustentabilidad</a>
+                <div class="mega-menu">
+                    <div class="mega-content">
+                        <div class="visual-block">
+                            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5a9443a95ace5546670f65_sustentabilidad%20menu.avif" alt="Sustentabilidad">
+                            <div class="visual-overlay"></div>
+                        </div>
+                        <div class="links-container">
+                            <div class="category-block">
+                                <p class="cat-label">SUSTENTABILIDAD</p>
+                                <div class="sections-row">
+                                    <div class="menu-section">
+                                        <div class="section-header">Materiales responsables</div>
+                                        <ul class="options-list">
+                                            <li><a href="/sustentabilidad#materiales" class="option-link">Nocean</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">Reducción de residuos</div>
+                                        <ul class="options-list">
+                                            <li><a href="/sustentabilidad#refill" class="option-link">Refill systems</a></li>
+                                            <li><a href="/sustentabilidad#residuos" class="option-link">Reducción de residuos</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">Certificaciones</div>
+                                        <ul class="options-list">
+                                            <li><a href="/sustentabilidad#certificaciones" class="option-link">Certificaciones ambientales</a></li>
+                                            <li><a href="/sustentabilidad#estandares" class="option-link">Estándares de calidad</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">Impacto</div>
+                                        <ul class="options-list">
+                                            <li><a href="/sustentabilidad#impacto" class="option-link">Impacto ambiental y social</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-link-item">
+                <span class="nav-link">Recursos</span>
+                <div class="mega-menu">
+                    <div class="mega-content">
+                        <div class="visual-block">
+                            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5a948117207012f5176ae5_recurso%20menu.avif" alt="Recursos">
+                            <div class="visual-overlay"></div>
+                        </div>
+                        <div class="links-container">
+                            <div class="category-block">
+                                <p class="cat-label">RECURSOS</p>
+                                <div class="sections-row">
+                                    <div class="menu-section">
+                                        <div class="section-header">Material comercial</div>
+                                        <ul class="options-list">
+                                            <li><a href="/recursos/catalogos" class="option-link">Catálogos descargables</a></li>
+                                            <li><a href="/recursos/fichas-tecnicas" class="option-link">Fichas técnicas</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">Contenido y tendencias</div>
+                                        <ul class="options-list">
+                                            <li><a href="/blog" class="option-link">Blog</a></li>
+                                            <li><a href="/recursos/tendencias" class="option-link">Tendencias de hospitalidad</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
         </ul>
 
         <div class="nav-actions">
@@ -689,19 +783,51 @@
             <div class="mob-trigger">Soluciones <span>+</span></div>
             <div class="mob-submenu">
                 <div class="mob-cat-title">Hotelería</div>
-                <a href="#" class="mob-link">Independientes / Cadenas</a>
-                <div class="mob-cat-title">Airbnb</div>
-                <a href="#" class="mob-link">Hospitalidad alternativa</a>
+                <a href="/soluciones/hoteleria/independientes" class="mob-link">Hoteles independientes</a>
+                <a href="/soluciones/hoteleria/cadenas" class="mob-link">Cadenas hoteleras</a>
+                <a href="/soluciones/hoteleria/grupos-operadores" class="mob-link">Grupos hoteleros & operadores</a>
+                <div class="mob-cat-title">Hospitalidad alternativa</div>
+                <a href="/soluciones/hospitalidad/airbnb" class="mob-link">Airbnb</a>
+                <a href="/soluciones/hospitalidad/str" class="mob-link">STR</a>
+                <div class="mob-cat-title">Institucional</div>
+                <a href="/soluciones/institucional/hospitales" class="mob-link">Hospitales</a>
+                <a href="/soluciones/institucional/restaurantes-clubes" class="mob-link">Restaurante & Clubes</a>
+                <div class="mob-cat-title">Canal comercial</div>
+                <a href="/soluciones/canal-comercial/distribuidores" class="mob-link">Distribuidores</a>
+                <div class="mob-cat-title">Empresarial</div>
+                <a href="/soluciones/empresarial/corporativo-regalos" class="mob-link">Corporativo & Regalos empresariales</a>
+                <div class="mob-cat-title">Hospitalidad especializada</div>
+                <a href="/soluciones/hospitalidad-especializada/cruceros-campamentos" class="mob-link">Cruceros & Campamentos</a>
             </div>
         </li>
         <li class="mob-item">
             <a href="/desarrollo" class="mob-trigger">Desarrollo personalizado</a>
         </li>
         <li class="mob-item">
-            <a href="/sustentabilidad" class="mob-trigger">Sustentabilidad</a>
+            <div class="mob-trigger">Sustentabilidad <span>+</span></div>
+            <div class="mob-submenu">
+                <div class="mob-cat-title">Materiales responsables</div>
+                <a href="/sustentabilidad#materiales" class="mob-link">Nocean</a>
+                <div class="mob-cat-title">Reducción de residuos</div>
+                <a href="/sustentabilidad#refill" class="mob-link">Refill systems</a>
+                <a href="/sustentabilidad#residuos" class="mob-link">Reducción de residuos</a>
+                <div class="mob-cat-title">Certificaciones</div>
+                <a href="/sustentabilidad#certificaciones" class="mob-link">Certificaciones ambientales</a>
+                <a href="/sustentabilidad#estandares" class="mob-link">Estándares de calidad</a>
+                <div class="mob-cat-title">Impacto</div>
+                <a href="/sustentabilidad#impacto" class="mob-link">Impacto ambiental y social</a>
+            </div>
         </li>
         <li class="mob-item">
-            <a href="/blog" class="mob-trigger">Blog</a>
+            <div class="mob-trigger">Recursos <span>+</span></div>
+            <div class="mob-submenu">
+                <div class="mob-cat-title">Material comercial</div>
+                <a href="/recursos/catalogos" class="mob-link">Catálogos descargables</a>
+                <a href="/recursos/fichas-tecnicas" class="mob-link">Fichas técnicas</a>
+                <div class="mob-cat-title">Contenido y tendencias</div>
+                <a href="/blog" class="mob-link">Blog</a>
+                <a href="/recursos/tendencias" class="mob-link">Tendencias de hospitalidad</a>
+            </div>
         </li>
         <li class="mob-item" style="padding: 40px 0;">
             <a href="/contacto" class="btn-contact" style="display: block; text-align: center;">Contáctanos</a>
