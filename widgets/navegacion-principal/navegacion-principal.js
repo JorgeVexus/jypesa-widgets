@@ -684,7 +684,7 @@
                                         </ul>
                                     </div>
                                     <div class="menu-section">
-                                        <div class="section-header">Reducción de residuos</div>
+                                        <div class="section-header">Sistemas de reducción de residuos</div>
                                         <ul class="options-list">
                                             <li><a href="/sustentabilidad#refill" class="option-link">Refill systems</a></li>
                                             <li><a href="/sustentabilidad#residuos" class="option-link">Reducción de residuos</a></li>
@@ -697,6 +697,8 @@
                                             <li><a href="/sustentabilidad#estandares" class="option-link">Estándares de calidad</a></li>
                                         </ul>
                                     </div>
+                                </div>
+                                <div class="sections-row" style="margin-top: 30px;">
                                     <div class="menu-section">
                                         <div class="section-header">Impacto</div>
                                         <ul class="options-list">
