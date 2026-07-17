@@ -152,14 +152,13 @@
   /* DYNAMIC TEXT CONTAINER (BOTTOM LEFT) */
   .jypesa-sust-desktop-bottom {
     position: relative;
-    height: 35vh; /* Espacio para el cambio de diapositivas */
+    height: 280px; /* Altura fija estable en desktop */
     width: 100%;
-    margin-bottom: 2vh;
   }
 
   .jypesa-sust-slide-text-block {
     position: absolute;
-    bottom: 0;
+    top: 0; /* Alinear arriba para mantener un espacio reducido y consistente con el divisor */
     left: 0;
     width: 100%;
     opacity: 0;
@@ -169,7 +168,7 @@
                 transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px; /* Reducir gap para un look más compacto y limpio */
     align-items: flex-start;
   }
 
@@ -422,8 +421,8 @@
     }
   }
 
-  /* Ajustes para pantallas medianas/laptops (e.g. 1024px a 1440px) */
-  @media (min-width: 992px) and (max-width: 1440px) {
+  /* Ajustes para pantallas medianas/laptops (e.g. 992px a 1550px) */
+  @media (min-width: 992px) and (max-width: 1550px) {
     .jypesa-sust-desktop-left {
       padding: 4vh 4vw;
       width: 48%;
@@ -449,7 +448,7 @@
       margin: 15px 0;
     }
     .jypesa-sust-desktop-bottom {
-      height: 38vh;
+      height: 240px; /* Altura fija en pixel estable */
     }
     .jypesa-sust-slide-title {
       font-size: 34px;
@@ -489,7 +488,7 @@
       margin: 10px 0;
     }
     .jypesa-sust-desktop-bottom {
-      height: 42vh;
+      height: 220px; /* Altura fija reducida */
     }
     .jypesa-sust-slide-title {
       font-size: 28px;
@@ -521,7 +520,7 @@
       margin: 8px 0;
     }
     .jypesa-sust-desktop-bottom {
-      height: 42vh;
+      height: 220px; /* Altura fija reducida para pantallas de baja altura */
     }
     .jypesa-sust-slide-title {
       font-size: 28px;
