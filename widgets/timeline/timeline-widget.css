@@ -4,9 +4,9 @@
 .jypesa-timeline-wrap {
   position: relative;
   width: 100%;
-  max-width: 1555px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 40px 24px;
+  padding: 40px 5%; /* Padding lateral del 5% para centrar de forma fluida en pantallas grandes */
   font-family: 'Rubik', sans-serif;
   color: #506D85;
   overflow-x: auto;
@@ -25,29 +25,39 @@
   position: relative;
   display: flex;
   align-items: flex-start;
-  min-width: max-content;
+  width: 100%;
+  min-width: auto; /* Ancho fluido en lugar de max-content */
   padding-top: 10px;
   box-sizing: border-box;
+}
+
+/* Pista de la Línea (Del primer al último círculo) */
+.jypesa-timeline .timeline-track {
+  position: absolute;
+  top: calc(75px + 37px); /* Centrado perfecto con el centro vertical de los círculos */
+  left: 0;
+  width: 75%; /* Del primer dot al último dot (3 intervalos de 4 columnas = 75%) */
+  height: 2px;
+  z-index: 1;
 }
 
 /* Línea de Fondo */
 .jypesa-timeline .timeline-line {
   position: absolute;
-  top: calc(75px + 29.5px);
+  top: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: transparent;
+  height: 100%;
+  background: transparent; /* Transparente para que no se vea la línea gris vacía */
   border: none;
-  z-index: 1;
 }
 
 /* Línea de Progreso Activa (Transición de 0.5s) */
 .jypesa-timeline .timeline-progress {
   position: absolute;
-  top: calc(75px + 29.5px);
+  top: 0;
   left: 0;
-  height: 2px;
+  height: 100%;
   background: #48A9C5;
   width: 0%;
   transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -57,7 +67,7 @@
 /* Cada Item de la Línea de Tiempo */
 .jypesa-timeline .timeline-item {
   position: relative;
-  flex: 0 0 305px;
+  flex: 1; /* Distribución fluida y equitativa entre los 4 hitos */
   padding: 0 20px;
   cursor: pointer;
   outline: none;
@@ -76,8 +86,8 @@
   font-size: 75px;
   line-height: 1;
   color: #506D85;
-  opacity: 0;
-  transform: translateY(18px);
+  opacity: 0.5; /* visible al 50% por defecto */
+  transform: translateY(0);
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -86,9 +96,9 @@
   position: relative;
   width: 35px;
   height: 35px;
-  margin: 12px 0 12px -2px;
-  opacity: 0;
-  transform: scale(0.5);
+  margin: 12px 0 12px -16.5px; /* Centrado con la línea vertical izquierda */
+  opacity: 0.5; /* visible al 50% por defecto */
+  transform: scale(1);
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   z-index: 3;
 }
@@ -124,16 +134,12 @@
   background: #48A9C5;
 }
 
-.jypesa-timeline .timeline-item:hover .dot-ring--outer,
-.jypesa-timeline .timeline-item.active .dot-ring--outer,
-.jypesa-timeline .timeline-item.visited .dot-ring--outer {
+.jypesa-timeline .timeline-item.active .dot-ring--outer {
   transform: scale(1.15);
   background: rgba(72, 169, 197, 0.35);
 }
 
-.jypesa-timeline .timeline-item:hover .dot-ring--inner,
-.jypesa-timeline .timeline-item.active .dot-ring--inner,
-.jypesa-timeline .timeline-item.visited .dot-ring--inner {
+.jypesa-timeline .timeline-item.active .dot-ring--inner {
   transform: scale(1.2);
 }
 
@@ -156,9 +162,9 @@
 .jypesa-timeline .timeline-body {
   width: 100%;
   padding-left: 19px;
-  border-left: 2px solid #48A9C5;
-  opacity: 0;
-  transform: translateY(24px);
+  border-left: 2px solid rgba(72, 169, 197, 0.3); /* Color claro para inactivos */
+  opacity: 0.5; /* visible al 50% por defecto */
+  transform: translateY(0);
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-left-color 0.3s ease;
   box-sizing: border-box;
 }
@@ -181,84 +187,95 @@
 }
 
 /* ==========================================================================
-   ANIMACIÓN DE ENTRADA ACELERADA (js-animate-entry)
+   ANIMACIÓN DE ENTRADA (js-animate-entry)
    ========================================================================== */
 
-/* Entrada escalonada acelerada */
+/* Entrada escalonada */
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(1) .timeline-year,
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(1) .timeline-dot {
-  opacity: 0.3;
+  opacity: 0.5;
   transform: translateY(0) scale(1);
   transition-delay: 0.08s;
 }
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(1) .timeline-body {
-  opacity: 0.3;
+  opacity: 0.5;
   transform: translateY(0);
   transition-delay: 0.15s;
 }
 
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(2) .timeline-year,
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(2) .timeline-dot {
-  opacity: 0.3;
+  opacity: 0.5;
   transform: translateY(0) scale(1);
   transition-delay: 0.22s;
 }
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(2) .timeline-body {
-  opacity: 0.3;
+  opacity: 0.5;
   transform: translateY(0);
   transition-delay: 0.29s;
 }
 
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(3) .timeline-year,
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(3) .timeline-dot {
-  opacity: 0.3;
+  opacity: 0.5;
   transform: translateY(0) scale(1);
   transition-delay: 0.36s;
 }
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(3) .timeline-body {
-  opacity: 0.3;
+  opacity: 0.5;
   transform: translateY(0);
   transition-delay: 0.43s;
 }
 
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(4) .timeline-year,
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(4) .timeline-dot {
-  opacity: 0.3;
+  opacity: 0.5;
   transform: translateY(0) scale(1);
   transition-delay: 0.5s;
 }
 .jypesa-timeline-wrap.js-animate-entry .timeline-item:nth-child(4) .timeline-body {
-  opacity: 0.3;
+  opacity: 0.5;
   transform: translateY(0);
   transition-delay: 0.57s;
 }
 
 /* ==========================================================================
-   ESTADO VISITED (Cualquier hito ya recorrido o activo queda 100% visible)
-   ========================================================================== */
-.jypesa-timeline .timeline-item.active .timeline-year,
-.jypesa-timeline .timeline-item.visited .timeline-year {
+   ESTADOS DE ACTIVIDAD Y VISITA */
+.jypesa-timeline .timeline-item.active .timeline-year {
   opacity: 1 !important;
   transform: translateY(0) !important;
   transition-delay: 0s !important;
 }
+.jypesa-timeline .timeline-item.visited:not(.active) .timeline-year {
+  opacity: 0.5 !important;
+  transform: translateY(0) !important;
+  transition-delay: 0s !important;
+}
 
-.jypesa-timeline .timeline-item.active .timeline-dot,
-.jypesa-timeline .timeline-item.visited .timeline-dot {
+.jypesa-timeline .timeline-item.active .timeline-dot {
   opacity: 1 !important;
   transform: scale(1) !important;
   transition-delay: 0s !important;
 }
+.jypesa-timeline .timeline-item.visited:not(.active) .timeline-dot {
+  opacity: 0.5 !important;
+  transform: scale(1) !important;
+  transition-delay: 0s !important;
+}
 
-.jypesa-timeline .timeline-item.active .timeline-body,
-.jypesa-timeline .timeline-item.visited .timeline-body {
+.jypesa-timeline .timeline-item.active .timeline-body {
   opacity: 1 !important;
   transform: translateY(0) !important;
   border-left-color: #48A9C5;
   transition-delay: 0s !important;
 }
+.jypesa-timeline .timeline-item.visited:not(.active) .timeline-body {
+  opacity: 0.5 !important;
+  transform: translateY(0) !important;
+  border-left-color: rgba(72, 169, 197, 0.3);
+  transition-delay: 0s !important;
+}
 
-/* Ajuste específico para destacar el activo sobre los visitados */
 .jypesa-timeline .timeline-item.active .timeline-body {
   border-left-width: 3px;
   padding-left: 18px;
@@ -267,14 +284,6 @@
 .jypesa-timeline .timeline-item.visited:not(.active) .timeline-body {
   border-left-width: 2px;
   padding-left: 19px;
-}
-
-/* Hover en no visitados/activos */
-.jypesa-timeline .timeline-item:not(.active):not(.visited):hover .timeline-year,
-.jypesa-timeline .timeline-item:not(.active):not(.visited):hover .timeline-dot,
-.jypesa-timeline .timeline-item:not(.active):not(.visited):hover .timeline-body {
-  opacity: 0.65 !important;
-  transition-delay: 0s !important;
 }
 
 /* ==========================================================================
@@ -291,21 +300,32 @@
     padding-left: 28px;
   }
   
+  .jypesa-timeline .timeline-track {
+    position: absolute;
+    top: 24px; /* Centro vertical del primer dot */
+    bottom: 24px; /* Centro vertical del último dot */
+    left: 14px;
+    width: 2px;
+    height: auto;
+    right: auto;
+  }
+  
   .jypesa-timeline .timeline-line {
+    position: absolute;
     top: 0;
     bottom: 0;
-    left: 14px;
-    right: auto;
-    width: 2px;
+    left: 0;
+    width: 100%;
     height: 100%;
-    transform-origin: top;
-    background: transparent;
+    background: transparent; /* Transparente en móvil también */
+    border: none;
   }
   
   .jypesa-timeline .timeline-progress {
+    position: absolute;
     top: 0;
-    left: 14px;
-    width: 2px !important;
+    left: 0;
+    width: 100% !important;
     height: 0%;
     transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
