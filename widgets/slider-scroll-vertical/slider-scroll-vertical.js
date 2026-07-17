@@ -778,7 +778,7 @@
                 <p>Compromiso con el planeta</p>
               </div>
               <h2 class="jypesa-sust-main-title">Sustentabilidad</h2>
-              <p class="jypesa-sust-intro-desc">En Jypesa desarrollamos soluciones para la industria de la hospitalidad que integran innovación, calidad y responsabilidad ambiental. A través de materiales responsables, sistemas recargables y procesos optimizados, buscamos reducir el impacto ambiental de las amenidades utilizadas en hoteles y espacios de hospitalidad.</p>
+              <p class="jypesa-sust-intro-desc">En Jypesa desarrollamos soluciones para la industria de la hospitalidad que integran innovación, calidad y responsabilidad ambiental.<br><br>A través de materiales responsables, sistemas recargables y procesos optimizados, buscamos reducir el impacto ambiental de las amenidades utilizadas en hoteles y espacios de hospitalidad.</p>
               <a href="/sustentabilidad" class="jypesa-sust-btn">
                 Saber más 
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
