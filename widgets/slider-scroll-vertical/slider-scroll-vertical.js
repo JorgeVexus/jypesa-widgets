@@ -216,11 +216,12 @@
 
   /* CERTIFICATIONS IMAGE */
   .jypesa-sust-certs-img {
-    height: 45px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 480px; /* Casi el mismo width que el bloque de texto anterior */
+    height: auto;
     object-fit: contain;
     display: block;
-    margin-top: 15px;
+    margin-top: 20px;
     opacity: 0.95;
     transition: opacity 0.3s ease;
   }
@@ -230,8 +231,9 @@
   }
 
   .jypesa-sust-certs-img-mobile {
-    height: 38px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 280px;
+    height: auto;
     object-fit: contain;
     display: block;
     margin-top: 10px;
@@ -459,8 +461,8 @@
       font-size: 15px;
     }
     .jypesa-sust-certs-img {
-      height: 32px;
-      margin-top: 10px;
+      max-width: 380px;
+      margin-top: 15px;
     }
   }
 
@@ -499,8 +501,8 @@
       font-size: 14px;
     }
     .jypesa-sust-certs-img {
-      height: 28px;
-      margin-top: 8px;
+      max-width: 320px;
+      margin-top: 12px;
     }
   }
 
@@ -531,8 +533,8 @@
       font-size: 14px;
     }
     .jypesa-sust-certs-img {
-      height: 26px;
-      margin-top: 6px;
+      max-width: 320px;
+      margin-top: 12px;
     }
   }
   `;
