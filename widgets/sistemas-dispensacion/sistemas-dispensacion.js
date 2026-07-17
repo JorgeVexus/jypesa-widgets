@@ -33,13 +33,25 @@
 
   /* ── COLUMNA CENTRAL: TEXTOS Y BOTONES ── */
   .jypesa-disp-destacable {
-    display: inline-flex;
+    position: relative;
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-bottom: 2px solid var(--jypesa-disp-slate);
-    padding: 10px 0;
-    margin-bottom: 25px;
     width: fit-content;
+  }
+
+  .jypesa-disp-destacable::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 2px;
+    background-color: var(--jypesa-disp-slate);
   }
 
   .jypesa-disp-destacable p {
