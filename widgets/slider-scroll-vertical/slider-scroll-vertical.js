@@ -70,16 +70,18 @@
   .jypesa-sust-destacable {
     border-bottom: 2px solid var(--jypesa-sust-text);
     padding-bottom: 10px;
-    display: inline-block;
+    width: 71px; /* Ancho fijo para cubrir solo las primeras 6 letras */
+    overflow: visible;
   }
 
   .jypesa-sust-destacable p {
     font-family: 'Instrument Serif', serif;
     font-style: italic;
     font-weight: 400;
-    font-size: 21px;
+    font-size: 18px; /* Reducido a 18px */
     letter-spacing: 1.05px;
     color: var(--jypesa-sust-text);
+    white-space: nowrap; /* Evita que el texto salte de línea debido al ancho de 71px */
   }
 
   .jypesa-sust-main-title {
@@ -140,7 +142,7 @@
     width: 228px;
     height: 1px;
     background-color: var(--jypesa-sust-text);
-    margin: 45px 0;
+    margin: 75px 0;
     transition: opacity 0.5s ease;
     opacity: 0;
   }
@@ -445,7 +447,7 @@
       padding: 12px 24px;
     }
     .jypesa-sust-divider {
-      margin: 30px 0;
+      margin: 50px 0;
     }
     .jypesa-sust-desktop-bottom {
       height: 240px; /* Altura fija en pixel estable */
@@ -485,7 +487,7 @@
       padding: 10px 20px;
     }
     .jypesa-sust-divider {
-      margin: 20px 0;
+      margin: 35px 0;
     }
     .jypesa-sust-desktop-bottom {
       height: 220px; /* Altura fija reducida */
@@ -517,7 +519,7 @@
       gap: 10px;
     }
     .jypesa-sust-divider {
-      margin: 18px 0;
+      margin: 30px 0;
     }
     .jypesa-sust-desktop-bottom {
       height: 220px; /* Altura fija reducida para pantallas de baja altura */
