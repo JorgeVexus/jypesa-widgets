@@ -421,6 +421,119 @@
       display: none;
     }
   }
+
+  /* Ajustes para pantallas medianas/laptops (e.g. 1024px a 1440px) */
+  @media (min-width: 992px) and (max-width: 1440px) {
+    .jypesa-sust-desktop-left {
+      padding: 4vh 4vw;
+      width: 48%;
+    }
+    .jypesa-sust-desktop-right {
+      width: 52%;
+    }
+    .jypesa-sust-main-title {
+      font-size: 52px;
+    }
+    .jypesa-sust-intro-desc {
+      font-size: 15px;
+      max-width: 100%;
+    }
+    .jypesa-sust-left-top {
+      gap: 15px;
+    }
+    .jypesa-sust-btn {
+      font-size: 15px;
+      padding: 12px 24px;
+    }
+    .jypesa-sust-divider {
+      margin: 15px 0;
+    }
+    .jypesa-sust-desktop-bottom {
+      height: 38vh;
+    }
+    .jypesa-sust-slide-title {
+      font-size: 34px;
+    }
+    .jypesa-sust-slide-desc {
+      font-size: 15px;
+    }
+    .jypesa-sust-certs-img {
+      height: 32px;
+      margin-top: 10px;
+    }
+  }
+
+  /* Ajustes para pantallas tipo laptop pequeñas (e.g. 992px a 1200px) */
+  @media (min-width: 992px) and (max-width: 1200px) {
+    .jypesa-sust-desktop-left {
+      padding: 3vh 3vw;
+      width: 50%;
+    }
+    .jypesa-sust-desktop-right {
+      width: 50%;
+    }
+    .jypesa-sust-main-title {
+      font-size: 42px;
+    }
+    .jypesa-sust-intro-desc {
+      font-size: 14px;
+    }
+    .jypesa-sust-left-top {
+      gap: 10px;
+    }
+    .jypesa-sust-btn {
+      font-size: 14px;
+      padding: 10px 20px;
+    }
+    .jypesa-sust-divider {
+      margin: 10px 0;
+    }
+    .jypesa-sust-desktop-bottom {
+      height: 42vh;
+    }
+    .jypesa-sust-slide-title {
+      font-size: 28px;
+    }
+    .jypesa-sust-slide-desc {
+      font-size: 14px;
+    }
+    .jypesa-sust-certs-img {
+      height: 28px;
+      margin-top: 8px;
+    }
+  }
+
+  /* Ajustes específicos para pantallas con poca altura vertical (max-height: 850px) */
+  @media (min-height: 500px) and (max-height: 850px) and (min-width: 992px) {
+    .jypesa-sust-desktop-left {
+      padding: 3vh 4vw;
+    }
+    .jypesa-sust-main-title {
+      font-size: 44px;
+    }
+    .jypesa-sust-intro-desc {
+      font-size: 14px;
+    }
+    .jypesa-sust-left-top {
+      gap: 10px;
+    }
+    .jypesa-sust-divider {
+      margin: 8px 0;
+    }
+    .jypesa-sust-desktop-bottom {
+      height: 42vh;
+    }
+    .jypesa-sust-slide-title {
+      font-size: 28px;
+    }
+    .jypesa-sust-slide-desc {
+      font-size: 14px;
+    }
+    .jypesa-sust-certs-img {
+      height: 26px;
+      margin-top: 6px;
+    }
+  }
   `;
 
   const styleEl = document.createElement('style');
