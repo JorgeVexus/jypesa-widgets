@@ -150,16 +150,16 @@
 
 .jypesa-cg-overlay {
   position: absolute;
-  bottom: 20px;
+  bottom: 45px; /* Subido de 20px a 45px */
   left: 20px;
   background: rgba(238, 247, 250, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 10px;
-  padding: 12px 14px 10px;
+  padding: 18px 20px 16px; /* Caja más amplia */
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 18px;
   z-index: 10;
   pointer-events: auto;
 }
@@ -167,32 +167,32 @@
 .jypesa-cg-group {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .jypesa-cg-group-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* Pegados al título en lugar de space-between */
   align-items: center;
-  gap: 8px;
+  gap: 8px; /* Espacio corto y controlado */
 }
 
 .jypesa-cg-group-title-wrap {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .jypesa-cg-pin,
 .jypesa-cg-mob-pin {
-  width: 16px;
-  height: 16px;
+  width: 18px; /* Ligeramente más grande */
+  height: 18px;
   flex-shrink: 0;
 }
 
 .jypesa-cg-group-title {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 12px;
+  font-size: 14px; /* Incrementado de 12px a 14px */
   font-weight: 400;
   font-style: italic;
   line-height: 1;
@@ -200,28 +200,28 @@
 
 .jypesa-cg-group-count {
   font-family: 'Rubik', sans-serif;
-  font-size: 11px;
+  font-size: 13px; /* Incrementado de 11px a 13px */
   font-weight: 500;
   line-height: 1;
 }
 
 .jypesa-cg-cities {
   display: flex;
-  gap: 16px;
+  gap: 28px; /* Más espacio entre columnas de la lista de oficinas */
 }
 
 .jypesa-cg-cities-col,
 .jypesa-cg-cities-single {
   font-family: 'Rubik', sans-serif;
-  font-size: 9px;
+  font-size: 11px; /* Incrementado de 9px a 11px */
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--jypesa-cg-text-city);
 }
 
 .jypesa-cg-bottom-row {
   display: flex;
-  gap: 18px;
+  gap: 24px; /* Más espacio entre los dos bloques inferiores */
 }
 
 .jypesa-cg-group-bottom {
