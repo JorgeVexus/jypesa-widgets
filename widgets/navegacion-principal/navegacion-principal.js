@@ -237,14 +237,14 @@
   margin: 0 auto;
   min-height: 480px;
   display: flex;
-  padding: 40px 110px 60px 40px;
+  padding: 40px 60px 50px 40px;
 }
 
 .jypesa-nav-principal-widget .visual-block {
   position: absolute;
   top: 0;
   left: 0;
-  width: 660px;
+  width: 580px;
   height: 100%;
   background: #F9F9F9;
   overflow: hidden;
@@ -252,7 +252,7 @@
 
 @media (min-width: 1441px) {
   .jypesa-nav-principal-widget .visual-block {
-    width: calc(50vw - 60px);
+    width: calc(50vw - 140px);
   }
 }
 
@@ -287,7 +287,7 @@
 }
 
 .jypesa-nav-principal-widget .links-container {
-  margin-left: 705px;
+  margin-left: 620px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -304,14 +304,14 @@
 }
 
 .jypesa-nav-principal-widget .sections-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
   width: 100%;
 }
 
 .jypesa-nav-principal-widget .menu-section {
-  min-width: 120px;
+  min-width: 0;
 }
 
 .jypesa-nav-principal-widget .section-header {
@@ -340,7 +340,9 @@
   font-weight: 500;
   color: var(--primary);
   transition: var(--transition);
-  white-space: nowrap;
+  white-space: normal;
+  display: inline-block;
+  line-height: 1.35;
 }
 
 .jypesa-nav-principal-widget .option-link:hover {
@@ -619,48 +621,53 @@
                         <div class="links-container">
                             <div class="category-block">
                                 <p class="cat-label">SOLUCIONES INTEGRALES</p>
-                                <div class="sections-row">
-                                    <div class="menu-section">
-                                        <div class="section-header">Hotelería</div>
-                                        <ul class="options-list">
-                                            <li><a href="/soluciones/hoteleria/independientes" class="option-link">Hoteles independientes</a></li>
-                                            <li><a href="/soluciones/hoteleria/cadenas" class="option-link">Cadenas hoteleras</a></li>
-                                            <li><a href="/soluciones/hoteleria/grupos-operadores" class="option-link">Grupos hoteleros & operadores</a></li>
-                                        </ul>
+                                <div class="soluciones-grid-wrap">
+                                    <!-- Fila 1: Hoteleria, Hospitalidad alternativa, Institucional -->
+                                    <div class="sections-row">
+                                        <div class="menu-section">
+                                            <div class="section-header">Hotelería</div>
+                                            <ul class="options-list">
+                                                <li><a href="/soluciones/hoteleria/independientes" class="option-link">Hoteles independientes</a></li>
+                                                <li><a href="/soluciones/hoteleria/cadenas" class="option-link">Cadenas hoteleras</a></li>
+                                                <li><a href="/soluciones/hoteleria/grupos-operadores" class="option-link">Grupos hoteleros & operadores</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="menu-section">
+                                            <div class="section-header">Hospitalidad alternativa</div>
+                                            <ul class="options-list">
+                                                <li><a href="/soluciones/hospitalidad/airbnb" class="option-link">Airbnb</a></li>
+                                                <li><a href="/soluciones/hospitalidad/str" class="option-link">STR</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="menu-section">
+                                            <div class="section-header">Institucional</div>
+                                            <ul class="options-list">
+                                                <li><a href="/soluciones/institucional/hospitales" class="option-link">Hospitales</a></li>
+                                                <li><a href="/soluciones/institucional/restaurantes-clubes" class="option-link">Restaurante & Clubes</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="menu-section">
-                                        <div class="section-header">Hospitalidad alternativa</div>
-                                        <ul class="options-list">
-                                            <li><a href="/soluciones/hospitalidad/airbnb" class="option-link">Airbnb</a></li>
-                                            <li><a href="/soluciones/hospitalidad/str" class="option-link">STR</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="menu-section">
-                                        <div class="section-header">Institucional</div>
-                                        <ul class="options-list">
-                                            <li><a href="/soluciones/institucional/hospitales" class="option-link">Hospitales</a></li>
-                                            <li><a href="/soluciones/institucional/restaurantes-clubes" class="option-link">Restaurante & Clubes</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="sections-row" style="margin-top: 30px;">
-                                    <div class="menu-section">
-                                        <div class="section-header">Canal comercial</div>
-                                        <ul class="options-list">
-                                            <li><a href="/soluciones/canal-comercial/distribuidores" class="option-link">Distribuidores</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="menu-section">
-                                        <div class="section-header">Empresarial</div>
-                                        <ul class="options-list">
-                                            <li><a href="/soluciones/empresarial/corporativo-regalos" class="option-link">Corporativo & Regalos empresariales</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="menu-section">
-                                        <div class="section-header">Hospitalidad especializada</div>
-                                        <ul class="options-list">
-                                            <li><a href="/soluciones/hospitalidad-especializada/cruceros-campamentos" class="option-link">Cruceros & Campamentos</a></li>
-                                        </ul>
+
+                                    <!-- Fila 2: Canal comercial, Empresarial, Hospitalidad especializada -->
+                                    <div class="sections-row" style="margin-top: 45px;">
+                                        <div class="menu-section">
+                                            <div class="section-header">Canal comercial</div>
+                                            <ul class="options-list">
+                                                <li><a href="/soluciones/canal-comercial/distribuidores" class="option-link">Distribuidores</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="menu-section">
+                                            <div class="section-header">Empresarial</div>
+                                            <ul class="options-list">
+                                                <li><a href="/soluciones/empresarial/corporativo-regalos" class="option-link">Corporativo & Regalos empresariales</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="menu-section">
+                                            <div class="section-header">Hospitalidad especializada</div>
+                                            <ul class="options-list">
+                                                <li><a href="/soluciones/hospitalidad-especializada/cruceros-campamentos" class="option-link">Cruceros & Campamentos</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
