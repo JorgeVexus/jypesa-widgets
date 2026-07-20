@@ -185,8 +185,8 @@
    CERTIFICATION CARD
    ===================== */
 .jypesa-cert-card {
-  flex: 0 0 480px;
-  width: 100%;
+  flex: 0 0 calc((100% - 70px) / 3);
+  min-width: 300px;
   max-width: 568px;
   height: 720px;
   background: #ffffff;
@@ -310,41 +310,41 @@
   }
 
   .jypesa-cert-card {
-    flex: 0 0 100%;
-    width: 100%;
-    max-width: 100%;
+    flex: 0 0 calc((100% - 40px) / 3);
+    min-width: 250px;
+    max-width: 568px;
     height: auto;
     min-height: 600px;
   }
 
   .jypesa-cert-card-img-wrap {
-    height: 260px;
+    height: 240px;
   }
 
   .jypesa-cert-card-header {
-    padding: 20px 24px 16px;
-    gap: 16px;
+    padding: 16px 16px 12px;
+    gap: 12px;
   }
 
   .jypesa-cert-card-title {
-    font-size: 34px;
+    font-size: 28px;
   }
 
   .jypesa-cert-card-title.small-title {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .jypesa-cert-card-phrase {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .jypesa-cert-card-body {
-    padding: 0 24px 24px;
+    padding: 0 16px 20px;
   }
 
   .jypesa-cert-card-body p {
-    font-size: 13.5px;
-    line-height: 1.5;
+    font-size: 12.5px;
+    line-height: 1.45;
   }
 }
 
