@@ -150,16 +150,16 @@
 
 .jypesa-cg-overlay {
   position: absolute;
-  bottom: 45px; /* Subido de 20px a 45px */
+  bottom: 45px;
   left: 20px;
-  background: rgba(238, 247, 250, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 10px;
-  padding: 18px 20px 16px; /* Caja más amplia */
+  background: rgba(238, 247, 250, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 12px;
+  padding: 24px 28px 22px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 22px;
   z-index: 10;
   pointer-events: auto;
 }
@@ -167,32 +167,32 @@
 .jypesa-cg-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .jypesa-cg-group-header {
   display: flex;
-  justify-content: flex-start; /* Pegados al título en lugar de space-between */
+  justify-content: flex-start;
   align-items: center;
-  gap: 8px; /* Espacio corto y controlado */
+  gap: 10px;
 }
 
 .jypesa-cg-group-title-wrap {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .jypesa-cg-pin,
 .jypesa-cg-mob-pin {
-  width: 18px; /* Ligeramente más grande */
-  height: 18px;
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
 }
 
 .jypesa-cg-group-title {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 14px; /* Incrementado de 12px a 14px */
+  font-size: 18px;
   font-weight: 400;
   font-style: italic;
   line-height: 1;
@@ -200,28 +200,28 @@
 
 .jypesa-cg-group-count {
   font-family: 'Rubik', sans-serif;
-  font-size: 13px; /* Incrementado de 11px a 13px */
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 1;
 }
 
 .jypesa-cg-cities {
   display: flex;
-  gap: 28px; /* Más espacio entre columnas de la lista de oficinas */
+  gap: 36px;
 }
 
 .jypesa-cg-cities-col,
 .jypesa-cg-cities-single {
   font-family: 'Rubik', sans-serif;
-  font-size: 11px; /* Incrementado de 9px a 11px */
+  font-size: 13px;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--jypesa-cg-text-city);
 }
 
 .jypesa-cg-bottom-row {
   display: flex;
-  gap: 24px; /* Más espacio entre los dos bloques inferiores */
+  gap: 32px;
 }
 
 .jypesa-cg-group-bottom {
