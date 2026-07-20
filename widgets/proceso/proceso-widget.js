@@ -98,11 +98,11 @@
           '<div class="jyp-proceso-content">' +
             '<!-- SVG Serpentine Line -->' +
             '<div class="jyp-proceso-svg-wrap">' +
-              '<svg viewBox="0 0 1270.5 271" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+              '<svg viewBox="0 0 1080.5 271" fill="none" xmlns="http://www.w3.org/2000/svg">' +
                 '<!-- Background Inactive Path -->' +
-                '<path class="jyp-svg-line-bg" d="M0 0.5H1135C1209.56 0.5 1270 60.9416 1270 135.5C1270 210.058 1209.56 270.5 1135 270.5H383.5" stroke="#506D85" stroke-opacity="0.15" stroke-width="2"/>' +
+                '<path class="jyp-svg-line-bg" d="M0 0.5H950C1021.8 0.5 1080 60.9416 1080 135.5C1080 210.058 1021.8 270.5 950 270.5H320" stroke="#506D85" stroke-opacity="0.15" stroke-width="2"/>' +
                 '<!-- Foreground Active Path -->' +
-                '<path class="jyp-svg-line-active" d="M0 0.5H1135C1209.56 0.5 1270 60.9416 1270 135.5C1270 210.058 1209.56 270.5 1135 270.5H383.5" stroke="#48A9C5" stroke-width="2" stroke-linecap="round"/>' +
+                '<path class="jyp-svg-line-active" d="M0 0.5H950C1021.8 0.5 1080 60.9416 1080 135.5C1080 210.058 1021.8 270.5 950 270.5H320" stroke="#48A9C5" stroke-width="2" stroke-linecap="round"/>' +
               '</svg>' +
               '<!-- Mobile progress line -->' +
               '<div class="jyp-proceso-mobile-progress"></div>' +

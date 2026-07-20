@@ -129,7 +129,7 @@
   position: absolute;
   top: 111px;
   left: 79.5px;
-  width: 1270px;
+  width: 1080px;
   height: 270px;
   z-index: 1;
   pointer-events: none;
@@ -160,30 +160,30 @@
 
 /* Positions for Step Cards based on Figma coordinates */
 .jyp-step-card.step-1 { left: 0px; top: 0px; }
-.jyp-step-card.step-2 { left: 345px; top: 0px; }
-.jyp-step-card.step-3 { left: 690px; top: 0px; }
-.jyp-step-card.step-4 { left: 1035px; top: 0px; }
+.jyp-step-card.step-2 { left: 290px; top: 0px; }
+.jyp-step-card.step-3 { left: 580px; top: 0px; }
+.jyp-step-card.step-4 { left: 870px; top: 0px; }
 .jyp-step-card.step-5 {
-  left: 1080px;
-  top: 135px;
-  width: 240px;
-  text-align: right;
-  align-items: flex-end;
+  left: 1180px;
+  top: 155px;
+  width: 210px;
+  text-align: center;
+  align-items: center;
 }
-.jyp-step-card.step-6 { left: 1035px; top: 271px; }
-.jyp-step-card.step-7 { left: 690px; top: 271px; }
-.jyp-step-card.step-8 { left: 345px; top: 271px; }
+.jyp-step-card.step-6 { left: 870px; top: 271px; }
+.jyp-step-card.step-7 { left: 580px; top: 271px; }
+.jyp-step-card.step-8 { left: 290px; top: 271px; }
 
-/* Step 5 alignment inside loop boundary */
+/* Step 5 centered alignment to the right of dot-5 */
 .jyp-step-card.step-5 .jyp-step-num {
   padding-left: 0;
-  justify-content: flex-end;
+  justify-content: center;
 }
 .jyp-step-card.step-5 .jyp-step-details {
   padding-left: 0;
-  margin-top: 10px;
-  align-items: flex-end;
-  text-align: right;
+  margin-top: 14px;
+  align-items: center;
+  text-align: center;
 }
 
 /* Step Content Elements */
@@ -243,13 +243,13 @@
 
 /* Absolute positions for dots relative to each Step Card in Desktop */
 .jyp-step-dot.dot-1 { left: 101.0px; top: 94px; }
-.jyp-step-dot.dot-2 { left: 104.0px; top: 94px; }
-.jyp-step-dot.dot-3 { left: 104.0px; top: 94px; }
-.jyp-step-dot.dot-4 { left: 103.0px; top: 95px; }
-.jyp-step-dot.dot-5 { left: 255.0px; top: 93px; }
-.jyp-step-dot.dot-6 { left: 103.0px; top: 92px; }
-.jyp-step-dot.dot-7 { left: 104.0px; top: 92px; }
-.jyp-step-dot.dot-8 { left: 104.0px; top: 92px; }
+.jyp-step-dot.dot-2 { left: 101.0px; top: 94px; }
+.jyp-step-dot.dot-3 { left: 101.0px; top: 94px; }
+.jyp-step-dot.dot-4 { left: 100.0px; top: 95px; }
+.jyp-step-dot.dot-5 { left: -38.0px; top: 91.5px; }
+.jyp-step-dot.dot-6 { left: 100.0px; top: 92px; }
+.jyp-step-dot.dot-7 { left: 101.0px; top: 92px; }
+.jyp-step-dot.dot-8 { left: 101.0px; top: 92px; }
 
 /* Dot Inner Rings */
 .jyp-dot-ring {
