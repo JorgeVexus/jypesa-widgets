@@ -604,11 +604,31 @@
       };
 
       const getImgSrc = (cls) => {
-        const el = item.querySelector(cls);
+        let el = item.querySelector(cls);
         if (!el) return '';
+        
+        // Si el selector no es un elemento de tipo IMG, buscar la imagen dentro
+        if (el.tagName !== 'IMG') {
+          const img = el.querySelector('img');
+          if (img) el = img;
+        }
+
         const attrSrc = el.getAttribute('src');
         if (attrSrc && attrSrc.trim() !== '') {
-          return attrSrc.trim();
+          const srcVal = attrSrc.trim();
+          const lowerSrc = srcVal.toLowerCase();
+          
+          // Filtrar placeholders de Webflow, data-URIs y URLs autorreferenciales del navegador
+          if (
+            lowerSrc.includes('placeholder') || 
+            lowerSrc.includes('cloudfront.net/img/') || 
+            lowerSrc.startsWith('data:') ||
+            srcVal === window.location.href ||
+            srcVal === '#'
+          ) {
+            return '';
+          }
+          return srcVal;
         }
         return '';
       };
@@ -646,7 +666,7 @@
         material: get('.jypesa-disp-material') || '-',
         seguridad: get('.jypesa-disp-seguridad') || '-',
         desc: get('.jypesa-disp-desc') || '',
-        imgMain: imgEl ? (imgEl.getAttribute('src') || imgEl.src || '') : '',
+        imgMain: getImgSrc('.jypesa-disp-img-main'),
         variants: variants,
         guiaLink: getLink('.jypesa-disp-guia-link'),
         fichaLink: getLink('.jypesa-disp-ficha-link')
