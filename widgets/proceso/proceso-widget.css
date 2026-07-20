@@ -15,7 +15,7 @@
 
 .jyp-proceso-container {
   width: 100%;
-  max-width: 1640px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 24px;
   box-sizing: border-box;
@@ -164,26 +164,26 @@
 .jyp-step-card.step-3 { left: 690px; top: 0px; }
 .jyp-step-card.step-4 { left: 1035px; top: 0px; }
 .jyp-step-card.step-5 {
-  left: 1375px;
-  top: 155px;
-  width: 220px;
-  text-align: center;
-  align-items: center;
+  left: 1080px;
+  top: 135px;
+  width: 240px;
+  text-align: right;
+  align-items: flex-end;
 }
 .jyp-step-card.step-6 { left: 1035px; top: 271px; }
 .jyp-step-card.step-7 { left: 690px; top: 271px; }
 .jyp-step-card.step-8 { left: 345px; top: 271px; }
 
-/* Step 5 centered alignment to the right of dot-5 */
+/* Step 5 alignment inside loop boundary */
 .jyp-step-card.step-5 .jyp-step-num {
   padding-left: 0;
-  justify-content: center;
+  justify-content: flex-end;
 }
 .jyp-step-card.step-5 .jyp-step-details {
   padding-left: 0;
-  margin-top: 14px;
-  align-items: center;
-  text-align: center;
+  margin-top: 10px;
+  align-items: flex-end;
+  text-align: right;
 }
 
 /* Step Content Elements */
@@ -246,7 +246,7 @@
 .jyp-step-dot.dot-2 { left: 104.0px; top: 94px; }
 .jyp-step-dot.dot-3 { left: 104.0px; top: 94px; }
 .jyp-step-dot.dot-4 { left: 103.0px; top: 95px; }
-.jyp-step-dot.dot-5 { left: -40.0px; top: 73px; }
+.jyp-step-dot.dot-5 { left: 255.0px; top: 93px; }
 .jyp-step-dot.dot-6 { left: 103.0px; top: 92px; }
 .jyp-step-dot.dot-7 { left: 104.0px; top: 92px; }
 .jyp-step-dot.dot-8 { left: 104.0px; top: 92px; }
