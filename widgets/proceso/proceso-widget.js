@@ -8,14 +8,14 @@
   var ST_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
 
   var STEPS = [
-    { n: 1, t: 'Brief técnico', d: "" },
-    { n: 2, t: 'Análisis de viabilidad', d: "" },
-    { n: 3, t: 'Desarrollo o adaptación', d: "" },
-    { n: 4, t: 'Validación de muestras', d: "" },
-    { n: 5, t: 'Ajustes regulatorios', d: "" },
-    { n: 6, t: 'Producción piloto', d: "" },
-    { n: 7, t: 'Producción industrial', d: "" },
-    { n: 8, t: 'Entrega', d: "" }
+    { n: 1, t: 'Brief técnico', d: 'Levantamiento de requerimientos y especificaciones clave.' },
+    { n: 2, t: 'Análisis de viabilidad', d: 'Evaluación técnica, de costos y factibilidad de producción.' },
+    { n: 3, t: 'Desarrollo o adaptación', d: 'Formulación y desarrollo a medida según necesidades.' },
+    { n: 4, t: 'Validación de muestras', d: 'Elaboración de prototipos para pruebas y aprobación.' },
+    { n: 5, t: 'Ajustes regulatorios', d: 'Cumplimiento normativo, etiquetado y certificaciones.' },
+    { n: 6, t: 'Producción piloto', d: 'Prueba a escala inicial para verificación de calidad.' },
+    { n: 7, t: 'Producción industrial', d: 'Fabricación masiva bajo estándares rigurosos.' },
+    { n: 8, t: 'Entrega', d: 'Empaque, logística y entrega en destino final.' }
   ];
 
   // Helper to load CSS link dynamically based on script location
@@ -57,26 +57,21 @@
 
   function buildHtml() {
     var cardsHtml = '';
-    var dotsHtml = '';
 
     STEPS.forEach(function (step) {
-      // Step Cards
       var descHtml = step.d ? '<p class="jyp-step-desc">' + step.d + '</p>' : '';
       cardsHtml += '' +
         '<div class="jyp-step-card step-' + step.n + '" data-step="' + step.n + '">' +
+          '<div class="jyp-step-dot dot-' + step.n + '" data-step="' + step.n + '">' +
+            '<div class="jyp-dot-ring outer"></div>' +
+            '<div class="jyp-dot-ring mid"></div>' +
+            '<div class="jyp-dot-ring inner"></div>' +
+          '</div>' +
           '<h3 class="jyp-step-num">' + step.n + '</h3>' +
           '<div class="jyp-step-details">' +
             '<h4 class="jyp-step-title">' + step.t + '</h4>' +
             descHtml +
           '</div>' +
-        '</div>';
-
-      // Step Dots
-      dotsHtml += '' +
-        '<div class="jyp-step-dot dot-' + step.n + '" data-step="' + step.n + '">' +
-          '<div class="jyp-dot-ring outer"></div>' +
-          '<div class="jyp-dot-ring mid"></div>' +
-          '<div class="jyp-dot-ring inner"></div>' +
         '</div>';
     });
 
@@ -113,9 +108,8 @@
               '<div class="jyp-proceso-mobile-progress"></div>' +
             '</div>' +
             
-            '<!-- Rendered Cards and Dots -->' +
+            '<!-- Rendered Cards with embedded Dots -->' +
             cardsHtml +
-            dotsHtml +
           '</div>' +
         '</div>' +
       '</section>';
@@ -199,13 +193,13 @@
           onUpdate: function (self) {
             var progress = self.progress;
             var activeIndex = 1;
-            if (progress > 0.08) activeIndex = 2;
-            if (progress > 0.24) activeIndex = 3;
-            if (progress > 0.40) activeIndex = 4;
-            if (progress > 0.56) activeIndex = 5;
-            if (progress > 0.72) activeIndex = 6;
-            if (progress > 0.84) activeIndex = 7;
-            if (progress > 0.94) activeIndex = 8;
+            if (progress >= 0.15) activeIndex = 2;
+            if (progress >= 0.30) activeIndex = 3;
+            if (progress >= 0.45) activeIndex = 4;
+            if (progress >= 0.57) activeIndex = 5;
+            if (progress >= 0.70) activeIndex = 6;
+            if (progress >= 0.85) activeIndex = 7;
+            if (progress >= 0.97) activeIndex = 8;
             
             toggleActive(activeIndex);
           }
@@ -213,16 +207,16 @@
       });
 
       // Animate line path
-      tl.to(activePath, { strokeDashoffset: 0, ease: 'none' });
+      tl.to(activePath, { strokeDashoffset: 0, ease: 'none', duration: 1 });
 
-      // Animate steps opacity/positions in sync
-      tl.to(".jyp-step-dot.dot-2, .jyp-step-card.step-2", { opacity: 1, y: 0, scale: 1, duration: 0.1 }, 0.08)
-        .to(".jyp-step-dot.dot-3, .jyp-step-card.step-3", { opacity: 1, y: 0, scale: 1, duration: 0.1 }, 0.24)
-        .to(".jyp-step-dot.dot-4, .jyp-step-card.step-4", { opacity: 1, y: 0, scale: 1, duration: 0.1 }, 0.40)
-        .to(".jyp-step-dot.dot-5, .jyp-step-card.step-5", { opacity: 1, y: 0, scale: 1, duration: 0.1 }, 0.56)
-        .to(".jyp-step-dot.dot-6, .jyp-step-card.step-6", { opacity: 1, y: 0, scale: 1, duration: 0.1 }, 0.72)
-        .to(".jyp-step-dot.dot-7, .jyp-step-card.step-7", { opacity: 1, y: 0, scale: 1, duration: 0.1 }, 0.84)
-        .to(".jyp-step-dot.dot-8, .jyp-step-card.step-8", { opacity: 1, y: 0, scale: 1, duration: 0.1 }, 0.94);
+      // Animate steps opacity/positions in sync exactly as line reaches each dot
+      tl.to(".jyp-step-dot.dot-2, .jyp-step-card.step-2", { opacity: 1, y: 0, scale: 1, duration: 0.04 }, 0.16)
+        .to(".jyp-step-dot.dot-3, .jyp-step-card.step-3", { opacity: 1, y: 0, scale: 1, duration: 0.04 }, 0.31)
+        .to(".jyp-step-dot.dot-4, .jyp-step-card.step-4", { opacity: 1, y: 0, scale: 1, duration: 0.04 }, 0.46)
+        .to(".jyp-step-dot.dot-5, .jyp-step-card.step-5", { opacity: 1, y: 0, scale: 1, duration: 0.04 }, 0.58)
+        .to(".jyp-step-dot.dot-6, .jyp-step-card.step-6", { opacity: 1, y: 0, scale: 1, duration: 0.04 }, 0.71)
+        .to(".jyp-step-dot.dot-7, .jyp-step-card.step-7", { opacity: 1, y: 0, scale: 1, duration: 0.04 }, 0.86)
+        .to(".jyp-step-dot.dot-8, .jyp-step-card.step-8", { opacity: 1, y: 0, scale: 1, duration: 0.04 }, 0.98);
 
       return function () {
         // Cleanup functions
