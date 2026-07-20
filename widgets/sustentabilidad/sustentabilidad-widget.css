@@ -40,9 +40,9 @@
 .jyp-sust-static-header {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 16px;
   align-items: flex-start;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .jyp-sust-sub {
@@ -70,7 +70,7 @@
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
-  font-size: clamp(32px, 3.5vw, 50px);
+  font-size: clamp(26px, 2.5vw, 40px);
   line-height: 1.15;
   color: #506D85;
   max-width: 100%;
@@ -80,8 +80,8 @@
   margin: 0;
   font-family: 'Rubik', sans-serif;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 1.45;
+  font-size: 16px;
+  line-height: 1.4;
   color: #506D85;
   opacity: 0.9;
   max-width: 574px;
@@ -92,7 +92,7 @@
   width: 228px;
   height: 1px;
   background-color: #506D85;
-  margin: 25px 0 40px;
+  margin: 20px 0 24px;
   opacity: 0.6;
 }
 
@@ -110,7 +110,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 14px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -134,7 +134,7 @@
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
-  font-size: clamp(28px, 3vw, 50px);
+  font-size: clamp(24px, 2.3vw, 36px);
   line-height: 1.1;
   color: #506D85;
 }
@@ -143,8 +143,8 @@
   margin: 0;
   font-family: 'Rubik', sans-serif;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 1.45;
+  font-size: 15px;
+  line-height: 1.4;
   color: #506D85;
   opacity: 0.9;
 }
@@ -153,14 +153,14 @@
 .jyp-sust-checklist {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
-  margin: 10px 0;
+  gap: 7px;
+  margin: 4px 0;
 }
 
 .jyp-sust-check-item {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .jyp-sust-check-icon {
@@ -182,7 +182,7 @@
   margin: 0;
   font-family: 'Rubik', sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14.5px;
   line-height: 1.3;
   color: #506D85;
 }

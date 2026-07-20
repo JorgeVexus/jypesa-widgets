@@ -8,14 +8,14 @@
   var ST_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
 
   var STEPS = [
-    { n: 1, t: 'Brief técnico', d: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" },
-    { n: 2, t: 'Análisis de viabilidad', d: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" },
-    { n: 3, t: 'Desarrollo o adaptación', d: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" },
-    { n: 4, t: 'Validación de muestras', d: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" },
-    { n: 5, t: 'Ajustes regulatorios', d: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" },
-    { n: 6, t: 'Producción piloto', d: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" },
-    { n: 7, t: 'Producción industrial', d: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" },
-    { n: 8, t: 'Entrega', d: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" }
+    { n: 1, t: 'Brief técnico', d: "" },
+    { n: 2, t: 'Análisis de viabilidad', d: "" },
+    { n: 3, t: 'Desarrollo o adaptación', d: "" },
+    { n: 4, t: 'Validación de muestras', d: "" },
+    { n: 5, t: 'Ajustes regulatorios', d: "" },
+    { n: 6, t: 'Producción piloto', d: "" },
+    { n: 7, t: 'Producción industrial', d: "" },
+    { n: 8, t: 'Entrega', d: "" }
   ];
 
   // Helper to load CSS link dynamically based on script location
@@ -61,12 +61,13 @@
 
     STEPS.forEach(function (step) {
       // Step Cards
+      var descHtml = step.d ? '<p class="jyp-step-desc">' + step.d + '</p>' : '';
       cardsHtml += '' +
         '<div class="jyp-step-card step-' + step.n + '" data-step="' + step.n + '">' +
           '<h3 class="jyp-step-num">' + step.n + '</h3>' +
           '<div class="jyp-step-details">' +
             '<h4 class="jyp-step-title">' + step.t + '</h4>' +
-            '<p class="jyp-step-desc">' + step.d + '</p>' +
+            descHtml +
           '</div>' +
         '</div>';
 
@@ -94,7 +95,6 @@
               '</div>' +
               '<div class="jyp-proceso-header-desc">' +
                 '<strong>Metodología clara que reduce riesgos y retrabajos.</strong>' +
-                '<p>Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</p>' +
               '</div>' +
             '</div>' +
           '</div>' +
