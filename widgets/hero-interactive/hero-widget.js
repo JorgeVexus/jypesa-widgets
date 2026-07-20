@@ -114,8 +114,8 @@
 .jypesa-hero-sobre-wrapper {
   position: absolute;
   bottom: calc(100% - 8px);
-  right: 73%;
-  width: 300px;
+  right: calc(73% - 15px);
+  width: 320px;
   height: 110px;
   overflow: hidden;
   display: flex;
@@ -131,6 +131,7 @@
   color: #ffffff;
   line-height: 0.9;
   margin: 0;
+  padding-right: 18px;
   white-space: nowrap;
   text-align: right;
   transform: translateY(-100%);
