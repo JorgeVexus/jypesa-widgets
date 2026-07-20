@@ -676,9 +676,32 @@
       };
 
       const getLink = (cls) => {
-        const el = item.querySelector(cls);
+        let el = item.querySelector(cls);
         if (!el) return '';
-        const href = el.getAttribute('href');
+        
+        // Si el elemento no es un enlace (<a>), buscar un enlace dentro
+        if (el.tagName !== 'A') {
+          const anchor = el.querySelector('a');
+          if (anchor) el = anchor;
+        }
+
+        // Obtener el href del enlace si es un <a>
+        let href = el.tagName === 'A' ? el.getAttribute('href') : '';
+        
+        // Si no es un enlace o el href es inválido/vacío, pero tiene texto que parece un enlace, usar el texto
+        if (!href || href === '#' || href.trim() === '') {
+          const txt = el.textContent.trim();
+          if (
+            txt.startsWith('http://') || 
+            txt.startsWith('https://') || 
+            txt.startsWith('/') || 
+            txt.includes('.pdf') ||
+            txt.includes('.doc')
+          ) {
+            href = txt;
+          }
+        }
+        
         return (href && href !== '#' && href.trim() !== '') ? href.trim() : '';
       };
 
