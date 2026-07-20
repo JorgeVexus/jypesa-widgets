@@ -290,6 +290,58 @@
   margin-bottom: 0;
 }
 
+@media (max-width: 1100px) {
+  .jypesa-cert-slider-outer {
+    width: 100%;
+    padding: 0 5%;
+    box-sizing: border-box;
+  }
+
+  .jypesa-cert-products-container-desktop,
+  .jypesa-cert-products-container {
+    gap: 20px;
+    scroll-padding: 0 5%;
+  }
+
+  .jypesa-cert-card {
+    flex: 0 0 85vw;
+    width: 85vw;
+    max-width: 90%;
+    height: auto;
+    min-height: 640px;
+  }
+
+  .jypesa-cert-card-img-wrap {
+    height: 280px;
+  }
+
+  .jypesa-cert-card-header {
+    padding: 20px 24px 16px;
+    gap: 16px;
+  }
+
+  .jypesa-cert-card-title {
+    font-size: 36px;
+  }
+
+  .jypesa-cert-card-title.small-title {
+    font-size: 24px;
+  }
+
+  .jypesa-cert-card-phrase {
+    font-size: 16px;
+  }
+
+  .jypesa-cert-card-body {
+    padding: 0 24px 24px;
+  }
+
+  .jypesa-cert-card-body p {
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+}
+
 @media (max-width: 768px) {
   .jypesa-slider-certificaciones-widget {
     padding: 40px 0;
@@ -304,28 +356,32 @@
   }
 
   .jypesa-cert-slider-outer {
-    padding: 0 20px;
+    padding: 0 5%;
   }
 
-  .jypesa-cert-products-container {
-    scroll-padding: 0 20px;
+  .jypesa-cert-products-container,
+  .jypesa-cert-products-container-desktop {
+    scroll-padding: 0 5%;
     gap: 16px;
+    padding: 15px 5px 30px !important;
+    margin: -15px -5px -30px;
   }
 
   .jypesa-cert-card {
-    flex: 0 0 calc(100% - 20px);
-    width: calc(100% - 20px);
+    flex: 0 0 85vw;
+    width: 85vw;
+    max-width: 90%;
     height: auto;
     scroll-snap-align: center;
-    min-height: 620px;
+    min-height: 580px;
   }
 
   .jypesa-cert-card-img-wrap {
-    height: 170px;
+    height: 200px;
   }
 
   .jypesa-cert-card-title {
-    font-size: 36px;
+    font-size: 32px;
   }
 
   .jypesa-cert-card-title.small-title {
@@ -371,8 +427,6 @@
   .jypesa-cert-card {
     scroll-snap-align: start;
   }
-
-  /* Scroll-snap comportamiento desktop */
 }
 
 /* Contenedor con snap para centrar el paso de 3 cards en desktop */
@@ -393,20 +447,6 @@
 
 .jypesa-cert-products-container-desktop::-webkit-scrollbar {
   display: none;
-}
-
-@media (max-width: 768px) {
-  .jypesa-cert-products-container-desktop {
-    scroll-padding: 0 20px;
-    gap: 16px;
-    padding: 15px 10px 30px !important;
-    margin: -15px -10px -30px;
-  }
-
-  .jypesa-cert-card {
-    flex: 0 0 calc(100% - 20px);
-    width: calc(100% - 20px);
-  }
 }
 `;
 
