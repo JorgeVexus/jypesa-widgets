@@ -150,16 +150,16 @@
 
 .jypesa-cg-overlay {
   position: absolute;
-  bottom: 45px;
-  left: 20px;
-  background: rgba(238, 247, 250, 0.88);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-radius: 12px;
-  padding: 24px 28px 22px;
+  bottom: 30px;
+  left: 35px;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-radius: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 16px;
   z-index: 10;
   pointer-events: auto;
 }
@@ -167,32 +167,32 @@
 .jypesa-cg-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .jypesa-cg-group-header {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .jypesa-cg-group-title-wrap {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 }
 
 .jypesa-cg-pin,
 .jypesa-cg-mob-pin {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
 }
 
 .jypesa-cg-group-title {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   font-style: italic;
   line-height: 1;
@@ -200,28 +200,28 @@
 
 .jypesa-cg-group-count {
   font-family: 'Rubik', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1;
 }
 
 .jypesa-cg-cities {
   display: flex;
-  gap: 36px;
+  gap: 28px;
 }
 
 .jypesa-cg-cities-col,
 .jypesa-cg-cities-single {
   font-family: 'Rubik', sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.55;
   color: var(--jypesa-cg-text-city);
 }
 
 .jypesa-cg-bottom-row {
   display: flex;
-  gap: 32px;
+  gap: 24px;
 }
 
 .jypesa-cg-group-bottom {
