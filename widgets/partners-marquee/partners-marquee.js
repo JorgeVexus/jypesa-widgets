@@ -59,7 +59,7 @@
 
   .jypesa-partners-marquee-container[data-variant="blue"] .jypesa-partners-marquee-item img,
   [data-variant="blue"] .jypesa-partners-marquee-item img {
-    filter: brightness(0) saturate(100%) invert(23%) sepia(98%) saturate(2250%) hue-rotate(205deg) brightness(95%) contrast(102%);
+    filter: brightness(0) saturate(100%) invert(41%) sepia(25%) saturate(620%) hue-rotate(167deg) brightness(95%) contrast(90%);
   }
 
   .jypesa-partners-marquee-container[data-variant="dark"] .jypesa-partners-marquee-item img,
