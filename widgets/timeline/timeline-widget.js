@@ -11,9 +11,9 @@
 .jypesa-timeline-wrap {
   position: relative;
   width: 100%;
-  max-width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 5%; /* Padding lateral del 5% para centrar de forma fluida en pantallas grandes */
+  padding: 40px 5%; /* Padding lateral del 5% para centrar de forma fluida */
   font-family: 'Rubik', sans-serif;
   color: #506D85;
   overflow-x: auto;
@@ -21,6 +21,13 @@
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   box-sizing: border-box;
+}
+
+@media (min-width: 1620px) {
+  .jypesa-timeline-wrap {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .jypesa-timeline-wrap::-webkit-scrollbar {
