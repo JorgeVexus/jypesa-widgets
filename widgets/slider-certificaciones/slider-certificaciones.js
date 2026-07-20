@@ -291,28 +291,34 @@
 }
 
 @media (max-width: 1100px) {
+  .jypesa-slider-certificaciones-widget {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .jypesa-cert-slider-outer {
     width: 100%;
-    padding: 0 5%;
+    padding: 0;
     box-sizing: border-box;
   }
 
   .jypesa-cert-products-container-desktop,
   .jypesa-cert-products-container {
     gap: 20px;
-    scroll-padding: 0 5%;
+    scroll-padding: 0;
   }
 
   .jypesa-cert-card {
-    flex: 0 0 85vw;
-    width: 85vw;
-    max-width: 90%;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
     height: auto;
-    min-height: 640px;
+    min-height: 600px;
   }
 
   .jypesa-cert-card-img-wrap {
-    height: 280px;
+    height: 260px;
   }
 
   .jypesa-cert-card-header {
@@ -321,7 +327,7 @@
   }
 
   .jypesa-cert-card-title {
-    font-size: 36px;
+    font-size: 34px;
   }
 
   .jypesa-cert-card-title.small-title {
@@ -329,7 +335,7 @@
   }
 
   .jypesa-cert-card-phrase {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .jypesa-cert-card-body {
