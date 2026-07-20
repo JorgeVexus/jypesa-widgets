@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview — Sistemas de Dispensación Comparativa</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: #EEF7FA;
+      color: #506D85;
+      padding-bottom: 80px;
+    }
+
+    .preview-header-panel {
+      max-width: 1440px;
+      margin: 40px auto 20px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(80, 109, 133, 0.05);
+      border-left: 5px solid #48a9c5;
+    }
+
+    .preview-header-panel h1 {
+      font-size: 26px;
+      color: #506D85;
+      margin-bottom: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+    }
+
+    .preview-header-panel p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #666666;
+      max-width: 900px;
+    }
+
+    .demo-section-title {
+      max-width: 1440px;
+      margin: 50px auto 10px;
+      padding: 0 24px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: #3b5264;
+    }
+
+    .demo-section-desc {
+      max-width: 1440px;
+      margin: 0 auto 20px;
+      padding: 0 24px;
+      font-size: 14px;
+      color: #778e9f;
+    }
+
+    .demo-divider {
+      border: none;
+      border-top: 1px solid rgba(80, 109, 133, 0.15);
+      margin: 50px auto;
+      max-width: 1440px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Panel de Información -->
+  <div class="preview-header-panel">
+    <h1>Panel de Pruebas — Sistemas de Dispensación Comparativa</h1>
+    <p>
+      Este widget renderiza una cuadrícula de comparación de dispensadores con especificaciones detalladas, imágenes interactivas y soporte para filtro por categoría a través del atributo <code>data-category-filter</code>.
+      Las categorías dinámicas leen su título de sección y descripción del CMS de Webflow.
+    </p>
+  </div>
+
+  <!-- Fuente CMS Oculta Simulada (Webflow w-dyn-list) -->
+  <div class="jypesa-sdc-cms-source" style="display: none;">
+    <div class="w-dyn-list">
+      <div class="w-dyn-items">
+        
+        <!-- Item 1: Easy Snap -->
+        <div class="w-dyn-item">
+          <div class="jypesa-disp-name">Easy Snap (CMS)</div>
+          <div class="jypesa-disp-badge">Economy</div>
+          <div class="jypesa-disp-categoria">Sistemas de dispensación</div>
+          <div class="jypesa-disp-categoria-desc">Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.</div>
+          <div class="jypesa-disp-codigo">CMS-ES-01</div>
+          <div class="jypesa-disp-capacidad">400 ml / 13.5 oz</div>
+          <div class="jypesa-disp-material">HDPE — Reciclable Premium</div>
+          <div class="jypesa-disp-seguridad">Media (llave exclusiva)</div>
+          <div class="jypesa-disp-desc">Dispensador Easy Snap cargado dinámicamente desde el CMS. Haz clic en las miniaturas inferiores para alternar entre las colecciones de Almond y Amenidades.</div>
+          <img class="jypesa-disp-img-main" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a517650cc0f99d3d0a0d182_elements%2003.avif">
+          <img class="jypesa-disp-subimg-1" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif">
+          <img class="jypesa-disp-subimg-1-large" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif">
+          <img class="jypesa-disp-subimg-2" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif">
+          <img class="jypesa-disp-subimg-2-large" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif">
+          <a class="jypesa-disp-guia-link" href="https://jypesa.com/guia-easy-snap.pdf">Guía</a>
+          <a class="jypesa-disp-ficha-link" href="https://jypesa.com/ficha-easy-snap.pdf">Ficha</a>
+        </div>
+
+        <!-- Item 2: Emperor -->
+        <div class="w-dyn-item">
+          <div class="jypesa-disp-name">Emperor (CMS)</div>
+          <div class="jypesa-disp-badge">Economy</div>
+          <div class="jypesa-disp-categoria">Sistemas de dispensación</div>
+          <div class="jypesa-disp-categoria-desc">Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.</div>
+          <div class="jypesa-disp-codigo">CMS-EMP-02</div>
+          <div class="jypesa-disp-capacidad">400 ml / 13.5 oz</div>
+          <div class="jypesa-disp-material">HDPE — Reciclable Premium</div>
+          <div class="jypesa-disp-seguridad">Alta (llave exclusiva)</div>
+          <div class="jypesa-disp-desc">Dispensador Emperor cargado dinámicamente desde el CMS. Un modelo robusto diseñado para integrarse estéticamente en cualquier pared de baño.</div>
+          <img class="jypesa-disp-img-main" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a51765121c2aa4efdc14b0b_elements%2004.avif">
+          <img class="jypesa-disp-subimg-1" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif">
+          <img class="jypesa-disp-subimg-1-large" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif">
+          <img class="jypesa-disp-subimg-2" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif">
+          <img class="jypesa-disp-subimg-2-large" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif">
+          <a class="jypesa-disp-guia-link" href="https://jypesa.com/guia-emperor.pdf">Guía</a>
+          <a class="jypesa-disp-ficha-link" href="https://jypesa.com/ficha-emperor.pdf">Ficha</a>
+        </div>
+
+        <!-- Item 3: Lotus Premium -->
+        <div class="w-dyn-item">
+          <div class="jypesa-disp-name">Lotus Premium (CMS)</div>
+          <div class="jypesa-disp-badge">Premium</div>
+          <div class="jypesa-disp-categoria">Soportes</div>
+          <div class="jypesa-disp-categoria-desc">Soportes de pared de alta durabilidad y diseño antirrobo.</div>
+          <div class="jypesa-disp-codigo">CMS-LOT-03</div>
+          <div class="jypesa-disp-capacidad">350 ml / 11.8 oz</div>
+          <div class="jypesa-disp-material">PET Reciclado (PCR)</div>
+          <div class="jypesa-disp-seguridad">Alta (cerradura oculta)</div>
+          <div class="jypesa-disp-desc">Dispensador Lotus de la línea Premium cargado dinámicamente desde el CMS. Su diseño orgánico y dosificación precisa lo convierten en un líder de estética.</div>
+          <img class="jypesa-disp-img-main" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif">
+          <img class="jypesa-disp-subimg-1" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif">
+          <img class="jypesa-disp-subimg-1-large" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif">
+          <a class="jypesa-disp-guia-link" href="https://jypesa.com/guia-lotus.pdf">Guía</a>
+          <a class="jypesa-disp-ficha-link" href="https://jypesa.com/ficha-lotus.pdf">Ficha</a>
+        </div>
+
+        <!-- Item 4: Crown Premium -->
+        <div class="w-dyn-item">
+          <div class="jypesa-disp-name">Crown Premium (CMS)</div>
+          <div class="jypesa-disp-badge">Premium</div>
+          <div class="jypesa-disp-categoria">Soportes</div>
+          <div class="jypesa-disp-categoria-desc">Soportes de pared de alta durabilidad y diseño antirrobo.</div>
+          <div class="jypesa-disp-codigo">CMS-CRO-04</div>
+          <div class="jypesa-disp-capacidad">450 ml / 15.2 oz</div>
+          <div class="jypesa-disp-material">PET Reciclado (PCR)</div>
+          <div class="jypesa-disp-seguridad">Alta (cerradura oculta)</div>
+          <div class="jypesa-disp-desc">Dispensador Crown Premium de soporte doble con botellas traslúcidas que permiten vigilar el nivel del producto de forma eficiente.</div>
+          <img class="jypesa-disp-img-main" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif">
+          <a class="jypesa-disp-guia-link" href="https://jypesa.com/guia-crown.pdf">Guía</a>
+          <a class="jypesa-disp-ficha-link" href="https://jypesa.com/ficha-crown.pdf">Ficha</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- DEMO 1A: FILTRADO POR "Sistemas de dispensación" (CMS) -->
+  <h2 class="demo-section-title">Demo 1A: Filtrado por "Sistemas de dispensación" (CMS Dinámico)</h2>
+  <p class="demo-section-desc">Se filtra y muestra únicamente la categoría <strong>Sistemas de dispensación</strong> usando el atributo <code>data-category-filter="Sistemas de dispensación"</code>. El encabezado y la descripción cambian dinámicamente.</p>
+  <div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Sistemas de dispensación"></div>
+
+  <hr class="demo-divider">
+
+  <!-- DEMO 1B: FILTRADO POR "Soportes" (CMS) -->
+  <h2 class="demo-section-title">Demo 1B: Filtrado por "Soportes" (CMS Dinámico)</h2>
+  <p class="demo-section-desc">Se filtra y muestra únicamente la categoría <strong>Soportes</strong> usando el atributo <code>data-category-filter="Soportes"</code>. El encabezado y la descripción cambian dinámicamente.</p>
+  <div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Soportes"></div>
+
+  <hr class="demo-divider">
+
+  <!-- DEMO 2: FALLBACK ESTÁTICO FILTRADO POR "Complementos" -->
+  <h2 class="demo-section-title">Demo 2: Modo Fallback estático filtrado por "Complementos"</h2>
+  <p class="demo-section-desc">Se simula la inicialización sin CMS leyendo directamente del fallback estático y filtrando por la categoría <strong>Complementos</strong> usando el atributo <code>data-category-filter="Complementos"</code>.</p>
+  <div id="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Complementos"></div>
+
+  <!-- Cargar Widget JS -->
+  <script src="sistemas-dispensacion-comparativa.js"></script>
+
+</body>
+</html>
