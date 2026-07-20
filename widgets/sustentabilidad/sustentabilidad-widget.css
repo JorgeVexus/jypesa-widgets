@@ -1,0 +1,434 @@
+/* Stylesheet for JYPESA Sustentabilidad Widget (Split Scroll) */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@500;700&family=Rubik:wght@400;500;700&display=swap');
+
+.jyp-sust-section {
+  position: relative;
+  width: 100%;
+  padding: 100px 0;
+  background-color: #f7fafc;
+  font-family: 'Rubik', sans-serif;
+  color: #506D85;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.jyp-sust-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 40px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 80px;
+}
+
+/* ==========================================================================
+   LEFT COLUMN (STATIC & DYNAMIC TEXT CONTENT)
+   ========================================================================== */
+.jyp-sust-left {
+  width: 38%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+  min-height: 700px;
+}
+
+/* Left Static Header */
+.jyp-sust-static-header {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.jyp-sust-sub {
+  padding: 10px 0;
+  display: inline-block;
+}
+
+.jyp-sust-sub p {
+  margin: 0;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 21px;
+  font-weight: 400;
+  letter-spacing: 1.05px;
+  line-height: 1;
+  color: #506D85;
+}
+
+.jyp-sust-sub-underline {
+  border-bottom: 2px solid #506D85;
+  padding-bottom: 10px;
+}
+
+.jyp-sust-title {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: clamp(32px, 3.5vw, 50px);
+  line-height: 1.15;
+  color: #506D85;
+  max-width: 100%;
+}
+
+.jyp-sust-desc {
+  margin: 0;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.45;
+  color: #506D85;
+  opacity: 0.9;
+  max-width: 574px;
+}
+
+/* Horizontal Divider */
+.jyp-sust-divider {
+  width: 228px;
+  height: 1px;
+  background-color: #506D85;
+  margin: 25px 0 40px;
+  opacity: 0.6;
+}
+
+/* Dynamic Left States Container */
+.jyp-sust-dynamic-wrap {
+  position: relative;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.jyp-sust-state-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+
+.jyp-sust-state-left.active {
+  position: relative;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Mobile Flow Container (Hidden on Desktop) */
+.jyp-sust-mobile-flow {
+  display: none;
+}
+
+/* Dynamic State Typography */
+.jyp-sust-state-title {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: clamp(28px, 3vw, 50px);
+  line-height: 1.1;
+  color: #506D85;
+}
+
+.jyp-sust-state-desc {
+  margin: 0;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.45;
+  color: #506D85;
+  opacity: 0.9;
+}
+
+/* Checklist layout */
+.jyp-sust-checklist {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.jyp-sust-check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.jyp-sust-check-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.jyp-sust-left .jyp-sust-check-icon path {
+  fill: #48A9C5; /* Teal for left column list */
+}
+
+.jyp-sust-card .jyp-sust-check-icon path {
+  fill: white; /* White for cards list */
+}
+
+.jyp-sust-check-text {
+  margin: 0;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.3;
+  color: #506D85;
+}
+
+/* ==========================================================================
+   RIGHT COLUMN (ANIMATION SLIDING WINDOW)
+   ========================================================================== */
+.jyp-sust-right {
+  width: 58%;
+  height: 650px; /* Viewport-friendly fixed height on desktop */
+  position: relative;
+  overflow: hidden; /* Mask */
+  border-radius: 6px;
+}
+
+/* Container holding both cards and photo, sliding vertically */
+.jyp-sust-sliding-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* State 1: Info Cards Container */
+.jyp-sust-cards-group {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  z-index: 2; /* Cards overlay on top of photo */
+}
+
+/* Gradient Card Item */
+.jyp-sust-card {
+  position: relative;
+  flex: 1; /* Divide space equally */
+  border-radius: 6px;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 30px 40px;
+  display: flex;
+  align-items: center;
+  color: white;
+  background: linear-gradient(90deg, #84cfcf 0%, #0088bd 34.41%, #48a9c5 100.4%);
+  z-index: 1;
+}
+
+.jyp-sust-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #0088bd 0%, #48a9c5 61.56%, rgba(72, 169, 197, 0) 100%);
+  opacity: 0.85;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.jyp-sust-card-bg-img {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40%;
+  height: 120%;
+  object-fit: cover;
+  opacity: 0.55;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.jyp-sust-card-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 60%;
+}
+
+.jyp-sust-card-title {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: clamp(22px, 2.5vw, 42px);
+  line-height: 1.1;
+  color: white;
+  white-space: nowrap;
+}
+
+.jyp-sust-card-checklist {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+}
+
+.jyp-sust-card-check-text {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: white;
+}
+
+/* State 2: Photo Block */
+.jyp-sust-photo-block {
+  position: absolute;
+  top: 0; /* Positioned overlaying the cards area */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  z-index: 1; /* Photo sits behind the card opacity changes */
+}
+
+.jyp-sust-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE STACKED)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .jyp-sust-section {
+    padding: 60px 0;
+  }
+
+  .jyp-sust-container {
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 24px;
+  }
+
+  /* Left column fills width */
+  .jyp-sust-left {
+    width: 100%;
+    min-height: auto;
+  }
+
+  .jyp-sust-static-header {
+    margin-bottom: 20px;
+  }
+
+  .jyp-sust-divider {
+    margin: 20px 0;
+  }
+
+  .jyp-sust-dynamic-wrap {
+    display: none; /* Hide desktop absolute switching container */
+  }
+
+  /* Hide desktop right column on mobile/tablet */
+  .jyp-sust-right {
+    display: none;
+  }
+
+  .jyp-sust-sliding-container {
+    position: static;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  /* Mobile Layout Assembly (will be generated by JS in mobile) */
+  .jyp-sust-mobile-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+  }
+
+  .jyp-sust-mobile-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 32px;
+  }
+
+  .jyp-sust-mobile-block:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .jyp-sust-mobile-block-text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .jyp-sust-cards-group {
+    position: static;
+    height: auto;
+    gap: 16px;
+  }
+
+  .jyp-sust-card {
+    padding: 24px;
+    height: auto;
+    min-height: 180px;
+  }
+
+  .jyp-sust-card-content {
+    max-width: 100%;
+  }
+
+  .jyp-sust-card-title {
+    font-size: 26px;
+    white-space: normal;
+  }
+
+  .jyp-sust-card-checklist {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .jyp-sust-photo-block {
+    position: static;
+    width: 100%;
+    height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .jyp-sust-title {
+    font-size: 34px;
+  }
+  .jyp-sust-state-title {
+    font-size: 26px;
+  }
+  .jyp-sust-card-title {
+    font-size: 22px;
+  }
+  .jyp-sust-photo-block {
+    height: 250px;
+  }
+}
