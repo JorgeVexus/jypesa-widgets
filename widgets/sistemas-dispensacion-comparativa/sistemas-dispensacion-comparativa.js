@@ -596,6 +596,26 @@
       source = document.querySelector('.jypesa-sdc-cms-source');
     }
 
+    // 6. Auto-detectar buscando un item con clase de nombre en el mismo contenedor padre
+    if (!source && target.parentElement) {
+      const localSample = target.parentElement.querySelector('.jypesa-disp-name');
+      if (localSample) {
+        source = localSample.closest('.w-dyn-list') || 
+                 localSample.closest('.w-dyn-items') || 
+                 localSample.parentElement;
+      }
+    }
+
+    // 7. Auto-detectar buscando de forma global en la página por clase de nombre
+    if (!source) {
+      const sampleEl = document.querySelector('.jypesa-disp-name');
+      if (sampleEl) {
+        source = sampleEl.closest('.w-dyn-list') || 
+                 sampleEl.closest('.w-dyn-items') || 
+                 sampleEl.parentElement;
+      }
+    }
+
     if (!source) return null;
 
     let items = Array.from(source.querySelectorAll('.w-dyn-item'));
