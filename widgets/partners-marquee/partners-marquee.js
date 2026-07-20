@@ -155,7 +155,7 @@
 
       // Leer la duración del scroll desde el data attribute (ej: data-duration="30s")
       // Por defecto irá a 20s
-      const duration = target.getAttribute('data-duration') || '20s';
+      const duration = target.getAttribute('data-duration') || '40s';
 
       // Inyectar HTML del carrusel
       target.innerHTML = `
