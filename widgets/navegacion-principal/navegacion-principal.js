@@ -81,7 +81,9 @@
   text-decoration: none;
   letter-spacing: 1px;
   transition: var(--transition);
-  display: inline-flex;
+  display: flex;
+  align-items: center;
+  margin-top: -3px;
 }
 
 .jypesa-nav-principal-widget .nav-links {
@@ -115,7 +117,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: var(--secondary);
+  background-color: currentColor;
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -126,6 +128,8 @@
 }
 
 .jypesa-nav-principal-widget .nav-link:hover::after,
+.jypesa-nav-principal-widget .nav-link.current::after,
+.jypesa-nav-principal-widget .nav-link-item.current > .nav-link::after,
 .jypesa-nav-principal-widget .nav-link-item:hover .nav-link::after {
   transform: scaleX(1);
   transform-origin: left;
@@ -869,7 +873,30 @@
       'Biogena': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d8ecf2458e29f0dec_Biogena%20menu%C3%8C%C2%81.webp',
     };
 
-    const nav = target.querySelector('#nav');
+    // Detección automática de la página actual (Current URL)
+    const currentPath = (window.location.pathname.split('#')[0].replace(/\/$/, '') || '/').toLowerCase();
+    target.querySelectorAll('.nav-link[href], .option-link[href], .mob-link[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#') return;
+      const linkPath = (href.split('#')[0].replace(/\/$/, '') || '/').toLowerCase();
+
+      if (linkPath === currentPath || (linkPath !== '/' && currentPath.startsWith(linkPath))) {
+        link.classList.add('current');
+        const parentItem = link.closest('.nav-link-item');
+        if (parentItem) parentItem.classList.add('current');
+      }
+    });
+
+    // Marcar como current la categoría principal si un subenlace dentro del mega-menu coincide
+    target.querySelectorAll('.nav-link-item').forEach(item => {
+      const subLinkActive = item.querySelector('.option-link.current');
+      if (subLinkActive) {
+        item.classList.add('current');
+        const topLink = item.querySelector('.nav-link');
+        if (topLink) topLink.classList.add('current');
+      }
+    });
+
     const images = [target.querySelector('#img-1'), target.querySelector('#img-2')];
     let activeIdx = 0;
     const links = target.querySelectorAll('.option-link[data-p]');
