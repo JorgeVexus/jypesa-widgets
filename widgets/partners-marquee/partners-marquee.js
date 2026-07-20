@@ -51,16 +51,25 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* Ajustes para móviles */
-  @media (max-width: 479px) {
-    .jypesa-partners-marquee-item {
-      padding: 0 20px;
-    }
-    .jypesa-partners-marquee-item img {
-      height: 35px;
-      max-height: 35px;
-      max-width: 90px;
-    }
+  /* Variaciones de color para logos */
+  .jypesa-partners-marquee-container[data-variant="white"] .jypesa-partners-marquee-item img,
+  [data-variant="white"] .jypesa-partners-marquee-item img {
+    filter: brightness(0) invert(1);
+  }
+
+  .jypesa-partners-marquee-container[data-variant="blue"] .jypesa-partners-marquee-item img,
+  [data-variant="blue"] .jypesa-partners-marquee-item img {
+    filter: brightness(0) saturate(100%) invert(23%) sepia(98%) saturate(2250%) hue-rotate(205deg) brightness(95%) contrast(102%);
+  }
+
+  .jypesa-partners-marquee-container[data-variant="dark"] .jypesa-partners-marquee-item img,
+  [data-variant="dark"] .jypesa-partners-marquee-item img {
+    filter: brightness(0);
+  }
+
+  .jypesa-partners-marquee-container[data-variant="grayscale"] .jypesa-partners-marquee-item img,
+  [data-variant="grayscale"] .jypesa-partners-marquee-item img {
+    filter: grayscale(100%);
   }
   `;
 
@@ -154,12 +163,17 @@
       target.setAttribute('data-initialized', 'true');
 
       // Leer la duración del scroll desde el data attribute (ej: data-duration="30s")
-      // Por defecto irá a 20s
       const duration = target.getAttribute('data-duration') || '40s';
+      // Leer la variante de color (ej: data-variant="white" | "blue" | "dark" | "grayscale")
+      const variant = target.getAttribute('data-variant') || 'original';
+      // Leer filtro CSS personalizado opcional (ej: data-filter="brightness(0) invert(0.8)")
+      const customFilter = target.getAttribute('data-filter') || '';
+
+      const filterStyle = customFilter ? `filter: ${customFilter};` : '';
 
       // Inyectar HTML del carrusel
       target.innerHTML = `
-        <div class="jypesa-partners-marquee-container">
+        <div class="jypesa-partners-marquee-container" data-variant="${variant}" style="${filterStyle}">
           <div class="jypesa-partners-marquee-track" style="--jypesa-marquee-duration: ${duration};">
             ${itemsHtml}
           </div>
