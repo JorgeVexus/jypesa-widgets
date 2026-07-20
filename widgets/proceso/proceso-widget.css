@@ -1,0 +1,503 @@
+/* Stylesheet for JYPESA Proceso Widget (Scroll serpentine timeline) */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@500;700&family=Rubik:wght@400;500;700&display=swap');
+
+/* Reset and variables */
+.jyp-proceso-section {
+  position: relative;
+  width: 100%;
+  padding: 80px 0;
+  background-color: #f7fafc;
+  font-family: 'Rubik', sans-serif;
+  color: #506D85;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.jyp-proceso-container {
+  width: 100%;
+  max-width: 1564px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Header Styles */
+.jyp-proceso-header {
+  width: 100%;
+  max-width: 1506px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.jyp-proceso-sub {
+  border-bottom: 2px solid #506D85;
+  padding: 10px 0;
+  display: inline-block;
+}
+
+.jyp-proceso-sub p {
+  margin: 0;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 21px;
+  font-weight: 400;
+  letter-spacing: 1.05px;
+  line-height: 1;
+  color: #506D85;
+}
+
+.jyp-proceso-header-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.jyp-proceso-title-wrap {
+  position: relative;
+  width: 585px;
+  height: 123px;
+  flex-shrink: 0;
+}
+
+.jyp-proceso-title-main {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 50px;
+  line-height: 1;
+  color: #506D85;
+}
+
+.jyp-proceso-title-gradient {
+  position: absolute;
+  left: 38px;
+  top: 43px;
+  margin: 0;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 90px;
+  line-height: 1;
+  letter-spacing: 4.5px;
+  background: linear-gradient(90deg, #48a9c5 0%, #0088bd 50%, #9ef4f5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.jyp-proceso-header-desc {
+  max-width: 460px;
+  text-align: right;
+  font-size: 18px;
+  line-height: 1.35;
+  color: #506D85;
+}
+
+.jyp-proceso-header-desc strong {
+  display: block;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.jyp-proceso-header-desc p {
+  margin: 0;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+/* Content Serpentine Area (Desktop) */
+.jyp-proceso-content {
+  position: relative;
+  width: 100%;
+  height: 493px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/* SVG Line Track */
+.jyp-proceso-svg-wrap {
+  position: absolute;
+  top: 111px;
+  left: 79.5px;
+  width: 1270px;
+  height: 270px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.jyp-proceso-svg-wrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Step Card Styles */
+.jyp-step-card {
+  position: absolute;
+  width: 237px;
+  height: 222px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  z-index: 3;
+  opacity: 0.3; /* Default semi-transparent state */
+  transform: translateY(15px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Positions for Step Cards based on Figma coordinates */
+.jyp-step-card.step-1 { left: 0px; top: 0px; }
+.jyp-step-card.step-2 { left: 345px; top: 0px; }
+.jyp-step-card.step-3 { left: 690px; top: 0px; }
+.jyp-step-card.step-4 { left: 1035px; top: 0px; }
+.jyp-step-card.step-5 { left: 1327px; top: 195px; text-align: left; align-items: flex-start; }
+.jyp-step-card.step-6 { left: 1035px; top: 271px; }
+.jyp-step-card.step-7 { left: 690px; top: 271px; }
+.jyp-step-card.step-8 { left: 345px; top: 271px; }
+
+/* Shift step-5 texts to the right because the dot is on the left side of the card */
+.jyp-step-card.step-5 .jyp-step-num {
+  padding-left: 95px;
+}
+.jyp-step-card.step-5 .jyp-step-details {
+  padding-left: 95px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Step Content Elements */
+.jyp-step-num {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 75px;
+  line-height: 1;
+  color: #506D85;
+  margin: 0;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jyp-step-details {
+  margin-top: 48px; /* Creates the space for the dot nestled in between */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.jyp-step-title {
+  margin: 0;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: #506D85;
+  line-height: 1.2;
+}
+
+.jyp-step-desc {
+  margin: 0;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: #506D85;
+  opacity: 0.85;
+  max-width: 190px;
+}
+
+/* Step Dot Styles */
+.jyp-step-dot {
+  position: absolute;
+  width: 30px;
+  height: 35px;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.3;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Absolute positions for dots relative to Content area */
+.jyp-step-dot.dot-1 { left: 101.0px; top: 94px; }
+.jyp-step-dot.dot-2 { left: 449.0px; top: 94px; }
+.jyp-step-dot.dot-3 { left: 794.0px; top: 94px; }
+.jyp-step-dot.dot-4 { left: 1138.0px; top: 95px; }
+.jyp-step-dot.dot-5 { left: 1335.0px; top: 228px; }
+.jyp-step-dot.dot-6 { left: 1138.0px; top: 363px; }
+.jyp-step-dot.dot-7 { left: 794.0px; top: 363px; }
+.jyp-step-dot.dot-8 { left: 449.0px; top: 363px; }
+
+/* Dot Inner Rings */
+.jyp-dot-ring {
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.jyp-dot-ring.outer {
+  width: 35px;
+  height: 35px;
+  background-color: rgba(80, 109, 133, 0.15);
+}
+
+.jyp-dot-ring.mid {
+  width: 27px;
+  height: 27px;
+  background-color: rgba(80, 109, 133, 0.25);
+}
+
+.jyp-dot-ring.inner {
+  width: 16px;
+  height: 16px;
+  background-color: #506D85;
+}
+
+/* Active & Visited States */
+.jyp-step-card.active, .jyp-step-card.visited {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.jyp-step-dot.active, .jyp-step-dot.visited {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.jyp-step-dot.active .jyp-dot-ring.outer,
+.jyp-step-dot.visited .jyp-dot-ring.outer {
+  background-color: rgba(72, 169, 197, 0.25);
+}
+
+.jyp-step-dot.active .jyp-dot-ring.mid,
+.jyp-step-dot.visited .jyp-dot-ring.mid {
+  background-color: rgba(72, 169, 197, 0.4);
+}
+
+.jyp-step-dot.active .jyp-dot-ring.inner,
+.jyp-step-dot.visited .jyp-dot-ring.inner {
+  background-color: #48A9C5;
+}
+
+/* Infinite Pulse for Active Dot */
+.jyp-step-dot.active::after {
+  content: '';
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #48A9C5;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  animation: jypPulseAnimation 2s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes jypPulseAnimation {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE VERTICAL)
+   ========================================================================== */
+
+@media (max-width: 1399px) {
+  /* Scale container slightly on smaller desktop layouts */
+  .jyp-proceso-content {
+    transform: scale(0.85);
+    transform-origin: top center;
+    margin-bottom: -70px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .jyp-proceso-content {
+    transform: scale(0.72);
+    transform-origin: top center;
+    margin-bottom: -130px;
+  }
+  .jyp-proceso-header-row {
+    gap: 20px;
+  }
+  .jyp-proceso-title-wrap {
+    transform: scale(0.9);
+    transform-origin: left center;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Complete switch to vertical layout */
+  .jyp-proceso-section {
+    padding: 60px 0;
+  }
+  .jyp-proceso-container {
+    gap: 40px;
+  }
+  .jyp-proceso-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .jyp-proceso-title-wrap {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    transform: none;
+  }
+  .jyp-proceso-title-main {
+    font-size: 38px;
+  }
+  .jyp-proceso-title-gradient {
+    position: static;
+    font-size: 64px;
+    margin-top: 5px;
+    letter-spacing: 2px;
+  }
+  .jyp-proceso-header-desc {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  /* Vertical Timeline Layout */
+  .jyp-proceso-content {
+    height: auto;
+    transform: none;
+    margin-bottom: 0;
+    padding-left: 45px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  /* Vertical Line */
+  .jyp-proceso-svg-wrap {
+    position: absolute;
+    top: 40px;
+    bottom: 40px;
+    left: 20px;
+    width: 2px;
+    height: auto;
+    z-index: 1;
+  }
+
+  .jyp-proceso-svg-wrap svg {
+    display: none; /* Hide serpentine SVG path */
+  }
+
+  /* Custom CSS straight line in mobile fallback */
+  .jyp-proceso-svg-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background-color: rgba(80, 109, 133, 0.15);
+  }
+
+  .jyp-proceso-mobile-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    background-color: #48A9C5;
+    height: 0%;
+    transition: height 0.1s ease;
+  }
+
+  /* Step Card vertical styling */
+  .jyp-step-card {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: 100%;
+    height: auto;
+    text-align: left;
+    align-items: flex-start;
+    transform: translateX(15px);
+    opacity: 0.3;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    padding-bottom: 10px;
+  }
+
+  .jyp-step-card.step-5 {
+    text-align: left;
+    align-items: flex-start;
+  }
+  .jyp-step-card.step-5 .jyp-step-num,
+  .jyp-step-card.step-5 .jyp-step-details {
+    padding-left: 0;
+  }
+
+  .jyp-step-num {
+    font-size: 48px;
+    height: 48px;
+    justify-content: flex-start;
+  }
+
+  .jyp-step-details {
+    margin-top: 15px;
+    align-items: flex-start;
+    text-align: left;
+    gap: 8px;
+  }
+
+  .jyp-step-desc {
+    max-width: 100%;
+  }
+
+  /* Step Dot vertical positioning */
+  .jyp-step-dot {
+    position: absolute;
+    left: -40px !important; /* Positioned directly on the vertical line */
+    top: 6px !important;
+    width: 28px;
+    height: 28px;
+    transform: scale(0.85);
+  }
+
+  .jyp-dot-ring.outer { width: 28px; height: 28px; }
+  .jyp-dot-ring.mid { width: 22px; height: 22px; }
+  .jyp-dot-ring.inner { width: 12px; height: 12px; }
+
+  .jyp-step-dot.active::after {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .jyp-proceso-title-main {
+    font-size: 30px;
+  }
+  .jyp-proceso-title-gradient {
+    font-size: 48px;
+  }
+  .jyp-proceso-header-desc {
+    font-size: 15px;
+  }
+  .jyp-step-title {
+    font-size: 18px;
+  }
+}
