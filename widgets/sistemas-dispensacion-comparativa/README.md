@@ -1,6 +1,6 @@
 # Colección CMS Webflow — Sistemas de Dispensación Comparativa
 
-Esta guía te proporciona la configuración exacta para crear la colección en el CMS de Webflow, vincularla correctamente con el widget interactivo y aplicar filtros por categoría para estructurar tus secciones.
+Esta guía te proporciona la configuración recomendada para implementar el widget interactivo en Webflow utilizando un **único CMS List global** y filtrando las secciones mediante atributos en el código Embed HTML.
 
 ---
 
@@ -20,7 +20,7 @@ Crea una colección en el CMS con los siguientes parámetros y campos exactos:
 | **Badge** | `Plain text` (Optional) | `.jypesa-disp-badge` | Etiqueta de la línea (ej. `Economy` o `Premium`) |
 | **Color del Badge** | `Plain text` (Optional) | `.jypesa-disp-badge-color` | Código de color en Hex/RGBA para el fondo del badge (ej. `#4aa25d` o `#8a3ab9`) |
 | **Categoría** | `Plain text` (Optional) | `.jypesa-disp-categoria` | Categoría principal. Debe ser exactamente uno de estos tres valores:<br>- `Sistemas de dispensación`<br>- `Soportes`<br>- `Complementos` |
-| **Descripción Categoría** | `Plain text` (Optional) | `.jypesa-disp-categoria-desc` | Descripción que saldrá debajo de la categoría (ej. `Diseñados para mejorar procesos...`) |
+| **Descripción Categoría** | `Plain text` (Optional) | `.jypesa-disp-categoria-desc` | Descripción de la categoría que saldrá debajo del título (ej. `Diseñados para mejorar procesos...`) |
 | **Código** | `Plain text` (Optional) | `.jypesa-disp-codigo` | Código SKU (ej. `JHJY-0065` o `-`) |
 | **Capacidad** | `Plain text` (Optional) | `.jypesa-disp-capacidad` | Capacidad (ej. `400 ml / 13.5 oz`) |
 | **Material** | `Plain text` (Optional) | `.jypesa-disp-material` | Material (ej. `HDPE — Material reciclable`) |
@@ -36,15 +36,13 @@ Crea una colección en el CMS con los siguientes parámetros y campos exactos:
 | **Enlace Guía de Instalación** | `Link` (Optional) | `.jypesa-disp-guia-link` | Enlace para descargar la guía de instalación (PDF) |
 | **Enlace Ficha Técnica** | `Link` (Optional) | `.jypesa-disp-ficha-link` | Enlace para descargar la ficha técnica (PDF) |
 
-> [!NOTE]
-> *   **Ocultado Inteligente de Miniaturas**: Si no cargas imágenes en los campos de Variante 1/2/3, la barra de miniaturas se ocultará por completo para ese producto.
-> *   **Ocultado Inteligente de Botones**: Si no cargas enlaces de *Guía de Instalación* o *Ficha Técnica*, los botones de descarga correspondientes no se renderizarán.
-
 ---
 
 ## 2. Cómo Estructurar la Colección en la Página de Webflow
 
-1. En la página de Webflow, inserta una **Collection List** conectada a la colección `Dispensadores`.
+Coloca **una sola** lista de colección en tu página de Webflow (puede ser en el footer o en cualquier sección oculta) que contenga todos los productos de todas las categorías (sin filtros nativos de Webflow).
+
+1. Inserta una **Collection List** conectada a la colección `Dispensadores`.
 2. Asigna la clase **`jypesa-sdc-cms-source`** al elemento contenedor principal de la lista (**Collection List Wrapper**).
 3. Dentro del **Collection Item** (`w-dyn-item`), coloca los siguientes elementos de forma oculta (puedes meterlos en un Div Block y ponerle `display: none`):
    * Un bloque de texto con la clase `.jypesa-disp-name` enlazado al campo *Nombre*.
@@ -59,34 +57,33 @@ Crea una colección en el CMS con los siguientes parámetros y campos exactos:
    * Un bloque de texto con la clase `.jypesa-disp-desc` enlazado al campo *Descripción Producto*.
    * Un elemento de imagen con la clase `.jypesa-disp-img-main` enlazado a *Imagen Principal*.
    * Elementos de imagen para las miniaturas y sus imágenes grandes correspondientes.
-   * Un enlace tipo botón (`Link Block` o `Button`) con la clase `.jypesa-disp-guia-link` enlazado a la *Guía de Instalación*.
+   * Un enlace tipo botón con la clase `.jypesa-disp-guia-link` enlazado a la *Guía de Instalación*.
    * Un enlace tipo botón con la clase `.jypesa-disp-ficha-link` enlazado a la *Ficha Técnica*.
 
 ---
 
-## 3. Métodos de Inicialización y Filtrado de Categorías
+## 3. Código Embed para Inicializar cada Sección (Recomendado)
 
-El widget ofrece dos opciones flexibles para mostrar y segmentar tus productos:
+En las diferentes partes de tu página donde quieras mostrar cada sección, coloca un bloque de **Embed HTML** con el atributo `data-category-filter` correspondiente. El script leerá el CMS global y filtrará las tarjetas correspondientes a esa categoría de forma automática:
 
-### Opción A: Filtrado nativo directo desde Webflow (Recomendado)
-Puedes aplicar el filtro directamente en las propiedades de la **Collection List** de Webflow (ej. `Categoría es igual a Soportes`). 
-El widget detectará automáticamente qué elementos están visibles en el CMS, emparejará la lista de forma inteligente y actualizará el título de la sección y la descripción a partir del primer elemento encontrado. No necesitas escribir ningún atributo especial en tu contenedor:
-
+### Sección 1: Sistemas de dispensación
 ```html
-<!-- Coloca el contenedor limpio debajo de la Collection List correspondiente -->
-<div class="jypesa-sistemas-dispensacion-comparativa"></div>
-
-<!-- Cargar el script interactivo -->
-<script src="https://jypesa-widgets.vercel.app/widgets/sistemas-dispensacion-comparativa/sistemas-dispensacion-comparativa.js"></script>
+<div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Sistemas de dispensación"></div>
 ```
 
-### Opción B: Filtrado del lado del Script (HTML Embed)
-Si prefieres renderizar toda la lista del CMS en la página y que el script realice el filtrado, simplemente añade el atributo `data-category-filter` en el contenedor HTML del widget:
+### Sección 2: Soportes
+```html
+<div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Soportes"></div>
+```
+
+### Sección 3: Complementos
+```html
+<div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Complementos"></div>
+```
+
+### Script de Carga Único
+Coloca el siguiente script al final del body en tu página de Webflow (o justo debajo de tu último embed):
 
 ```html
-<!-- Ejemplo: Cargar únicamente la categoría de Soportes -->
-<div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Soportes"></div>
-
-<!-- Cargar el script interactivo -->
 <script src="https://jypesa-widgets.vercel.app/widgets/sistemas-dispensacion-comparativa/sistemas-dispensacion-comparativa.js"></script>
 ```
