@@ -18,6 +18,7 @@ Crea una colección en el CMS con los siguientes parámetros y campos exactos:
 | :--- | :--- | :--- | :--- |
 | **Nombre** | `Plain text` (Required) | `.jypesa-disp-name` | Nombre del dispensador (ej. `Easy Snap`) |
 | **Badge** | `Plain text` (Optional) | `.jypesa-disp-badge` | Etiqueta de la línea (ej. `Economy` o `Premium`) |
+| **Color del Badge** | `Plain text` (Optional) | `.jypesa-disp-badge-color` | Código de color en Hex/RGBA para el fondo del badge (ej. `#4aa25d` o `#8a3ab9`) |
 | **Categoría** | `Plain text` (Optional) | `.jypesa-disp-categoria` | Categoría principal. Debe ser exactamente uno de estos tres valores:<br>- `Sistemas de dispensación`<br>- `Soportes`<br>- `Complementos` |
 | **Descripción Categoría** | `Plain text` (Optional) | `.jypesa-disp-categoria-desc` | Descripción que saldrá debajo de la categoría (ej. `Diseñados para mejorar procesos...`) |
 | **Código** | `Plain text` (Optional) | `.jypesa-disp-codigo` | Código SKU (ej. `JHJY-0065` o `-`) |
@@ -35,8 +36,9 @@ Crea una colección en el CMS con los siguientes parámetros y campos exactos:
 | **Enlace Guía de Instalación** | `Link` (Optional) | `.jypesa-disp-guia-link` | Enlace para descargar la guía de instalación (PDF) |
 | **Enlace Ficha Técnica** | `Link` (Optional) | `.jypesa-disp-ficha-link` | Enlace para descargar la ficha técnica (PDF) |
 
-> [!TIP]
-> Si no se proporciona una **Imagen Grande** específica para una variante (ej. `.jypesa-disp-subimg-1-large`), el widget utilizará automáticamente la imagen de la **Miniatura** (`.jypesa-disp-subimg-1`) como fallback cuando el usuario haga clic.
+> [!NOTE]
+> *   **Ocultado Inteligente de Miniaturas**: Si no cargas imágenes en los campos de Variante 1/2/3, la barra inferior de miniaturas **se ocultará por completo** de forma automática (evitando imágenes rotas y redundancia).
+> *   **Ocultado Inteligente de Botones**: Si dejas vacíos los enlaces de *Guía de Instalación* o *Ficha Técnica*, los botones correspondientes **no se mostrarán**.
 
 ---
 
@@ -47,6 +49,7 @@ Crea una colección en el CMS con los siguientes parámetros y campos exactos:
 3. Dentro del **Collection Item** (`w-dyn-item`), coloca los siguientes elementos de forma oculta (puedes meterlos en un Div Block y ponerle `display: none`):
    * Un bloque de texto con la clase `.jypesa-disp-name` enlazado al campo *Nombre*.
    * Un bloque de texto con la clase `.jypesa-disp-badge` enlazado al campo *Badge*.
+   * Un bloque de texto con la clase `.jypesa-disp-badge-color` enlazado al campo *Color del Badge*.
    * Un bloque de texto con la clase `.jypesa-disp-categoria` enlazado al campo *Categoría*.
    * Un bloque de texto con la clase `.jypesa-disp-categoria-desc` enlazado al campo *Descripción Categoría*.
    * Un bloque de texto con la clase `.jypesa-disp-codigo` enlazado al campo *Código*.

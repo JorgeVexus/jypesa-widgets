@@ -401,6 +401,7 @@
     {
       name: 'Easy Snap',
       badge: 'Economy',
+      badgeColor: '#4aa25d',
       categoria: 'Sistemas de dispensación',
       categoriaDesc: 'Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.',
       codigo: '-',
@@ -419,12 +420,13 @@
           large: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif'
         }
       ],
-      guiaLink: '#',
-      fichaLink: '#'
+      guiaLink: '',
+      fichaLink: ''
     },
     {
       name: 'Emperor',
       badge: 'Economy',
+      badgeColor: '#4aa25d',
       categoria: 'Sistemas de dispensación',
       categoriaDesc: 'Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.',
       codigo: 'JHJY-0065',
@@ -443,12 +445,13 @@
           large: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif'
         }
       ],
-      guiaLink: '#',
-      fichaLink: '#'
+      guiaLink: '',
+      fichaLink: ''
     },
     {
       name: 'Dovelock',
       badge: 'Economy',
+      badgeColor: '#4aa25d',
       categoria: 'Sistemas de dispensación',
       categoriaDesc: 'Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.',
       codigo: '-',
@@ -463,12 +466,13 @@
           large: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif'
         }
       ],
-      guiaLink: '#',
-      fichaLink: '#'
+      guiaLink: '',
+      fichaLink: ''
     },
     {
       name: 'The Nurture',
       badge: 'Economy',
+      badgeColor: '#4aa25d',
       categoria: 'Sistemas de dispensación',
       categoriaDesc: 'Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.',
       codigo: 'JHJY-0064',
@@ -487,12 +491,13 @@
           large: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif'
         }
       ],
-      guiaLink: '#',
-      fichaLink: '#'
+      guiaLink: '',
+      fichaLink: ''
     },
     {
       name: 'Lotus Premium',
       badge: 'Premium',
+      badgeColor: '#48a9c5',
       categoria: 'Soportes',
       categoriaDesc: 'Soportes de pared de alta durabilidad y diseño antirrobo.',
       codigo: 'JHJY-0080',
@@ -507,12 +512,13 @@
           large: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif'
         }
       ],
-      guiaLink: '#',
-      fichaLink: '#'
+      guiaLink: '',
+      fichaLink: ''
     },
     {
       name: 'Crown Premium',
       badge: 'Premium',
+      badgeColor: '#48a9c5',
       categoria: 'Soportes',
       categoriaDesc: 'Soportes de pared de alta durabilidad y diseño antirrobo.',
       codigo: 'JHJY-0081',
@@ -522,12 +528,13 @@
       desc: 'Soporte doble con botellas traslúcidas que permiten vigilar el nivel del producto. Combina máxima higiene con un diseño limpio y moderno.',
       imgMain: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
       variants: [],
-      guiaLink: '#',
-      fichaLink: '#'
+      guiaLink: '',
+      fichaLink: ''
     },
     {
       name: 'Prestige Luxury',
       badge: 'Luxury',
+      badgeColor: '#0e2333',
       categoria: 'Complementos',
       categoriaDesc: 'Accesorios y complementos para optimizar la experiencia de higiene.',
       codigo: 'JHJY-0090',
@@ -537,8 +544,8 @@
       desc: 'Exclusivo dispensador de aluminio anodizado con acabado mate. Su sistema magnético antirrobo garantiza máxima seguridad en las suites más exigentes.',
       imgMain: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
       variants: [],
-      guiaLink: '#',
-      fichaLink: '#'
+      guiaLink: '',
+      fichaLink: ''
     }
   ];
 
@@ -598,7 +605,19 @@
 
       const getImgSrc = (cls) => {
         const el = item.querySelector(cls);
-        return el ? (el.getAttribute('src') || el.src || '') : '';
+        if (!el) return '';
+        const attrSrc = el.getAttribute('src');
+        if (attrSrc && attrSrc.trim() !== '') {
+          return attrSrc.trim();
+        }
+        return '';
+      };
+
+      const getLink = (cls) => {
+        const el = item.querySelector(cls);
+        if (!el) return '';
+        const href = el.getAttribute('href');
+        return (href && href !== '#' && href.trim() !== '') ? href.trim() : '';
       };
 
       // Mapear hasta 3 variantes (miniatura + imagen grande)
@@ -615,12 +634,11 @@
       }
 
       const imgEl = item.querySelector('.jypesa-disp-img-main');
-      const guiaLinkEl = item.querySelector('.jypesa-disp-guia-link');
-      const fichaLinkEl = item.querySelector('.jypesa-disp-ficha-link');
 
       dispensers.push({
         name: name,
         badge: get('.jypesa-disp-badge') || 'Economy',
+        badgeColor: get('.jypesa-disp-badge-color') || '',
         categoria: get('.jypesa-disp-categoria') || 'Sistemas de dispensación',
         categoriaDesc: get('.jypesa-disp-categoria-desc') || '',
         codigo: get('.jypesa-disp-codigo') || '-',
@@ -630,8 +648,8 @@
         desc: get('.jypesa-disp-desc') || '',
         imgMain: imgEl ? (imgEl.getAttribute('src') || imgEl.src || '') : '',
         variants: variants,
-        guiaLink: guiaLinkEl ? (guiaLinkEl.getAttribute('href') || '#') : '#',
-        fichaLink: fichaLinkEl ? (fichaLinkEl.getAttribute('href') || '#') : '#'
+        guiaLink: getLink('.jypesa-disp-guia-link'),
+        fichaLink: getLink('.jypesa-disp-ficha-link')
       });
     });
 
@@ -645,52 +663,67 @@
     }
 
     return dispensers.map(disp => {
-      const guideButton = disp.guiaLink && disp.guiaLink !== '#' 
+      const guideButton = disp.guiaLink
         ? `<a href="${disp.guiaLink}" target="_blank" class="jypesa-sdc-btn jypesa-sdc-btn-primary">
              Descargar guía de instalación
              ${downloadIcon}
            </a>`
-        : `<button class="jypesa-sdc-btn jypesa-sdc-btn-primary" disabled style="opacity: 0.5; cursor: not-allowed;">
-             Guía no disponible
-           </button>`;
+        : '';
 
-      const techButton = disp.fichaLink && disp.fichaLink !== '#'
+      const techButton = disp.fichaLink
         ? `<a href="${disp.fichaLink}" target="_blank" class="jypesa-sdc-btn jypesa-sdc-btn-secondary">
              Descargar ficha técnica
              ${downloadIcon}
            </a>`
-        : `<button class="jypesa-sdc-btn jypesa-sdc-btn-secondary" disabled style="opacity: 0.5; cursor: not-allowed;">
-             Ficha no disponible
-           </button>`;
+        : '';
 
-      // Prepend la imagen principal como la primera miniatura/variante
-      const allVariants = [
-        { thumb: disp.imgMain, large: disp.imgMain },
-        ...disp.variants
-      ];
-
-      // Generar HTML de miniaturas
-      const thumbsHtml = allVariants.map((v, index) => {
-        if (!v.thumb) return '';
-        return `
-          <div class="jypesa-sdc-thumb-box${index === 0 ? ' active' : ''}" data-large="${v.large}">
-            <img class="jypesa-sdc-thumb-img" src="${v.thumb}" alt="Variante" loading="lazy">
+      let actionsHtml = '';
+      if (guideButton || techButton) {
+        actionsHtml = `
+          <div class="jypesa-sdc-actions">
+            ${guideButton}
+            ${techButton}
           </div>
         `;
-      }).join('');
+      }
+
+      // Prepend la imagen principal como la primera miniatura/variante
+      const allVariants = [];
+      if (disp.imgMain) {
+        allVariants.push({ thumb: disp.imgMain, large: disp.imgMain });
+      }
+      disp.variants.forEach(v => {
+        if (v.thumb) allVariants.push(v);
+      });
+
+      // Generar HTML de miniaturas únicamente si hay más de una variante
+      let thumbsHtml = '';
+      if (allVariants.length > 1) {
+        thumbsHtml = `
+          <div class="jypesa-sdc-thumbs-row">
+            ${allVariants.map((v, index) => {
+              return `
+                <div class="jypesa-sdc-thumb-box${index === 0 ? ' active' : ''}" data-large="${v.large}">
+                  <img class="jypesa-sdc-thumb-img" src="${v.thumb}" alt="Variante" loading="lazy">
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+
+      const badgeStyle = disp.badgeColor ? ` style="background-color: ${disp.badgeColor};"` : '';
 
       return `
         <div class="jypesa-sdc-column">
           <!-- Casing / Visual Display -->
           <div class="jypesa-sdc-display-container">
-            ${disp.badge ? `<div class="jypesa-sdc-badge">${disp.badge}</div>` : ''}
+            ${disp.badge ? `<div class="jypesa-sdc-badge"${badgeStyle}>${disp.badge}</div>` : ''}
             ${disp.imgMain ? `<img class="jypesa-sdc-img-main" src="${disp.imgMain}" alt="${disp.name}" loading="lazy">` : ''}
           </div>
 
           <!-- Thumbs Container -->
-          <div class="jypesa-sdc-thumbs-row">
-            ${thumbsHtml}
-          </div>
+          ${thumbsHtml}
 
           <!-- Detalles del Producto -->
           <div class="jypesa-sdc-details">
@@ -717,10 +750,7 @@
 
             <p class="jypesa-sdc-desc">${disp.desc}</p>
 
-            <div class="jypesa-sdc-actions">
-              ${guideButton}
-              ${techButton}
-            </div>
+            ${actionsHtml}
           </div>
         </div>
       `;

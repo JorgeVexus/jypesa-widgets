@@ -89,6 +89,8 @@
         <div class="w-dyn-item">
           <div class="jypesa-disp-name">Easy Snap (CMS)</div>
           <div class="jypesa-disp-badge">Economy</div>
+          <!-- Color del Badge Modificable desde CMS -->
+          <div class="jypesa-disp-badge-color">#e08524</div> 
           <div class="jypesa-disp-categoria">Sistemas de dispensación</div>
           <div class="jypesa-disp-categoria-desc">Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.</div>
           <div class="jypesa-disp-codigo">CMS-ES-01</div>
@@ -109,6 +111,7 @@
         <div class="w-dyn-item">
           <div class="jypesa-disp-name">Emperor (CMS)</div>
           <div class="jypesa-disp-badge">Economy</div>
+          <div class="jypesa-disp-badge-color">#8a3ab9</div> <!-- Color morado -->
           <div class="jypesa-disp-categoria">Sistemas de dispensación</div>
           <div class="jypesa-disp-categoria-desc">Diseñados para mejorar procesos, reducir desperdicio y garantizar consistencia.</div>
           <div class="jypesa-disp-codigo">CMS-EMP-02</div>
@@ -129,6 +132,7 @@
         <div class="w-dyn-item">
           <div class="jypesa-disp-name">Lotus Premium (CMS)</div>
           <div class="jypesa-disp-badge">Premium</div>
+          <div class="jypesa-disp-badge-color">#00bcd4</div> <!-- Color cian -->
           <div class="jypesa-disp-categoria">Soportes</div>
           <div class="jypesa-disp-categoria-desc">Soportes de pared de alta durabilidad y diseño antirrobo.</div>
           <div class="jypesa-disp-codigo">CMS-LOT-03</div>
@@ -140,7 +144,7 @@
           <img class="jypesa-disp-subimg-1" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif">
           <img class="jypesa-disp-subimg-1-large" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif">
           <a class="jypesa-disp-guia-link" href="https://jypesa.com/guia-lotus.pdf">Guía</a>
-          <a class="jypesa-disp-ficha-link" href="https://jypesa.com/ficha-lotus.pdf">Ficha</a>
+          <a class="jypesa-disp-ficha-link" href=""></a> <!-- Enlace Ficha Vacío: NO DEBE MOSTRARSE EL BOTÓN -->
         </div>
 
         <!-- Item 4: Crown Premium -->
@@ -153,10 +157,10 @@
           <div class="jypesa-disp-capacidad">450 ml / 15.2 oz</div>
           <div class="jypesa-disp-material">PET Reciclado (PCR)</div>
           <div class="jypesa-disp-seguridad">Alta (cerradura oculta)</div>
-          <div class="jypesa-disp-desc">Dispensador Crown Premium de soporte doble con botellas traslúcidas que permiten vigilar el nivel del producto de forma eficiente.</div>
+          <div class="jypesa-disp-desc">Dispensador Crown Premium de soporte doble. No tiene variantes (sin miniaturas) y ambos enlaces están vacíos (no debe mostrarse ningún botón).</div>
           <img class="jypesa-disp-img-main" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif">
-          <a class="jypesa-disp-guia-link" href="https://jypesa.com/guia-crown.pdf">Guía</a>
-          <a class="jypesa-disp-ficha-link" href="https://jypesa.com/ficha-crown.pdf">Ficha</a>
+          <a class="jypesa-disp-guia-link" href=""></a> <!-- Enlace Guía Vacío -->
+          <a class="jypesa-disp-ficha-link" href=""></a> <!-- Enlace Ficha Vacío -->
         </div>
 
       </div>
@@ -172,7 +176,7 @@
 
   <!-- DEMO 1B: FILTRADO POR "Soportes" (CMS) -->
   <h2 class="demo-section-title">Demo 1B: Filtrado por "Soportes" (CMS Dinámico)</h2>
-  <p class="demo-section-desc">Se filtra y muestra únicamente la categoría <strong>Soportes</strong> usando el atributo <code>data-category-filter="Soportes"</code>. El encabezado y la descripción cambian dinámicamente.</p>
+  <p class="demo-section-desc">Se filtra y muestra únicamente la categoría <strong>Soportes</strong> usando el atributo <code>data-category-filter="Soportes"</code>. Se verifica que Crown Premium no tenga miniaturas de variantes ni botones de guías/fichas técnicas.</p>
   <div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Soportes"></div>
 
   <hr class="demo-divider">
