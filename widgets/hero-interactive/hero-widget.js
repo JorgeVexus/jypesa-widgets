@@ -18,7 +18,7 @@
   --jypesa-text-muted: rgba(80, 109, 133, 0.8);
   --jypesa-gradient-flow: linear-gradient(to right, #48A9C5 0%, #0088BD 33%, #9EF4F5 66%, #48A9C5 100%);
   --jypesa-overlay: rgba(80, 109, 133, 0.25);
-  --jypesa-kpis-bg: transparent;
+  --jypesa-kpis-bg: #F8F8F8;
   --jypesa-kpis-text: #506D85;
   --jypesa-kpis-text-muted: rgba(80, 109, 133, 0.8);
 }
@@ -143,7 +143,7 @@
    ========================================================================== */
 .jypesa-marquee-row {
   position: absolute;
-  bottom: 30px;
+  bottom: 20px;
   left: 0;
   width: 100%;
   height: 90px;
@@ -196,20 +196,20 @@
 }
 
 /* ==========================================================================
-   FASE 3: Panel Inferior (KPIs Transparentes)
+   FASE 3: Panel Inferior (KPIs)
    ========================================================================== */
 .jypesa-hero-bottom {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 35%;
-  min-height: 250px;
+  height: 30%;
+  min-height: 220px;
   background-color: var(--jypesa-kpis-bg);
   z-index: 1;
   display: flex;
   align-items: center;
-  padding: 20px 40px;
+  padding: 15px 40px;
   box-sizing: border-box;
   transform: translateY(100%);
   transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
@@ -227,8 +227,8 @@
 .jypesa-stat-block {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   opacity: 0;
   transform: translateY(20px);
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
@@ -237,8 +237,8 @@
 .jypesa-stat-number-wrapper {
   display: flex;
   align-items: baseline;
-  justify-content: center;
-  margin-bottom: 8px;
+  justify-content: flex-start;
+  margin-bottom: 16px;
 }
 
 .jypesa-stat-number {
@@ -280,7 +280,7 @@
   line-height: 1.5;
   color: var(--jypesa-kpis-text-muted);
   max-width: 260px;
-  margin: 0 auto;
+  margin: 0;
 }
 
 @keyframes flowRight {
@@ -304,7 +304,7 @@
 }
 
 .jypesa-hero-widget.phase-3 .jypesa-hero-top {
-  height: 65%;
+  height: 70%;
 }
 
 .jypesa-hero-widget.phase-3 .jypesa-marquee-row {
@@ -411,17 +411,17 @@
 
   .jypesa-stats-grid {
     grid-template-columns: 1fr;
-    text-align: center;
+    text-align: left;
     gap: 35px;
   }
 
   .jypesa-stat-block {
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .jypesa-stat-number-wrapper {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .jypesa-stat-description {
