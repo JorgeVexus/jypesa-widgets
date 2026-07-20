@@ -552,29 +552,48 @@
   // 4. Leer del CMS de Webflow
   function readDispensersFromCMS(target) {
     let source = null;
+    
+    // 1. Selector personalizado por atributo
     const cmsAttr = target.getAttribute('data-cms-source');
-    if (cmsAttr) source = document.querySelector(cmsAttr);
+    if (cmsAttr) {
+      source = document.querySelector(cmsAttr);
+    }
 
+    // 2. Buscar dentro del mismo contenedor del widget
     if (!source) {
       source = target.querySelector('.jypesa-sdc-cms-source');
     }
+
+    // 3. Buscar hermano anterior o posterior directo
     if (!source) {
-      source = target.previousElementSibling;
-      if (source && !source.classList.contains('jypesa-sdc-cms-source')) {
-        source = null;
+      let sib = target.previousElementSibling;
+      while (sib) {
+        if (sib.classList.contains('jypesa-sdc-cms-source')) {
+          source = sib;
+          break;
+        }
+        sib = sib.previousElementSibling;
       }
     }
+    if (!source) {
+      let sib = target.nextElementSibling;
+      while (sib) {
+        if (sib.classList.contains('jypesa-sdc-cms-source')) {
+          source = sib;
+          break;
+        }
+        sib = sib.nextElementSibling;
+      }
+    }
+
+    // 4. Buscar en el contenedor padre común (sección o contenedor de Webflow)
+    if (!source && target.parentElement) {
+      source = target.parentElement.querySelector('.jypesa-sdc-cms-source');
+    }
+
+    // 5. Buscar de forma global en la página
     if (!source) {
       source = document.querySelector('.jypesa-sdc-cms-source');
-    }
-    if (!source) {
-      // Auto-detectar buscando un item con clase de nombre
-      const sampleEl = document.querySelector('.jypesa-disp-name');
-      if (sampleEl) {
-        source = sampleEl.closest('.w-dyn-list') || 
-                 sampleEl.closest('.w-dyn-items') || 
-                 sampleEl.parentElement;
-      }
     }
 
     if (!source) return null;
@@ -589,7 +608,10 @@
       }
     }
 
-    if (!items.length) return null;
+    if (!items.length) {
+      // Retornar array vacío para indicar que la fuente existe pero está filtrada/vacía
+      return [];
+    }
 
     const dispensers = [];
     items.forEach(item => {

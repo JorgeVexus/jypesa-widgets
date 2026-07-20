@@ -37,8 +37,8 @@ Crea una colección en el CMS con los siguientes parámetros y campos exactos:
 | **Enlace Ficha Técnica** | `Link` (Optional) | `.jypesa-disp-ficha-link` | Enlace para descargar la ficha técnica (PDF) |
 
 > [!NOTE]
-> *   **Ocultado Inteligente de Miniaturas**: Si no cargas imágenes en los campos de Variante 1/2/3, la barra inferior de miniaturas **se ocultará por completo** de forma automática (evitando imágenes rotas y redundancia).
-> *   **Ocultado Inteligente de Botones**: Si dejas vacíos los enlaces de *Guía de Instalación* o *Ficha Técnica*, los botones correspondientes **no se mostrarán**.
+> *   **Ocultado Inteligente de Miniaturas**: Si no cargas imágenes en los campos de Variante 1/2/3, la barra de miniaturas se ocultará por completo para ese producto.
+> *   **Ocultado Inteligente de Botones**: Si no cargas enlaces de *Guía de Instalación* o *Ficha Técnica*, los botones de descarga correspondientes no se renderizarán.
 
 ---
 
@@ -58,28 +58,35 @@ Crea una colección en el CMS con los siguientes parámetros y campos exactos:
    * Un bloque de texto con la clase `.jypesa-disp-seguridad` enlazado al campo *Seguridad*.
    * Un bloque de texto con la clase `.jypesa-disp-desc` enlazado al campo *Descripción Producto*.
    * Un elemento de imagen con la clase `.jypesa-disp-img-main` enlazado a *Imagen Principal*.
-   * Elementos de imagen para las miniaturas y sus imágenes grandes correspondientes (ej. `.jypesa-disp-subimg-1` y `.jypesa-disp-subimg-1-large`).
-   * Un enlace tipo botón (`Link Block` o `Button`) con la clase `.jypesa-disp-guia-link` enlazado al link de la *Guía de Instalación*.
-   * Un enlace tipo botón con la clase `.jypesa-disp-ficha-link` enlazado al link de la *Ficha Técnica*.
+   * Elementos de imagen para las miniaturas y sus imágenes grandes correspondientes.
+   * Un enlace tipo botón (`Link Block` o `Button`) con la clase `.jypesa-disp-guia-link` enlazado a la *Guía de Instalación*.
+   * Un enlace tipo botón con la clase `.jypesa-disp-ficha-link` enlazado a la *Ficha Técnica*.
 
 ---
 
-## 3. Código Embed para Inicializar el Widget (Con Filtros de Categoría)
+## 3. Métodos de Inicialización y Filtrado de Categorías
 
-Coloca un bloque de **Embed HTML** justo **abajo** de tu lista de colección. Configura el widget para filtrar y mostrar únicamente una categoría específica usando el atributo `data-category-filter`. El título destacado y el subtítulo de la sección se actualizarán automáticamente basados en la categoría seleccionada:
+El widget ofrece dos opciones flexibles para mostrar y segmentar tus productos:
+
+### Opción A: Filtrado nativo directo desde Webflow (Recomendado)
+Puedes aplicar el filtro directamente en las propiedades de la **Collection List** de Webflow (ej. `Categoría es igual a Soportes`). 
+El widget detectará automáticamente qué elementos están visibles en el CMS, emparejará la lista de forma inteligente y actualizará el título de la sección y la descripción a partir del primer elemento encontrado. No necesitas escribir ningún atributo especial en tu contenedor:
 
 ```html
-<!-- Ejemplo 1: Mostrar únicamente la sección Sistemas de dispensación -->
-<div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Sistemas de dispensación"></div>
-
-<!-- Ejemplo 2: Mostrar únicamente la sección Soportes -->
-<!-- <div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Soportes"></div> -->
-
-<!-- Ejemplo 3: Mostrar únicamente la sección Complementos -->
-<!-- <div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Complementos"></div> -->
+<!-- Coloca el contenedor limpio debajo de la Collection List correspondiente -->
+<div class="jypesa-sistemas-dispensacion-comparativa"></div>
 
 <!-- Cargar el script interactivo -->
 <script src="https://jypesa-widgets.vercel.app/widgets/sistemas-dispensacion-comparativa/sistemas-dispensacion-comparativa.js"></script>
 ```
 
-El widget leerá los datos del CMS oculto, filtrará las tarjetas para mostrar únicamente los elementos que coincidan con la categoría especificada en `data-category-filter`, actualizará dinámicamente los encabezados con el nombre y la descripción de la categoría asignada, generará la interfaz interactiva, los botones de descarga de guías/fichas técnicas, y habilitará el cambio de imagen al hacer clic en las marcas/botellas compatibles.
+### Opción B: Filtrado del lado del Script (HTML Embed)
+Si prefieres renderizar toda la lista del CMS en la página y que el script realice el filtrado, simplemente añade el atributo `data-category-filter` en el contenedor HTML del widget:
+
+```html
+<!-- Ejemplo: Cargar únicamente la categoría de Soportes -->
+<div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Soportes"></div>
+
+<!-- Cargar el script interactivo -->
+<script src="https://jypesa-widgets.vercel.app/widgets/sistemas-dispensacion-comparativa/sistemas-dispensacion-comparativa.js"></script>
+```
