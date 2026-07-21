@@ -186,9 +186,10 @@
    ===================== */
 .jypesa-cert-card {
   flex: 0 0 calc((100% - 70px) / 3);
-  min-width: 300px;
+  min-width: 280px;
   max-width: 568px;
-  height: 720px;
+  height: auto;
+  min-height: 640px;
   background: #ffffff;
   border-radius: 0px;
   box-shadow: 4px 5px 14.4px 0px rgba(0,0,0,0.1);
@@ -198,7 +199,7 @@
   flex-direction: column;
   box-sizing: border-box;
   scroll-snap-align: start;
-  overflow: clip;
+  overflow: hidden;
 }
 
 .jypesa-cert-card:hover {
@@ -208,7 +209,7 @@
 
 .jypesa-cert-card-img-wrap {
   width: 100%;
-  height: 380px;
+  height: clamp(220px, 20vw, 360px);
   background: rgba(72, 169, 197, 0.1);
   display: flex;
   align-items: center;
@@ -226,12 +227,12 @@
 }
 
 .jypesa-cert-card-header {
-  padding: 24px 32px 20px;
+  padding: clamp(14px, 1.6vw, 24px) clamp(16px, 1.8vw, 28px);
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
+  justify-content: flex-start;
+  gap: clamp(10px, 1.2vw, 20px);
   text-align: left;
   box-sizing: border-box;
 }
@@ -239,21 +240,22 @@
 .jypesa-cert-card-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
-  font-size: 50px;
+  font-size: clamp(22px, 2.4vw, 42px);
   line-height: 1.1;
   color: var(--jypesa-cert-slate);
   margin: 0;
   letter-spacing: -0.5px;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .jypesa-cert-card-title.small-title {
-  font-size: 40px;
+  font-size: clamp(18px, 1.8vw, 32px);
 }
 
 .jypesa-cert-card-divider {
   width: 1px;
-  height: 40px;
+  height: clamp(26px, 2.5vw, 36px);
   background: var(--jypesa-cert-divider);
   flex-shrink: 0;
 }
@@ -262,14 +264,18 @@
   font-family: 'Instrument Serif', serif;
   font-style: italic;
   font-weight: 400;
-  font-size: 20px;
-  line-height: 1.35;
+  font-size: clamp(13px, 1.1vw, 18px);
+  line-height: 1.3;
   color: var(--jypesa-cert-slate);
   margin: 0;
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 .jypesa-cert-card-body {
-  padding: 0 32px 32px;
+  padding: 0 clamp(16px, 1.8vw, 28px) clamp(18px, 2vw, 28px);
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -280,7 +286,7 @@
 .jypesa-cert-card-body p {
   font-family: 'Rubik', sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: clamp(12px, 0.95vw, 14px);
   line-height: 1.6;
   color: var(--jypesa-cert-slate);
   margin: 0 0 12px;
@@ -290,87 +296,108 @@
   margin-bottom: 0;
 }
 
-@media (max-width: 1100px) {
+/* ── RESPONSIVE PARA PANTALLAS ≤ 1439px ───────────────────────────────────── */
+@media (max-width: 1439px) {
   .jypesa-slider-certificaciones-widget {
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: clamp(24px, 3.5vw, 45px) 0;
   }
 
   .jypesa-cert-slider-outer {
     width: 100%;
-    padding: 0;
+    padding: 0 10px;
     box-sizing: border-box;
   }
 
   .jypesa-cert-products-container-desktop,
   .jypesa-cert-products-container {
-    gap: 20px;
+    gap: clamp(14px, 1.5vw, 24px);
     scroll-padding: 0;
   }
 
   .jypesa-cert-card {
-    flex: 0 0 calc((100% - 40px) / 3);
-    min-width: 250px;
-    max-width: 568px;
+    flex: 0 0 calc((100% - 2 * clamp(14px, 1.5vw, 24px)) / 3);
+    min-width: 230px;
+    max-width: 100%;
     height: auto;
-    min-height: 600px;
+    min-height: clamp(460px, 40vw, 600px);
   }
 
   .jypesa-cert-card-img-wrap {
-    height: 240px;
+    height: clamp(160px, 15vw, 240px);
   }
 
   .jypesa-cert-card-header {
-    padding: 16px 16px 12px;
-    gap: 12px;
+    padding: clamp(10px, 1.2vw, 16px) clamp(12px, 1.4vw, 18px);
+    gap: clamp(8px, 1vw, 14px);
   }
 
   .jypesa-cert-card-title {
-    font-size: 28px;
+    font-size: clamp(18px, 1.8vw, 28px);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .jypesa-cert-card-title.small-title {
-    font-size: 20px;
+    font-size: clamp(14px, 1.4vw, 22px);
   }
 
   .jypesa-cert-card-phrase {
-    font-size: 14px;
+    font-size: clamp(12px, 1vw, 14.5px);
+    line-height: 1.25;
   }
 
   .jypesa-cert-card-body {
-    padding: 0 16px 20px;
+    padding: 0 clamp(12px, 1.4vw, 18px) clamp(14px, 1.6vw, 20px);
   }
 
   .jypesa-cert-card-body p {
-    font-size: 12.5px;
-    line-height: 1.45;
+    font-size: clamp(11px, 0.85vw, 13px);
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 991px) {
+  .jypesa-slider-certificaciones-widget {
+    padding: 35px 0;
+  }
+
+  .jypesa-cert-products-container-desktop,
+  .jypesa-cert-products-container {
+    gap: 16px;
+  }
+
+  .jypesa-cert-card {
+    flex: 0 0 calc((100% - 16px) / 2);
+    min-width: 260px;
   }
 }
 
 @media (max-width: 768px) {
   .jypesa-slider-certificaciones-widget {
-    padding: 40px 0;
+    padding: 30px 0;
   }
 
   .jypesa-cert-section-header {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
   }
 
   .jypesa-cert-section-title {
-    font-size: 28px;
+    font-size: 26px;
   }
 
   .jypesa-cert-slider-outer {
-    padding: 0 5%;
+    padding: 0 4%;
   }
 
   .jypesa-cert-products-container,
   .jypesa-cert-products-container-desktop {
-    scroll-padding: 0 5%;
-    gap: 16px;
-    padding: 15px 5px 30px !important;
-    margin: -15px -5px -30px;
+    scroll-padding: 0 4%;
+    gap: 14px;
+    padding: 10px 4px 24px !important;
+    margin: -10px -4px -24px;
   }
 
   .jypesa-cert-card {
@@ -379,23 +406,23 @@
     max-width: 90%;
     height: auto;
     scroll-snap-align: center;
-    min-height: 580px;
+    min-height: 520px;
   }
 
   .jypesa-cert-card-img-wrap {
-    height: 200px;
+    height: 190px;
   }
 
   .jypesa-cert-card-title {
-    font-size: 32px;
+    font-size: 26px;
   }
 
   .jypesa-cert-card-title.small-title {
-    font-size: 20px;
+    font-size: 19px;
   }
 
   .jypesa-cert-card-phrase {
-    font-size: 14px;
+    font-size: 13.5px;
   }
 
   .jypesa-cert-nav-btn {
@@ -416,7 +443,6 @@
     display: none !important;
   }
 
-  /* Desktop: mostrar 3 cards a la vez, slider desplaza 1 a la vez */
   .jypesa-cert-slider-outer {
     padding: 0 20px;
   }
@@ -425,7 +451,7 @@
     overflow-x: auto !important;
     scroll-snap-type: x mandatory !important;
     justify-content: flex-start;
-    gap: 35px;
+    gap: clamp(16px, 2vw, 35px);
     padding: 15px 5px 30px;
     margin: -15px -5px -30px;
   }
@@ -435,10 +461,10 @@
   }
 }
 
-/* Contenedor con snap para centrar el paso de 3 cards en desktop */
+/* Contenedor con snap para centrar el paso de cards en desktop */
 .jypesa-cert-products-container-desktop {
   display: flex;
-  gap: 35px;
+  gap: clamp(16px, 2vw, 35px);
   align-items: stretch;
   justify-content: flex-start;
   overflow-x: auto;
