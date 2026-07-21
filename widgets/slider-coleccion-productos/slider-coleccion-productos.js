@@ -6,7 +6,7 @@
   const fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
   fontLink.href =
-    'https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap';
+    'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Rubik:wght@300;400;500;600&display=swap';
   document.head.appendChild(fontLink);
 
   const css = `
@@ -20,16 +20,74 @@
     padding: 0;
   }
 
-  /* ── FILA DE CONTROLES (flechas arriba-derecha) ── */
+  /* ── FILA ENCABEZADO Y CONTROLES ── */
+  .jypesa-scol-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    width: 100%;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+  }
+
+  .jypesa-scol-header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 850px;
+    flex: 1;
+  }
+
+  .jypesa-scol-header-title {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(26px, 3.2vw, 44px);
+    line-height: 1.1;
+    margin: 0;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .jypesa-scol-header-desc {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: clamp(14px, 1.1vw, 16.5px);
+    line-height: 1.4;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .jypesa-scol-header-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 22px;
+    border-radius: 4px;
+    border: 1.5px solid currentColor;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    width: fit-content;
+    margin-top: 4px;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .jypesa-scol-header-btn:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+  }
+
+  /* ── CONTROLES FLECHAS (alineados a la derecha) ── */
   .jypesa-scol-controls-row {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 12px;
-    margin-bottom: 16px;
-    width: 100%;
-    padding-right: 100px;
     box-sizing: border-box;
+    flex-shrink: 0;
   }
 
   .jypesa-scol-arrow-btn {
@@ -44,7 +102,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity 0.25s ease, transform 0.2s ease;
   }
 
   .jypesa-scol-arrow-btn:hover {
@@ -241,8 +299,19 @@
   }
 
   /* ════════════════════════════════════════
-     DESKTOP (>= 769px)
+     RESPONSIVE
   ════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .jypesa-scol-header-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .jypesa-scol-controls-row {
+      align-self: flex-end;
+    }
+  }
+
   @media (min-width: 769px) {
     .jypesa-scol-card {
       flex: 0 0 310px;
@@ -272,7 +341,6 @@
   document.head.appendChild(styleEl);
 
   // ─── 2. SVGs DE FLECHAS (Figma) ─────────────────────────────────────────────
-  // Se generan IDs únicos por instancia para evitar conflictos en página
   let _instanceCount = 0;
 
   function buildArrowSvgs(uid) {
@@ -403,23 +471,30 @@
     },
   ];
 
-  // ─── 4. LEER DEL CMS ────────────────────────────────────────────────────────
-  /*
-   * MAPEO CMS → Clases Webflow (añadir en CMS List como hidden elements):
-   *
-   *   .jypesa-scol-prod-name    → Producto - Nombre
-   *   .jypesa-scol-prod-type    → Producto - Tipo  (campo nuevo a crear)
-   *   .jypesa-scol-prod-sku     → Producto - SKU
-   *   .jypesa-scol-prod-spec1   → Producto - Peso/Volumen
-   *   .jypesa-scol-prod-spec2   → Producto - Empaque
-   *   .jypesa-scol-prod-spec3   → Producto - Embalaje
-   *   .jypesa-scol-prod-img     → Producto - Imagen  (img element)
-   *   .jypesa-scol-prod-link    → link href del producto
-   *   .jypesa-scol-prod-marca   → Coleccion Padre / Marca
-   *
-   * Wrapper del CMS List: clase .jypesa-scol-cms-source
-   * Filtro por pagina:    data-page-filter="NombreDeMarca"  en el widget host
-   */
+  // ─── 4. LEER ENCABEZADO (CMS O ATRIBUTOS) ───────────────────────────────────
+  function readHeaderData(target, source) {
+    const getAttr = (name) => (target.getAttribute(name) || '').trim();
+    const getCms = (cls) => {
+      if (!source) return '';
+      const el = source.querySelector(cls);
+      return el ? el.textContent.trim() : '';
+    };
+    const getCmsAttr = (cls, attr) => {
+      if (!source) return '';
+      const el = source.querySelector(cls);
+      return el ? (el.getAttribute(attr) || '').trim() : '';
+    };
+
+    const title = getAttr('data-header-title') || getCms('.jypesa-scol-cms-header-title');
+    const desc = getAttr('data-header-desc') || getCms('.jypesa-scol-cms-header-desc');
+    const btnText = getAttr('data-header-btn-text') || getCms('.jypesa-scol-cms-header-btn-text');
+    const btnUrl = getAttr('data-header-btn-url') || getCmsAttr('.jypesa-scol-cms-header-btn-url', 'href') || getCms('.jypesa-scol-cms-header-btn-url');
+    const color = getAttr('data-header-color') || getCms('.jypesa-scol-cms-header-color');
+
+    return { title, desc, btnText, btnUrl, color };
+  }
+
+  // ─── 5. LEER PRODUCTOS DEL CMS ──────────────────────────────────────────────
   function readProductsFromCMS(target) {
     let source = null;
 
@@ -435,7 +510,13 @@
     }
 
     if (!source) source = document.querySelector('.jypesa-scol-cms-source');
-    if (!source) return null;
+    
+    // Ocultar fuente CMS si existe
+    if (source) source.style.display = 'none';
+
+    const headerData = readHeaderData(target, source);
+
+    if (!source) return { products: null, headerData };
 
     let items = Array.from(source.querySelectorAll('.w-dyn-item'));
     if (!items.length) {
@@ -451,7 +532,7 @@
       }
     }
 
-    if (!items.length) return null;
+    if (!items.length) return { products: null, headerData };
 
     const products = [];
     items.forEach((item) => {
@@ -482,10 +563,13 @@
       });
     });
 
-    return products.length ? products : null;
+    return {
+      products: products.length ? products : null,
+      headerData
+    };
   }
 
-  // ─── 5. CONSTRUIR HTML ──────────────────────────────────────────────────────
+  // ─── 6. CONSTRUIR HTML ──────────────────────────────────────────────────────
   function buildCard(prod) {
     const tgt = prod.link !== '#' ? ' target="_blank" rel="noopener"' : '';
     return `
@@ -509,7 +593,7 @@
     `;
   }
 
-  function buildWidgetHtml(products, uid) {
+  function buildWidgetHtml(products, headerData, uid) {
     if (!products.length) {
       return `<div class="jypesa-scol-empty">No hay productos disponibles.</div>`;
     }
@@ -522,15 +606,29 @@
       )
       .join('');
 
+    const hasHeaderContent = headerData.title || headerData.desc || headerData.btnText;
+    const colorStyle = headerData.color ? ` style="color: ${headerData.color};"` : '';
+    const btnStyle = headerData.color ? ` style="color: ${headerData.color}; border-color: ${headerData.color};"` : '';
+
     return `
-      <!-- Flechas arriba-derecha, sobre las cards -->
-      <div class="jypesa-scol-controls-row">
-        <button class="jypesa-scol-arrow-btn jypesa-scol-prev" aria-label="Anterior">
-          ${prevSvg}
-        </button>
-        <button class="jypesa-scol-arrow-btn jypesa-scol-next" aria-label="Siguiente">
-          ${nextSvg}
-        </button>
+      <!-- Header row con Título, Descripción, Botón opcional y Flechas alineadas a la derecha -->
+      <div class="jypesa-scol-header-row">
+        ${hasHeaderContent ? `
+          <div class="jypesa-scol-header-content">
+            ${headerData.title ? `<h2 class="jypesa-scol-header-title"${colorStyle}>${headerData.title}</h2>` : ''}
+            ${headerData.desc ? `<p class="jypesa-scol-header-desc"${colorStyle}>${headerData.desc}</p>` : ''}
+            ${headerData.btnText ? `<a href="${headerData.btnUrl || '#'}" class="jypesa-scol-header-btn"${btnStyle}>${headerData.btnText}</a>` : ''}
+          </div>
+        ` : '<div></div>'}
+
+        <div class="jypesa-scol-controls-row">
+          <button class="jypesa-scol-arrow-btn jypesa-scol-prev" aria-label="Anterior">
+            ${prevSvg}
+          </button>
+          <button class="jypesa-scol-arrow-btn jypesa-scol-next" aria-label="Siguiente">
+            ${nextSvg}
+          </button>
+        </div>
       </div>
 
       <!-- Slider -->
@@ -547,7 +645,7 @@
     `;
   }
 
-  // ─── 6. INTERACTIVIDAD ──────────────────────────────────────────────────────
+  // ─── 7. INTERACTIVIDAD ──────────────────────────────────────────────────────
   function setupInteractions(widget, total) {
     const track = widget.querySelector('.jypesa-scol-track');
     const prevBtn = widget.querySelector('.jypesa-scol-prev');
@@ -593,7 +691,7 @@
     setTimeout(onScroll, 200);
   }
 
-  // ─── 7. INICIALIZADOR ───────────────────────────────────────────────────────
+  // ─── 8. INICIALIZADOR ───────────────────────────────────────────────────────
   function initSliderColWidget() {
     const targets = document.querySelectorAll(
       '.jypesa-scol-widget-container, [data-jypesa-scol-widget], #jypesa-scol-widget'
@@ -606,7 +704,9 @@
 
       const uid = ++_instanceCount;
 
-      let products = readProductsFromCMS(target) || fallbackProducts;
+      const cmsRes = readProductsFromCMS(target);
+      let products = cmsRes.products || fallbackProducts;
+      const headerData = cmsRes.headerData;
 
       // Filtro por "Coleccion Padre / Marca"
       // Uso: <div data-jypesa-scol-widget data-page-filter="Botanicus">
