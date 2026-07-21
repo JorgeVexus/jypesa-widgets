@@ -37,6 +37,7 @@
     gap: 8px;
     max-width: 850px;
     flex: 1;
+    color: #506D85;
   }
 
   .jypesa-scol-header-title {
@@ -45,6 +46,7 @@
     font-weight: 400;
     font-size: clamp(26px, 3.2vw, 44px);
     line-height: 1.1;
+    color: inherit;
     margin: 0;
     word-break: normal;
     overflow-wrap: break-word;
@@ -55,6 +57,7 @@
     font-weight: 400;
     font-size: clamp(14px, 1.1vw, 16.5px);
     line-height: 1.4;
+    color: inherit;
     margin: 0;
     opacity: 0.9;
   }
@@ -473,7 +476,16 @@
 
   // ─── 4. LEER ENCABEZADO (CMS O ATRIBUTOS) ───────────────────────────────────
   function readHeaderData(target, source) {
-    const getAttr = (name) => (target.getAttribute(name) || '').trim();
+    const getAttr = (name) => {
+      let val = target.getAttribute(name);
+      if (!val && target.parentElement) {
+        val = target.parentElement.getAttribute(name);
+      }
+      if (!val && source) {
+        val = source.getAttribute(name);
+      }
+      return val ? val.trim().replace(/^['"]|['"]$/g, '') : '';
+    };
     const getCms = (cls) => {
       if (!source) return '';
       const el = source.querySelector(cls);
