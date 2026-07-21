@@ -192,7 +192,7 @@
   min-height: 640px;
   background: #ffffff;
   border-radius: 0px;
-  box-shadow: 4px 5px 14.4px 0px rgba(0,0,0,0.1);
+  box-shadow: 2px 8px 18px rgba(80, 109, 133, 0.07);
   position: relative;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   display: flex;
@@ -203,8 +203,8 @@
 }
 
 .jypesa-cert-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 36px rgba(80, 109, 133, 0.18);
+  transform: translateY(-4px);
+  box-shadow: 3px 12px 24px rgba(80, 109, 133, 0.12);
 }
 
 .jypesa-cert-card-img-wrap {
