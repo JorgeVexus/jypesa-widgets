@@ -14,9 +14,9 @@
   /* CONTENEDOR PRINCIPAL DEL WIDGET */
   .jypesa-sdc-widget {
     width: 100%;
-    max-width: 1440px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 60px 24px;
+    padding: clamp(30px, 4vw, 60px) 0;
     font-family: 'Rubik', sans-serif;
     color: #506D85;
     box-sizing: border-box;
@@ -32,21 +32,21 @@
   .jypesa-sdc-header {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 14px;
     margin-bottom: 35px;
     width: 100%;
   }
 
   .jypesa-sdc-destacable {
     border-bottom: 2px solid #506D85;
-    padding: 10px 0;
+    padding-bottom: 8px;
     width: fit-content;
   }
 
   .jypesa-sdc-destacable-text {
     font-family: 'Instrument Serif', serif;
     font-style: italic;
-    font-size: 21px;
+    font-size: clamp(18px, 1.4vw, 21px);
     font-weight: 400;
     color: #506D85;
     letter-spacing: 1.05px;
@@ -56,32 +56,35 @@
   .jypesa-sdc-subtitle {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
-    font-size: 18px;
+    font-size: clamp(14.5px, 1.2vw, 18px);
     line-height: 1.35;
     color: #506D85;
     max-width: 800px;
   }
 
-  /* GRID DE COMPARATIVA */
+  /* GRID DE COMPARATIVA (100% ANCHO) */
   .jypesa-sdc-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    gap: clamp(12px, 1.5vw, 24px);
     width: 100%;
     align-items: stretch;
   }
 
-  /* COLUMNA INDIVIDUAL */
+  /* COLUMNA INDIVIDUAL (CONTENIDO ALINEADO A LA IZQUIERDA) */
   .jypesa-sdc-column {
     background-color: #ffffff;
-    padding: 20px 24px 30px 24px;
+    padding: clamp(16px, 1.8vw, 24px);
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    align-items: center;
+    gap: clamp(18px, 2vw, 28px);
+    align-items: flex-start;
+    text-align: left;
     position: relative;
-    box-shadow: 0 4px 15px rgba(80, 109, 133, 0.04);
+    box-shadow: 0 4px 18px rgba(80, 109, 133, 0.05);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    border-radius: 4px;
+    width: 100%;
   }
 
   .jypesa-sdc-column:hover {
@@ -92,14 +95,14 @@
   /* Líneas divisorias verticales entre columnas en desktop */
   @media (min-width: 992px) {
     .jypesa-sdc-column:not(:last-child) {
-      border-right: 1px solid rgba(80, 109, 133, 0.2);
+      border-right: 1px solid rgba(80, 109, 133, 0.15);
     }
   }
 
   /* CONTENEDOR DE IMAGEN (DISPLAY) */
   .jypesa-sdc-display-container {
     width: 100%;
-    height: 287px;
+    height: clamp(200px, 18vw, 287px);
     position: relative;
     display: flex;
     align-items: center;
@@ -126,30 +129,30 @@
     right: 0;
     background-color: #4aa25d;
     color: #ffffff;
-    padding: 4px 18px;
+    padding: 4px 14px;
     border-radius: 2px;
     font-family: 'Instrument Serif', serif;
     font-style: italic;
-    font-size: 25px;
+    font-size: clamp(18px, 1.6vw, 24px);
     line-height: 1;
     z-index: 5;
   }
 
   /* CONTENEDOR DE MINIATURAS/COMPATIBILIDADES */
   .jypesa-sdc-thumbs-row {
-    border-top: 1px solid rgba(80, 109, 133, 0.3);
-    padding-top: 8px;
+    border-top: 1px solid rgba(80, 109, 133, 0.2);
+    padding-top: 10px;
     display: flex;
-    gap: 15px;
-    justify-content: center;
+    gap: 12px;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
-    height: 83px;
+    min-height: 70px;
   }
 
   .jypesa-sdc-thumb-box {
-    width: 83px;
-    height: 83px;
+    width: clamp(60px, 5.5vw, 78px);
+    height: clamp(60px, 5.5vw, 78px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,6 +163,7 @@
     padding: 4px;
     opacity: 0.6;
     background-color: #fafafa;
+    flex-shrink: 0;
   }
 
   .jypesa-sdc-thumb-box:hover {
@@ -184,66 +188,73 @@
   .jypesa-sdc-details {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: clamp(16px, 1.8vw, 24px);
     width: 100%;
     flex-grow: 1;
+    text-align: left;
   }
 
-  /* TÍTULO DEL DISPENSADOR */
+  /* TÍTULO DEL DISPENSADOR (ALINEADO A LA IZQUIERDA) */
   .jypesa-sdc-name {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: 45px;
+    font-size: clamp(24px, 2.5vw, 42px);
     line-height: 1.1;
     color: #506D85;
     margin: 0;
-    text-align: center;
+    text-align: left;
+    word-break: normal;
+    overflow-wrap: break-word;
   }
 
   /* ESPECIFICACIONES (TABLA / GRID) */
   .jypesa-sdc-specs {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px 20px;
+    gap: 10px clamp(10px, 1.2vw, 18px);
     width: 100%;
+    text-align: left;
   }
 
   .jypesa-sdc-spec-item {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
+    text-align: left;
   }
 
   .jypesa-sdc-spec-label {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: 11px;
+    font-size: clamp(9.5px, 0.75vw, 11px);
     color: rgba(80, 109, 133, 0.6);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     line-height: 1;
+    text-align: left;
   }
 
   .jypesa-sdc-spec-value {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
-    font-size: 14px;
+    font-size: clamp(11.5px, 0.9vw, 13.5px);
     color: #506D85;
     line-height: 1.3;
+    text-align: left;
   }
 
-  /* DESCRIPCIÓN */
+  /* DESCRIPCIÓN (ALINEADA A LA IZQUIERDA) */
   .jypesa-sdc-desc {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 1.35;
+    font-size: clamp(13px, 1.05vw, 15.5px);
+    line-height: 1.45;
     color: #506D85;
-    text-align: center;
-    min-height: 130px;
+    text-align: left;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
   }
 
   /* BOTONES DE ACCIÓN */
@@ -259,15 +270,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    height: 40px;
+    gap: 8px;
+    height: 42px;
     border-radius: 6px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: 13px;
+    font-size: clamp(11.5px, 0.85vw, 13px);
     text-align: center;
     text-decoration: none;
-    letter-spacing: 0.7px;
+    letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.2s ease;
     width: 100%;
@@ -337,19 +348,19 @@
   }
 
   /* RESPONSIVIDAD */
-  @media (max-width: 1199px) {
+  @media (max-width: 1100px) {
     .jypesa-sdc-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+      gap: 20px;
     }
     .jypesa-sdc-column {
-      border: 1px solid rgba(80, 109, 133, 0.1);
+      border: 1px solid rgba(80, 109, 133, 0.12);
     }
   }
 
   @media (max-width: 768px) {
     .jypesa-sdc-widget {
-      padding: 40px 16px;
+      padding: 30px 0;
     }
     .jypesa-sdc-grid {
       display: flex;
@@ -358,15 +369,15 @@
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      gap: 20px;
+      gap: 16px;
       padding: 10px 0 20px;
-      scrollbar-width: none; /* Firefox */
+      scrollbar-width: none;
     }
     .jypesa-sdc-grid::-webkit-scrollbar {
-      display: none; /* Chrome/Safari */
+      display: none;
     }
     .jypesa-sdc-column {
-      flex: 0 0 100%; /* Un producto por slide */
+      flex: 0 0 clamp(260px, 85vw, 340px);
       scroll-snap-align: center;
       border: 1px solid rgba(80, 109, 133, 0.15);
       border-radius: 8px;
@@ -375,7 +386,7 @@
       display: flex;
     }
     .jypesa-sdc-name {
-      font-size: 38px;
+      font-size: clamp(26px, 6vw, 34px);
     }
     .jypesa-sdc-desc {
       min-height: auto;
