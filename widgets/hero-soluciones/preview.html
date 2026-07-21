@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview — Hero Soluciones / Desarrollo Personalizado · Jypesa</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0b141c;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── DEMO BAR ─────────────────────────────────────────────────────────── */
+    .demo-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      height: 44px;
+      background: rgba(11, 20, 28, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      gap: 12px;
+    }
+
+    .demo-brand {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #9EF4F5;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .demo-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .demo-btn {
+      background: #506D85;
+      color: #fff;
+      border: none;
+      padding: 5px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .demo-btn:hover { background: #48A9C5; }
+
+    .demo-info {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      font-family: monospace;
+    }
+
+    /* ── WIDGET AREA ───────────────────────────────────────────────────────── */
+    .widget-area {
+      width: 100%;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DEMO BAR -->
+  <div class="demo-bar">
+    <span class="demo-brand">JYPESA · HERO SOLUCIONES (DESARROLLO PERSONALIZADO)</span>
+    <div class="demo-controls">
+      <span class="demo-info" id="demo-size">1920 × 1080</span>
+      <button class="demo-btn" onclick="replayAnim()">↺ Reiniciar animación</button>
+    </div>
+  </div>
+
+  <!-- ÁREA DEL WIDGET -->
+  <div class="widget-area">
+
+    <!-- Target Div para Webflow Embed -->
+    <div id="jypesa-hero-soluciones-widget"></div>
+
+    <!-- CMS Source Simulado para Preview -->
+    <div class="jypesa-partners-marquee-cms-source" style="display:none;">
+      <div class="w-dyn-item">
+        <img class="jypesa-partners-marquee-cms-img"
+          src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e72767d30050a400a0bcf_elements%2001.avif" alt="Elements">
+      </div>
+      <div class="w-dyn-item">
+        <img class="jypesa-partners-marquee-cms-img"
+          src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7276ffc51ee72ae73f41_tea%20leaf%2002.avif" alt="Tea Leaf">
+      </div>
+      <div class="w-dyn-item">
+        <img class="jypesa-partners-marquee-cms-img"
+          src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7277d307b0bb54574407_rainforest%2003.avif" alt="Rainforest">
+      </div>
+      <div class="w-dyn-item">
+        <img class="jypesa-partners-marquee-cms-img"
+          src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e727745701dd685b875ec_cava-logo%2005.avif" alt="Cava">
+      </div>
+      <div class="w-dyn-item">
+        <img class="jypesa-partners-marquee-cms-img"
+          src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7275910f1612b878c54a_biogena_logo%202%2006.avif" alt="Biogena">
+      </div>
+      <div class="w-dyn-item">
+        <img class="jypesa-partners-marquee-cms-img"
+          src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7275a1b09e5bf135c618_lavarino_logo%202%2007.avif" alt="Lavarino">
+      </div>
+      <div class="w-dyn-item">
+        <img class="jypesa-partners-marquee-cms-img"
+          src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e727523c9f6ce77be39cd_dove_logo%202%2008.avif" alt="Dove">
+      </div>
+      <div class="w-dyn-item">
+        <img class="jypesa-partners-marquee-cms-img"
+          src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7275e19e819716d5be2b_tresemme-logo%202%2009.avif" alt="TRESemmé">
+      </div>
+      <div class="w-dyn-item">
+        <img class="jypesa-partners-marquee-cms-img"
+          src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e727573dce274159f2ee3_vervan_logo%202%2010.avif" alt="Vervan">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Widget Script -->
+  <script src="./hero-soluciones.js"></script>
+
+  <!-- Demo Scripts -->
+  <script>
+    function updateSize() {
+      document.getElementById('demo-size').textContent =
+        window.innerWidth + ' × ' + window.innerHeight;
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+
+    function replayAnim() {
+      const target = document.getElementById('jypesa-hero-soluciones-widget');
+      if (!target) return;
+      target.innerHTML = '';
+      window.__JypesaHeroSolucionesWidgetInitialized = false;
+
+      const oldScript = document.querySelector('script[src*="hero-soluciones.js"]');
+      if (oldScript) {
+        const newScript = document.createElement('script');
+        newScript.src = './hero-soluciones.js?t=' + Date.now();
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+      }
+    }
+  </script>
+
+</body>
+</html>
