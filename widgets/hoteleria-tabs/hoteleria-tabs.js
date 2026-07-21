@@ -244,10 +244,80 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     RESPONSIVE — Tablet (≤1100px)
-     Estrategia: layout en columna, tabs horizontales con scroll snap,
-     imágenes en carrusel horizontal
+     RESPONSIVE — Laptop / Pantallas pequeñas (≤1439px)
+     Estrategia: ajustar tamaños de fuente, paddings y permitir
+     scroll horizontal suave en imágenes para evitar que se corten.
   ════════════════════════════════════════════════════════════════ */
+  @media (max-width: 1439px) {
+    .jht-inner {
+      min-height: 500px;
+    }
+
+    .jht-left {
+      flex: 0 0 clamp(320px, 28vw, 440px);
+      width: clamp(320px, 28vw, 440px);
+      padding-left: clamp(20px, 2.5vw, 40px);
+    }
+
+    .jht-title {
+      font-size: clamp(50px, 4.8vw, 76px);
+      width: 100%;
+      margin-top: 14px;
+    }
+
+    .jht-subtitle {
+      width: 100%;
+      margin-top: 16px;
+      font-size: clamp(14px, 1.05vw, 16px);
+    }
+
+    .jht-tabs-nav {
+      margin-top: clamp(24px, 2.5vw, 40px);
+      gap: clamp(24px, 2.2vw, 40px);
+      width: 100%;
+    }
+
+    .jht-tab-btn-label {
+      font-size: clamp(17px, 1.4vw, 21px);
+      left: clamp(40px, 5vw, 100px);
+    }
+
+    .jht-tab-btn.active .jht-tab-btn-label {
+      font-size: clamp(17px, 1.4vw, 21px);
+      left: clamp(65px, 6.5vw, 130px);
+    }
+
+    .jht-tab-btn-line {
+      left: clamp(65px, 6.5vw, 130px);
+      width: clamp(130px, 13vw, 180px);
+    }
+
+    .jht-panel {
+      padding-left: clamp(24px, 2.8vw, 45px);
+      gap: clamp(20px, 2.2vw, 36px);
+    }
+
+    .jht-panel-desc {
+      font-size: clamp(14.5px, 1.15vw, 17px);
+      width: 100%;
+    }
+
+    .jht-images {
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      gap: clamp(10px, 1vw, 14px);
+    }
+
+    .jht-images::-webkit-scrollbar { display: none; }
+
+    .jht-img-wrap {
+      width: clamp(220px, 19vw, 320px);
+      height: clamp(220px, 19vw, 320px);
+      flex-shrink: 0;
+    }
+  }
   @media (max-width: 1100px) {
 
     /* Desactivar hover translateX en touch/tablet (en horizontal no tiene sentido) */
@@ -615,7 +685,18 @@
   function readFromCMS(container) {
     let source = null;
     const cmsSel = container.getAttribute('data-cms-source');
-    if (cmsSel) source = document.querySelector(cmsSel);
+    if (cmsSel) {
+      source = document.querySelector(cmsSel) ||
+               document.querySelector('.' + cmsSel.replace(/^[.#]/, '')) ||
+               document.querySelector('#' + cmsSel.replace(/^[.#]/, ''));
+    }
+
+    // Si no tiene data-cms-source explícito, buscar dentro del mismo contenedor padre o hermano
+    if (!source && container.parentElement) {
+      source = container.parentElement.querySelector('.jht-cms-source');
+    }
+
+    // Si no se encuentra localmente, buscar en el documento global
     if (!source) source = document.querySelector('.jht-cms-source');
     if (!source) return null;
 
