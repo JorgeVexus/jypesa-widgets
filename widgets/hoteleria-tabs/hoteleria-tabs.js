@@ -69,19 +69,21 @@
     line-height: 1;
   }
 
-  /* Título "Hotelería" grande */
+  /* Título de sección */
   .jht-title {
     font-family: 'Instrument Serif', serif;
     font-style: italic;
     font-weight: 400;
-    font-size: clamp(52px, 5.2vw, 90px);
-    line-height: 1;
+    font-size: clamp(32px, 4.2vw, 76px);
+    line-height: 1.05;
     color: var(--jht-slate);
     margin: 0;
     margin-top: 18px;
     width: 100%;
-    max-width: 422px;
-    word-break: break-word;
+    max-width: 480px;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
   }
 
   /* Descripción general */
@@ -407,7 +409,7 @@
     }
 
     .jht-title {
-      font-size: 58px;
+      font-size: clamp(30px, 7vw, 44px);
     }
 
     .jht-right {
@@ -457,7 +459,7 @@
     }
 
     .jht-title {
-      font-size: 48px;
+      font-size: clamp(26px, 7.5vw, 36px);
       margin-top: 10px;
     }
 
@@ -543,6 +545,11 @@
   .jht-dots {
     display: none;
   }
+
+  /* Ocultar listas fuente del CMS de Webflow para que no rendericen texto/imágenes sin estilo */
+  .jht-cms-source, [class*="cms-source-"] {
+    display: none !important;
+  }
   `;
 
   const style = document.createElement('style');
@@ -618,21 +625,30 @@
   // ─── Leer datos desde el CMS de Webflow ──────────────────────────────────────
   function readFromCMS(container) {
     let source = null;
-    const cmsSel = container.getAttribute('data-cms-source');
+    const rawAttr = container.getAttribute('data-cms-source') || '';
+    const cmsSel = rawAttr.trim().replace(/^['"]|['"]$/g, '');
+
     if (cmsSel) {
+      const cleanSel = cmsSel.replace(/^[.#]/, '');
       source = document.querySelector(cmsSel) ||
-               document.querySelector('.' + cmsSel.replace(/^[.#]/, '')) ||
-               document.querySelector('#' + cmsSel.replace(/^[.#]/, ''));
+               document.querySelector('.' + cleanSel) ||
+               document.querySelector('#' + cleanSel) ||
+               (container.parentElement ? container.parentElement.querySelector('.' + cleanSel) : null);
     }
 
     // Si no tiene data-cms-source explícito, buscar dentro del mismo contenedor padre o hermano
     if (!source && container.parentElement) {
-      source = container.parentElement.querySelector('.jht-cms-source');
+      source = container.parentElement.querySelector('.jht-cms-source, [class*="cms-source-"]');
     }
 
-    // Si no se encuentra localmente, buscar en el documento global
-    if (!source) source = document.querySelector('.jht-cms-source');
+    // Si no se especificó data-cms-source y no hay local, buscar global
+    if (!source && !cmsSel) {
+      source = document.querySelector('.jht-cms-source, [class*="cms-source-"]');
+    }
     if (!source) return null;
+
+    // Forzar el ocultamiento de la fuente en el DOM
+    source.style.display = 'none';
 
     const items = Array.from(source.querySelectorAll('.w-dyn-item, .jht-cms-tab'));
     if (!items.length) return null;
@@ -684,7 +700,7 @@
     `).join('');
 
     const rightPanels = data.tabs.map((tab, i) => `
-      <div class="jht-panel ${i === 0 ? 'active' : ''}" id="jht-panel-${tab.id}" role="tabpanel" aria-labelledby="jht-btn-${tab.id}">
+      <div class="jht-panel ${i === 0 ? 'active' : ''}" data-panel-tab="${tab.id}" role="tabpanel" aria-labelledby="jht-btn-${tab.id}">
         <p class="jht-panel-desc">${tab.desc}</p>
         <div class="jht-images" data-panel-id="${tab.id}">
           ${tab.images.map(img => `
@@ -745,7 +761,7 @@
 
     // Panels
     container.querySelectorAll('.jht-panel').forEach(panel => {
-      const isActive = panel.id === `jht-panel-${tabId}`;
+      const isActive = panel.getAttribute('data-panel-tab') === tabId;
       panel.classList.toggle('active', isActive);
       // Al activar un panel, resetear el carrusel de imágenes al inicio
       if (isActive) {
