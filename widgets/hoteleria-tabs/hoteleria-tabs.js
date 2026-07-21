@@ -51,6 +51,7 @@
   .jht-segment-label {
     display: inline-flex;
     align-items: baseline;
+    gap: 8px;
     margin-bottom: 0;
     margin-top: 0;
     align-self: flex-start;
@@ -710,7 +711,7 @@
       return `<span class="jht-segment-first">${trimmed}</span>`;
     }
     const firstWord = trimmed.substring(0, spaceIdx);
-    const rest = trimmed.substring(spaceIdx);
+    const rest = trimmed.substring(spaceIdx).trim();
     return `<span class="jht-segment-first">${firstWord}</span><span class="jht-segment-rest">${rest}</span>`;
   }
 
