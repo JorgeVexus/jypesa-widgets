@@ -598,7 +598,7 @@
       indexNumber: '01',
       slideTitle: '',
       slideDesc: 'Todos nuestros tubos tienen en su composición plástico recuperado del océano (ocean bound plastic) Nocean fomentando el uso de materiales responsables y evitando que más plástico llegue al océano.',
-      slideImg: basePath + 'assets/images/slider scroll vertical home/01.webp',
+      slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1e1e7a654eba705955_sustentabilidad%2001.webp',
       logoSpecial: basePath + 'assets/images/slider scroll vertical home/Logo nocean.webp',
       showCerts: false
     },
@@ -606,7 +606,7 @@
       indexNumber: '02',
       slideTitle: 'Refill systems',
       slideDesc: 'Sistemas de dispensación recargables diseñados para reducir el uso de envases de un solo uso en hoteles y operaciones de hospitalidad.',
-      slideImg: basePath + 'assets/images/slider scroll vertical home/02.webp',
+      slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1ee752754a4bde9fe7_sustentabilidad%2002.webp',
       logoSpecial: '',
       showCerts: false
     },
@@ -614,7 +614,7 @@
       indexNumber: '03',
       slideTitle: 'Reducción de residuos',
       slideDesc: 'Desarrollo de soluciones que optimizan el consumo de productos y disminuyen la generación de residuos en la operación diaria de hoteles y empresas de hospitalidad.',
-      slideImg: basePath + 'assets/images/slider scroll vertical home/03.webp',
+      slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b27c2ad81f74357967e_sustentabilidad%2003.webp',
       logoSpecial: '',
       showCerts: false
     },
@@ -622,7 +622,7 @@
       indexNumber: '04',
       slideTitle: 'Certificaciones e impacto',
       slideDesc: 'Compromiso con estándares de calidad, prácticas responsables y acciones orientadas a generar un impacto ambiental y social positivo.',
-      slideImg: basePath + 'assets/images/slider scroll vertical home/04.webp',
+      slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1f3fd0d0b22e5f8120_sustentabilidad%2004.webp',
       logoSpecial: '',
       showCerts: true
     }

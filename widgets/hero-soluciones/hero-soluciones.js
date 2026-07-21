@@ -319,6 +319,18 @@
   opacity: 1;
 }
 
+/* ── RESPONSIVE PARA PANTALLAS ≥ 1440px ───────────────────────────────────── */
+@media (min-width: 1440px) {
+  .jhs-main-content {
+    max-width: 100%;
+    margin: 0;
+    padding-left: 125px;
+  }
+  .jhs-marquee-title {
+    padding-left: 125px;
+  }
+}
+
 /* ── RESPONSIVE PARA PANTALLAS ≤ 1439px Y MENORES ─────────────────────────── */
 @media (max-width: 1439px) {
   .jhs-title-block {
