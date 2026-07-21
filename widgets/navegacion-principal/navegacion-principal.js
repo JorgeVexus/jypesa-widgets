@@ -565,7 +565,7 @@
                                             <li><a href="/colecciones/superior/cava" class="option-link" data-p="Cava">Cava</a></li>
                                             <li><a href="/colecciones/superior/biogena" class="option-link" data-p="Biogena">Biogena</a></li>
                                             <li><a href="/colecciones/superior/lavarino-cosso" class="option-link" data-p="Lavarino">Lavarino Cosso</a></li>
-                                            <li><a href="#" class="option-link" data-p="Dove">Dove</a></li>
+                                            <li><a href="/colecciones/superior/dove" class="option-link" data-p="Dove">Dove</a></li>
                                             <li><a href="/colecciones/superior/tresseme" class="option-link" data-p="Tresemme">Tresemme</a></li>
                                         </ul>
                                     </div>
