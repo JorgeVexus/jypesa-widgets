@@ -47,18 +47,16 @@
     flex-direction: column;
   }
 
-  /* Etiqueta "Segmento • Hotelería" */
+  /* Etiqueta "Segmento • Hotelería" (Línea solo bajo la primera palabra) */
   .jht-segment-label {
     display: inline-flex;
-    align-items: center;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--jht-slate);
+    align-items: baseline;
     margin-bottom: 0;
     margin-top: 0;
     align-self: flex-start;
   }
 
-  .jht-segment-label span {
+  .jht-segment-first {
     font-family: 'Instrument Serif', serif;
     font-style: italic;
     font-weight: 400;
@@ -67,6 +65,20 @@
     letter-spacing: 1.05px;
     white-space: nowrap;
     line-height: 1;
+    border-bottom: 2px solid var(--jht-slate);
+    padding-bottom: 10px;
+  }
+
+  .jht-segment-rest {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(17px, 1.4vw, 21px);
+    color: var(--jht-slate);
+    letter-spacing: 1.05px;
+    white-space: nowrap;
+    line-height: 1;
+    padding-bottom: 10px;
   }
 
   /* Título de sección */
@@ -690,6 +702,18 @@
     };
   }
 
+  function formatSegmentLabel(label) {
+    if (!label) return '';
+    const trimmed = label.trim();
+    const spaceIdx = trimmed.indexOf(' ');
+    if (spaceIdx === -1) {
+      return `<span class="jht-segment-first">${trimmed}</span>`;
+    }
+    const firstWord = trimmed.substring(0, spaceIdx);
+    const rest = trimmed.substring(spaceIdx);
+    return `<span class="jht-segment-first">${firstWord}</span><span class="jht-segment-rest">${rest}</span>`;
+  }
+
   // ─── Construir HTML ───────────────────────────────────────────────────────────
   function buildWidget(data) {
     const leftPanels = data.tabs.map((tab, i) => `
@@ -726,7 +750,7 @@
           <!-- ── Columna Izquierda ── -->
           <div class="jht-left">
             <div class="jht-segment-label">
-              <span>${data.segmentLabel}</span>
+              ${formatSegmentLabel(data.segmentLabel)}
             </div>
             <h2 class="jht-title">${data.sectionTitle}</h2>
             <p class="jht-subtitle">${data.sectionDesc}</p>
