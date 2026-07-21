@@ -81,8 +81,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* Espaciado aumentado entre el título principal y la descripción */
-  margin-bottom: clamp(32px, 5.5vh, 65px);
+  /* Espaciado generoso para elegancia y respiración visual */
+  margin-bottom: clamp(36px, 6vh, 70px);
 }
 
 /* Línea 1: "Creamos productos" */
@@ -95,7 +95,6 @@
   letter-spacing: -0.01em;
   margin: 0;
   white-space: nowrap;
-  /* Animación entrada desde la izquierda */
   opacity: 0;
   transform: translateX(-70px);
   transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -115,7 +114,6 @@
   margin-top: -0.05em;
   margin-bottom: -0.05em;
   white-space: nowrap;
-  /* Animación entrada desde la izquierda */
   opacity: 0;
   transform: translateX(-70px);
   transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -131,7 +129,6 @@
   letter-spacing: -0.01em;
   margin: 0;
   white-space: nowrap;
-  /* Animación entrada desde la izquierda */
   opacity: 0;
   transform: translateX(-70px);
   transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -142,8 +139,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 575px;
-  /* Animación entrada desde la izquierda */
+  width: 100%;
+  max-width: 780px;
   opacity: 0;
   transform: translateX(-50px);
   transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -152,8 +149,9 @@
 /* Descripción con barra lateral izquierda */
 .jhs-description-container {
   border-left: 2px solid #ffffff;
-  padding: 6px 10px 6px 20px;
-  margin-bottom: clamp(20px, 3vh, 34px);
+  padding: 4px 10px 4px 20px;
+  margin-bottom: clamp(24px, 3.5vh, 38px);
+  max-width: 575px;
 }
 
 .jhs-description {
@@ -165,12 +163,14 @@
   margin: 0;
 }
 
-/* ── BOTONES CTA ───────────────────────────────────────────────────────────── */
+/* ── BOTONES CTA (SIEMPRE HORIZONTAL EN DESKTOP/TABLET) ───────────────────── */
 .jhs-buttons {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   gap: clamp(12px, 1.8vw, 30px);
   align-items: center;
-  flex-wrap: wrap;
+  width: auto;
 }
 
 .jhs-btn {
@@ -181,13 +181,14 @@
   padding: clamp(11px, 1.4vh, 15px) clamp(16px, 1.3vw, 22px);
   border-radius: 6px;
   font-family: 'Montserrat', sans-serif;
-  font-size: clamp(13px, 1.05vw, 18px);
+  font-size: clamp(13px, 1vw, 18px);
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
   box-sizing: border-box;
   white-space: nowrap;
   letter-spacing: 0.04em;
+  flex: 0 0 auto;
   transition: background 0.22s ease, border-color 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
 }
 
@@ -230,7 +231,7 @@
   transform: translateX(3px);
 }
 
-/* ── MARQUEE DE PARTNERS (AL FONDO DE LA PANTALLA) ────────────────────────── */
+/* ── MARQUEE DE PARTNERS ───────────────────────────────────────────────────── */
 .jhs-marquee-row {
   position: absolute;
   bottom: clamp(15px, 3vh, 35px);
@@ -304,20 +305,20 @@
   opacity: 1;
 }
 
-/* ── RESPONSIVE & ADAPTABILIDAD PARA LAPTOPS PEQUEÑAS ─────────────────────── */
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────────── */
 @media (max-height: 780px) and (min-width: 992px) {
   .jhs-main-content {
     padding-bottom: 75px;
   }
   .jhs-title-block {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
   .jhs-description-container {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
   }
 }
 
-/* Mobile & Tablet */
+/* Tablet & Mobile */
 @media (max-width: 991px) {
   .jhs-widget {
     height: auto;
@@ -327,20 +328,24 @@
   .jhs-main-content {
     padding-bottom: 80px;
   }
+  .jhs-title-block {
+    margin-bottom: 40px;
+  }
   .jhs-line2 {
     padding-left: 20px;
-  }
-  .jhs-sub-block {
-    max-width: 100%;
   }
 }
 
 @media (max-width: 600px) {
+  .jhs-title-block {
+    margin-bottom: 42px;
+  }
   .jhs-line2 {
     padding-left: 10px;
   }
   .jhs-buttons {
     flex-direction: column;
+    flex-wrap: wrap;
     width: 100%;
   }
   .jhs-btn {
@@ -419,7 +424,6 @@
   function buildWidgetHtml(marqueeHtml) {
     const svgArrow = `<svg class="jhs-btn-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-    // Ruta relativa /contacto para que funcione en cualquier dominio (webflow.io, personalizado, etc.)
     const contactUrl = '/contacto';
 
     return `
