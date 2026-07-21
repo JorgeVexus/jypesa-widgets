@@ -81,7 +81,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* Espaciado masivo (duplicado otra vez) */
   margin-bottom: clamp(110px, 16vh, 220px);
 }
 
@@ -234,7 +233,7 @@
 /* ── MARQUEE DE PARTNERS ───────────────────────────────────────────────────── */
 .jhs-marquee-row {
   position: absolute;
-  bottom: clamp(15px, 3vh, 35px);
+  bottom: clamp(15px, 2.5vh, 30px);
   left: 0;
   width: 100%;
   z-index: 10;
@@ -242,6 +241,21 @@
   box-sizing: border-box;
   opacity: 0;
   transition: opacity 1s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Título arriba del Marquee en Instrument Serif Italic 18px */
+.jhs-marquee-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(15px, 1.1vw, 18px);
+  font-weight: 400;
+  font-style: italic;
+  color: #ffffff;
+  margin-bottom: clamp(8px, 1.2vh, 14px);
+  padding-left: clamp(24px, 5vw, 92px);
+  opacity: 0.92;
+  letter-spacing: 0.03em;
 }
 
 .jhs-marquee-track {
@@ -332,13 +346,16 @@
     padding: 90px 0 70px 0;
   }
   .jhs-main-content {
-    padding-bottom: 70px;
+    padding-bottom: 80px;
   }
   .jhs-title-block {
     margin-bottom: 90px;
   }
   .jhs-line2 {
     padding-left: 20px;
+  }
+  .jhs-marquee-title {
+    padding-left: 24px;
   }
 }
 
@@ -356,6 +373,9 @@
   }
   .jhs-btn {
     width: 100%;
+  }
+  .jhs-marquee-title {
+    padding-left: 20px;
   }
 }
 `;
@@ -475,8 +495,9 @@
 
   </div>
 
-  <!-- Marquee al fondo -->
+  <!-- Marquee al fondo con título en Instrument Serif Italic 18px -->
   <div class="jhs-marquee-row">
+    <span class="jhs-marquee-title">Nuestras líneas de producto</span>
     <div class="jhs-marquee-track">
       ${marqueeHtml}
     </div>
