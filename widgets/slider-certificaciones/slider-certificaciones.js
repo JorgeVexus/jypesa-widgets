@@ -559,9 +559,7 @@
   function buildWidgetHtml(certifications) {
     return `
 <div class="jypesa-slider-certificaciones-widget">
-  <div class="jypesa-cert-section-header">
-    <h2 class="jypesa-cert-section-title">Certifications Section</h2>
-  </div>
+  
 
   <div class="jypesa-cert-slider-outer">
     <div class="jypesa-cert-nav-btn prev-btn">
