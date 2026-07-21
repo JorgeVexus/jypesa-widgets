@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotelería Tabs Widget — JYPESA Preview</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #EEF7FA;
+      font-family: 'Rubik', sans-serif;
+      padding-top: 56px;
+    }
+
+    /* Barra de demo */
+    .demo-bar {
+      background: #1a1f2e;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .demo-bar-brand {
+      font-weight: 700;
+      color: #9EF4F5;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .demo-bar-badge {
+      background: rgba(80,109,133,0.4);
+      color: #9EF4F5;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Área de preview */
+    .demo-section {
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    .demo-section-label {
+      font-family: 'Rubik', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(80,109,133,0.6);
+      border-left: 3px solid #48A9C5;
+      padding-left: 12px;
+      margin-bottom: 32px;
+    }
+
+    .widget-area {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 32px rgba(80,109,133,0.08);
+      overflow: hidden;
+      padding: 80px 0;
+      margin-bottom: 48px;
+    }
+
+    /* ── Documentación de integración ── */
+    .demo-docs {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 4px 16px rgba(80,109,133,0.06);
+      color: #506D85;
+      line-height: 1.7;
+    }
+
+    .demo-docs h2 {
+      font-family: 'Rubik', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #2c3e50;
+    }
+
+    .demo-docs h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #506D85;
+      margin: 28px 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .demo-docs p { margin-bottom: 12px; font-size: 15px; }
+
+    .demo-docs code {
+      background: #f1f5f9;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 13px;
+      color: #0088bd;
+    }
+
+    .demo-docs pre {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 12px 0 20px;
+      color: #334155;
+    }
+
+    .demo-docs ul {
+      padding-left: 20px;
+    }
+
+    .demo-docs ul li {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .cms-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 16px 0;
+    }
+    .cms-table th {
+      background: #EEF7FA;
+      color: #506D85;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid #d1e3ee;
+    }
+    .cms-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #e8f2f7;
+      vertical-align: top;
+    }
+    .cms-table tr:hover td { background: #f8fafc; }
+
+    .badge-required {
+      background: #fef2f2;
+      color: #dc2626;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-optional {
+      background: #f0fdf4;
+      color: #16a34a;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de demo -->
+  <div class="demo-bar">
+    <span class="demo-bar-brand">JYPESA Widgets · Hotelería Tabs</span>
+    <span class="demo-bar-badge">Webflow Embed Preview</span>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       INSTANCIA 1 — Fallback (sin CMS)
+  ══════════════════════════════════════════════════════ -->
+  <div class="demo-section">
+    <p class="demo-section-label">Instancia 1 — Datos Fallback (Sin CMS en la página)</p>
+    <div class="widget-area">
+      <div id="jypesa-hoteleria-tabs-widget"></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         INSTANCIA 2 — Lectura desde CMS de Webflow (oculto)
+    ══════════════════════════════════════════════════════ -->
+    <p class="demo-section-label">Instancia 2 — Datos cargados desde CMS oculto (mock Webflow)</p>
+    <div class="widget-area">
+
+      <!--
+        ┌──────────────────────────────────────────────────────────────────────┐
+        │  MOCK DE COLLECTION LIST DE WEBFLOW                                  │
+        │  En Webflow: agregar una Collection List con clase "jht-cms-source"  │
+        │  y establecer display:none. El widget la lee automáticamente.        │
+        └──────────────────────────────────────────────────────────────────────┘
+      -->
+      <div class="jht-cms-source" style="display:none;">
+
+        <!-- Datos del encabezado (opcionales — reemplaza el fallback) -->
+        <span class="jht-cms-segment-label">Segmento • Hotelería CMS</span>
+        <span class="jht-cms-section-title">Hotelería</span>
+        <p class="jht-cms-section-desc">Soluciones diseñadas para elevar la experiencia del huésped y optimizar la operación hotelera.</p>
+
+        <!-- ── Tab 1 ── -->
+        <div class="w-dyn-item jht-cms-tab">
+          <span class="jht-cms-tab-label">Hoteles independientes</span>
+          <p class="jht-cms-tab-desc">Soluciones accesibles, estéticas y funcionales para hoteles que buscan destacar sin complicar su operación.</p>
+          <img class="jht-cms-tab-img"
+            src="http://localhost:3845/assets/d94c1873bb90e90cf1d9a1ec2b79bf6d3c51fc3a.png"
+            alt="Recepcionista con ropa de cama">
+          <img class="jht-cms-tab-img"
+            src="http://localhost:3845/assets/3a8677f32eb717006b419dee7518a08a2cdb4d5d.png"
+            alt="Huésped con maleta">
+          <img class="jht-cms-tab-img"
+            src="http://localhost:3845/assets/dd5da50804d79b6cc04784fd9c640a6ce7daf7bb.png"
+            alt="Recepcionista entregando ropa">
+        </div>
+
+        <!-- ── Tab 2 ── -->
+        <div class="w-dyn-item jht-cms-tab">
+          <span class="jht-cms-tab-label">Cadenas hoteleras</span>
+          <p class="jht-cms-tab-desc">Programas de abastecimiento centralizado, consistencia de producto en todas las propiedades y acceso a la plataforma Avendra para simplificar compras.</p>
+          <img class="jht-cms-tab-img"
+            src="http://localhost:3845/assets/87cefdfb70bc09d0bc52bab43f037125eaf3616c.png"
+            alt="Fachada de hotel cadena">
+          <img class="jht-cms-tab-img"
+            src="http://localhost:3845/assets/f2cf34ed9b8bae73743c140c588f7f8e1dcd67a8.png"
+            alt="Lobby de hotel">
+          <img class="jht-cms-tab-img"
+            src="http://localhost:3845/assets/8257d7b2a55b2d7813d3160fbf2e494b21315cbc.png"
+            alt="Recepcionista entregando llaves">
+        </div>
+
+        <!-- ── Tab 3 ── -->
+        <div class="w-dyn-item jht-cms-tab">
+          <span class="jht-cms-tab-label">Grupos hoteleros &amp; operadores</span>
+          <p class="jht-cms-tab-desc">Gestión multi-marca y multi-mercado. Desarrollo de colecciones exclusivas por marca, private label y coordinación logística internacional desde EE.UU. y México.</p>
+          <img class="jht-cms-tab-img"
+            src="http://localhost:3845/assets/9bf5a27d3a037c5f95eca4308f38638875ae3aed.png"
+            alt="Reunión de negocios hotelera">
+          <img class="jht-cms-tab-img"
+            src="http://localhost:3845/assets/9f8c5e77eed9b552738e787057caf99dd89a0369.png"
+            alt="Equipo hotelero">
+          <img class="jht-cms-tab-img"
+            src="http://localhost:3845/assets/e8ddfaa2f0d25a94222a9a79fcb03d2ec739a064.png"
+            alt="Restaurante de hotel">
+        </div>
+
+      </div><!-- /jht-cms-source -->
+
+      <!-- Contenedor del widget (apunta a la fuente CMS de arriba) -->
+      <div class="jht-widget-container" data-cms-source=".jht-cms-source"></div>
+
+    </div><!-- /widget-area instancia 2 -->
+
+    <!-- ══════════════════════════════════════════════════════
+         DOCUMENTACIÓN DE INTEGRACIÓN
+    ══════════════════════════════════════════════════════ -->
+    <div class="demo-docs">
+      <h2>📦 Integración en Webflow — Hotelería Tabs Widget</h2>
+      <p>Widget de tabs de dos columnas, pixel perfect al diseño Figma <code>node-id=469-25717</code>. Muestra segmentos hoteleros con imágenes cambiables por CMS.</p>
+
+      <h3>Paso 1 — Agregar el contenedor del widget</h3>
+      <p>Inserta un bloque <strong>Embed</strong> donde quieres el widget:</p>
+      <pre><code>&lt;div id="jypesa-hoteleria-tabs-widget"&gt;&lt;/div&gt;
+
+&lt;!-- O con clase (permite múltiples instancias) --&gt;
+&lt;div class="jht-widget-container"&gt;&lt;/div&gt;
+
+&lt;!-- O con atributo personalizado --&gt;
+&lt;div data-widget="hoteleria-tabs"&gt;&lt;/div&gt;</code></pre>
+
+      <h3>Paso 2 — Crear la Collection List del CMS (oculta)</h3>
+      <p>Agrega una <strong>Collection List</strong> de Webflow en la misma página con <code>display: none</code>. Asigna la clase <code>jht-cms-source</code> al wrapper, y las siguientes clases a cada elemento:</p>
+
+      <table class="cms-table">
+        <thead>
+          <tr>
+            <th>Clase CSS</th>
+            <th>Elemento Webflow</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>jht-cms-source</code></td>
+            <td>Collection List Wrapper</td>
+            <td>Wrapper de toda la lista. Ponlo con <code>display:none</code></td>
+            <td><span class="badge-required">Requerido</span></td>
+          </tr>
+          <tr>
+            <td><code>jht-cms-segment-label</code></td>
+            <td>Text Block (en el wrapper, no en cada ítem)</td>
+            <td>Etiqueta de segmento, p. ej. "Segmento • Hotelería"</td>
+            <td><span class="badge-optional">Opcional</span></td>
+          </tr>
+          <tr>
+            <td><code>jht-cms-section-title</code></td>
+            <td>Text Block (en el wrapper)</td>
+            <td>Título grande, p. ej. "Hotelería"</td>
+            <td><span class="badge-optional">Opcional</span></td>
+          </tr>
+          <tr>
+            <td><code>jht-cms-section-desc</code></td>
+            <td>Text Block (en el wrapper)</td>
+            <td>Descripción general de la sección</td>
+            <td><span class="badge-optional">Opcional</span></td>
+          </tr>
+          <tr>
+            <td><code>jht-cms-tab-label</code></td>
+            <td>Text Block (en cada <code>w-dyn-item</code>)</td>
+            <td>Nombre del tab / segmento. Cada ítem = un tab</td>
+            <td><span class="badge-required">Requerido</span></td>
+          </tr>
+          <tr>
+            <td><code>jht-cms-tab-desc</code></td>
+            <td>Rich Text / Text Block (en cada ítem)</td>
+            <td>Descripción que aparece en el panel derecho</td>
+            <td><span class="badge-required">Requerido</span></td>
+          </tr>
+          <tr>
+            <td><code>jht-cms-tab-img</code></td>
+            <td>Image (repetir hasta 3 veces en cada ítem)</td>
+            <td>Imágenes del panel. Se muestran máximo 3 por tab</td>
+            <td><span class="badge-required">Requerido</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Paso 3 — Cargar el script</h3>
+      <p>Al final de la página (antes de <code>&lt;/body&gt;</code>), en el panel de <em>Custom Code</em>:</p>
+      <pre><code>&lt;script src="https://jypesa-widgets.vercel.app/widgets/hoteleria-tabs/hoteleria-tabs.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h3>Múltiples instancias con CMS diferente</h3>
+      <p>Usa el atributo <code>data-cms-source</code> para apuntar explícitamente a una fuente CMS diferente:</p>
+      <pre><code>&lt;div class="jht-cms-source hospitalidad" style="display:none"&gt;
+  &lt;!-- Items de hospitalidad avanzada --&gt;
+&lt;/div&gt;
+
+&lt;div class="jht-widget-container" data-cms-source=".jht-cms-source.hospitalidad"&gt;&lt;/div&gt;</code></pre>
+    </div>
+
+  </div><!-- /demo-section -->
+
+  <!-- Script del widget -->
+  <script src="./widgets/hoteleria-tabs/hoteleria-tabs.js?v=20260721-3"></script>
+
+</body>
+</html>
