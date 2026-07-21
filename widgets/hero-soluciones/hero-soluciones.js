@@ -69,7 +69,7 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 clamp(24px, 5vw, 92px);
-  padding-bottom: clamp(60px, 10vh, 120px);
+  padding-bottom: clamp(50px, 8vh, 100px);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -81,8 +81,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* Espaciado generoso para elegancia y respiración visual */
-  margin-bottom: clamp(36px, 6vh, 70px);
+  /* Espaciado duplicado para mayor respiración en pantallas chicas */
+  margin-bottom: clamp(65px, 9.5vh, 120px);
 }
 
 /* Línea 1: "Creamos productos" */
@@ -305,13 +305,19 @@
   opacity: 1;
 }
 
-/* ── RESPONSIVE ─────────────────────────────────────────────────────────────── */
+/* ── RESPONSIVE PARA PANTALLAS ≤ 1439px Y MENORES ─────────────────────────── */
+@media (max-width: 1439px) {
+  .jhs-title-block {
+    margin-bottom: clamp(60px, 9vh, 115px);
+  }
+}
+
 @media (max-height: 780px) and (min-width: 992px) {
   .jhs-main-content {
-    padding-bottom: 75px;
+    padding-bottom: 60px;
   }
   .jhs-title-block {
-    margin-bottom: 28px;
+    margin-bottom: clamp(45px, 7.5vh, 85px);
   }
   .jhs-description-container {
     margin-bottom: 20px;
@@ -329,7 +335,7 @@
     padding-bottom: 80px;
   }
   .jhs-title-block {
-    margin-bottom: 40px;
+    margin-bottom: 65px;
   }
   .jhs-line2 {
     padding-left: 20px;
@@ -338,7 +344,7 @@
 
 @media (max-width: 600px) {
   .jhs-title-block {
-    margin-bottom: 42px;
+    margin-bottom: 60px;
   }
   .jhs-line2 {
     padding-left: 10px;
