@@ -30,7 +30,7 @@
   .jht-inner {
     display: flex;
     width: 100%;
-    min-height: 562px;
+    min-height: 520px;
     position: relative;
     box-sizing: border-box;
     overflow: hidden;
@@ -38,10 +38,10 @@
 
   /* ── COLUMNA IZQUIERDA ──────────────────────────────────────── */
   .jht-left {
-    flex: 0 0 503px;
-    width: 503px;
+    flex: 0 0 clamp(300px, 28vw, 460px);
+    width: clamp(300px, 28vw, 460px);
     position: relative;
-    padding-left: 52px;
+    padding-left: clamp(16px, 2.5vw, 48px);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -62,7 +62,7 @@
     font-family: 'Instrument Serif', serif;
     font-style: italic;
     font-weight: 400;
-    font-size: 21px;
+    font-size: clamp(17px, 1.4vw, 21px);
     color: var(--jht-slate);
     letter-spacing: 1.05px;
     white-space: nowrap;
@@ -74,12 +74,13 @@
     font-family: 'Instrument Serif', serif;
     font-style: italic;
     font-weight: 400;
-    font-size: 90px;
+    font-size: clamp(52px, 5.2vw, 90px);
     line-height: 1;
     color: var(--jht-slate);
     margin: 0;
     margin-top: 18px;
-    width: 422px;
+    width: 100%;
+    max-width: 422px;
     word-break: break-word;
   }
 
@@ -87,21 +88,23 @@
   .jht-subtitle {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    font-size: clamp(14px, 1.05vw, 16px);
     line-height: 1.35;
     color: var(--jht-slate);
     margin: 0;
     margin-top: 23px;
-    width: 422px;
+    width: 100%;
+    max-width: 422px;
   }
 
   /* ── Contenedor de tabs (lista vertical) ────────────────────── */
   .jht-tabs-nav {
-    margin-top: 47px;
+    margin-top: clamp(24px, 2.5vw, 47px);
     display: flex;
     flex-direction: column;
-    gap: 47px;
-    width: 405px;
+    gap: clamp(24px, 2.5vw, 47px);
+    width: 100%;
+    max-width: 405px;
   }
 
   /* Tab individual */
@@ -132,7 +135,7 @@
     font-family: 'Instrument Serif', serif;
     font-style: italic;
     font-weight: 400;
-    font-size: 22px;
+    font-size: clamp(17px, 1.4vw, 22px);
     line-height: 1;
     letter-spacing: 1.1px;
     color: var(--jht-slate);
@@ -140,23 +143,22 @@
     transition: opacity 0.3s ease, font-size 0.3s ease, left 0.3s ease, transform 0.3s ease;
     white-space: nowrap;
     position: absolute;
-    /* Alineación por defecto (inactivo): igual al Figma "default" */
-    left: 132px;
+    left: clamp(40px, 6vw, 132px);
   }
 
   /* Estado activo del tab */
   .jht-tab-btn.active .jht-tab-btn-label {
     opacity: 1;
-    font-size: 22px;
-    left: 161px; /* Coincide con Figma "select" state */
+    font-size: clamp(17px, 1.4vw, 22px);
+    left: clamp(65px, 8vw, 161px);
   }
 
   /* Línea decorativa bajo el tab activo */
   .jht-tab-btn-line {
     position: absolute;
     bottom: -12px;
-    left: 163px;
-    width: 206px;
+    left: clamp(65px, 8vw, 163px);
+    width: clamp(130px, 14vw, 206px);
     height: 1.5px;
     background: var(--jht-slate);
     opacity: 0;
@@ -174,9 +176,10 @@
   /* ── COLUMNA DERECHA (panel de contenido) ───────────────────── */
   .jht-right {
     flex: 1;
+    min-width: 0;
     position: relative;
     overflow: hidden;
-    min-height: 562px; /* Altura del Figma — garantiza que los paneles absolutos sean visibles */
+    min-height: 520px;
   }
 
   /* Panel de contenido (uno por tab) */
@@ -185,8 +188,9 @@
     inset: 0;
     display: flex;
     flex-direction: column;
-    gap: 47px;
-    padding-left: 55px;
+    gap: clamp(20px, 2.5vw, 47px);
+    padding-left: clamp(20px, 2.5vw, 45px);
+    padding-right: clamp(16px, 2vw, 30px);
     box-sizing: border-box;
     opacity: 0;
     pointer-events: none;
@@ -204,30 +208,34 @@
   .jht-panel-desc {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
-    font-size: 18px;
+    font-size: clamp(14.5px, 1.15vw, 18px);
     line-height: 1.35;
     color: var(--jht-slate);
     margin: 0;
-    width: 700px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 700px;
   }
 
   /* Contenedor de imágenes */
   .jht-images {
     display: flex;
-    gap: 12px;
+    gap: clamp(8px, 1vw, 12px);
     align-items: flex-start;
-    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   /* Imagen individual */
   .jht-img-wrap {
-    width: 390px;
-    height: 390px;
+    flex: 1 1 0px;
+    min-width: 0;
+    max-width: 390px;
+    height: auto;
+    aspect-ratio: 1 / 1;
     background: #d9d9d9;
     overflow: hidden;
     position: relative;
-    flex-shrink: 0;
+    flex-shrink: 1;
   }
 
   .jht-img-wrap img {
@@ -243,81 +251,7 @@
     transform: scale(1.04);
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     RESPONSIVE — Laptop / Pantallas pequeñas (≤1439px)
-     Estrategia: ajustar tamaños de fuente, paddings y permitir
-     scroll horizontal suave en imágenes para evitar que se corten.
-  ════════════════════════════════════════════════════════════════ */
-  @media (max-width: 1439px) {
-    .jht-inner {
-      min-height: 500px;
-    }
 
-    .jht-left {
-      flex: 0 0 clamp(320px, 28vw, 440px);
-      width: clamp(320px, 28vw, 440px);
-      padding-left: clamp(20px, 2.5vw, 40px);
-    }
-
-    .jht-title {
-      font-size: clamp(50px, 4.8vw, 76px);
-      width: 100%;
-      margin-top: 14px;
-    }
-
-    .jht-subtitle {
-      width: 100%;
-      margin-top: 16px;
-      font-size: clamp(14px, 1.05vw, 16px);
-    }
-
-    .jht-tabs-nav {
-      margin-top: clamp(24px, 2.5vw, 40px);
-      gap: clamp(24px, 2.2vw, 40px);
-      width: 100%;
-    }
-
-    .jht-tab-btn-label {
-      font-size: clamp(17px, 1.4vw, 21px);
-      left: clamp(40px, 5vw, 100px);
-    }
-
-    .jht-tab-btn.active .jht-tab-btn-label {
-      font-size: clamp(17px, 1.4vw, 21px);
-      left: clamp(65px, 6.5vw, 130px);
-    }
-
-    .jht-tab-btn-line {
-      left: clamp(65px, 6.5vw, 130px);
-      width: clamp(130px, 13vw, 180px);
-    }
-
-    .jht-panel {
-      padding-left: clamp(24px, 2.8vw, 45px);
-      gap: clamp(20px, 2.2vw, 36px);
-    }
-
-    .jht-panel-desc {
-      font-size: clamp(14.5px, 1.15vw, 17px);
-      width: 100%;
-    }
-
-    .jht-images {
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      gap: clamp(10px, 1vw, 14px);
-    }
-
-    .jht-images::-webkit-scrollbar { display: none; }
-
-    .jht-img-wrap {
-      width: clamp(220px, 19vw, 320px);
-      height: clamp(220px, 19vw, 320px);
-      flex-shrink: 0;
-    }
-  }
   @media (max-width: 1100px) {
 
     /* Desactivar hover translateX en touch/tablet (en horizontal no tiene sentido) */
