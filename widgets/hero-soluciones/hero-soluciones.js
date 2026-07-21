@@ -12,7 +12,7 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 600px;
+  min-height: 650px;
   max-height: 1080px;
   overflow: hidden;
   font-family: 'Montserrat', sans-serif;
@@ -69,7 +69,7 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 clamp(24px, 5vw, 92px);
-  padding-bottom: clamp(50px, 8vh, 100px);
+  padding-bottom: clamp(40px, 6vh, 80px);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -81,8 +81,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* Espaciado duplicado para mayor respiración en pantallas chicas */
-  margin-bottom: clamp(65px, 9.5vh, 120px);
+  /* Espaciado masivo (duplicado otra vez) */
+  margin-bottom: clamp(110px, 16vh, 220px);
 }
 
 /* Línea 1: "Creamos productos" */
@@ -150,7 +150,7 @@
 .jhs-description-container {
   border-left: 2px solid #ffffff;
   padding: 4px 10px 4px 20px;
-  margin-bottom: clamp(24px, 3.5vh, 38px);
+  margin-bottom: clamp(20px, 3vh, 34px);
   max-width: 575px;
 }
 
@@ -163,7 +163,7 @@
   margin: 0;
 }
 
-/* ── BOTONES CTA (SIEMPRE HORIZONTAL EN DESKTOP/TABLET) ───────────────────── */
+/* ── BOTONES CTA ───────────────────────────────────────────────────────────── */
 .jhs-buttons {
   display: flex;
   flex-direction: row;
@@ -308,19 +308,19 @@
 /* ── RESPONSIVE PARA PANTALLAS ≤ 1439px Y MENORES ─────────────────────────── */
 @media (max-width: 1439px) {
   .jhs-title-block {
-    margin-bottom: clamp(60px, 9vh, 115px);
+    margin-bottom: clamp(100px, 15vh, 200px);
   }
 }
 
 @media (max-height: 780px) and (min-width: 992px) {
   .jhs-main-content {
-    padding-bottom: 60px;
+    padding-bottom: 40px;
   }
   .jhs-title-block {
-    margin-bottom: clamp(45px, 7.5vh, 85px);
+    margin-bottom: clamp(70px, 11vh, 140px);
   }
   .jhs-description-container {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 }
 
@@ -329,13 +329,13 @@
   .jhs-widget {
     height: auto;
     min-height: 100vh;
-    padding: 80px 0 60px 0;
+    padding: 90px 0 70px 0;
   }
   .jhs-main-content {
-    padding-bottom: 80px;
+    padding-bottom: 70px;
   }
   .jhs-title-block {
-    margin-bottom: 65px;
+    margin-bottom: 90px;
   }
   .jhs-line2 {
     padding-left: 20px;
@@ -344,7 +344,7 @@
 
 @media (max-width: 600px) {
   .jhs-title-block {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
   }
   .jhs-line2 {
     padding-left: 10px;
