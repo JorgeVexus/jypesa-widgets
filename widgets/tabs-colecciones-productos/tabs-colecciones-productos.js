@@ -319,8 +319,9 @@
   /* LOGO DE COLECCIÓN */
   .jypesa-tabs-col-logo-wrap {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: flex-start;
     flex-shrink: 0;
     max-height: 55px;
     box-sizing: border-box;
@@ -683,7 +684,8 @@
     }
 
     .jypesa-tabs-col-logo-wrap {
-      align-self: center;
+      align-self: flex-start;
+      align-items: flex-start;
     }
 
     .jypesa-tabs-col-logo-render {
