@@ -918,26 +918,53 @@
     const tabButtons = target.querySelectorAll('.jypesa-var-menu-item');
     const panels = target.querySelectorAll('.jypesa-var-tab-panel');
 
-    // Navegación de Pestañas (Categorías)
+    function activateTabById(targetId, shouldScroll = false) {
+      const btn = Array.from(tabButtons).find(b => {
+        const id = (b.getAttribute('data-tab') || '').toLowerCase();
+        const text = b.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        return id === targetId || text === targetId || id.startsWith(targetId) || targetId.startsWith(id);
+      });
+      if (!btn) return;
+      const realTabId = btn.getAttribute('data-tab');
+
+      tabButtons.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+
+      btn.classList.add('active');
+      const activePanel = target.querySelector(`#var-panel-${realTabId}`);
+      if (activePanel) {
+        activePanel.classList.add('active');
+        const sliders = Array.from(activePanel.querySelectorAll('.jypesa-var-products-container'));
+        if (sliders.length > 0) {
+          updateControlsState(sliders[0], activePanel);
+        }
+      }
+      if (shouldScroll) {
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+      }
+    }
+
+    // Navegación de Pestañas (Categorías) por clic
     tabButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const tabId = btn.getAttribute('data-tab');
-
-        tabButtons.forEach(b => b.classList.remove('active'));
-        panels.forEach(p => p.classList.remove('active'));
-
-        btn.classList.add('active');
-        const activePanel = target.querySelector(`#var-panel-${tabId}`);
-        if (activePanel) {
-          activePanel.classList.add('active');
-          // Forzar refresco de alineación de scroll
-          const sliders = Array.from(activePanel.querySelectorAll('.jypesa-var-products-container'));
-          if (sliders.length > 0) {
-            updateControlsState(sliders[0], activePanel);
-          }
-        }
+        activateTabById(tabId, false);
       });
     });
+
+    // Deep linking vía Hash o URL Parameter
+    function checkUrlHash() {
+      const rawHash = (window.location.hash || '').replace('#', '').trim();
+      const urlParams = new URLSearchParams(window.location.search);
+      const rawParam = (urlParams.get('tab') || '').trim();
+      const key = decodeURIComponent(rawHash || rawParam).toLowerCase().replace(/\s+/g, '-');
+      if (key) {
+        activateTabById(key, true);
+      }
+    }
+
+    checkUrlHash();
+    window.addEventListener('hashchange', checkUrlHash);
 
     // Configurar sincronización de scroll y controles por cada panel
     panels.forEach(panel => {

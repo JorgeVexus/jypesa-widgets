@@ -1353,27 +1353,51 @@
     const tabButtons = target.querySelectorAll('.jypesa-tabs-menu-item');
     const contentPanels = target.querySelectorAll('.jypesa-tab-content-panel');
 
-    // Manejo de tabs
+    function activateTabById(targetId, shouldScroll = false) {
+      const btn = Array.from(tabButtons).find(b => {
+        const id = (b.getAttribute('data-tab') || '').toLowerCase();
+        const text = b.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        return id === targetId || text === targetId || id.startsWith(targetId) || targetId.startsWith(id);
+      });
+      if (!btn) return;
+      const realTabId = btn.getAttribute('data-tab');
+
+      tabButtons.forEach(b => b.classList.remove('active'));
+      contentPanels.forEach(p => p.classList.remove('active'));
+
+      btn.classList.add('active');
+      const activePanel = target.querySelector(`#panel-${realTabId}`);
+      if (activePanel) {
+        activePanel.classList.add('active');
+        const container = activePanel.querySelector('.jypesa-tabs-products-container');
+        if (container) handleScroll(container, activePanel);
+      }
+      if (shouldScroll) {
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+      }
+    }
+
+    // Manejo de tabs por clic
     tabButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const tabId = btn.getAttribute('data-tab');
-
-        // Desactivar todos los botones
-        tabButtons.forEach(b => b.classList.remove('active'));
-        // Desactivar todos los paneles
-        contentPanels.forEach(p => p.classList.remove('active'));
-
-        // Activar el actual
-        btn.classList.add('active');
-        const activePanel = target.querySelector(`#panel-${tabId}`);
-        if (activePanel) {
-          activePanel.classList.add('active');
-          // Actualizar el carrusel de este panel para centrar estados de navegación
-          const container = activePanel.querySelector('.jypesa-tabs-products-container');
-          if (container) handleScroll(container, activePanel);
-        }
+        activateTabById(tabId, false);
       });
     });
+
+    // Deep linking vía Hash o URL Parameter
+    function checkUrlHash() {
+      const rawHash = (window.location.hash || '').replace('#', '').trim();
+      const urlParams = new URLSearchParams(window.location.search);
+      const rawParam = (urlParams.get('tab') || '').trim();
+      const key = decodeURIComponent(rawHash || rawParam).toLowerCase().replace(/\s+/g, '-');
+      if (key) {
+        activateTabById(key, true);
+      }
+    }
+
+    checkUrlHash();
+    window.addEventListener('hashchange', checkUrlHash);
 
     // Configurar cada Slider de productos en los paneles
     contentPanels.forEach(panel => {

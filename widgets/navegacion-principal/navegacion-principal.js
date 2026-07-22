@@ -635,37 +635,36 @@
                                         <div class="menu-section">
                                             <div class="section-header">Hospitalidad alternativa</div>
                                             <ul class="options-list">
-                                                <li><a href="/soluciones/hospitalidad/airbnb" class="option-link">Airbnb</a></li>
-                                                <li><a href="/soluciones/hospitalidad/str" class="option-link">STR</a></li>
+                                                <li><a href="/soluciones#airbnb" class="option-link">Airbnb</a></li>
+                                                <li><a href="/soluciones#str" class="option-link">STR</a></li>
                                             </ul>
                                         </div>
                                         <div class="menu-section">
                                             <div class="section-header">Institucional</div>
                                             <ul class="options-list">
-                                                <li><a href="/soluciones/institucional/hospitales" class="option-link">Hospitales</a></li>
-                                                <li><a href="/soluciones/institucional/restaurantes-clubes" class="option-link">Restaurante & Clubes</a></li>
+                                                <li><a href="/soluciones#hospitales" class="option-link">Hospitales</a></li>
+                                                <li><a href="/soluciones#restaurantes-clubes" class="option-link">Restaurante & Clubes</a></li>
                                             </ul>
                                         </div>
                                     </div>
 
-                                    <!-- Fila 2: Canal comercial, Empresarial, Hospitalidad especializada -->
                                     <div class="sections-row" style="margin-top: 45px;">
                                         <div class="menu-section">
                                             <div class="section-header">Canal comercial</div>
                                             <ul class="options-list">
-                                                <li><a href="/soluciones/canal-comercial/distribuidores" class="option-link">Distribuidores</a></li>
+                                                <li><a href="/soluciones#distribuidores" class="option-link">Distribuidores</a></li>
                                             </ul>
                                         </div>
                                         <div class="menu-section">
                                             <div class="section-header">Empresarial</div>
                                             <ul class="options-list">
-                                                <li><a href="/soluciones/empresarial/corporativo-regalos" class="option-link">Corporativo & Regalos empresariales</a></li>
+                                                <li><a href="/soluciones#corporativo-regalos" class="option-link">Corporativo & Regalos empresariales</a></li>
                                             </ul>
                                         </div>
                                         <div class="menu-section">
                                             <div class="section-header">Hospitalidad especializada</div>
                                             <ul class="options-list">
-                                                <li><a href="/soluciones/hospitalidad-especializada/cruceros-campamentos" class="option-link">Cruceros & Campamentos</a></li>
+                                                <li><a href="/soluciones#cruceros-campamentos" class="option-link">Cruceros & Campamentos</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -805,17 +804,17 @@
                 <a href="/soluciones#cadenas-hoteleras" class="mob-link">Cadenas hoteleras</a>
                 <a href="/soluciones#grupos-hoteleros" class="mob-link">Grupos hoteleros & operadores</a>
                 <div class="mob-cat-title">Hospitalidad alternativa</div>
-                <a href="/soluciones/hospitalidad/airbnb" class="mob-link">Airbnb</a>
-                <a href="/soluciones/hospitalidad/str" class="mob-link">STR</a>
+                <a href="/soluciones#airbnb" class="mob-link">Airbnb</a>
+                <a href="/soluciones#str" class="mob-link">STR</a>
                 <div class="mob-cat-title">Institucional</div>
-                <a href="/soluciones/institucional/hospitales" class="mob-link">Hospitales</a>
-                <a href="/soluciones/institucional/restaurantes-clubes" class="mob-link">Restaurante & Clubes</a>
+                <a href="/soluciones#hospitales" class="mob-link">Hospitales</a>
+                <a href="/soluciones#restaurantes-clubes" class="mob-link">Restaurante & Clubes</a>
                 <div class="mob-cat-title">Canal comercial</div>
-                <a href="/soluciones/canal-comercial/distribuidores" class="mob-link">Distribuidores</a>
+                <a href="/soluciones#distribuidores" class="mob-link">Distribuidores</a>
                 <div class="mob-cat-title">Empresarial</div>
-                <a href="/soluciones/empresarial/corporativo-regalos" class="mob-link">Corporativo & Regalos empresariales</a>
+                <a href="/soluciones#corporativo-regalos" class="mob-link">Corporativo & Regalos empresariales</a>
                 <div class="mob-cat-title">Hospitalidad especializada</div>
-                <a href="/soluciones/hospitalidad-especializada/cruceros-campamentos" class="mob-link">Cruceros & Campamentos</a>
+                <a href="/soluciones#cruceros-campamentos" class="mob-link">Cruceros & Campamentos</a>
             </div>
         </li>
         <li class="mob-item">
