@@ -918,11 +918,45 @@
     const tabButtons = target.querySelectorAll('.jypesa-var-menu-item');
     const panels = target.querySelectorAll('.jypesa-var-tab-panel');
 
+    function cleanAlpha(str) {
+      if (!str) return '';
+      return decodeURIComponent(str)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '');
+    }
+
+    function slugify(str) {
+      if (!str) return '';
+      return decodeURIComponent(str)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
     function activateTabById(targetId, shouldScroll = false) {
+      const tSlug = slugify(targetId);
+      const tAlpha = cleanAlpha(targetId);
+      if (!tAlpha) return;
+
       const btn = Array.from(tabButtons).find(b => {
-        const id = (b.getAttribute('data-tab') || '').toLowerCase();
-        const text = b.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-        return id === targetId || text === targetId || id.startsWith(targetId) || targetId.startsWith(id);
+        const id = b.getAttribute('data-tab') || '';
+        const text = b.textContent || '';
+        const idSlug = slugify(id);
+        const idAlpha = cleanAlpha(id);
+        const lblSlug = slugify(text);
+        const lblAlpha = cleanAlpha(text);
+
+        return (
+          idSlug === tSlug ||
+          lblSlug === tSlug ||
+          idAlpha === tAlpha ||
+          lblAlpha === tAlpha ||
+          (tAlpha.length >= 3 && (idAlpha.includes(tAlpha) || lblAlpha.includes(tAlpha) || tAlpha.includes(idAlpha) || tAlpha.includes(lblAlpha)))
+        );
       });
       if (!btn) return;
       const realTabId = btn.getAttribute('data-tab');
@@ -957,7 +991,7 @@
       const rawHash = (window.location.hash || '').replace('#', '').trim();
       const urlParams = new URLSearchParams(window.location.search);
       const rawParam = (urlParams.get('tab') || '').trim();
-      const key = decodeURIComponent(rawHash || rawParam).toLowerCase().replace(/\s+/g, '-');
+      const key = rawHash || rawParam;
       if (key) {
         activateTabById(key, true);
       }

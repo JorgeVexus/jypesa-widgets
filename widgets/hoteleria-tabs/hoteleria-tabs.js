@@ -678,7 +678,7 @@
       const label    = labelEl ? labelEl.textContent.trim() : '';
       if (!label) return null;
 
-      const id = label.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+      const id = label.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
       const images = imgEls.map(img => ({
         src: img.getAttribute('src') || img.src || '',
@@ -848,19 +848,53 @@
     });
 
     // ─── Soporte para Deep Linking (Abrir tab desde URL hash o ?tab=) ────────
+    function cleanAlpha(str) {
+      if (!str) return '';
+      return decodeURIComponent(str)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '');
+    }
+
+    function slugify(str) {
+      if (!str) return '';
+      return decodeURIComponent(str)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
     function checkUrlHash() {
       const rawHash = (window.location.hash || '').replace('#', '').trim();
       const urlParams = new URLSearchParams(window.location.search);
       const rawParam = (urlParams.get('tab') || '').trim();
-      const target = decodeURIComponent(rawHash || rawParam).toLowerCase().replace(/\s+/g, '-');
+      const target = rawHash || rawParam;
 
       if (!target) return;
 
+      const tSlug = slugify(target);
+      const tAlpha = cleanAlpha(target);
+
       const buttons = Array.from(container.querySelectorAll('.jht-tab-btn'));
       const match = buttons.find(btn => {
-        const tabId = (btn.getAttribute('data-tab') || '').toLowerCase();
-        const labelText = (btn.querySelector('.jht-tab-btn-label')?.textContent || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-        return tabId === target || labelText === target || tabId.startsWith(target) || target.startsWith(tabId);
+        const tabId = btn.getAttribute('data-tab') || '';
+        const labelText = btn.querySelector('.jht-tab-btn-label')?.textContent || '';
+        
+        const idSlug = slugify(tabId);
+        const idAlpha = cleanAlpha(tabId);
+        const lblSlug = slugify(labelText);
+        const lblAlpha = cleanAlpha(labelText);
+
+        return (
+          idSlug === tSlug ||
+          lblSlug === tSlug ||
+          idAlpha === tAlpha ||
+          lblAlpha === tAlpha ||
+          (tAlpha.length >= 3 && (idAlpha.includes(tAlpha) || lblAlpha.includes(tAlpha) || tAlpha.includes(idAlpha) || tAlpha.includes(lblAlpha)))
+        );
       });
 
       if (match) {
