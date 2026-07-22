@@ -6,44 +6,56 @@
      DATOS DE UBICACIONES
      ========================================================== */
   const GROUPS = {
-    'Oficinas de representación': {
-      color: '#0089C1',
-      cities: [
-        { name: 'Guadalajara', country: 'México', lat: 20.6597, lon: -103.3496 },
-        { name: 'San José', country: 'Costa Rica', lat: 9.9281, lon: -84.0907 },
-        { name: 'Cancún', country: 'México', lat: 21.1619, lon: -86.8515 },
-        { name: 'Bogotá', country: 'Colombia', lat: 4.7110, lon: -74.0721 },
-        { name: 'Punta Cana', country: 'Rep. Dominicana', lat: 18.5601, lon: -68.3725 },
-        { name: 'Lima', country: 'Perú', lat: -12.0464, lon: -77.0428 },
-        { name: 'Kingston', country: 'Jamaica', lat: 17.9712, lon: -76.7936 },
-        { name: 'Santiago', country: 'Chile', lat: -33.4489, lon: -70.6693 },
-        { name: 'Las Vegas', country: 'USA', lat: 36.1699, lon: -115.1398 },
-        { name: 'Alicante', country: 'España', lat: 38.3452, lon: -0.4810 },
-        { name: 'Dallas', country: 'USA', lat: 32.7767, lon: -96.7970 },
-        { name: 'Guangzhou', country: 'China', lat: 23.1291, lon: 113.2644 },
-        { name: 'Guatemala', country: 'Guatemala', lat: 14.6349, lon: -90.5069 },
-        { name: 'Sydney', country: 'Australia', lat: -33.8688, lon: 151.2093 },
-      ],
-    },
-    'Fábricas Jypesa': {
-      color: '#4AA25D',
-      cities: [
-        { name: 'Guadalajara', country: 'México', lat: 20.6597, lon: -103.3496 },
-        { name: 'Toledo', country: 'España', lat: 39.8628, lon: -4.0273 },
-        { name: 'Yangzhou', country: 'China', lat: 32.3932, lon: 119.4127 },
-      ],
-    },
-    'Fábricas Asociadas': {
-      color: '#FBB31F',
-      cities: [
-        { name: 'Medellín', country: 'Colombia', lat: 6.2442, lon: -75.5812 },
-        { name: 'Buenos Aires', country: 'Argentina', lat: -34.6037, lon: -58.3816 },
-        { name: 'Kuala Lumpur', country: 'Malasia', lat: 3.1390, lon: 101.6869 },
-      ],
-    },
+    Distribuidores: { color: '#0089C1' },
+    Oficinas: { color: '#4AA25D' },
+    'Fábrica': { color: '#FBB31F' },
   };
 
-  const GROUP_PRIORITY = ['Oficinas de representación', 'Fábricas Jypesa', 'Fábricas Asociadas'];
+  const GROUP_PRIORITY = ['Distribuidores', 'Oficinas', 'Fábrica'];
+
+  /* LOCATIONS_DATA_START */
+  const LOCATIONS = [
+    { name: 'Cafi Guatemala', type: 'Distribuidores', location: 'Avenida Elena 6-42, Zona 3, Ciudad de Guatemala', country: 'Guatemala', contact: 'ventasguatemala@jypesa.com', lat: 14.6349, lon: -90.5069 },
+    { name: 'Cafi El Salvador', type: 'Distribuidores', location: 'Blvd. Vijosa, calle L-1 N.° 44-C, Ciudad Merliot', country: 'El Salvador', contact: 'ventassalvador@jypesa.com', lat: 13.6745, lon: -89.2787 },
+    { name: 'Cafi Belén', type: 'Distribuidores', location: 'Potrerillos, 400 m oeste y 25 m sur del Sol Naciente, bodegas 3 y 4, San Rafael de Alajuela 20108', country: 'Costa Rica', contact: 'ventascr@jypesa.com', lat: 10.0132, lon: -84.2116 },
+    { name: 'Distribuidora M y G', type: 'Distribuidores', location: 'Edificio Plaza Real, local 10, entre 18 y 19 avenida, 2 calle, barrio Río de Piedras, San Pedro Sula, Cortés 21101', country: 'Honduras', contact: 'ventashonduras@jypesa.com', lat: 15.5050, lon: -88.0250 },
+    { name: 'Rutacom', type: 'Distribuidores', location: 'Av. Portales 856, entre Av. Pando y Av. M. Urquidi, Ed. Hupermall, piso 8, oficina 7, Queru Queru, Cochabamba', country: 'Bolivia', contact: 'ventasbol@jypesa.com', lat: -17.3716, lon: -66.1432 },
+    { name: 'Droguería', type: 'Distribuidores', location: 'Av. Emilio Cavenecia 151, interior 702, Miraflores, Lima', country: 'Perú', contact: 'ventasperu@jypesa.com', lat: -12.1111, lon: -77.0316 },
+    { name: 'Onatextiles', type: 'Distribuidores', location: 'Naves del Canal Este, fase II, local 5, sector Friusa, Bávaro, La Altagracia', country: 'República Dominicana', contact: 'ventasrd@jypesa.com', lat: 18.6991, lon: -68.4358 },
+    { name: 'DFL Importers', type: 'Distribuidores', location: '71 Molynes Road, Kingston 10', country: 'Jamaica', contact: 'salesjamaica@jypesa.com', lat: 18.0105, lon: -76.7990 },
+    { name: 'Cosmoceutical Pharma', type: 'Distribuidores', location: 'La Niña E8-52 y Diego de Almagro, Edif. Royal Business, oficina 608, Quito', country: 'Ecuador', contact: 'ventasecuador@jypesa.com', lat: -0.1868, lon: -78.4826 },
+    { name: 'World Target Supplies', type: 'Distribuidores', location: 'Urbanización Los Ángeles, calle 63, casa A-11, corregimiento de Betania, Panamá', country: 'Panamá', contact: 'ventaspanama@jypesa.com', lat: 9.0052, lon: -79.5348 },
+    { name: 'Helios Colombia', type: 'Distribuidores', location: 'Calle 127 70G-78, oficina 411, Bogotá', country: 'Colombia', contact: 'ventascolombia@jypesa.com', lat: 4.7077, lon: -74.0711 },
+    { name: 'Jypesa Chile', type: 'Distribuidores', location: 'Coyancura 2241, Providencia 7510151, Región Metropolitana', country: 'Chile', contact: 'ventaschile@jypesa.com', lat: -33.4197, lon: -70.6064 },
+    { name: 'Galyfer', type: 'Distribuidores', location: 'Alicante 1740, Montevideo', country: 'Uruguay', contact: 'ventasuruguay@jypesa.com', lat: -34.8738, lon: -56.1667 },
+    { name: 'Productos de Limpieza del Valle', type: 'Distribuidores', location: 'Melchor Ocampo 717, Oaxaca de Juárez', country: 'México', contact: 'https://www.facebook.com/naturyoaxaca', lat: 17.0654, lon: -96.7236 },
+    { name: 'Insumos del Norte', type: 'Distribuidores', location: 'Manuel J. Clouthier 451-5, Ciudad Juárez', country: 'México', contact: 'https://insumosdelnorte.com/', lat: 31.6904, lon: -106.4245 },
+    { name: 'Hotel Store Puerto Vallarta', type: 'Distribuidores', location: 'Av. Tepic Norte 473, Puerto Vallarta', country: 'México', lat: 20.6534, lon: -105.2253 },
+    { name: 'Farmases', type: 'Distribuidores', location: 'Calle Cabrera 147, Monterrey', country: 'México', contact: 'https://www.farmases.com/', lat: 25.6866, lon: -100.3161 },
+    { name: 'Oran Químicos e Insumos', type: 'Distribuidores', location: 'Amado Nervo 805-A, Tamaulipas', country: 'México', contact: 'https://www.distribucionesestrella.com/', lat: 23.7369, lon: -99.1411 },
+    { name: 'Comercial Sanitaria', type: 'Distribuidores', location: 'Blvd. Luis Encinas s/n, entre Carbó y Ures, Col. Centro, Hermosillo, Sonora 83000', country: 'México', contact: 'https://www.comercialsanitaria.mx/', lat: 29.0729, lon: -110.9559 },
+    { name: 'Insumos de la Limpieza e Higiene', type: 'Distribuidores', location: 'Circuito Bosques de la Trinidad 220, Plan de Ayala, Tuxtla Gutiérrez, Chiapas', country: 'México', contact: 'https://insumos.com.mx/', lat: 16.7516, lon: -93.1161 },
+    { name: 'Equilimp', type: 'Distribuidores', location: 'Av. Peñuelas 21, interior 20B, San Pedrito Peñuelas, Querétaro', country: 'México', contact: 'https://equilimp.com.mx/', lat: 20.6139, lon: -100.3896 },
+    { name: 'JOFA', type: 'Distribuidores', location: 'Calle F 2473, Mexicali; cobertura también en Tijuana', country: 'México', contact: 'https://jofa.com.mx/', lat: 32.6245, lon: -115.4523 },
+    { name: 'Escencia Hotelera', type: 'Distribuidores', location: 'Calle Millet 19, departamento 13, Eucalipto Vallarta, Colima', country: 'México', lat: 19.2433, lon: -103.7250 },
+    { name: 'Marquise Hospitality', type: 'Distribuidores', country: 'Texas, Estados Unidos', contact: 'www.marquisehospitality.com', lat: 31.0000, lon: -99.9018 },
+    { name: 'Rutherford Supply', type: 'Distribuidores', country: 'Virginia, Estados Unidos', contact: 'https://rutherfordsupply.com/', lat: 37.4316, lon: -78.6569 },
+    { name: 'Justice Packaging', type: 'Distribuidores', country: 'Georgia, Estados Unidos', contact: 'https://correctionsmarketplace.com/', lat: 32.1656, lon: -82.9001 },
+    { name: 'Turnkey Options', type: 'Distribuidores', country: 'Virginia, Estados Unidos', contact: 'https://www.turnkeyoptionsllc.com/', lat: 37.5816, lon: -78.5069 },
+    { name: 'Liberty Distribution', type: 'Distribuidores', country: 'West Virginia, Estados Unidos', contact: 'https://libertydistributors.com/', lat: 38.5976, lon: -80.4549 },
+    { name: 'Bright Textiles', type: 'Distribuidores', location: '3542 E. T. C. Jester Blvd., Houston, Texas 77018', country: 'Estados Unidos', contact: 'https://www.facebook.com/brightextiles/', lat: 29.8196, lon: -95.4500 },
+    { name: 'Paper Chemical', type: 'Distribuidores', country: 'Savannah, Georgia, Estados Unidos', contact: 'https://www.paperchemicalsupply.com/Web/', lat: 32.0809, lon: -81.0912 },
+    { name: 'GARAU', type: 'Distribuidores', country: 'Palma de Mallorca, España', lat: 39.5696, lon: 2.6502 },
+    { name: 'Tu Pack', type: 'Distribuidores', country: 'Barcelona, España', lat: 41.3874, lon: 2.1686 },
+    { name: 'Packetalia', type: 'Distribuidores', country: 'Comunidad Valenciana, España', lat: 39.4699, lon: -0.3763 },
+    { name: 'Eco One', type: 'Distribuidores', country: 'Madrid, España', lat: 40.4168, lon: -3.7038 },
+    { name: 'Juan de Hoyos', type: 'Distribuidores', country: 'Colombia', contact: 'https://www.jdh.com.co/', lat: 4.5709, lon: -74.2973 },
+    { name: 'Jypesa Oficinas Centrales', type: 'Oficinas', location: 'Av. Acueducto 2100, Colinas de San Javier, Guadalajara, Jalisco 45110', country: 'México', lat: 20.7027, lon: -103.3938 },
+    { name: 'Jypesa North America', type: 'Oficinas', location: 'Ubicación aproximada', country: 'Texas, Estados Unidos', lat: 31.1000, lon: -99.8018 },
+    { name: 'Jypesa Colombia', type: 'Oficinas', location: 'Ubicación aproximada en Bogotá', country: 'Colombia', lat: 4.7110, lon: -74.0721 },
+    { name: 'Jypesa', type: 'Fábrica', location: 'Cernícalo 155, Guadalajara, Jalisco', country: 'México', lat: 20.6597, lon: -103.3496 },
+  ];
+  /* LOCATIONS_DATA_END */
 
   /* ==========================================================
      ESTILOS
@@ -162,7 +174,12 @@
   gap: 16px;
   z-index: 10;
   pointer-events: auto;
+  padding: 12px 14px;
+  background: rgba(238, 247, 250, 0.88);
+  border-radius: 8px;
 }
+
+.jypesa-cg-overlay .jypesa-cg-cities { display: none; }
 
 .jypesa-cg-group {
   display: flex;
@@ -241,12 +258,19 @@
   box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
   font-family: 'Rubik', sans-serif;
   color: #1a2e3f;
-  pointer-events: none;
+  pointer-events: auto;
   z-index: 10000;
   opacity: 0;
   visibility: hidden;
   transform: translateY(4px);
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.jypesa-cg-tt-link {
+  color: #0089C1;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .jypesa-cg-tooltip.jypesa-cg-tooltip-visible {
@@ -423,6 +447,82 @@
   /* ==========================================================
      MARKUP DEL WIDGET
      ========================================================== */
+  function escapeHtml(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char];
+    });
+  }
+
+  function groupLocations(groupName) {
+    return LOCATIONS.filter(function (location) { return location.type === groupName; });
+  }
+
+  function listLabel(location) {
+    return location.name + (location.country ? ', ' + location.country : '');
+  }
+
+  function isEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value || '');
+  }
+
+  function contactHref(value) {
+    if (isEmail(value)) return 'mailto:' + value;
+    return /^https?:\/\//i.test(value) ? value : 'https://' + value;
+  }
+
+  function tooltipRow(label, value) {
+    if (!value) return '';
+    return `<div class="jypesa-cg-tt-row"><strong>${escapeHtml(label)}:</strong><span>${escapeHtml(value)}</span></div>`;
+  }
+
+  function buildDesktopGroups() {
+    return GROUP_PRIORITY.map(function (groupName, groupIndex) {
+      const group = GROUPS[groupName];
+      const locations = groupLocations(groupName);
+      const midpoint = Math.ceil(locations.length / 2);
+      const columns = locations.length > 8 ? [locations.slice(0, midpoint), locations.slice(midpoint)] : [locations];
+      return `
+        <div class="jypesa-cg-group${groupIndex ? ' jypesa-cg-group-bottom' : ''}">
+          <div class="jypesa-cg-group-header">
+            <div class="jypesa-cg-group-title-wrap">
+              ${pinSvg(group.color, 'jypesa-cg-mask-group-' + groupIndex, 'jypesa-cg-pin')}
+              <span class="jypesa-cg-group-title" style="color: ${group.color};">${escapeHtml(groupName)}</span>
+            </div>
+            <span class="jypesa-cg-group-count" style="color: ${group.color};">${locations.length}</span>
+          </div>
+          <div class="jypesa-cg-cities">
+            ${columns.map(function (column) {
+              return `<div class="jypesa-cg-cities-col">${column.map(function (location) {
+                return escapeHtml(listLabel(location));
+              }).join('<br>')}</div>`;
+            }).join('')}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function buildMobileGroups() {
+    return GROUP_PRIORITY.map(function (groupName, groupIndex) {
+      const group = GROUPS[groupName];
+      const locations = groupLocations(groupName);
+      return `
+        <div class="jypesa-cg-mob-group">
+          <div class="jypesa-cg-mob-header">
+            <div class="jypesa-cg-mob-title-wrap">
+              ${pinSvg(group.color, 'jypesa-cg-mask-mobile-' + groupIndex, 'jypesa-cg-mob-pin')}
+              <span class="jypesa-cg-mob-title" style="color: ${group.color};">${escapeHtml(groupName)}</span>
+            </div>
+            <span class="jypesa-cg-mob-count" style="color: ${group.color};">${locations.length}</span>
+          </div>
+          <div class="jypesa-cg-mob-cities">
+            ${locations.map(function (location) {
+              return `<span class="jypesa-cg-mob-city">${escapeHtml(listLabel(location))}</span>`;
+            }).join('')}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
   function buildWidgetHtml() {
     return `
 <div class="jypesa-cg-header">
@@ -437,130 +537,12 @@
   <div class="jypesa-cg-map-wrapper">
     <svg class="jypesa-cg-world-map-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"></svg>
 
-    <div class="jypesa-cg-overlay">
-      <div class="jypesa-cg-group">
-        <div class="jypesa-cg-group-header">
-          <div class="jypesa-cg-group-title-wrap">
-            ${pinSvg('#0089C1', 'jypesa-cg-mask-office', 'jypesa-cg-pin')}
-            <span class="jypesa-cg-group-title" style="color: #0089C1;">Oficinas de representación</span>
-          </div>
-          <span class="jypesa-cg-group-count" style="color: #0089C1;">14</span>
-        </div>
-        <div class="jypesa-cg-cities">
-          <div class="jypesa-cg-cities-col">
-            Guadalajara, México<br>
-            Cancún, México<br>
-            Punta Cana, RD<br>
-            Kingston, Jamaica<br>
-            Las Vegas, USA<br>
-            Dallas, USA<br>
-            Guatemala, Guatemala
-          </div>
-          <div class="jypesa-cg-cities-col">
-            San José, Costa Rica<br>
-            Bogotá, Colombia<br>
-            Lima, Perú<br>
-            Santiago, Chile<br>
-            Alicante, España<br>
-            Guangzhou, China<br>
-            Sydney, Australia
-          </div>
-        </div>
-      </div>
-
-      <div class="jypesa-cg-bottom-row">
-        <div class="jypesa-cg-group jypesa-cg-group-bottom">
-          <div class="jypesa-cg-group-header">
-            <div class="jypesa-cg-group-title-wrap">
-              ${pinSvg('#4AA25D', 'jypesa-cg-mask-factory', 'jypesa-cg-pin')}
-              <span class="jypesa-cg-group-title" style="color: #4AA25D;">Fábricas Jypesa</span>
-            </div>
-            <span class="jypesa-cg-group-count" style="color: #4AA25D;">3</span>
-          </div>
-          <div class="jypesa-cg-cities-single">
-            Guadalajara, México<br>
-            Toledo, España<br>
-            Yangzhou, China
-          </div>
-        </div>
-
-        <div class="jypesa-cg-group jypesa-cg-group-bottom">
-          <div class="jypesa-cg-group-header">
-            <div class="jypesa-cg-group-title-wrap">
-              ${pinSvg('#FBB31F', 'jypesa-cg-mask-associated', 'jypesa-cg-pin')}
-              <span class="jypesa-cg-group-title" style="color: #F9B623;">Fábricas Asociadas</span>
-            </div>
-            <span class="jypesa-cg-group-count" style="color: #FFC107;">3</span>
-          </div>
-          <div class="jypesa-cg-cities-single">
-            Medellín, Colombia<br>
-            Buenos Aires, Argentina<br>
-            Kuala Lumpur, Malasia
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="jypesa-cg-overlay">${buildDesktopGroups()}</div>
   </div>
 </div>
 
 <div class="jypesa-cg-mobile">
-  <div class="jypesa-cg-mobile-inner">
-    <div class="jypesa-cg-mob-group">
-      <div class="jypesa-cg-mob-header">
-        <div class="jypesa-cg-mob-title-wrap">
-          ${pinSvg('#0089C1', 'jypesa-cg-mask-office-m', 'jypesa-cg-mob-pin')}
-          <span class="jypesa-cg-mob-title" style="color: #0089C1;">Oficinas de representación</span>
-        </div>
-        <span class="jypesa-cg-mob-count" style="color: #0089C1;">14</span>
-      </div>
-      <div class="jypesa-cg-mob-cities">
-        <span class="jypesa-cg-mob-city">Guadalajara, México</span>
-        <span class="jypesa-cg-mob-city">San José, Costa Rica</span>
-        <span class="jypesa-cg-mob-city">Cancún, México</span>
-        <span class="jypesa-cg-mob-city">Bogotá, Colombia</span>
-        <span class="jypesa-cg-mob-city">Punta Cana, RD</span>
-        <span class="jypesa-cg-mob-city">Lima, Perú</span>
-        <span class="jypesa-cg-mob-city">Kingston, Jamaica</span>
-        <span class="jypesa-cg-mob-city">Santiago, Chile</span>
-        <span class="jypesa-cg-mob-city">Las Vegas, USA</span>
-        <span class="jypesa-cg-mob-city">Alicante, España</span>
-        <span class="jypesa-cg-mob-city">Dallas, USA</span>
-        <span class="jypesa-cg-mob-city">Guangzhou, China</span>
-        <span class="jypesa-cg-mob-city">Guatemala, Guatemala</span>
-        <span class="jypesa-cg-mob-city">Sydney, Australia</span>
-      </div>
-    </div>
-
-    <div class="jypesa-cg-mob-group">
-      <div class="jypesa-cg-mob-header">
-        <div class="jypesa-cg-mob-title-wrap">
-          ${pinSvg('#4AA25D', 'jypesa-cg-mask-factory-m', 'jypesa-cg-mob-pin')}
-          <span class="jypesa-cg-mob-title" style="color: #4AA25D;">Fábricas Jypesa</span>
-        </div>
-        <span class="jypesa-cg-mob-count" style="color: #4AA25D;">3</span>
-      </div>
-      <div class="jypesa-cg-mob-cities">
-        <span class="jypesa-cg-mob-city">Guadalajara, México</span>
-        <span class="jypesa-cg-mob-city">Toledo, España</span>
-        <span class="jypesa-cg-mob-city">Yangzhou, China</span>
-      </div>
-    </div>
-
-    <div class="jypesa-cg-mob-group">
-      <div class="jypesa-cg-mob-header">
-        <div class="jypesa-cg-mob-title-wrap">
-          ${pinSvg('#FBB31F', 'jypesa-cg-mask-associated-m', 'jypesa-cg-mob-pin')}
-          <span class="jypesa-cg-mob-title" style="color: #F9B623;">Fábricas Asociadas</span>
-        </div>
-        <span class="jypesa-cg-mob-count" style="color: #FFC107;">3</span>
-      </div>
-      <div class="jypesa-cg-mob-cities">
-        <span class="jypesa-cg-mob-city">Medellín, Colombia</span>
-        <span class="jypesa-cg-mob-city">Buenos Aires, Argentina</span>
-        <span class="jypesa-cg-mob-city">Kuala Lumpur, Malasia</span>
-      </div>
-    </div>
-  </div>
+  <div class="jypesa-cg-mobile-inner">${buildMobileGroups()}</div>
 </div>
 `;
   }
@@ -592,20 +574,19 @@
      RENDER DEL MAPA
      ========================================================== */
   function renderMap(target) {
-    const locMap = new Map();
-    Object.keys(GROUPS).forEach(function (groupName) {
-      const groupInfo = GROUPS[groupName];
-      groupInfo.cities.forEach(function (c) {
-        const key = c.lat.toFixed(4) + ',' + c.lon.toFixed(4);
-        if (!locMap.has(key)) {
-          locMap.set(key, { name: c.name, country: c.country, lat: c.lat, lon: c.lon, groups: [{ name: groupName, color: groupInfo.color }] });
-        } else {
-          const entry = locMap.get(key);
-          if (!entry.groups.some(function (g) { return g.name === groupName; })) entry.groups.push({ name: groupName, color: groupInfo.color });
-        }
+    const coordinateCounts = new Map();
+    const markers = LOCATIONS.map(function (location) {
+      const key = location.lat.toFixed(4) + ',' + location.lon.toFixed(4);
+      const occurrence = coordinateCounts.get(key) || 0;
+      coordinateCounts.set(key, occurrence + 1);
+      const angle = occurrence * 2.39996;
+      const radius = occurrence ? 0.35 + occurrence * 0.12 : 0;
+      return Object.assign({}, location, {
+        lat: location.lat + Math.sin(angle) * radius,
+        lon: location.lon + Math.cos(angle) * radius,
+        color: GROUPS[location.type].color,
       });
     });
-    const markers = Array.from(locMap.values());
 
     const W = 1000, H = 500;
     const projection = d3.geoNaturalEarth1().scale(170).translate([W / 2, H / 2 + 10]);
@@ -630,18 +611,20 @@
       document.body.appendChild(tt);
     }
 
+    let hideTimer;
+
     function showTT(ev, m) {
-      const sorted = [...m.groups].sort(function (a, b) { return GROUP_PRIORITY.indexOf(a.name) - GROUP_PRIORITY.indexOf(b.name); });
-      const primary = sorted[0];
-      const categoryLine = sorted.map(function (gr) { return gr.name; }).join(' · ');
+      window.clearTimeout(hideTimer);
+      const contact = m.contact
+        ? `<div class="jypesa-cg-tt-row"><strong>Contacto:</strong><a class="jypesa-cg-tt-link" href="${escapeHtml(contactHref(m.contact))}" target="${isEmail(m.contact) ? '_self' : '_blank'}" rel="noopener noreferrer">${escapeHtml(m.contact)}</a></div>`
+        : '';
       tt.innerHTML = `
         <div class="jypesa-cg-tt-inner">
-          <div class="jypesa-cg-tt-title">${m.name}, ${m.country}</div>
-          <div class="jypesa-cg-tt-category" style="color: ${primary.color};">${categoryLine}</div>
-          <div class="jypesa-cg-tt-row">
-            ${pinSvg('#506D85', 'jypesa-cg-mask-tt-pin', 'jypesa-cg-tt-pin-icon')}
-            <span>${m.lat.toFixed(3)}°, ${m.lon.toFixed(3)}°</span>
-          </div>
+          <div class="jypesa-cg-tt-title">${escapeHtml(m.name)}</div>
+          <div class="jypesa-cg-tt-category" style="color: ${m.color};">${escapeHtml(m.type)}</div>
+          ${tooltipRow('Ubicación', m.location)}
+          ${tooltipRow('País / región', m.country)}
+          ${contact}
         </div>
       `;
       posTT(ev);
@@ -659,6 +642,9 @@
     }
 
     function hideTT() { tt.classList.remove('jypesa-cg-tooltip-visible'); }
+    function scheduleHideTT() { hideTimer = window.setTimeout(hideTT, 180); }
+    tt.addEventListener('mouseenter', function () { window.clearTimeout(hideTimer); });
+    tt.addEventListener('mouseleave', scheduleHideTT);
 
     d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json').then(function (wd) {
       const countries = topojson.feature(wd, wd.objects.countries);
@@ -693,9 +679,6 @@
         const coords = projection([m.lon, m.lat]);
         if (!coords || isNaN(coords[0])) return;
 
-        const sorted = [...m.groups].sort(function (a, b) { return GROUP_PRIORITY.indexOf(a.name) - GROUP_PRIORITY.indexOf(b.name); });
-        const primary = sorted[0];
-        const secondary = sorted.length > 1 ? sorted[1] : null;
         const maskId = 'jypesa-cg-mask-marker-' + i;
 
         const g = mg.append('g')
@@ -715,7 +698,7 @@
         g.append('circle')
           .attr('class', 'jypesa-cg-pulse-ring')
           .attr('cx', 0).attr('cy', headY).attr('r', headR)
-          .attr('fill', 'none').attr('stroke', primary.color).attr('stroke-width', 1).attr('opacity', 0);
+          .attr('fill', 'none').attr('stroke', m.color).attr('stroke-width', 1).attr('opacity', 0);
 
         // El pin se ancla por su punta en (0,0), que coincide con las coordenadas geográficas
         const iconG = g.append('g').attr('class', 'jypesa-cg-pin-icon');
@@ -724,14 +707,7 @@
           .attr('x', -PIN_SIZE / 2).attr('y', -PIN_SIZE)
           .attr('width', PIN_SIZE).attr('height', PIN_SIZE)
           .attr('viewBox', '0 0 27 27')
-          .html(pinIconInner(primary.color, maskId));
-
-        if (secondary) {
-          iconG.append('circle')
-            .attr('class', 'jypesa-cg-marker-badge')
-            .attr('cx', headR * 0.72).attr('cy', headY - headR * 0.6).attr('r', PIN_SIZE * 0.14)
-            .attr('fill', secondary.color).attr('stroke', '#fff').attr('stroke-width', 1.2);
-        }
+          .html(pinIconInner(m.color, maskId));
 
         function handleEnter(ev) {
           showTT(ev, m);
@@ -747,7 +723,11 @@
 
         g.on('mouseenter', handleEnter);
         g.on('mousemove', function (ev) { posTT(ev); });
-        g.on('mouseleave', handleLeave);
+        g.on('mouseleave', function () {
+          scheduleHideTT();
+          iconG.transition().duration(180).attr('transform', 'scale(1)').attr('filter', null);
+          g.select('.jypesa-cg-pulse-ring').transition().duration(180).attr('r', headR).attr('opacity', 0);
+        });
 
         g.on('touchstart', function (ev) {
           ev.preventDefault();
