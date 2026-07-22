@@ -633,41 +633,44 @@
                                             </ul>
                                         </div>
                                         <div class="menu-section">
-                                            <div class="section-header">Hospitalidad alternativa</div>
-                                            <ul class="options-list">
-                                                <li><a href="/soluciones#airbnb" class="option-link">Airbnb</a></li>
-                                                <li><a href="/soluciones#str" class="option-link">STR</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="menu-section">
-                                            <div class="section-header">Institucional</div>
-                                            <ul class="options-list">
-                                                <li><a href="/soluciones#hospitales" class="option-link">Hospitales</a></li>
-                                                <li><a href="/soluciones#restaurantes-clubes" class="option-link">Restaurante & Clubes</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                             <div class="section-header">Hospitalidad alternativa</div>
+                                             <ul class="options-list">
+                                                 <li><a href="/soluciones#airbnb" class="option-link">Airbnb</a></li>
+                                                 <li><a href="/soluciones#short-term-rental-str" class="option-link">Short-term Rental (STR)</a></li>
+                                             </ul>
+                                         </div>
+                                         <div class="menu-section">
+                                             <div class="section-header">Institucional</div>
+                                             <ul class="options-list">
+                                                 <li><a href="/soluciones#hospitales-y-clinicas" class="option-link">Hospitales y clínicas</a></li>
+                                                 <li><a href="/soluciones#restaurantes" class="option-link">Restaurantes</a></li>
+                                                 <li><a href="/soluciones#clubes-centros-deportivos" class="option-link">Clubes & centros deportivos</a></li>
+                                             </ul>
+                                         </div>
+                                     </div>
 
-                                    <div class="sections-row" style="margin-top: 45px;">
-                                        <div class="menu-section">
-                                            <div class="section-header">Canal comercial</div>
-                                            <ul class="options-list">
-                                                <li><a href="/soluciones#distribuidores" class="option-link">Distribuidores</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="menu-section">
-                                            <div class="section-header">Empresarial</div>
-                                            <ul class="options-list">
-                                                <li><a href="/soluciones#corporativo-regalos" class="option-link">Corporativo & Regalos empresariales</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="menu-section">
-                                            <div class="section-header">Hospitalidad especializada</div>
-                                            <ul class="options-list">
-                                                <li><a href="/soluciones#cruceros-campamentos" class="option-link">Cruceros & Campamentos</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                     <div class="sections-row" style="margin-top: 45px;">
+                                         <div class="menu-section">
+                                             <div class="section-header">Canal comercial</div>
+                                             <ul class="options-list">
+                                                 <li><a href="/soluciones#distribuidor-autorizado" class="option-link">Distribuidor autorizado</a></li>
+                                             </ul>
+                                         </div>
+                                         <div class="menu-section">
+                                             <div class="section-header">Empresarial</div>
+                                             <ul class="options-list">
+                                                 <li><a href="/soluciones#corporativo-oficinas" class="option-link">Corporativo & oficinas</a></li>
+                                                 <li><a href="/soluciones#regalos-empresariales" class="option-link">Regalos empresariales</a></li>
+                                             </ul>
+                                         </div>
+                                         <div class="menu-section">
+                                             <div class="section-header">Hospitalidad especializada</div>
+                                             <ul class="options-list">
+                                                 <li><a href="/soluciones#cruceros" class="option-link">Cruceros</a></li>
+                                                 <li><a href="/soluciones#glamping-campamentos" class="option-link">Glamping & Campamentos</a></li>
+                                             </ul>
+                                         </div>
+                                     </div>
                                 </div>
                             </div>
                         </div>
@@ -805,16 +808,19 @@
                 <a href="/soluciones#grupos-hoteleros" class="mob-link">Grupos hoteleros & operadores</a>
                 <div class="mob-cat-title">Hospitalidad alternativa</div>
                 <a href="/soluciones#airbnb" class="mob-link">Airbnb</a>
-                <a href="/soluciones#str" class="mob-link">STR</a>
+                <a href="/soluciones#short-term-rental-str" class="mob-link">Short-term Rental (STR)</a>
                 <div class="mob-cat-title">Institucional</div>
-                <a href="/soluciones#hospitales" class="mob-link">Hospitales</a>
-                <a href="/soluciones#restaurantes-clubes" class="mob-link">Restaurante & Clubes</a>
+                <a href="/soluciones#hospitales-y-clinicas" class="mob-link">Hospitales y clínicas</a>
+                <a href="/soluciones#restaurantes" class="mob-link">Restaurantes</a>
+                <a href="/soluciones#clubes-centros-deportivos" class="mob-link">Clubes & centros deportivos</a>
                 <div class="mob-cat-title">Canal comercial</div>
-                <a href="/soluciones#distribuidores" class="mob-link">Distribuidores</a>
+                <a href="/soluciones#distribuidor-autorizado" class="mob-link">Distribuidor autorizado</a>
                 <div class="mob-cat-title">Empresarial</div>
-                <a href="/soluciones#corporativo-regalos" class="mob-link">Corporativo & Regalos empresariales</a>
+                <a href="/soluciones#corporativo-oficinas" class="mob-link">Corporativo & oficinas</a>
+                <a href="/soluciones#regalos-empresariales" class="mob-link">Regalos empresariales</a>
                 <div class="mob-cat-title">Hospitalidad especializada</div>
-                <a href="/soluciones#cruceros-campamentos" class="mob-link">Cruceros & Campamentos</a>
+                <a href="/soluciones#cruceros" class="mob-link">Cruceros</a>
+                <a href="/soluciones#glamping-campamentos" class="mob-link">Glamping & Campamentos</a>
             </div>
         </li>
         <li class="mob-item">
