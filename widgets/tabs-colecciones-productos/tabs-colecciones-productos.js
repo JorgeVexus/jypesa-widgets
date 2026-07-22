@@ -1059,6 +1059,7 @@
         }
 
         const moodEl = item.querySelector('.jypesa-tabs-col-mood');
+        const familiaEl = item.querySelector('.jypesa-tabs-col-familia, .jypesa-tabs-col-notes-familia, .jypesa-tabs-col-familia-olfativa');
         const refillEl = item.querySelector('.jypesa-tabs-col-refill');
         const salidaEl = item.querySelector('.jypesa-tabs-col-notes-salida');
         const corazonEl = item.querySelector('.jypesa-tabs-col-notes-corazon');
@@ -1071,6 +1072,7 @@
           logoSrc: logoSrc,
           logoAlt: logoAlt,
           mood: getElText(moodEl),
+          familia: getElText(familiaEl),
           refill: getElText(refillEl).toUpperCase() || 'RELLENABLE',
           salida: getElText(salidaEl),
           corazon: getElText(corazonEl),
@@ -1140,12 +1142,13 @@
           ${collections.map((col, idx) => {
             const hasLogo = Boolean(col.logoSrc);
             const hasMood = Boolean(col.mood && col.mood.trim());
+            const hasFamilia = Boolean(col.familia && col.familia.trim());
             const hasCorazon = Boolean(col.corazon && col.corazon.trim());
             const hasFondo = Boolean(col.fondo && col.fondo.trim());
             const hasSalida = Boolean(col.salida && col.salida.trim());
 
-            const hasMultiNotes = Boolean(hasCorazon || hasFondo);
-            const hasAnyContent = Boolean(hasLogo || hasMood || hasSalida || hasCorazon || hasFondo);
+            const hasMultiNotes = Boolean(hasCorazon || hasFondo || hasFamilia);
+            const hasAnyContent = Boolean(hasLogo || hasFamilia || hasMood || hasSalida || hasCorazon || hasFondo);
 
             let fragranceBlockHtml = '';
             if (hasAnyContent) {
@@ -1156,10 +1159,18 @@
               ` : '';
 
               if (hasMultiNotes || hasLogo) {
-                // Layout Figma Multicolumna cuando existen notas de corazón/base o logo de colección
+                // Layout Figma Multicolumna cuando existen notas o logo de colección
                 fragranceBlockHtml = `
                   <div class="jypesa-tabs-fragrance-block figma-columns">
                     ${logoHtml}
+
+                    ${hasFamilia ? `
+                      <div class="jypesa-tabs-fragrance-line"></div>
+                      <div class="jypesa-tabs-note-col">
+                        <h4 class="jypesa-tabs-note-title">Familia olfativa</h4>
+                        <div class="jypesa-tabs-note-text"><p>${col.familia}</p></div>
+                      </div>
+                    ` : ''}
 
                     ${hasMood ? `
                       <div class="jypesa-tabs-fragrance-line"></div>
