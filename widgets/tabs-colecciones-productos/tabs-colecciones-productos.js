@@ -995,16 +995,26 @@
         let logoSrc = '';
         let logoAlt = colName;
         if (logoEl) {
+          let rawSrc = '';
           if (logoEl.tagName === 'IMG') {
-            logoSrc = logoEl.getAttribute('src') || logoEl.src || '';
+            rawSrc = logoEl.getAttribute('src') || logoEl.getAttribute('data-src') || '';
             logoAlt = logoEl.getAttribute('alt') || colName;
           } else {
             const childImg = logoEl.querySelector('img');
             if (childImg) {
-              logoSrc = childImg.getAttribute('src') || childImg.src || '';
+              rawSrc = childImg.getAttribute('src') || childImg.getAttribute('data-src') || '';
               logoAlt = childImg.getAttribute('alt') || colName;
             } else {
-              logoSrc = logoEl.getAttribute('data-src') || '';
+              rawSrc = logoEl.getAttribute('data-src') || logoEl.getAttribute('src') || '';
+            }
+          }
+
+          rawSrc = cleanText(rawSrc);
+          // Validar que el atributo src contenga una ruta o URL real y no esté vacío ni sea '#'
+          if (rawSrc && rawSrc !== '#' && rawSrc !== 'about:blank' && !rawSrc.startsWith('javascript:')) {
+            // Evitar URLs vacías o placeholders
+            if (rawSrc.length > 3) {
+              logoSrc = rawSrc;
             }
           }
         }
@@ -1093,7 +1103,7 @@
             if (hasAnyContent) {
               const logoHtml = hasLogo ? `
                 <div class="jypesa-tabs-col-logo-wrap">
-                  <img class="jypesa-tabs-col-logo-render" src="${col.logoSrc}" alt="${col.logoAlt}">
+                  <img class="jypesa-tabs-col-logo-render" src="${col.logoSrc}" alt="${col.logoAlt}" onerror="var p=this.closest('.jypesa-tabs-col-logo-wrap');if(p){var n=p.nextElementSibling;if(n&&n.classList.contains('jypesa-tabs-fragrance-line'))n.remove();p.remove();}">
                 </div>
               ` : '';
 
