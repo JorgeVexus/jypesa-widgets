@@ -35,6 +35,7 @@
     display: flex;
     flex-direction: column;
     gap: 28px;
+    width: 100%;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 16px;
@@ -171,6 +172,8 @@
 
   .jypesa-tab-content-panel {
     display: none;
+    width: 100%;
+    box-sizing: border-box;
     animation: jypesaFadeIn 0.5s ease forwards;
   }
 
@@ -277,6 +280,7 @@
 
   .jypesa-tabs-products-container {
     display: flex;
+    width: 100%;
     gap: 16px;
     align-items: stretch;
     justify-content: flex-start;
@@ -316,8 +320,8 @@
     scroll-snap-align: center;
     text-decoration: none;
     color: inherit;
-    gap: 33px;
-    padding-bottom: 38px;
+    gap: 16px;
+    padding-bottom: 24px;
   }
 
   .jypesa-tabs-product-card:hover {
@@ -326,8 +330,8 @@
   }
 
   .jypesa-tabs-card-img-wrap {
-    width: 258px;
-    height: 330px;
+    width: 100%;
+    height: 300px;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -337,27 +341,30 @@
     border: 1px solid transparent;
     border-radius: 15px;
     box-sizing: border-box;
+    padding: 12px;
   }
 
   .jypesa-tabs-card-img {
-    width: 112px;
-    height: 117px;
+    width: 100%;
+    height: 100%;
+    max-width: 230px;
+    max-height: 270px;
     object-fit: contain;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .jypesa-tabs-product-card:hover .jypesa-tabs-card-img {
-    transform: scale(1.06);
+    transform: scale(1.05);
   }
 
   .jypesa-tabs-card-details {
-    padding: 0;
+    padding: 0 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
     text-align: center;
-    width: 152px;
+    width: 100%;
     margin: 0 auto;
   }
 
@@ -542,8 +549,9 @@
 
     /* CONTENIDO DERECHO */
     .jypesa-tabs-right-col {
-      flex-grow: 1;
+      flex: 1 1 0%;
       min-width: 0;
+      width: 100%;
     }
 
     /* Figma vertical stack overrides for desktop */
