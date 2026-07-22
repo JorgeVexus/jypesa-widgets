@@ -21,21 +21,30 @@
     --jypesa-tabs-border-card: rgba(80, 109, 133, 0.12);
   }
 
+  .jypesa-tabs-colecciones-widget-container,
+  [data-jypesa-tabs-colecciones-widget],
+  #jypesa-tabs-colecciones-widget,
   .jypesa-tabs-colecciones-widget {
     width: 100% !important;
+    display: block !important;
+    align-self: stretch !important;
+    box-sizing: border-box !important;
+  }
+
+  .jypesa-tabs-colecciones-widget {
     background: transparent;
     font-family: 'Rubik', sans-serif;
     color: var(--jypesa-tabs-slate);
     padding: 40px 0;
-    box-sizing: border-box;
   }
 
   /* LAYOUT GENERAL */
   .jypesa-tabs-layout {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     gap: 28px;
     width: 100% !important;
+    align-self: stretch !important;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 16px;
@@ -167,18 +176,21 @@
   /* COLUMNA DERECHA (CONTENIDO DINÁMICO) */
   .jypesa-tabs-right-col {
     width: 100% !important;
+    align-self: stretch !important;
     box-sizing: border-box;
   }
 
   .jypesa-tab-content-panel {
     display: none;
     width: 100% !important;
+    align-self: stretch !important;
     box-sizing: border-box;
     animation: jypesaFadeIn 0.5s ease forwards;
   }
 
   .jypesa-tab-content-panel.active {
-    display: block;
+    display: block !important;
+    width: 100% !important;
   }
 
   @keyframes jypesaFadeIn {
@@ -197,6 +209,7 @@
     box-sizing: border-box;
     align-items: stretch;
     width: 100% !important;
+    align-self: stretch !important;
   }
 
   .jypesa-tabs-fragrance-block {
@@ -328,12 +341,14 @@
   .jypesa-tabs-slider-outer {
     position: relative;
     width: 100% !important;
+    align-self: stretch !important;
     box-sizing: border-box;
   }
 
   .jypesa-tabs-products-container {
     display: flex;
     width: 100% !important;
+    min-width: 100% !important;
     gap: 16px;
     align-items: stretch;
     justify-content: flex-start;
@@ -604,7 +619,8 @@
     .jypesa-tabs-right-col {
       flex: 1 1 0% !important;
       min-width: 0 !important;
-      width: 100% !important;
+      width: calc(100% - 520px) !important;
+      align-self: stretch !important;
     }
 
     /* Figma vertical stack overrides for desktop */
@@ -616,6 +632,7 @@
       align-items: flex-start;
       border-bottom: 1px solid var(--jypesa-tabs-slate-15);
       width: 100% !important;
+      align-self: stretch !important;
     }
 
     .jypesa-tabs-fragrance-block {
@@ -870,9 +887,15 @@
     }
   ];
 
+  // Helper para limpiar texto de nbsp y espacios vacios
+  function cleanText(text) {
+    if (!text) return '';
+    return text.replace(/[\u00a0\s]+/g, ' ').trim();
+  }
+
   // Helper para normalizar strings en slugs
   function makeSlug(text) {
-    return text
+    return cleanText(text)
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
@@ -924,16 +947,18 @@
 
     if (!items.length) return null;
 
+    const getElText = el => (el ? cleanText(el.textContent) : '');
+
     // Leer la marca/colección padre desde el primer elemento
     const parentBrandEl = source.querySelector('.jypesa-tabs-col-parent-brand');
-    const parentBrand = parentBrandEl ? parentBrandEl.textContent.trim() : '';
+    const parentBrand = getElText(parentBrandEl);
 
     const collectionsMap = {};
 
     items.forEach(item => {
       const colNameEl = item.querySelector('.jypesa-tabs-col-name');
       if (!colNameEl) return;
-      const colName = colNameEl.textContent.trim();
+      const colName = getElText(colNameEl);
       if (!colName) return;
 
       if (!collectionsMap[colName]) {
@@ -947,19 +972,19 @@
         collectionsMap[colName] = {
           name: colName,
           id: makeSlug(colName),
-          mood: moodEl ? moodEl.textContent.trim() : '',
-          refill: refillEl ? refillEl.textContent.trim().toUpperCase() : 'RELLENABLE',
-          salida: salidaEl ? salidaEl.textContent.trim() : '',
-          corazon: corazonEl ? corazonEl.textContent.trim() : '',
-          fondo: fondoEl ? fondoEl.textContent.trim() : '',
-          desc: descEl ? descEl.textContent.trim() : '',
+          mood: getElText(moodEl),
+          refill: getElText(refillEl).toUpperCase() || 'RELLENABLE',
+          salida: getElText(salidaEl),
+          corazon: getElText(corazonEl),
+          fondo: getElText(fondoEl),
+          desc: getElText(descEl),
           products: []
         };
       }
 
       const prodNameEl = item.querySelector('.jypesa-tabs-prod-name');
       if (prodNameEl) {
-        const prodName = prodNameEl.textContent.trim();
+        const prodName = getElText(prodNameEl);
         const skuEl = item.querySelector('.jypesa-tabs-prod-sku');
         const weightEl = item.querySelector('.jypesa-tabs-prod-weight');
         const packagingEl = item.querySelector('.jypesa-tabs-prod-packaging');
@@ -969,10 +994,10 @@
 
         collectionsMap[colName].products.push({
           name: prodName,
-          sku: skuEl ? skuEl.textContent.trim() : '',
-          weight: weightEl ? weightEl.textContent.trim() : '',
-          packaging: packagingEl ? packagingEl.textContent.trim() : '',
-          qty: qtyEl ? qtyEl.textContent.trim() : '',
+          sku: getElText(skuEl),
+          weight: getElText(weightEl),
+          packaging: getElText(packagingEl),
+          qty: getElText(qtyEl),
           imgSrc: imgEl ? (imgEl.getAttribute('src') || imgEl.src || '') : '',
           imgAlt: imgEl ? (imgEl.getAttribute('alt') || prodName) : prodName,
           link: linkEl ? (linkEl.getAttribute('href') || '#') : '#'
