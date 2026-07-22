@@ -22,7 +22,7 @@
   }
 
   .jypesa-tabs-colecciones-widget {
-    width: 100%;
+    width: 100% !important;
     background: transparent;
     font-family: 'Rubik', sans-serif;
     color: var(--jypesa-tabs-slate);
@@ -35,7 +35,7 @@
     display: flex;
     flex-direction: column;
     gap: 28px;
-    width: 100%;
+    width: 100% !important;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 16px;
@@ -166,13 +166,13 @@
 
   /* COLUMNA DERECHA (CONTENIDO DINÁMICO) */
   .jypesa-tabs-right-col {
-    width: 100%;
+    width: 100% !important;
     box-sizing: border-box;
   }
 
   .jypesa-tab-content-panel {
     display: none;
-    width: 100%;
+    width: 100% !important;
     box-sizing: border-box;
     animation: jypesaFadeIn 0.5s ease forwards;
   }
@@ -196,6 +196,7 @@
     border-bottom: 1px solid var(--jypesa-tabs-slate-15);
     box-sizing: border-box;
     align-items: stretch;
+    width: 100% !important;
   }
 
   .jypesa-tabs-fragrance-block {
@@ -250,6 +251,58 @@
     white-space: normal;
   }
 
+  /* FRAGRANCE BLOCK MULTICOLUMNA (FIGMA PIXEL PERFECT STYLE) */
+  .jypesa-tabs-fragrance-block.figma-columns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .jypesa-tabs-note-col {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    align-items: center;
+    text-align: center;
+    color: var(--jypesa-tabs-slate);
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  .jypesa-tabs-note-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.1;
+    color: var(--jypesa-tabs-slate);
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .jypesa-tabs-note-text {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.35;
+    color: var(--jypesa-tabs-slate);
+    margin: 0;
+  }
+
+  .jypesa-tabs-note-text p {
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .jypesa-tabs-mood-heading {
+    margin: 0 0 2px 0 !important;
+    font-weight: 400;
+  }
+
   .jypesa-tabs-refill-label {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
@@ -274,13 +327,13 @@
   /* SLIDERS DE PRODUCTOS */
   .jypesa-tabs-slider-outer {
     position: relative;
-    width: 100%;
+    width: 100% !important;
     box-sizing: border-box;
   }
 
   .jypesa-tabs-products-container {
     display: flex;
-    width: 100%;
+    width: 100% !important;
     gap: 16px;
     align-items: stretch;
     justify-content: flex-start;
@@ -549,9 +602,9 @@
 
     /* CONTENIDO DERECHO */
     .jypesa-tabs-right-col {
-      flex: 1 1 0%;
-      min-width: 0;
-      width: 100%;
+      flex: 1 1 0% !important;
+      min-width: 0 !important;
+      width: 100% !important;
     }
 
     /* Figma vertical stack overrides for desktop */
@@ -562,6 +615,7 @@
       padding-bottom: 24px;
       align-items: flex-start;
       border-bottom: 1px solid var(--jypesa-tabs-slate-15);
+      width: 100% !important;
     }
 
     .jypesa-tabs-fragrance-block {
@@ -569,6 +623,28 @@
       width: max-content;
       max-width: 100%;
       justify-content: flex-start;
+    }
+
+    .jypesa-tabs-fragrance-block.figma-columns {
+      gap: 23px;
+      width: max-content;
+      max-width: 100%;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: nowrap;
+    }
+
+    .jypesa-tabs-fragrance-block.figma-columns .jypesa-tabs-fragrance-line {
+      display: block;
+      width: 1px;
+      height: 49px;
+      background-color: var(--jypesa-tabs-slate-15);
+      flex-shrink: 0;
+    }
+
+    .jypesa-tabs-note-col {
+      align-items: flex-start;
+      text-align: left;
     }
 
     .jypesa-tabs-fragrance-line {
@@ -930,34 +1006,81 @@
         <!-- Columna Derecha (Contenido Dinámico) -->
         <div class="jypesa-tabs-right-col">
           ${collections.map((col, idx) => {
-            const hasNotes = col.salida || col.corazon || col.fondo;
-            return `
-              <div class="jypesa-tab-content-panel ${idx === 0 ? 'active' : ''}" id="panel-${col.id}">
-                <!-- Cabecera de Información (Figma Style) -->
-                <div class="jypesa-tabs-info-area">
-                  
-                  <!-- Fragrance Block with lines -->
+            const hasMood = Boolean(col.mood && col.mood.trim());
+            const hasCorazon = Boolean(col.corazon && col.corazon.trim());
+            const hasFondo = Boolean(col.fondo && col.fondo.trim());
+            const hasSalida = Boolean(col.salida && col.salida.trim());
+
+            const hasMultiNotes = Boolean(hasCorazon || hasFondo);
+            const hasAnyNotes = Boolean(hasMood || hasSalida || hasCorazon || hasFondo);
+
+            let fragranceBlockHtml = '';
+            if (hasAnyNotes) {
+              if (hasMultiNotes) {
+                // Layout Figma Multicolumna cuando existen notas de corazón y/o base
+                fragranceBlockHtml = `
+                  <div class="jypesa-tabs-fragrance-block figma-columns">
+                    ${hasMood ? `
+                      <div class="jypesa-tabs-fragrance-line"></div>
+                      <div class="jypesa-tabs-note-col">
+                        <h4 class="jypesa-tabs-note-title">Sobre la fragancia</h4>
+                        <div class="jypesa-tabs-note-text">
+                          <p class="jypesa-tabs-mood-heading">Mood:</p>
+                          <p>${col.mood}</p>
+                        </div>
+                      </div>
+                    ` : ''}
+
+                    ${hasCorazon ? `
+                      <div class="jypesa-tabs-fragrance-line"></div>
+                      <div class="jypesa-tabs-note-col">
+                        <h4 class="jypesa-tabs-note-title">Notas de corazón</h4>
+                        <div class="jypesa-tabs-note-text"><p>${col.corazon}</p></div>
+                      </div>
+                    ` : ''}
+
+                    ${hasFondo ? `
+                      <div class="jypesa-tabs-fragrance-line"></div>
+                      <div class="jypesa-tabs-note-col">
+                        <h4 class="jypesa-tabs-note-title">Notas de base</h4>
+                        <div class="jypesa-tabs-note-text"><p>${col.fondo}</p></div>
+                      </div>
+                    ` : ''}
+
+                    ${hasSalida ? `
+                      <div class="jypesa-tabs-fragrance-line"></div>
+                      <div class="jypesa-tabs-note-col">
+                        <h4 class="jypesa-tabs-note-title">Notas de salida</h4>
+                        <div class="jypesa-tabs-note-text"><p>${col.salida}</p></div>
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+              } else {
+                // Layout simple original cuando solo está sobre la fragancia (mood) y/o nota de salida
+                fragranceBlockHtml = `
                   <div class="jypesa-tabs-fragrance-block">
                     <div class="jypesa-tabs-fragrance-line"></div>
                     
                     <div class="jypesa-tabs-fragrance-content">
-                      <h4 class="jypesa-tabs-fragrance-title">Sobre la fragancia</h4>
+                      ${hasMood ? `<h4 class="jypesa-tabs-fragrance-title">Sobre la fragancia</h4>` : ''}
                       <div class="jypesa-tabs-fragrance-details">
-                        ${col.mood ? `<p class="jypesa-tabs-fragrance-mood">Mood: ${col.mood}</p>` : ''}
-                        ${hasNotes ? `
-                          <p class="jypesa-tabs-fragrance-notes">
-                            ${col.salida ? ((col.corazon || col.fondo) ? `<span>Salida: ${col.salida}</span>` : `<span>${col.salida}</span>`) : ''}
-                            ${col.salida && (col.corazon || col.fondo) ? ' &nbsp;|&nbsp; ' : ''}
-                            ${col.corazon ? ((col.salida || col.fondo) ? `<span>Corazón: ${col.corazon}</span>` : `<span>${col.corazon}</span>`) : ''}
-                            ${col.corazon && col.fondo ? ' &nbsp;|&nbsp; ' : ''}
-                            ${col.fondo ? ((col.salida || col.corazon) ? `<span>Base: ${col.fondo}</span>` : `<span>${col.fondo}</span>`) : ''}
-                          </p>
-                        ` : ''}
+                        ${hasMood ? `<p class="jypesa-tabs-fragrance-mood">Mood: ${col.mood}</p>` : ''}
+                        ${hasSalida ? `<p class="jypesa-tabs-fragrance-notes">Notas de salida: ${col.salida}</p>` : ''}
                       </div>
                     </div>
                     
                     <div class="jypesa-tabs-fragrance-line"></div>
                   </div>
+                `;
+              }
+            }
+
+            return `
+              <div class="jypesa-tab-content-panel ${idx === 0 ? 'active' : ''}" id="panel-${col.id}">
+                <!-- Cabecera de Información (Figma Style) -->
+                <div class="jypesa-tabs-info-area">
+                  ${fragranceBlockHtml}
                   
                   <!-- Refill label -->
                   ${col.refill ? `<div class="jypesa-tabs-refill-label">${col.refill}</div>` : ''}
