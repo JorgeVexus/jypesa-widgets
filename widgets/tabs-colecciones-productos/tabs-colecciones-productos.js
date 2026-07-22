@@ -311,9 +311,27 @@
     line-height: 1.35;
   }
 
-  .jypesa-tabs-mood-heading {
+  .jypesa-tabs-note-mood-heading {
     margin: 0 0 2px 0 !important;
     font-weight: 400;
+  }
+
+  /* LOGO DE COLECCIÓN */
+  .jypesa-tabs-col-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    max-height: 55px;
+    box-sizing: border-box;
+  }
+
+  .jypesa-tabs-col-logo-render {
+    max-height: 48px;
+    width: auto;
+    max-width: 240px;
+    object-fit: contain;
+    display: block;
   }
 
   .jypesa-tabs-refill-label {
@@ -664,6 +682,15 @@
       text-align: left;
     }
 
+    .jypesa-tabs-col-logo-wrap {
+      align-self: center;
+    }
+
+    .jypesa-tabs-col-logo-render {
+      max-height: 52px;
+      max-width: 260px;
+    }
+
     .jypesa-tabs-fragrance-line {
       display: block;
       width: 1px;
@@ -962,6 +989,24 @@
       if (!colName) return;
 
       if (!collectionsMap[colName]) {
+        const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-tabs-col-logo-img');
+        let logoSrc = '';
+        let logoAlt = colName;
+        if (logoEl) {
+          if (logoEl.tagName === 'IMG') {
+            logoSrc = logoEl.getAttribute('src') || logoEl.src || '';
+            logoAlt = logoEl.getAttribute('alt') || colName;
+          } else {
+            const childImg = logoEl.querySelector('img');
+            if (childImg) {
+              logoSrc = childImg.getAttribute('src') || childImg.src || '';
+              logoAlt = childImg.getAttribute('alt') || colName;
+            } else {
+              logoSrc = logoEl.getAttribute('data-src') || '';
+            }
+          }
+        }
+
         const moodEl = item.querySelector('.jypesa-tabs-col-mood');
         const refillEl = item.querySelector('.jypesa-tabs-col-refill');
         const salidaEl = item.querySelector('.jypesa-tabs-col-notes-salida');
@@ -972,6 +1017,8 @@
         collectionsMap[colName] = {
           name: colName,
           id: makeSlug(colName),
+          logoSrc: logoSrc,
+          logoAlt: logoAlt,
           mood: getElText(moodEl),
           refill: getElText(refillEl).toUpperCase() || 'RELLENABLE',
           salida: getElText(salidaEl),
@@ -1031,20 +1078,29 @@
         <!-- Columna Derecha (Contenido Dinámico) -->
         <div class="jypesa-tabs-right-col">
           ${collections.map((col, idx) => {
+            const hasLogo = Boolean(col.logoSrc);
             const hasMood = Boolean(col.mood && col.mood.trim());
             const hasCorazon = Boolean(col.corazon && col.corazon.trim());
             const hasFondo = Boolean(col.fondo && col.fondo.trim());
             const hasSalida = Boolean(col.salida && col.salida.trim());
 
             const hasMultiNotes = Boolean(hasCorazon || hasFondo);
-            const hasAnyNotes = Boolean(hasMood || hasSalida || hasCorazon || hasFondo);
+            const hasAnyContent = Boolean(hasLogo || hasMood || hasSalida || hasCorazon || hasFondo);
 
             let fragranceBlockHtml = '';
-            if (hasAnyNotes) {
-              if (hasMultiNotes) {
-                // Layout Figma Multicolumna cuando existen notas de corazón y/o base
+            if (hasAnyContent) {
+              const logoHtml = hasLogo ? `
+                <div class="jypesa-tabs-col-logo-wrap">
+                  <img class="jypesa-tabs-col-logo-render" src="${col.logoSrc}" alt="${col.logoAlt}">
+                </div>
+              ` : '';
+
+              if (hasMultiNotes || hasLogo) {
+                // Layout Figma Multicolumna cuando existen notas de corazón/base o logo de colección
                 fragranceBlockHtml = `
                   <div class="jypesa-tabs-fragrance-block figma-columns">
+                    ${logoHtml}
+
                     ${hasMood ? `
                       <div class="jypesa-tabs-fragrance-line"></div>
                       <div class="jypesa-tabs-note-col">
