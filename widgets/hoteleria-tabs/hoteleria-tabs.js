@@ -846,6 +846,34 @@
 
       items.forEach(item => observer.observe(item));
     });
+
+    // ─── Soporte para Deep Linking (Abrir tab desde URL hash o ?tab=) ────────
+    function checkUrlHash() {
+      const rawHash = (window.location.hash || '').replace('#', '').trim();
+      const urlParams = new URLSearchParams(window.location.search);
+      const rawParam = (urlParams.get('tab') || '').trim();
+      const target = decodeURIComponent(rawHash || rawParam).toLowerCase().replace(/\s+/g, '-');
+
+      if (!target) return;
+
+      const buttons = Array.from(container.querySelectorAll('.jht-tab-btn'));
+      const match = buttons.find(btn => {
+        const tabId = (btn.getAttribute('data-tab') || '').toLowerCase();
+        const labelText = (btn.querySelector('.jht-tab-btn-label')?.textContent || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        return tabId === target || labelText === target || tabId.startsWith(target) || target.startsWith(tabId);
+      });
+
+      if (match) {
+        const targetTabId = match.getAttribute('data-tab');
+        activateTab(container, targetTabId);
+        setTimeout(() => {
+          container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      }
+    }
+
+    checkUrlHash();
+    window.addEventListener('hashchange', checkUrlHash);
   }
 
   // ─── Buscar y lanzar todos los contenedores ───────────────────────────────────

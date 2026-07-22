@@ -627,9 +627,9 @@
                                         <div class="menu-section">
                                             <div class="section-header">Hotelería</div>
                                             <ul class="options-list">
-                                                <li><a href="/soluciones/hoteleria/independientes" class="option-link">Hoteles independientes</a></li>
-                                                <li><a href="/soluciones/hoteleria/cadenas" class="option-link">Cadenas hoteleras</a></li>
-                                                <li><a href="/soluciones/hoteleria/grupos-operadores" class="option-link">Grupos hoteleros & operadores</a></li>
+                                                <li><a href="/soluciones#hoteles-independientes" class="option-link">Hoteles independientes</a></li>
+                                                <li><a href="/soluciones#cadenas-hoteleras" class="option-link">Cadenas hoteleras</a></li>
+                                                <li><a href="/soluciones#grupos-hoteleros" class="option-link">Grupos hoteleros & operadores</a></li>
                                             </ul>
                                         </div>
                                         <div class="menu-section">
@@ -801,9 +801,9 @@
             <div class="mob-trigger">Soluciones <span>+</span></div>
             <div class="mob-submenu">
                 <div class="mob-cat-title">Hotelería</div>
-                <a href="/soluciones/hoteleria/independientes" class="mob-link">Hoteles independientes</a>
-                <a href="/soluciones/hoteleria/cadenas" class="mob-link">Cadenas hoteleras</a>
-                <a href="/soluciones/hoteleria/grupos-operadores" class="mob-link">Grupos hoteleros & operadores</a>
+                <a href="/soluciones#hoteles-independientes" class="mob-link">Hoteles independientes</a>
+                <a href="/soluciones#cadenas-hoteleras" class="mob-link">Cadenas hoteleras</a>
+                <a href="/soluciones#grupos-hoteleros" class="mob-link">Grupos hoteleros & operadores</a>
                 <div class="mob-cat-title">Hospitalidad alternativa</div>
                 <a href="/soluciones/hospitalidad/airbnb" class="mob-link">Airbnb</a>
                 <a href="/soluciones/hospitalidad/str" class="mob-link">STR</a>
