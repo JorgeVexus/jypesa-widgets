@@ -245,7 +245,7 @@
   <div class="jypesa-cards-grid">
     
     <!-- Producción -->
-    <a href="#" class="jypesa-card" tabindex="0">
+    <a href="/desarollo-personalizado" class="jypesa-card" tabindex="0">
       <div class="jypesa-card-img">
         <img src="${imgProduccion}" alt="Producción Jypesa" loading="lazy" />
       </div>
@@ -260,7 +260,7 @@
     </a>
 
     <!-- Private Label -->
-    <a href="#" class="jypesa-card" tabindex="0">
+    <a href="/desarollo-personalizado" class="jypesa-card" tabindex="0">
       <div class="jypesa-card-img">
         <img src="${imgPrivateLabel}" alt="Private Label Jypesa" loading="lazy" />
       </div>
@@ -275,7 +275,7 @@
     </a>
 
     <!-- Licencias -->
-    <a href="#" class="jypesa-card" tabindex="0">
+    <a href="/desarollo-personalizado" class="jypesa-card" tabindex="0">
       <div class="jypesa-card-img">
         <img src="${imgLicencias}" alt="Licencias Jypesa" loading="lazy" />
       </div>
