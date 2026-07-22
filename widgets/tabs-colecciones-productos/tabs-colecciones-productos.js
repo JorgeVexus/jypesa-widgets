@@ -327,12 +327,38 @@
     box-sizing: border-box;
   }
 
-  .jypesa-tabs-col-logo-render {
-    max-height: 48px;
-    width: auto;
-    max-width: 240px;
-    object-fit: contain;
-    display: block;
+  /* TÍTULO DE SUB-COLECCIÓN / VARIANTE (FIGMA NODE 953:53400) */
+  .jypesa-tabs-subcol-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.1;
+    color: #B8B036;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    margin: 0;
+    align-self: flex-start;
+  }
+
+  .jypesa-tabs-subgroup-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 44px;
+  }
+
+  .jypesa-tabs-subgroup-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .jypesa-tabs-tab-top-desc {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--jypesa-tabs-slate);
+    margin: 0 0 28px 0;
+    max-width: 800px;
   }
 
   .jypesa-tabs-refill-label {
@@ -1030,31 +1056,42 @@
       if (!colName) return;
 
       if (!collectionsMap[colName]) {
+        const descEl = item.querySelector('.jypesa-tabs-col-desc');
+        collectionsMap[colName] = {
+          name: colName,
+          id: makeSlug(colName),
+          desc: getElText(descEl),
+          subgroupsMap: {},
+          products: []
+        };
+      }
+
+      const subNameEl = item.querySelector('.jypesa-tabs-subcol-name, .jypesa-tabs-col-subgroup, .jypesa-tabs-subgroup-name');
+      const subName = getElText(subNameEl);
+      const subKey = subName || '__default__';
+
+      if (!collectionsMap[colName].subgroupsMap[subKey]) {
         const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-tabs-col-logo-img');
         let logoSrc = '';
-        let logoAlt = colName;
+        let logoAlt = subName || colName;
         if (logoEl) {
           let rawSrc = '';
           if (logoEl.tagName === 'IMG') {
             rawSrc = logoEl.getAttribute('src') || logoEl.getAttribute('data-src') || '';
-            logoAlt = logoEl.getAttribute('alt') || colName;
+            logoAlt = logoEl.getAttribute('alt') || subName || colName;
           } else {
             const childImg = logoEl.querySelector('img');
             if (childImg) {
               rawSrc = childImg.getAttribute('src') || childImg.getAttribute('data-src') || '';
-              logoAlt = childImg.getAttribute('alt') || colName;
+              logoAlt = childImg.getAttribute('alt') || subName || colName;
             } else {
               rawSrc = logoEl.getAttribute('data-src') || logoEl.getAttribute('src') || '';
             }
           }
 
           rawSrc = cleanText(rawSrc);
-          // Validar que el atributo src contenga una ruta o URL real y no esté vacío ni sea '#'
-          if (rawSrc && rawSrc !== '#' && rawSrc !== 'about:blank' && !rawSrc.startsWith('javascript:')) {
-            // Evitar URLs vacías o placeholders
-            if (rawSrc.length > 3) {
-              logoSrc = rawSrc;
-            }
+          if (rawSrc && rawSrc !== '#' && rawSrc !== 'about:blank' && !rawSrc.startsWith('javascript:') && rawSrc.length > 3) {
+            logoSrc = rawSrc;
           }
         }
 
@@ -1064,20 +1101,20 @@
         const salidaEl = item.querySelector('.jypesa-tabs-col-notes-salida');
         const corazonEl = item.querySelector('.jypesa-tabs-col-notes-corazon');
         const fondoEl = item.querySelector('.jypesa-tabs-col-notes-fondo');
-        const descEl = item.querySelector('.jypesa-tabs-col-desc');
+        const subDescEl = item.querySelector('.jypesa-tabs-subcol-desc');
 
-        collectionsMap[colName] = {
-          name: colName,
-          id: makeSlug(colName),
+        collectionsMap[colName].subgroupsMap[subKey] = {
+          key: subKey,
+          name: subName,
           logoSrc: logoSrc,
           logoAlt: logoAlt,
           mood: getElText(moodEl),
           familia: getElText(familiaEl),
-          refill: getElText(refillEl).toUpperCase() || 'RELLENABLE',
+          refill: getElText(refillEl).toUpperCase() || '',
           salida: getElText(salidaEl),
           corazon: getElText(corazonEl),
           fondo: getElText(fondoEl),
-          desc: getElText(descEl),
+          desc: getElText(subDescEl),
           products: []
         };
       }
@@ -1100,7 +1137,7 @@
           if (amazonLink === '#' || amazonLink.length <= 3) amazonLink = '';
         }
 
-        collectionsMap[colName].products.push({
+        const prodObj = {
           name: prodName,
           sku: getElText(skuEl),
           weight: getElText(weightEl),
@@ -1110,11 +1147,18 @@
           imgAlt: imgEl ? (imgEl.getAttribute('alt') || prodName) : prodName,
           link: linkEl ? (linkEl.getAttribute('href') || '#') : '#',
           amazonLink: amazonLink
-        });
+        };
+
+        collectionsMap[colName].subgroupsMap[subKey].products.push(prodObj);
+        collectionsMap[colName].products.push(prodObj);
       }
     });
 
-    const collections = Object.values(collectionsMap);
+    const collections = Object.values(collectionsMap).map(col => {
+      col.subgroups = Object.values(col.subgroupsMap);
+      return col;
+    });
+
     return collections.length ? { collections, parentBrand } : null;
   }
 
@@ -1139,167 +1183,166 @@
 
         <!-- Columna Derecha (Contenido Dinámico) -->
         <div class="jypesa-tabs-right-col">
-          ${collections.map((col, idx) => {
-            const hasLogo = Boolean(col.logoSrc);
-            const hasMood = Boolean(col.mood && col.mood.trim());
-            const hasFamilia = Boolean(col.familia && col.familia.trim());
-            const hasCorazon = Boolean(col.corazon && col.corazon.trim());
-            const hasFondo = Boolean(col.fondo && col.fondo.trim());
-            const hasSalida = Boolean(col.salida && col.salida.trim());
+          ${collections.map((col, idx) => `
+            <div class="jypesa-tab-content-panel ${idx === 0 ? 'active' : ''}" id="panel-${col.id}">
+              ${col.desc ? `<p class="jypesa-tabs-tab-top-desc">${col.desc}</p>` : ''}
 
-            const hasMultiNotes = Boolean(hasCorazon || hasFondo || hasFamilia);
-            const hasAnyContent = Boolean(hasLogo || hasFamilia || hasMood || hasSalida || hasCorazon || hasFondo);
+              ${col.subgroups.map(sub => {
+                const hasLogo = Boolean(sub.logoSrc);
+                const hasSubTitle = Boolean(sub.name && sub.name !== '__default__');
+                const hasMood = Boolean(sub.mood && sub.mood.trim());
+                const hasFamilia = Boolean(sub.familia && sub.familia.trim());
+                const hasCorazon = Boolean(sub.corazon && sub.corazon.trim());
+                const hasFondo = Boolean(sub.fondo && sub.fondo.trim());
+                const hasSalida = Boolean(sub.salida && sub.salida.trim());
 
-            let fragranceBlockHtml = '';
-            if (hasAnyContent) {
-              const logoHtml = hasLogo ? `
-                <div class="jypesa-tabs-col-logo-wrap">
-                  <img class="jypesa-tabs-col-logo-render" src="${col.logoSrc}" alt="${col.logoAlt}" onerror="var p=this.closest('.jypesa-tabs-col-logo-wrap');if(p){var n=p.nextElementSibling;if(n&&n.classList.contains('jypesa-tabs-fragrance-line'))n.remove();p.remove();}">
-                </div>
-              ` : '';
+                const hasMultiNotes = Boolean(hasCorazon || hasFondo || hasFamilia);
+                const hasAnyContent = Boolean(hasLogo || hasSubTitle || hasFamilia || hasMood || hasSalida || hasCorazon || hasFondo);
 
-              if (hasMultiNotes || hasLogo) {
-                // Layout Figma Multicolumna cuando existen notas o logo de colección
-                fragranceBlockHtml = `
-                  <div class="jypesa-tabs-fragrance-block figma-columns">
-                    ${logoHtml}
-
-                    ${hasFamilia ? `
-                      <div class="jypesa-tabs-fragrance-line"></div>
-                      <div class="jypesa-tabs-note-col">
-                        <h4 class="jypesa-tabs-note-title">Familia olfativa</h4>
-                        <div class="jypesa-tabs-note-text"><p>${col.familia}</p></div>
-                      </div>
-                    ` : ''}
-
-                    ${hasMood ? `
-                      <div class="jypesa-tabs-fragrance-line"></div>
-                      <div class="jypesa-tabs-note-col">
-                        <h4 class="jypesa-tabs-note-title">Sobre la fragancia</h4>
-                        <div class="jypesa-tabs-note-text">
-                          <p class="jypesa-tabs-mood-heading">Mood:</p>
-                          <p>${col.mood}</p>
-                        </div>
-                      </div>
-                    ` : ''}
-
-                    ${hasCorazon ? `
-                      <div class="jypesa-tabs-fragrance-line"></div>
-                      <div class="jypesa-tabs-note-col">
-                        <h4 class="jypesa-tabs-note-title">Notas de corazón</h4>
-                        <div class="jypesa-tabs-note-text"><p>${col.corazon}</p></div>
-                      </div>
-                    ` : ''}
-
-                    ${hasFondo ? `
-                      <div class="jypesa-tabs-fragrance-line"></div>
-                      <div class="jypesa-tabs-note-col">
-                        <h4 class="jypesa-tabs-note-title">Notas de base</h4>
-                        <div class="jypesa-tabs-note-text"><p>${col.fondo}</p></div>
-                      </div>
-                    ` : ''}
-
-                    ${hasSalida ? `
-                      <div class="jypesa-tabs-fragrance-line"></div>
-                      <div class="jypesa-tabs-note-col">
-                        <h4 class="jypesa-tabs-note-title">Notas de salida</h4>
-                        <div class="jypesa-tabs-note-text"><p>${col.salida}</p></div>
-                      </div>
-                    ` : ''}
-                  </div>
-                `;
-              } else {
-                // Layout simple original cuando solo está sobre la fragancia (mood) y/o nota de salida
-                fragranceBlockHtml = `
-                  <div class="jypesa-tabs-fragrance-block">
-                    <div class="jypesa-tabs-fragrance-line"></div>
-                    
-                    <div class="jypesa-tabs-fragrance-content">
-                      ${hasMood ? `<h4 class="jypesa-tabs-fragrance-title">Sobre la fragancia</h4>` : ''}
-                      <div class="jypesa-tabs-fragrance-details">
-                        ${hasMood ? `<p class="jypesa-tabs-fragrance-mood">Mood: ${col.mood}</p>` : ''}
-                        ${hasSalida ? `<p class="jypesa-tabs-fragrance-notes">Notas de salida: ${col.salida}</p>` : ''}
-                      </div>
+                let fragranceBlockHtml = '';
+                if (hasAnyContent) {
+                  const logoHtml = hasLogo ? `
+                    <div class="jypesa-tabs-col-logo-wrap">
+                      <img class="jypesa-tabs-col-logo-render" src="${sub.logoSrc}" alt="${sub.logoAlt}" onerror="var p=this.closest('.jypesa-tabs-col-logo-wrap');if(p){var n=p.nextElementSibling;if(n&&n.classList.contains('jypesa-tabs-fragrance-line'))n.remove();p.remove();}">
                     </div>
-                    
-                    <div class="jypesa-tabs-fragrance-line"></div>
-                  </div>
-                `;
-              }
-            }
+                  ` : (hasSubTitle ? `<h3 class="jypesa-tabs-subcol-title">${sub.name}</h3>` : '');
 
-            return `
-              <div class="jypesa-tab-content-panel ${idx === 0 ? 'active' : ''}" id="panel-${col.id}">
-                <!-- Cabecera de Información (Figma Style) -->
-                <div class="jypesa-tabs-info-area">
-                  ${fragranceBlockHtml}
-                  
-                  <!-- Refill label -->
-                  ${col.refill ? `<div class="jypesa-tabs-refill-label">${col.refill}</div>` : ''}
-                  
-                  <!-- Description -->
-                  ${col.desc ? `<p class="jypesa-tabs-collection-desc">${col.desc}</p>` : ''}
-                </div>
+                  if (hasMultiNotes || hasLogo || hasSubTitle) {
+                    fragranceBlockHtml = `
+                      <div class="jypesa-tabs-fragrance-block figma-columns">
+                        ${logoHtml}
 
-                <!-- Slider / Carrusel de Productos -->
-                <div class="jypesa-tabs-slider-outer">
-                  <div class="jypesa-tabs-nav-btn prev-btn" aria-label="Anterior">
-                    ${arrowLeftSvg}
-                  </div>
-                  <div class="jypesa-tabs-nav-btn next-btn" aria-label="Siguiente">
-                    ${arrowRightSvg}
-                  </div>
-
-                  <div class="jypesa-tabs-products-container">
-                    ${col.products.map(prod => {
-                      const hasAmazonBtn = Boolean(prod.amazonLink);
-                      const cardTag = hasAmazonBtn ? 'div' : 'a';
-                      const cardAttrs = hasAmazonBtn ? '' : `href="${prod.link}" ${prod.link !== '#' ? 'target="_blank"' : ''}`;
-                      return `
-                        <${cardTag} ${cardAttrs} class="jypesa-tabs-product-card">
-                          <div class="jypesa-tabs-card-img-wrap">
-                            ${prod.imgSrc ? `<img class="jypesa-tabs-card-img" src="${prod.imgSrc}" alt="${prod.imgAlt}" loading="lazy">` : ''}
+                        ${hasFamilia ? `
+                          <div class="jypesa-tabs-fragrance-line"></div>
+                          <div class="jypesa-tabs-note-col">
+                            <h4 class="jypesa-tabs-note-title">Familia olfativa</h4>
+                            <div class="jypesa-tabs-note-text"><p>${sub.familia}</p></div>
                           </div>
-                          <div class="jypesa-tabs-card-details">
-                            <h4 class="jypesa-tabs-card-title">${prod.name}</h4>
-                            ${prod.sku ? `<span class="jypesa-tabs-card-sku">${prod.sku}</span>` : ''}
-                            <div class="jypesa-tabs-card-specs">
-                              ${prod.weight ? `<span>${prod.weight}</span>` : ''}
-                              ${prod.packaging ? `<span>${prod.packaging}</span>` : ''}
-                              ${prod.qty ? `<span>${prod.qty}</span>` : ''}
+                        ` : ''}
+
+                        ${hasMood ? `
+                          <div class="jypesa-tabs-fragrance-line"></div>
+                          <div class="jypesa-tabs-note-col">
+                            <h4 class="jypesa-tabs-note-title">Sobre la fragancia</h4>
+                            <div class="jypesa-tabs-note-text">
+                              <p class="jypesa-tabs-mood-heading">Mood:</p>
+                              <p>${sub.mood}</p>
                             </div>
-                            ${hasAmazonBtn ? `
-                              <a href="${prod.amazonLink}" target="_blank" rel="noopener noreferrer" class="jypesa-tabs-amazon-btn">
-                                <span>Ver en Amazon</span>
-                                <svg class="jypesa-tabs-amazon-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M14.6645 12.1533C14.6645 12.638 14.3945 13.5713 13.7879 14.084C13.6665 14.1773 13.5452 14.1247 13.5985 13.9887C13.7752 13.5567 14.1792 12.5573 13.9899 12.3273C13.8559 12.1527 13.3025 12.166 12.8305 12.206C12.6152 12.2333 12.4259 12.246 12.2792 12.276C12.1432 12.2867 12.1159 12.1673 12.2519 12.074C12.4291 11.9491 12.6248 11.8528 12.8319 11.7887C13.5985 11.5593 14.4845 11.6973 14.6119 11.844C14.6359 11.872 14.6645 11.9513 14.6645 12.1533ZM13.3832 13.0153C13.2079 13.1505 13.0232 13.273 12.8305 13.382C11.4159 14.232 9.58321 14.6773 7.99188 14.6773C5.42988 14.6773 3.13855 13.7327 1.39988 12.152C1.25055 12.0307 1.37388 11.8547 1.54855 11.95C3.42188 13.0433 5.74055 13.7047 8.14055 13.7047C9.65121 13.7047 11.2792 13.422 12.8305 12.814C12.9392 12.7733 13.0605 12.718 13.1665 12.6793C13.4112 12.5693 13.6265 12.8407 13.3832 13.0153ZM9.26988 5.662C9.26988 4.968 9.29788 4.55933 9.06788 4.20867C8.86388 3.92 8.51255 3.74667 8.02188 3.774C7.48988 3.80333 6.91855 4.152 6.77321 4.79133C6.74455 4.938 6.65921 5.082 6.48188 5.11333L4.85855 4.90667C4.74255 4.88 4.56588 4.79133 4.62388 4.55933C4.97255 2.72533 6.53988 2.086 8.02255 2H8.37055C9.18388 2 10.2292 2.23267 10.8979 2.84267C11.7092 3.6 11.6225 4.61733 11.6225 5.72267V8.34067C11.6225 9.126 11.9412 9.474 12.2612 9.88333C12.3479 10.0293 12.3779 10.2013 12.2319 10.32C11.8119 10.6944 11.3858 11.0621 10.9539 11.4227C10.8372 11.5113 10.6279 11.5207 10.5472 11.4527C10.0339 11.0227 9.90855 10.784 9.59055 10.3473C9.03721 10.928 8.57255 11.2487 8.01988 11.4227C7.63127 11.5216 7.23153 11.57 6.83055 11.5667C5.43721 11.5667 4.33388 10.698 4.33388 8.98C4.33388 7.614 5.06055 6.68533 6.13388 6.246C7.20721 5.806 8.76721 5.666 9.26988 5.66333M8.95188 9.12467C9.29855 8.54333 9.26988 8.06733 9.26988 7.00133C8.83521 7.00133 8.39921 7.03133 8.02255 7.12C7.32588 7.322 6.77255 7.76 6.77255 8.69C6.77255 9.41667 7.15121 9.91133 7.78988 9.91133C7.87788 9.91133 7.95521 9.90133 8.02188 9.88133C8.46855 9.75733 8.74721 9.53333 8.95188 9.12467Z" fill="currentColor"/>
-                                </svg>
-                              </a>
-                            ` : ''}
                           </div>
-                        </${cardTag}>
-                      `;
-                    }).join('')}
-                  </div>
+                        ` : ''}
 
-                  <!-- Controles móviles y Paginación -->
-                  <div class="jypesa-tabs-controls-mobile">
-                    <button class="jypesa-tabs-mobile-nav prev-mobile-btn" aria-label="Anterior">
-                      ${arrowLeftSvg}
-                    </button>
-                    <div class="jypesa-tabs-dots-container">
-                      ${col.products.map((_, pIdx) => `
-                        <span class="jypesa-tabs-dot ${pIdx === 0 ? 'active' : ''}" data-index="${pIdx}"></span>
-                      `).join('')}
+                        ${hasCorazon ? `
+                          <div class="jypesa-tabs-fragrance-line"></div>
+                          <div class="jypesa-tabs-note-col">
+                            <h4 class="jypesa-tabs-note-title">Notas de corazón</h4>
+                            <div class="jypesa-tabs-note-text"><p>${sub.corazon}</p></div>
+                          </div>
+                        ` : ''}
+
+                        ${hasFondo ? `
+                          <div class="jypesa-tabs-fragrance-line"></div>
+                          <div class="jypesa-tabs-note-col">
+                            <h4 class="jypesa-tabs-note-title">Notas de base</h4>
+                            <div class="jypesa-tabs-note-text"><p>${sub.fondo}</p></div>
+                          </div>
+                        ` : ''}
+
+                        ${hasSalida ? `
+                          <div class="jypesa-tabs-fragrance-line"></div>
+                          <div class="jypesa-tabs-note-col">
+                            <h4 class="jypesa-tabs-note-title">Notas de salida</h4>
+                            <div class="jypesa-tabs-note-text"><p>${sub.salida}</p></div>
+                          </div>
+                        ` : ''}
+                      </div>
+                    `;
+                  } else {
+                    fragranceBlockHtml = `
+                      <div class="jypesa-tabs-fragrance-block">
+                        <div class="jypesa-tabs-fragrance-line"></div>
+                        <div class="jypesa-tabs-fragrance-content">
+                          ${hasMood ? `<h4 class="jypesa-tabs-fragrance-title">Sobre la fragancia</h4>` : ''}
+                          <div class="jypesa-tabs-fragrance-details">
+                            ${hasMood ? `<p class="jypesa-tabs-fragrance-mood">Mood: ${sub.mood}</p>` : ''}
+                            ${hasSalida ? `<p class="jypesa-tabs-fragrance-notes">Notas de salida: ${sub.salida}</p>` : ''}
+                          </div>
+                        </div>
+                        <div class="jypesa-tabs-fragrance-line"></div>
+                      </div>
+                    `;
+                  }
+                }
+
+                return `
+                  <div class="jypesa-tabs-subgroup-section">
+                    <!-- Cabecera de Información Subgrupo -->
+                    <div class="jypesa-tabs-info-area">
+                      ${fragranceBlockHtml}
+                      ${sub.refill ? `<div class="jypesa-tabs-refill-label">${sub.refill}</div>` : ''}
+                      ${sub.desc ? `<p class="jypesa-tabs-collection-desc">${sub.desc}</p>` : ''}
                     </div>
-                    <button class="jypesa-tabs-mobile-nav next-mobile-btn" aria-label="Siguiente">
-                      ${arrowRightSvg}
-                    </button>
+
+                    <!-- Slider / Carrusel de Productos del Subgrupo -->
+                    <div class="jypesa-tabs-slider-outer">
+                      <div class="jypesa-tabs-nav-btn prev-btn" aria-label="Anterior">
+                        ${arrowLeftSvg}
+                      </div>
+                      <div class="jypesa-tabs-nav-btn next-btn" aria-label="Siguiente">
+                        ${arrowRightSvg}
+                      </div>
+
+                      <div class="jypesa-tabs-products-container">
+                        ${sub.products.map(prod => {
+                          const hasAmazonBtn = Boolean(prod.amazonLink);
+                          const cardTag = hasAmazonBtn ? 'div' : 'a';
+                          const cardAttrs = hasAmazonBtn ? '' : `href="${prod.link}" ${prod.link !== '#' ? 'target="_blank"' : ''}`;
+                          return `
+                            <${cardTag} ${cardAttrs} class="jypesa-tabs-product-card">
+                              <div class="jypesa-tabs-card-img-wrap">
+                                ${prod.imgSrc ? `<img class="jypesa-tabs-card-img" src="${prod.imgSrc}" alt="${prod.imgAlt}" loading="lazy">` : ''}
+                              </div>
+                              <div class="jypesa-tabs-card-details">
+                                <h4 class="jypesa-tabs-card-title">${prod.name}</h4>
+                                ${prod.sku ? `<span class="jypesa-tabs-card-sku">${prod.sku}</span>` : ''}
+                                <div class="jypesa-tabs-card-specs">
+                                  ${prod.weight ? `<span>${prod.weight}</span>` : ''}
+                                  ${prod.packaging ? `<span>${prod.packaging}</span>` : ''}
+                                  ${prod.qty ? `<span>${prod.qty}</span>` : ''}
+                                </div>
+                                ${hasAmazonBtn ? `
+                                  <a href="${prod.amazonLink}" target="_blank" rel="noopener noreferrer" class="jypesa-tabs-amazon-btn">
+                                    <span>Ver en Amazon</span>
+                                    <svg class="jypesa-tabs-amazon-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M14.6645 12.1533C14.6645 12.638 14.3945 13.5713 13.7879 14.084C13.6665 14.1773 13.5452 14.1247 13.5985 13.9887C13.7752 13.5567 14.1792 12.5573 13.9899 12.3273C13.8559 12.1527 13.3025 12.166 12.8305 12.206C12.6152 12.2333 12.4259 12.246 12.2792 12.276C12.1432 12.2867 12.1159 12.1673 12.2519 12.074C12.4291 11.9491 12.6248 11.8528 12.8319 11.7887C13.5985 11.5593 14.4845 11.6973 14.6119 11.844C14.6359 11.872 14.6645 11.9513 14.6645 12.1533ZM13.3832 13.0153C13.2079 13.1505 13.0232 13.273 12.8305 13.382C11.4159 14.232 9.58321 14.6773 7.99188 14.6773C5.42988 14.6773 3.13855 13.7327 1.39988 12.152C1.25055 12.0307 1.37388 11.8547 1.54855 11.95C3.42188 13.0433 5.74055 13.7047 8.14055 13.7047C9.65121 13.7047 11.2792 13.422 12.8305 12.814C12.9392 12.7733 13.0605 12.718 13.1665 12.6793C13.4112 12.5693 13.6265 12.8407 13.3832 13.0153ZM9.26988 5.662C9.26988 4.968 9.29788 4.55933 9.06788 4.20867C8.86388 3.92 8.51255 3.74667 8.02188 3.774C7.48988 3.80333 6.91855 4.152 6.77321 4.79133C6.74455 4.938 6.65921 5.082 6.48188 5.11333L4.85855 4.90667C4.74255 4.88 4.56588 4.79133 4.62388 4.55933C4.97255 2.72533 6.53988 2.086 8.02255 2H8.37055C9.18388 2 10.2292 2.23267 10.8979 2.84267C11.7092 3.6 11.6225 4.61733 11.6225 5.72267V8.34067C11.6225 9.126 11.9412 9.474 12.2612 9.88333C12.3479 10.0293 12.3779 10.2013 12.2319 10.32C11.8119 10.6944 11.3858 11.0621 10.9539 11.4227C10.8372 11.5113 10.6279 11.5207 10.5472 11.4527C10.0339 11.0227 9.90855 10.784 9.59055 10.3473C9.03721 10.928 8.57255 11.2487 8.01988 11.4227C7.63127 11.5216 7.23153 11.57 6.83055 11.5667C5.43721 11.5667 4.33388 6.68533 6.13388 6.246C7.20721 5.806 8.76721 5.666 9.26988 5.66333M8.95188 9.12467C9.29855 8.54333 9.26988 8.06733 9.26988 7.00133C8.83521 7.00133 8.39921 7.03133 8.02255 7.12C7.32588 7.322 6.77255 7.76 6.77255 8.69C6.77255 9.41667 7.15121 9.91133 7.78988 9.91133C7.87788 9.91133 7.95521 9.90133 8.02188 9.88133C8.46855 9.75733 8.74721 9.53333 8.95188 9.12467Z" fill="currentColor"/>
+                                    </svg>
+                                  </a>
+                                ` : ''}
+                              </div>
+                            </${cardTag}>
+                          `;
+                        }).join('')}
+                      </div>
+
+                      <!-- Controles móviles y Paginación -->
+                      <div class="jypesa-tabs-controls-mobile">
+                        <button class="jypesa-tabs-mobile-nav prev-mobile-btn" aria-label="Anterior">
+                          ${arrowLeftSvg}
+                        </button>
+                        <div class="jypesa-tabs-dots-container">
+                          ${sub.products.map((_, pIdx) => `
+                            <span class="jypesa-tabs-dot ${pIdx === 0 ? 'active' : ''}" data-index="${pIdx}"></span>
+                          `).join('')}
+                        </div>
+                        <button class="jypesa-tabs-mobile-nav next-mobile-btn" aria-label="Siguiente">
+                          ${arrowRightSvg}
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            `;
-          }).join('')}
+                `;
+              }).join('')}
+            </div>
+          `).join('')}
         </div>
       </div>
     `;
