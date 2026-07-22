@@ -594,8 +594,8 @@
                                 <div class="dispensadores-col">
                                     <p class="cat-label">DISPENSADORES</p>
                                     <div class="dispensadores-row">
-                                        <a href="/soportes" class="option-link" data-p="Soportes">Soportes</a>
-                                        <a href="/sistemas-de-dispensacion" class="option-link" data-p="Sistemas">Sistemas de dispensación</a>
+                                        <a href="/sistemas-de-dispensacion#soportes" class="option-link" data-p="Soportes">Soportes</a>
+                                        <a href="/sistemas-de-dispensacion#sistemas" class="option-link" data-p="Sistemas">Sistemas de dispensación</a>
                                     </div>
                                 </div>
                                 <div class="accesorios-col">
@@ -791,8 +791,8 @@
                 <a href="/productos#colecciones" class="mob-link">Premium (Vervan, Hawaiian...)</a>
                 <a href="/productos#colecciones" class="mob-link">Lujo (Botanicaromatica, Xinu)</a>
                 <div class="mob-cat-title">Dispensadores</div>
-                <a href="/soportes" class="mob-link">Soportes</a>
-                <a href="/sistemas-de-dispensacion" class="mob-link">Sistemas de dispensación</a>
+                <a href="/sistemas-de-dispensacion#soportes" class="mob-link">Soportes</a>
+                <a href="/sistemas-de-dispensacion#sistemas" class="mob-link">Sistemas de dispensación</a>
                 <div class="mob-cat-title">Accesorios</div>
                 <a href="/accesorios" class="mob-link">Ver todos los accesorios</a>
                 <a href="/accesorios" class="mob-link">Lavarino</a>
