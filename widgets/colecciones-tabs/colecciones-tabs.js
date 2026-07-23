@@ -118,7 +118,7 @@
     letter-spacing: 1.5px;
   }
 
-  /* TABS EN MÓVIL */
+  /* TABS EN MÓVIL Y DESKTOP */
   .jypesa-coltabs-menu {
     display: flex;
     flex-direction: row;
@@ -194,7 +194,7 @@
     margin: 0 0 20px 0;
   }
 
-  /* SLIDERS DE PRODUCTOS Y TARJETAS FIGMA 158-9859 */
+  /* SLIDERS DE PRODUCTOS CON SOPORTE DRAG DE MOUSE */
   .jypesa-coltabs-slider-outer {
     position: relative;
     width: 100% !important;
@@ -216,10 +216,29 @@
     box-sizing: border-box;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .jypesa-coltabs-products-container.is-dragging {
+    cursor: grabbing !important;
+    scroll-behavior: auto !important;
+    scroll-snap-type: none !important;
   }
 
   .jypesa-coltabs-products-container::-webkit-scrollbar {
     display: none;
+  }
+
+  /* PREVENIR ARRASTRE NATIVO DE IMÁGENES NAVEGADOR */
+  .jypesa-coltabs-card-img,
+  .jypesa-coltabs-card-logo {
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: none;
   }
 
   /* TARJETA EN MÓVIL */
@@ -248,7 +267,7 @@
     box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
   }
 
-  /* IMAGEN SUPERIOR CARD MÓVIL */
+  /* IMAGEN SUPERIOR CARD */
   .jypesa-coltabs-card-img-wrap {
     width: 100%;
     height: 72%;
@@ -269,7 +288,7 @@
     transform: scale(1.04);
   }
 
-  /* INFO INFERIOR CARD MÓVIL */
+  /* INFO INFERIOR CARD */
   .jypesa-coltabs-card-info {
     width: 100%;
     height: 28%;
@@ -947,6 +966,50 @@
         const card = container.querySelector('.jypesa-coltabs-product-card');
         return card ? card.getBoundingClientRect().width + 16 : container.clientWidth;
       };
+
+      // SOPORTE DE ARRASTRE CON EL MOUSE (CLICK & DRAG MOUSE SCROLLING)
+      let isMouseDown = false;
+      let startX = 0;
+      let scrollLeftStart = 0;
+      let isDragged = false;
+
+      container.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        isMouseDown = true;
+        isDragged = false;
+        startX = e.pageX - container.offsetLeft;
+        scrollLeftStart = container.scrollLeft;
+        container.classList.add('is-dragging');
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isMouseDown) return;
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX);
+        if (Math.abs(walk) > 5) {
+          isDragged = true;
+        }
+        container.scrollLeft = scrollLeftStart - walk;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (isMouseDown) {
+          isMouseDown = false;
+          container.classList.remove('is-dragging');
+        }
+      });
+
+      // Prevenir navegación accidental si se arrastró
+      const cards = container.querySelectorAll('.jypesa-coltabs-product-card');
+      cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (isDragged) {
+            e.preventDefault();
+            e.stopPropagation();
+            isDragged = false;
+          }
+        });
+      });
 
       // NAVEGACIÓN CON BUCLE INFINITO AL LLEGAR AL ÚLTIMO CARD
       if (nextBtn) {
