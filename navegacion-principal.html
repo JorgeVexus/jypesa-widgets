@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Navegación Principal — JYPESA Preview</title>
+  <title>Navegación Principal — Multilingüe (ES / EN) Preview</title>
   <style>
     body { margin: 0; background: #f5f5f5; font-family: 'Montserrat', sans-serif; }
-    .preview-area { height: 100vh; }
+    .preview-area { min-height: 100vh; padding-top: 60px; }
     .demo-bar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -20,47 +20,106 @@
       align-items: center;
       border-bottom: 1px solid #333;
     }
-    .demo-bar code {
-      background: #0f1113;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 12px;
+    .demo-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
     }
-    .spacer { height: 50px; }
-    .note {
-      padding: 20px;
+    .lang-btn {
+      background: #3a3f43;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 5px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .lang-btn.active {
+      background: #48A9C5;
+      border-color: #48A9C5;
+      color: #fff;
+    }
+    .spacer { height: 120px; }
+    .note-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 24px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       color: #506D85;
       font-size: 14px;
-      line-height: 1.5;
-      max-width: 900px;
-      margin: 0 auto;
+      line-height: 1.6;
     }
-    .note code {
-      background: #eef1f5;
-      padding: 2px 6px;
-      border-radius: 4px;
+    .note-container h3 {
+      margin-top: 0;
+      color: #25282A;
+    }
+    .code-block {
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
       font-family: monospace;
-      font-size: 13px;
+      font-size: 12px;
+      margin-top: 10px;
+      overflow-x: auto;
+      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
   <div class="demo-bar">
-    <span>NAVEGACIÓN PRINCIPAL — PREVIEW LOCAL</span>
-    <code>jypesa-nav-principal-widget</code>
+    <span>NAVEGACIÓN PRINCIPAL — MULTILINGÜE (ES / EN)</span>
+    <div class="demo-controls">
+      <span>Probar idioma:</span>
+      <button class="lang-btn active" onclick="switchLang('es')">Español (data-lang="es")</button>
+      <button class="lang-btn" onclick="switchLang('en')">English (data-lang="en")</button>
+    </div>
   </div>
-  <div class="spacer"></div>
 
   <div class="preview-area">
-    <div id="jypesa-nav-principal-widget"></div>
+    <div id="jypesa-nav-principal-widget" data-lang="es"></div>
   </div>
 
-  <div class="note">
-    <strong>Embed para Webflow</strong>
-    <pre style="background:#f8fafc;padding:14px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;margin-top:8px;overflow-x:auto;"><code>&lt;div id="jypesa-nav-principal-widget"&gt;&lt;/div&gt;
-&lt;script src="https://jypesa-widgets.vercel.app/widgets/navegacion-principal/navegacion-principal.js"&gt;&lt;/script&gt;</code></pre>
+  <div class="spacer"></div>
+
+  <div class="note-container">
+    <h3>Instrucciones de Integración en Webflow (Multilingüe)</h3>
+    <p>Para usar este mismo widget centralizado en Vercel tanto en las páginas en español como en inglés, simplemente agrega el atributo <code>data-lang="es"</code> o <code>data-lang="en"</code> en el div embed de cada versión de página:</p>
+    
+    <strong>Páginas en Español:</strong>
+    <div class="code-block">&lt;div id="jypesa-nav-principal-widget" data-lang="es"&gt;&lt;/div&gt;
+&lt;script src="https://jypesa-widgets.vercel.app/widgets/navegacion-principal/navegacion-principal.js"&gt;&lt;/script&gt;</div>
+
+    <strong style="display:block; margin-top:16px;">Páginas en Inglés (English pages):</strong>
+    <div class="code-block">&lt;div id="jypesa-nav-principal-widget" data-lang="en"&gt;&lt;/div&gt;
+&lt;script src="https://jypesa-widgets.vercel.app/widgets/navegacion-principal/navegacion-principal.js"&gt;&lt;/script&gt;</div>
   </div>
 
   <script src="./widgets/navegacion-principal/navegacion-principal.js"></script>
+  <script>
+    function switchLang(lang) {
+      const widgetDiv = document.getElementById('jypesa-nav-principal-widget');
+      if (widgetDiv) {
+        widgetDiv.removeAttribute('data-initialized');
+        widgetDiv.setAttribute('data-lang', lang);
+        
+        // Re-inicializar el widget con el nuevo idioma
+        delete window.__JypesaNavPrincipalWidgetInitialized;
+        
+        // Ejecutar re-renderizado
+        const script = document.createElement('script');
+        script.src = './widgets/navegacion-principal/navegacion-principal.js?t=' + Date.now();
+        document.body.appendChild(script);
+      }
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toLowerCase().includes(lang));
+      });
+    }
+  </script>
 </body>
 </html>

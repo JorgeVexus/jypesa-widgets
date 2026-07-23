@@ -513,11 +513,163 @@
   styleEl.textContent = cssStyles;
   document.head.appendChild(styleEl);
 
-  const widgetHtml = `
+  // DICCIONARIO DE TRADUCCIÓN (i18n) PARA NAVEGACIÓN PRINCIPAL
+  const NAV_TRANSLATIONS = {
+    es: {
+      about: "Nosotros",
+      products: "Productos",
+      solutions: "Soluciones",
+      customDev: "Desarrollo personalizado",
+      sustainability: "Sustentabilidad",
+      resources: "Recursos",
+      smartOrder: "Smart order",
+      contact: "Contáctanos",
+
+      // Megamenú Productos
+      catCollections: "COLECCIONES",
+      catDispensers: "DISPENSADORES",
+      catAccessories: "ACCESORIOS",
+      viewAllAccessories: "Ver todos los accesorios",
+      secStandard: "Estándar",
+      secSuperior: "Superior",
+      secPremium: "Premium",
+      secLuxury: "Lujo",
+      secSupports: "Soportes",
+      secDispensingSystems: "Sistemas de dispensación",
+
+      // Megamenú Soluciones
+      catSolutions: "SOLUCIONES INTEGRALES",
+      secHotels: "Hotelería",
+      optIndieHotels: "Hoteles independientes",
+      optHotelChains: "Cadenas hoteleras",
+      optHotelGroups: "Grupos hoteleros & operadores",
+      secAltHospitality: "Hospitalidad alternativa",
+      optAirbnb: "Airbnb",
+      optStr: "Short-term Rental (STR)",
+      secInstitutional: "Institucional",
+      optHospitals: "Hospitales y clínicas",
+      optRestaurants: "Restaurantes",
+      optSportsClubs: "Clubes & centros deportivos",
+      secCommercialChannel: "Canal comercial",
+      optDistributor: "Distribuidor autorizado",
+      secCorporate: "Empresarial",
+      optOffices: "Corporativo & oficinas",
+      optCorporateGifts: "Regalos empresariales",
+      secSpecializedHospitality: "Hospitalidad especializada",
+      optCruises: "Cruceros",
+      optGlamping: "Glamping & Campamentos",
+
+      // Megamenú Sustentabilidad
+      catSustainability: "SUSTENTABILIDAD",
+      secResponsibleMaterials: "Materiales responsables",
+      secWasteReductionSystems: "Sistemas de reducción de residuos",
+      optRefillSystems: "Refill systems",
+      optWasteReduction: "Reducción de residuos",
+      secCertifications: "Certificaciones",
+      optEnvironmentalCertifications: "Certificaciones ambientales",
+      optQualityStandards: "Estándares de calidad",
+      secImpact: "Impacto",
+      optEnvironmentalSocialImpact: "Impacto ambiental y social",
+
+      // Megamenú Recursos
+      catResources: "RECURSOS",
+      secCommercialMaterial: "Material comercial",
+      optDownloadableCatalogs: "Catálogos descargables",
+      optTechnicalDatasheets: "Fichas técnicas",
+      secContentTrends: "Contenido y tendencias",
+      optBlog: "Blog",
+      optHospitalityTrends: "Tendencias de hospitalidad"
+    },
+    en: {
+      about: "About Us",
+      products: "Products",
+      solutions: "Solutions",
+      customDev: "Custom Development",
+      sustainability: "Sustainability",
+      resources: "Resources",
+      smartOrder: "Smart Order",
+      contact: "Contact Us",
+
+      // Megamenú Productos
+      catCollections: "COLLECTIONS",
+      catDispensers: "DISPENSERS",
+      catAccessories: "ACCESSORIES",
+      viewAllAccessories: "View all accessories",
+      secStandard: "Standard",
+      secSuperior: "Superior",
+      secPremium: "Premium",
+      secLuxury: "Luxury",
+      secSupports: "Mounts & Brackets",
+      secDispensingSystems: "Dispensing Systems",
+
+      // Megamenú Soluciones
+      catSolutions: "COMPREHENSIVE SOLUTIONS",
+      secHotels: "Hospitality & Hotels",
+      optIndieHotels: "Independent Hotels",
+      optHotelChains: "Hotel Chains",
+      optHotelGroups: "Hotel Groups & Operators",
+      secAltHospitality: "Alternative Hospitality",
+      optAirbnb: "Airbnb",
+      optStr: "Short-Term Rental (STR)",
+      secInstitutional: "Institutional",
+      optHospitals: "Hospitals & Clinics",
+      optRestaurants: "Restaurants",
+      optSportsClubs: "Clubs & Sports Centers",
+      secCommercialChannel: "Commercial Channel",
+      optDistributor: "Authorized Distributor",
+      secCorporate: "Corporate",
+      optOffices: "Corporate & Offices",
+      optCorporateGifts: "Corporate Gifts",
+      secSpecializedHospitality: "Specialized Hospitality",
+      optCruises: "Cruise Ships",
+      optGlamping: "Glamping & Camps",
+
+      // Megamenú Sustentabilidad
+      catSustainability: "SUSTAINABILITY",
+      secResponsibleMaterials: "Responsible Materials",
+      secWasteReductionSystems: "Waste Reduction Systems",
+      optRefillSystems: "Refill Systems",
+      optWasteReduction: "Waste Reduction",
+      secCertifications: "Certifications",
+      optEnvironmentalCertifications: "Environmental Certifications",
+      optQualityStandards: "Quality Standards",
+      secImpact: "Impact",
+      optEnvironmentalSocialImpact: "Environmental & Social Impact",
+
+      // Megamenú Recursos
+      catResources: "RESOURCES",
+      secCommercialMaterial: "Commercial Materials",
+      optDownloadableCatalogs: "Downloadable Catalogs",
+      optTechnicalDatasheets: "Technical Datasheets",
+      secContentTrends: "Content & Trends",
+      optBlog: "Blog",
+      optHospitalityTrends: "Hospitality Trends"
+    }
+  };
+
+  function buildUrl(url, lang) {
+    if (!url || url === '#' || url.startsWith('http://') || url.startsWith('https://')) return url;
+    const parts = url.split('#');
+    const base = parts[0];
+    const hash = parts.length > 1 ? '#' + parts[1] : '';
+
+    if (lang === 'en') {
+      if (base.startsWith('/en/') || base === '/en') return url;
+      const prefixed = '/en' + (base.startsWith('/') ? base : '/' + base);
+      return prefixed + hash;
+    }
+    return url;
+  }
+
+  function buildWidgetHtml(lang) {
+    const t = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.es;
+    const u = url => buildUrl(url, lang);
+
+    return `
 <div class="jypesa-nav-principal-widget">
 <nav class="jypesa-nav" id="nav">
     <div class="nav-container">
-        <a href="/" class="logo">
+        <a href="${u('/')}" class="logo">
             <svg xmlns="http://www.w3.org/2000/svg" width="132" height="32" viewBox="0 0 132 32" fill="none" style="display:block;">
               <g clip-path="url(#clip0_716_31440)">
                 <path d="M54.8289 10.5108H43.4157V31.6971H45.9821V22.7321H54.8289C59.1727 22.7321 61.6652 20.4981 61.6652 16.6047C61.6652 12.7114 59.1727 10.5085 54.8289 10.5085V10.5108ZM54.9208 20.3645H45.9821V12.8784H54.9208C57.7293 12.8784 59.0382 14.0633 59.0382 16.6069C59.0382 19.1506 57.7293 20.3645 54.9208 20.3645Z" fill="currentColor"/>
@@ -540,9 +692,9 @@
         </a>
 
         <ul class="nav-links">
-            <li class="nav-link-item"><a href="/nosotros" class="nav-link">Nosotros</a></li>
+            <li class="nav-link-item"><a href="${u('/nosotros')}" class="nav-link">${t.about}</a></li>
             <li class="nav-link-item">
-                <span class="nav-link">Productos</span>
+                <span class="nav-link">${t.products}</span>
                 <div class="mega-menu">
                     <div class="mega-content">
                         <div class="visual-block" id="v-block">
@@ -552,61 +704,61 @@
                         </div>
                         <div class="links-container">
                             <div class="category-block">
-                                <p class="cat-label">COLECCIONES</p>
+                                <p class="cat-label">${t.catCollections}</p>
                                 <div class="sections-row">
                                     <div class="menu-section">
-                                        <div class="section-header">Estándar</div>
+                                        <div class="section-header">${t.secStandard}</div>
                                         <ul class="options-list">
-                                            <li><a href="/colecciones/estandar/elements" class="option-link" data-p="Elements">Elements</a></li>
-                                            <li><a href="/colecciones/estandar/tea-leaf" class="option-link" data-p="Tea Leaf">Tea Leaf</a></li>
-                                            <li><a href="/colecciones/estandar/rain-forest" class="option-link" data-p="Rainforest">Rainforest</a></li>
-                                            <li><a href="/colecciones/estandar/almond-olive" class="option-link" data-p="Almond">Almond & Olive</a></li>
+                                            <li><a href="${u('/colecciones/estandar/elements')}" class="option-link" data-p="Elements">Elements</a></li>
+                                            <li><a href="${u('/colecciones/estandar/tea-leaf')}" class="option-link" data-p="Tea Leaf">Tea Leaf</a></li>
+                                            <li><a href="${u('/colecciones/estandar/rain-forest')}" class="option-link" data-p="Rainforest">Rainforest</a></li>
+                                            <li><a href="${u('/colecciones/estandar/almond-olive')}" class="option-link" data-p="Almond">Almond & Olive</a></li>
                                         </ul>
                                     </div>
                                     <div class="menu-section">
-                                        <div class="section-header">Superior</div>
+                                        <div class="section-header">${t.secSuperior}</div>
                                         <ul class="options-list">
-                                            <li><a href="/colecciones/superior/cava" class="option-link" data-p="Cava">Cava</a></li>
-                                            <li><a href="/colecciones/superior/biogena" class="option-link" data-p="Biogena">Biogena</a></li>
-                                            <li><a href="/colecciones/superior/lavarino-cosso" class="option-link" data-p="Lavarino">Lavarino Cosso</a></li>
-                                            <li><a href="/colecciones/superior/dove" class="option-link" data-p="Dove">Dove</a></li>
-                                            <li><a href="/colecciones/superior/tresseme" class="option-link" data-p="Tresemme">Tresemme</a></li>
+                                            <li><a href="${u('/colecciones/superior/cava')}" class="option-link" data-p="Cava">Cava</a></li>
+                                            <li><a href="${u('/colecciones/superior/biogena')}" class="option-link" data-p="Biogena">Biogena</a></li>
+                                            <li><a href="${u('/colecciones/superior/lavarino-cosso')}" class="option-link" data-p="Lavarino">Lavarino Cosso</a></li>
+                                            <li><a href="${u('/colecciones/superior/dove')}" class="option-link" data-p="Dove">Dove</a></li>
+                                            <li><a href="${u('/colecciones/superior/tresseme')}" class="option-link" data-p="Tresemme">Tresemme</a></li>
                                         </ul>
                                     </div>
                                     <div class="menu-section">
-                                        <div class="section-header">Premium</div>
+                                        <div class="section-header">${t.secPremium}</div>
                                         <ul class="options-list">
-                                            <li><a href="/colecciones/premium/vervan" class="option-link" data-p="Vervan">Vervan</a></li>
-                                            <li><a href="/colecciones/premium/hawaiian-tropic" class="option-link" data-p="Hawaiian">Hawaiian Tropic</a></li>
-                                            <li><a href="/colecciones/premium/for-all-folks" class="option-link" data-p="For All Folks">For All Folks</a></li>
-                                            <li><a href="/colecciones/premium/persea" class="option-link" data-p="Persea">Persea</a></li>
-                                            <li><a href="/colecciones/premium/agavia" class="option-link" data-p="Agavia">Agavia</a></li>
+                                            <li><a href="${u('/colecciones/premium/vervan')}" class="option-link" data-p="Vervan">Vervan</a></li>
+                                            <li><a href="${u('/colecciones/premium/hawaiian-tropic')}" class="option-link" data-p="Hawaiian">Hawaiian Tropic</a></li>
+                                            <li><a href="${u('/colecciones/premium/for-all-folks')}" class="option-link" data-p="For All Folks">For All Folks</a></li>
+                                            <li><a href="${u('/colecciones/premium/persea')}" class="option-link" data-p="Persea">Persea</a></li>
+                                            <li><a href="${u('/colecciones/premium/agavia')}" class="option-link" data-p="Agavia">Agavia</a></li>
                                             <li><a href="#" class="option-link" data-p="Valquer">Valquer</a></li>
-                                            <li><a href="/colecciones/premium/botanicus" class="option-link" data-p="Botanicus">Botanicus</a></li>
+                                            <li><a href="${u('/colecciones/premium/botanicus')}" class="option-link" data-p="Botanicus">Botanicus</a></li>
                                         </ul>
                                     </div>
                                     <div class="menu-section">
-                                        <div class="section-header">Lujo</div>
+                                        <div class="section-header">${t.secLuxury}</div>
                                         <ul class="options-list">
-                                            <li><a href="/colecciones/lujo/botanicaromatica" class="option-link" data-p="Botanicaromatica">Botanicaromatica</a></li>
-                                            <li><a href="/colecciones/lujo/xinu" class="option-link" data-p="Xinu">Xinu</a></li>
+                                            <li><a href="${u('/colecciones/lujo/botanicaromatica')}" class="option-link" data-p="Botanicaromatica">Botanicaromatica</a></li>
+                                            <li><a href="${u('/colecciones/lujo/xinu')}" class="option-link" data-p="Xinu">Xinu</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="category-block-bottom">
                                 <div class="dispensadores-col">
-                                    <p class="cat-label">DISPENSADORES</p>
+                                    <p class="cat-label">${t.catDispensers}</p>
                                     <div class="dispensadores-row">
-                                        <a href="/sistemas-de-dispensacion#soportes" class="option-link" data-p="Soportes">Soportes</a>
-                                        <a href="/sistemas-de-dispensacion#sistemas" class="option-link" data-p="Sistemas">Sistemas de dispensación</a>
+                                        <a href="${u('/sistemas-de-dispensacion#soportes')}" class="option-link" data-p="Soportes">${t.secSupports}</a>
+                                        <a href="${u('/sistemas-de-dispensacion#sistemas')}" class="option-link" data-p="Sistemas">${t.secDispensingSystems}</a>
                                     </div>
                                 </div>
                                 <div class="accesorios-col">
-                                    <a href="/accesorios" class="cat-label-link"><p class="cat-label">ACCESORIOS</p></a>
+                                    <a href="${u('/accesorios')}" class="cat-label-link"><p class="cat-label">${t.catAccessories}</p></a>
                                     <div class="accesorios-row">
-                                        <a href="/accesorios" class="option-link" data-p="Lavarino">Lavarino</a>
-                                        <a href="/accesorios" class="option-link" data-p="Nocean">Nocean</a>
+                                        <a href="${u('/accesorios')}" class="option-link" data-p="Lavarino">Lavarino</a>
+                                        <a href="${u('/accesorios')}" class="option-link" data-p="Nocean">Nocean</a>
                                     </div>
                                 </div>
                             </div>
@@ -615,7 +767,7 @@
                 </div>
             </li>
             <li class="nav-link-item">
-                <a href="/soluciones" class="nav-link">Soluciones</a>
+                <a href="${u('/soluciones')}" class="nav-link">${t.solutions}</a>
                 <div class="mega-menu">
                     <div class="mega-content">
                         <div class="visual-block">
@@ -624,54 +776,53 @@
                         </div>
                         <div class="links-container">
                             <div class="category-block">
-                                <p class="cat-label">SOLUCIONES INTEGRALES</p>
+                                <p class="cat-label">${t.catSolutions}</p>
                                 <div class="soluciones-grid-wrap">
-                                    <!-- Fila 1: Hoteleria, Hospitalidad alternativa, Institucional -->
                                     <div class="sections-row">
                                         <div class="menu-section">
-                                            <div class="section-header">Hotelería</div>
+                                            <div class="section-header">${t.secHotels}</div>
                                             <ul class="options-list">
-                                                <li><a href="/soluciones#hoteles-independientes" class="option-link">Hoteles independientes</a></li>
-                                                <li><a href="/soluciones#cadenas-hoteleras" class="option-link">Cadenas hoteleras</a></li>
-                                                <li><a href="/soluciones#grupos-hoteleros" class="option-link">Grupos hoteleros & operadores</a></li>
+                                                <li><a href="${u('/soluciones#hoteles-independientes')}" class="option-link">${t.optIndieHotels}</a></li>
+                                                <li><a href="${u('/soluciones#cadenas-hoteleras')}" class="option-link">${t.optHotelChains}</a></li>
+                                                <li><a href="${u('/soluciones#grupos-hoteleros')}" class="option-link">${t.optHotelGroups}</a></li>
                                             </ul>
                                         </div>
                                         <div class="menu-section">
-                                             <div class="section-header">Hospitalidad alternativa</div>
+                                             <div class="section-header">${t.secAltHospitality}</div>
                                              <ul class="options-list">
-                                                 <li><a href="/soluciones#airbnb" class="option-link">Airbnb</a></li>
-                                                 <li><a href="/soluciones#short-term-rental-str" class="option-link">Short-term Rental (STR)</a></li>
+                                                 <li><a href="${u('/soluciones#airbnb')}" class="option-link">${t.optAirbnb}</a></li>
+                                                 <li><a href="${u('/soluciones#short-term-rental-str')}" class="option-link">${t.optStr}</a></li>
                                              </ul>
                                          </div>
                                          <div class="menu-section">
-                                             <div class="section-header">Institucional</div>
+                                             <div class="section-header">${t.secInstitutional}</div>
                                              <ul class="options-list">
-                                                 <li><a href="/soluciones#hospitales-y-clinicas" class="option-link">Hospitales y clínicas</a></li>
-                                                 <li><a href="/soluciones#restaurantes" class="option-link">Restaurantes</a></li>
-                                                 <li><a href="/soluciones#clubes-centros-deportivos" class="option-link">Clubes & centros deportivos</a></li>
+                                                 <li><a href="${u('/soluciones#hospitales-y-clinicas')}" class="option-link">${t.optHospitals}</a></li>
+                                                 <li><a href="${u('/soluciones#restaurantes')}" class="option-link">${t.optRestaurants}</a></li>
+                                                 <li><a href="${u('/soluciones#clubes-centros-deportivos')}" class="option-link">${t.optSportsClubs}</a></li>
                                              </ul>
                                          </div>
                                      </div>
 
                                      <div class="sections-row" style="margin-top: 45px;">
                                          <div class="menu-section">
-                                             <div class="section-header">Canal comercial</div>
+                                             <div class="section-header">${t.secCommercialChannel}</div>
                                              <ul class="options-list">
-                                                 <li><a href="/soluciones#distribuidor-autorizado" class="option-link">Distribuidor autorizado</a></li>
+                                                 <li><a href="${u('/soluciones#distribuidor-autorizado')}" class="option-link">${t.optDistributor}</a></li>
                                              </ul>
                                          </div>
                                          <div class="menu-section">
-                                             <div class="section-header">Empresarial</div>
+                                             <div class="section-header">${t.secCorporate}</div>
                                              <ul class="options-list">
-                                                 <li><a href="/soluciones#corporativo-oficinas" class="option-link">Corporativo & oficinas</a></li>
-                                                 <li><a href="/soluciones#regalos-empresariales" class="option-link">Regalos empresariales</a></li>
+                                                 <li><a href="${u('/soluciones#corporativo-oficinas')}" class="option-link">${t.optOffices}</a></li>
+                                                 <li><a href="${u('/soluciones#regalos-empresariales')}" class="option-link">${t.optCorporateGifts}</a></li>
                                              </ul>
                                          </div>
                                          <div class="menu-section">
-                                             <div class="section-header">Hospitalidad especializada</div>
+                                             <div class="section-header">${t.secSpecializedHospitality}</div>
                                              <ul class="options-list">
-                                                 <li><a href="/soluciones#cruceros" class="option-link">Cruceros</a></li>
-                                                 <li><a href="/soluciones#glamping-campamentos" class="option-link">Glamping & Campamentos</a></li>
+                                                 <li><a href="${u('/soluciones#cruceros')}" class="option-link">${t.optCruises}</a></li>
+                                                 <li><a href="${u('/soluciones#glamping-campamentos')}" class="option-link">${t.optGlamping}</a></li>
                                              </ul>
                                          </div>
                                      </div>
@@ -681,9 +832,9 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-link-item"><a href="/desarollo-personalizado" class="nav-link">Desarrollo personalizado</a></li>
+            <li class="nav-link-item"><a href="${u('/desarollo-personalizado')}" class="nav-link">${t.customDev}</a></li>
             <li class="nav-link-item">
-                <a href="/sustentabilidad" class="nav-link">Sustentabilidad</a>
+                <a href="${u('/sustentabilidad')}" class="nav-link">${t.sustainability}</a>
                 <div class="mega-menu">
                     <div class="mega-content">
                         <div class="visual-block">
@@ -692,34 +843,34 @@
                         </div>
                         <div class="links-container">
                             <div class="category-block">
-                                <p class="cat-label">SUSTENTABILIDAD</p>
+                                <p class="cat-label">${t.catSustainability}</p>
                                 <div class="sections-row">
                                     <div class="menu-section">
-                                        <div class="section-header">Materiales responsables</div>
+                                        <div class="section-header">${t.secResponsibleMaterials}</div>
                                         <ul class="options-list">
-                                            <li><a href="/sustentabilidad#materiales" class="option-link">Nocean</a></li>
+                                            <li><a href="${u('/sustentabilidad#materiales')}" class="option-link">Nocean</a></li>
                                         </ul>
                                     </div>
                                     <div class="menu-section">
-                                        <div class="section-header">Sistemas de reducción de residuos</div>
+                                        <div class="section-header">${t.secWasteReductionSystems}</div>
                                         <ul class="options-list">
-                                            <li><a href="/sustentabilidad#refill" class="option-link">Refill systems</a></li>
-                                            <li><a href="/sustentabilidad#residuos" class="option-link">Reducción de residuos</a></li>
+                                            <li><a href="${u('/sustentabilidad#refill')}" class="option-link">${t.optRefillSystems}</a></li>
+                                            <li><a href="${u('/sustentabilidad#residuos')}" class="option-link">${t.optWasteReduction}</a></li>
                                         </ul>
                                     </div>
                                     <div class="menu-section">
-                                        <div class="section-header">Certificaciones</div>
+                                        <div class="section-header">${t.secCertifications}</div>
                                         <ul class="options-list">
-                                            <li><a href="/sustentabilidad#certificaciones" class="option-link">Certificaciones ambientales</a></li>
-                                            <li><a href="/sustentabilidad#estandares" class="option-link">Estándares de calidad</a></li>
+                                            <li><a href="${u('/sustentabilidad#certificaciones')}" class="option-link">${t.optEnvironmentalCertifications}</a></li>
+                                            <li><a href="${u('/sustentabilidad#estandares')}" class="option-link">${t.optQualityStandards}</a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="sections-row" style="margin-top: 30px;">
                                     <div class="menu-section">
-                                        <div class="section-header">Impacto</div>
+                                        <div class="section-header">${t.secImpact}</div>
                                         <ul class="options-list">
-                                            <li><a href="/sustentabilidad#impacto" class="option-link">Impacto ambiental y social</a></li>
+                                            <li><a href="${u('/sustentabilidad#impacto')}" class="option-link">${t.optEnvironmentalSocialImpact}</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -729,7 +880,7 @@
                 </div>
             </li>
             <li class="nav-link-item">
-                <span class="nav-link">Recursos</span>
+                <span class="nav-link">${t.resources}</span>
                 <div class="mega-menu">
                     <div class="mega-content">
                         <div class="visual-block">
@@ -738,20 +889,20 @@
                         </div>
                         <div class="links-container">
                             <div class="category-block">
-                                <p class="cat-label">RECURSOS</p>
+                                <p class="cat-label">${t.catResources}</p>
                                 <div class="sections-row">
                                     <div class="menu-section">
-                                        <div class="section-header">Material comercial</div>
+                                        <div class="section-header">${t.secCommercialMaterial}</div>
                                         <ul class="options-list">
-                                            <li><a href="/recursos/catalogos" class="option-link">Catálogos descargables</a></li>
-                                            <li><a href="/recursos/fichas-tecnicas" class="option-link">Fichas técnicas</a></li>
+                                            <li><a href="${u('/recursos/catalogos')}" class="option-link">${t.optDownloadableCatalogs}</a></li>
+                                            <li><a href="${u('/recursos/fichas-tecnicas')}" class="option-link">${t.optTechnicalDatasheets}</a></li>
                                         </ul>
                                     </div>
                                     <div class="menu-section">
-                                        <div class="section-header">Contenido y tendencias</div>
+                                        <div class="section-header">${t.secContentTrends}</div>
                                         <ul class="options-list">
-                                            <li><a href="/blogs" class="option-link">Blog</a></li>
-                                            <li><a href="/recursos/tendencias" class="option-link">Tendencias de hospitalidad</a></li>
+                                            <li><a href="${u('/blogs')}" class="option-link">${t.optBlog}</a></li>
+                                            <li><a href="${u('/recursos/tendencias')}" class="option-link">${t.optHospitalityTrends}</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -768,9 +919,9 @@
             </a>
             <a href="https://sm.jypesa.com/jypesa/public/login" class="smart-order" target="_blank" rel="noopener noreferrer">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                Smart order
+                ${t.smartOrder}
             </a>
-            <a href="/contacto" class="btn-contact">Contáctanos</a>
+            <a href="${u('/contacto')}" class="btn-contact">${t.contact}</a>
         </div>
 
         <div class="hamburger" id="h-trigger">
@@ -784,115 +935,111 @@
 <div class="mobile-overlay" id="m-overlay">
     <ul class="mob-nav-list">
         <li class="mob-item">
-            <a href="/nosotros" class="mob-trigger">Nosotros</a>
+            <a href="${u('/nosotros')}" class="mob-trigger">${t.about}</a>
         </li>
         <li class="mob-item">
-            <div class="mob-trigger">Productos <span>+</span></div>
+            <div class="mob-trigger">${t.products} <span>+</span></div>
             <div class="mob-submenu">
-                <div class="mob-cat-title">Colecciones</div>
-                <div class="mob-subcat-title">Estándar</div>
-                <a href="/colecciones/estandar/elements" class="mob-link">Elements</a>
-                <a href="/colecciones/estandar/tea-leaf" class="mob-link">Tea Leaf</a>
-                <a href="/colecciones/estandar/rain-forest" class="mob-link">Rainforest</a>
-                <a href="/colecciones/estandar/almond-olive" class="mob-link">Almond & Olive</a>
+                <div class="mob-cat-title">${t.catCollections}</div>
+                <div class="mob-subcat-title">${t.secStandard}</div>
+                <a href="${u('/colecciones/estandar/elements')}" class="mob-link">Elements</a>
+                <a href="${u('/colecciones/estandar/tea-leaf')}" class="mob-link">Tea Leaf</a>
+                <a href="${u('/colecciones/estandar/rain-forest')}" class="mob-link">Rainforest</a>
+                <a href="${u('/colecciones/estandar/almond-olive')}" class="mob-link">Almond & Olive</a>
 
-                <div class="mob-subcat-title">Superior</div>
-                <a href="/colecciones/superior/cava" class="mob-link">Cava</a>
-                <a href="/colecciones/superior/biogena" class="mob-link">Biogena</a>
-                <a href="/colecciones/superior/lavarino-cosso" class="mob-link">Lavarino Cosso</a>
-                <a href="/colecciones/superior/dove" class="mob-link">Dove</a>
-                <a href="/colecciones/superior/tresseme" class="mob-link">Tresemme</a>
+                <div class="mob-subcat-title">${t.secSuperior}</div>
+                <a href="${u('/colecciones/superior/cava')}" class="mob-link">Cava</a>
+                <a href="${u('/colecciones/superior/biogena')}" class="mob-link">Biogena</a>
+                <a href="${u('/colecciones/superior/lavarino-cosso')}" class="mob-link">Lavarino Cosso</a>
+                <a href="${u('/colecciones/superior/dove')}" class="mob-link">Dove</a>
+                <a href="${u('/colecciones/superior/tresseme')}" class="mob-link">Tresemme</a>
 
-                <div class="mob-subcat-title">Premium</div>
-                <a href="/colecciones/premium/vervan" class="mob-link">Vervan</a>
-                <a href="/colecciones/premium/hawaiian-tropic" class="mob-link">Hawaiian Tropic</a>
-                <a href="/colecciones/premium/for-all-folks" class="mob-link">For All Folks</a>
-                <a href="/colecciones/premium/persea" class="mob-link">Persea</a>
-                <a href="/colecciones/premium/agavia" class="mob-link">Agavia</a>
+                <div class="mob-subcat-title">${t.secPremium}</div>
+                <a href="${u('/colecciones/premium/vervan')}" class="mob-link">Vervan</a>
+                <a href="${u('/colecciones/premium/hawaiian-tropic')}" class="mob-link">Hawaiian Tropic</a>
+                <a href="${u('/colecciones/premium/for-all-folks')}" class="mob-link">For All Folks</a>
+                <a href="${u('/colecciones/premium/persea')}" class="mob-link">Persea</a>
+                <a href="${u('/colecciones/premium/agavia')}" class="mob-link">Agavia</a>
                 <a href="#" class="mob-link">Valquer</a>
-                <a href="/colecciones/premium/botanicus" class="mob-link">Botanicus</a>
+                <a href="${u('/colecciones/premium/botanicus')}" class="mob-link">Botanicus</a>
 
-                <div class="mob-subcat-title">Lujo</div>
-                <a href="/colecciones/lujo/botanicaromatica" class="mob-link">Botanicaromatica</a>
-                <a href="/colecciones/lujo/xinu" class="mob-link">Xinu</a>
+                <div class="mob-subcat-title">${t.secLuxury}</div>
+                <a href="${u('/colecciones/lujo/botanicaromatica')}" class="mob-link">Botanicaromatica</a>
+                <a href="${u('/colecciones/lujo/xinu')}" class="mob-link">Xinu</a>
 
-                <div class="mob-cat-title">Dispensadores</div>
-                <a href="/sistemas-de-dispensacion#soportes" class="mob-link">Soportes</a>
-                <a href="/sistemas-de-dispensacion#sistemas" class="mob-link">Sistemas de dispensación</a>
+                <div class="mob-cat-title">${t.catDispensers}</div>
+                <a href="${u('/sistemas-de-dispensacion#soportes')}" class="mob-link">${t.secSupports}</a>
+                <a href="${u('/sistemas-de-dispensacion#sistemas')}" class="mob-link">${t.secDispensingSystems}</a>
 
-                <div class="mob-cat-title">Accesorios</div>
-                <a href="/accesorios" class="mob-link">Ver todos los accesorios</a>
-                <a href="/accesorios" class="mob-link">Lavarino</a>
-                <a href="/accesorios" class="mob-link">Nocean</a>
+                <div class="mob-cat-title">${t.catAccessories}</div>
+                <a href="${u('/accesorios')}" class="mob-link">${t.optAllAccessories}</a>
+                <a href="${u('/accesorios')}" class="mob-link">Lavarino</a>
+                <a href="${u('/accesorios')}" class="mob-link">Nocean</a>
             </div>
         </li>
         <li class="mob-item">
-            <div class="mob-trigger">Soluciones <span>+</span></div>
+            <div class="mob-trigger">${t.solutions} <span>+</span></div>
             <div class="mob-submenu">
-                <div class="mob-cat-title">Hotelería</div>
-                <a href="/soluciones#hoteles-independientes" class="mob-link">Hoteles independientes</a>
-                <a href="/soluciones#cadenas-hoteleras" class="mob-link">Cadenas hoteleras</a>
-                <a href="/soluciones#grupos-hoteleros" class="mob-link">Grupos hoteleros & operadores</a>
-                <div class="mob-cat-title">Hospitalidad alternativa</div>
-                <a href="/soluciones#airbnb" class="mob-link">Airbnb</a>
-                <a href="/soluciones#short-term-rental-str" class="mob-link">Short-term Rental (STR)</a>
-                <div class="mob-cat-title">Institucional</div>
-                <a href="/soluciones#hospitales-y-clinicas" class="mob-link">Hospitales y clínicas</a>
-                <a href="/soluciones#restaurantes" class="mob-link">Restaurantes</a>
-                <a href="/soluciones#clubes-centros-deportivos" class="mob-link">Clubes & centros deportivos</a>
-                <div class="mob-cat-title">Canal comercial</div>
-                <a href="/soluciones#distribuidor-autorizado" class="mob-link">Distribuidor autorizado</a>
-                <div class="mob-cat-title">Empresarial</div>
-                <a href="/soluciones#corporativo-oficinas" class="mob-link">Corporativo & oficinas</a>
-                <a href="/soluciones#regalos-empresariales" class="mob-link">Regalos empresariales</a>
-                <div class="mob-cat-title">Hospitalidad especializada</div>
-                <a href="/soluciones#cruceros" class="mob-link">Cruceros</a>
-                <a href="/soluciones#glamping-campamentos" class="mob-link">Glamping & Campamentos</a>
+                <div class="mob-cat-title">${t.secHotels}</div>
+                <a href="${u('/soluciones#hoteles-independientes')}" class="mob-link">${t.optIndieHotels}</a>
+                <a href="${u('/soluciones#cadenas-hoteleras')}" class="mob-link">${t.optHotelChains}</a>
+                <a href="${u('/soluciones#grupos-hoteleros')}" class="mob-link">${t.optHotelGroups}</a>
+                <div class="mob-cat-title">${t.secAltHospitality}</div>
+                <a href="${u('/soluciones#airbnb')}" class="mob-link">${t.optAirbnb}</a>
+                <a href="${u('/soluciones#short-term-rental-str')}" class="mob-link">${t.optStr}</a>
+                <div class="mob-cat-title">${t.secInstitutional}</div>
+                <a href="${u('/soluciones#hospitales-y-clinicas')}" class="mob-link">${t.optHospitals}</a>
+                <a href="${u('/soluciones#restaurantes')}" class="mob-link">${t.optRestaurants}</a>
+                <a href="${u('/soluciones#clubes-centros-deportivos')}" class="mob-link">${t.optSportsClubs}</a>
+                <div class="mob-cat-title">${t.secCommercialChannel}</div>
+                <a href="${u('/soluciones#distribuidor-autorizado')}" class="mob-link">${t.optDistributor}</a>
+                <div class="mob-cat-title">${t.secCorporate}</div>
+                <a href="${u('/soluciones#corporativo-oficinas')}" class="mob-link">${t.optOffices}</a>
+                <a href="${u('/soluciones#regalos-empresariales')}" class="mob-link">${t.optCorporateGifts}</a>
+                <div class="mob-cat-title">${t.secSpecializedHospitality}</div>
+                <a href="${u('/soluciones#cruceros')}" class="mob-link">${t.optCruises}</a>
+                <a href="${u('/soluciones#glamping-campamentos')}" class="mob-link">${t.optGlamping}</a>
             </div>
         </li>
         <li class="mob-item">
-            <a href="/desarollo-personalizado" class="mob-trigger">Desarrollo personalizado</a>
+            <a href="${u('/desarollo-personalizado')}" class="mob-trigger">${t.customDev}</a>
         </li>
         <li class="mob-item">
-            <div class="mob-trigger">Sustentabilidad <span>+</span></div>
+            <div class="mob-trigger">${t.sustainability} <span>+</span></div>
             <div class="mob-submenu">
-                <div class="mob-cat-title">Materiales responsables</div>
-                <a href="/sustentabilidad#materiales" class="mob-link">Nocean</a>
-                <div class="mob-cat-title">Reducción de residuos</div>
-                <a href="/sustentabilidad#refill" class="mob-link">Refill systems</a>
-                <a href="/sustentabilidad#residuos" class="mob-link">Reducción de residuos</a>
-                <div class="mob-cat-title">Certificaciones</div>
-                <a href="/sustentabilidad#certificaciones" class="mob-link">Certificaciones ambientales</a>
-                <a href="/sustentabilidad#estandares" class="mob-link">Estándares de calidad</a>
-                <div class="mob-cat-title">Impacto</div>
-                <a href="/sustentabilidad#impacto" class="mob-link">Impacto ambiental y social</a>
+                <div class="mob-cat-title">${t.secResponsibleMaterials}</div>
+                <a href="${u('/sustentabilidad#materiales')}" class="mob-link">Nocean</a>
+                <div class="mob-cat-title">${t.secWasteReductionSystems}</div>
+                <a href="${u('/sustentabilidad#refill')}" class="mob-link">${t.optRefillSystems}</a>
+                <a href="${u('/sustentabilidad#residuos')}" class="mob-link">${t.optWasteReduction}</a>
+                <div class="mob-cat-title">${t.secCertifications}</div>
+                <a href="${u('/sustentabilidad#certificaciones')}" class="mob-link">${t.optEnvironmentalCertifications}</a>
+                <a href="${u('/sustentabilidad#estandares')}" class="mob-link">${t.optQualityStandards}</a>
+                <div class="mob-cat-title">${t.secImpact}</div>
+                <a href="${u('/sustentabilidad#impacto')}" class="mob-link">${t.optEnvironmentalSocialImpact}</a>
             </div>
         </li>
         <li class="mob-item">
-            <div class="mob-trigger">Recursos <span>+</span></div>
+            <div class="mob-trigger">${t.resources} <span>+</span></div>
             <div class="mob-submenu">
-                <div class="mob-cat-title">Material comercial</div>
-                <a href="/recursos/catalogos" class="mob-link">Catálogos descargables</a>
-                <a href="/recursos/fichas-tecnicas" class="mob-link">Fichas técnicas</a>
-                <div class="mob-cat-title">Contenido y tendencias</div>
-                <a href="/blogs" class="mob-link">Blog</a>
-                <a href="/recursos/tendencias" class="mob-link">Tendencias de hospitalidad</a>
+                <div class="mob-cat-title">${t.secCommercialMaterial}</div>
+                <a href="${u('/recursos/catalogos')}" class="mob-link">${t.optDownloadableCatalogs}</a>
+                <a href="${u('/recursos/fichas-tecnicas')}" class="mob-link">${t.optTechnicalDatasheets}</a>
+                <div class="mob-cat-title">${t.secContentTrends}</div>
+                <a href="${u('/blogs')}" class="mob-link">${t.optBlog}</a>
+                <a href="${u('/recursos/tendencias')}" class="mob-link">${t.optHospitalityTrends}</a>
             </div>
         </li>
         <li class="mob-item" style="padding: 30px 0 40px;">
-            <a href="/contacto" class="btn-contact" style="display: block; text-align: center;">Contáctanos</a>
+            <a href="${u('/contacto')}" class="btn-contact" style="display: block; text-align: center;">${t.contact}</a>
         </li>
     </ul>
 </div>
 </div>
-`;
+    `;
+  }
 
-  function initNavPrincipalWidget() {
-    const target = document.getElementById('jypesa-nav-principal-widget') || document.querySelector('[data-jypesa-nav-principal-widget]');
-    if (!target) return;
-
-    target.innerHTML = widgetHtml;
-
+  function setupNavEvents(target, lang) {
     const nav = target.querySelector('#nav');
 
     const IMAGES = {
@@ -1021,7 +1168,6 @@
       }
     });
 
-    // Cerrar menú móvil al hacer clic en cualquier enlace navegable dentro del overlay
     if (mOverlay) {
       mOverlay.querySelectorAll('a[href]').forEach(link => {
         link.addEventListener('click', () => {
@@ -1029,6 +1175,32 @@
         });
       });
     }
+  }
+
+  function initNavPrincipalWidget() {
+    const targets = document.querySelectorAll('#jypesa-nav-principal-widget, [data-jypesa-nav-principal-widget], .jypesa-nav-principal-widget-container, .jypesa-nav-principal-widget');
+    if (!targets.length) return;
+
+    targets.forEach(target => {
+      if (target.getAttribute('data-initialized') === 'true') return;
+      target.setAttribute('data-initialized', 'true');
+
+      let lang = (target.getAttribute('data-lang') || '').toLowerCase().trim();
+      if (lang !== 'en' && lang !== 'es') {
+        const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+        if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
+          lang = 'en';
+        } else {
+          lang = 'es';
+        }
+      }
+
+      target.innerHTML = buildWidgetHtml(lang);
+
+      setupNavEvents(target, lang);
+    });
   }
 
   if (document.readyState === 'loading') {
