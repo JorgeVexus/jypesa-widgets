@@ -399,11 +399,6 @@
   transition: .25s ease-in-out;
 }
 
-.jypesa-nav-principal-widget .jypesa-nav.scrolled .hamburger span,
-.jypesa-nav-principal-widget .hamburger.active span {
-  background: #506D85;
-}
-
 .jypesa-nav-principal-widget .hamburger span:nth-child(1) { top: 0; }
 .jypesa-nav-principal-widget .hamburger span:nth-child(2) { top: 8px; }
 .jypesa-nav-principal-widget .hamburger span:nth-child(3) { top: 16px; }
@@ -420,7 +415,7 @@
   height: 100%;
   background: white;
   z-index: 1000;
-  padding: 120px 30px;
+  padding: 90px 24px 40px 24px;
   visibility: hidden;
   opacity: 0;
   transition: var(--transition);
@@ -477,6 +472,15 @@
   color: var(--text-muted);
   text-transform: uppercase;
   margin: 15px 0 10px;
+}
+
+.jypesa-nav-principal-widget .mob-subcat-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 12px 0 6px 0;
 }
 
 .jypesa-nav-principal-widget .mob-link {
@@ -677,7 +681,7 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-link-item"><a href="/desarollo-personalizado" class="nav-link">Desarrollo personalizado</a></li>
+            <li class="nav-link-item"><a href="/desarrollo-personalizado" class="nav-link">Desarrollo personalizado</a></li>
             <li class="nav-link-item">
                 <a href="/sustentabilidad" class="nav-link">Sustentabilidad</a>
                 <div class="mega-menu">
@@ -786,13 +790,36 @@
             <div class="mob-trigger">Productos <span>+</span></div>
             <div class="mob-submenu">
                 <div class="mob-cat-title">Colecciones</div>
-                <a href="/productos#colecciones" class="mob-link">Estándar (Elements, Tea Leaf...)</a>
-                <a href="/productos#colecciones" class="mob-link">Superior (Cava, Biogena...)</a>
-                <a href="/productos#colecciones" class="mob-link">Premium (Vervan, Hawaiian...)</a>
-                <a href="/productos#colecciones" class="mob-link">Lujo (Botanicaromatica, Xinu)</a>
+                <div class="mob-subcat-title">Estándar</div>
+                <a href="/colecciones/estandar/elements" class="mob-link">Elements</a>
+                <a href="/colecciones/estandar/tea-leaf" class="mob-link">Tea Leaf</a>
+                <a href="/colecciones/estandar/rain-forest" class="mob-link">Rainforest</a>
+                <a href="/colecciones/estandar/almond-olive" class="mob-link">Almond & Olive</a>
+
+                <div class="mob-subcat-title">Superior</div>
+                <a href="/colecciones/superior/cava" class="mob-link">Cava</a>
+                <a href="/colecciones/superior/biogena" class="mob-link">Biogena</a>
+                <a href="/colecciones/superior/lavarino-cosso" class="mob-link">Lavarino Cosso</a>
+                <a href="/colecciones/superior/dove" class="mob-link">Dove</a>
+                <a href="/colecciones/superior/tresseme" class="mob-link">Tresemme</a>
+
+                <div class="mob-subcat-title">Premium</div>
+                <a href="/colecciones/premium/vervan" class="mob-link">Vervan</a>
+                <a href="/colecciones/premium/hawaiian-tropic" class="mob-link">Hawaiian Tropic</a>
+                <a href="/colecciones/premium/for-all-folks" class="mob-link">For All Folks</a>
+                <a href="/colecciones/premium/persea" class="mob-link">Persea</a>
+                <a href="/colecciones/premium/agavia" class="mob-link">Agavia</a>
+                <a href="#" class="mob-link">Valquer</a>
+                <a href="/colecciones/premium/botanicus" class="mob-link">Botanicus</a>
+
+                <div class="mob-subcat-title">Lujo</div>
+                <a href="/colecciones/lujo/botanicaromatica" class="mob-link">Botanicaromatica</a>
+                <a href="/colecciones/lujo/xinu" class="mob-link">Xinu</a>
+
                 <div class="mob-cat-title">Dispensadores</div>
                 <a href="/sistemas-de-dispensacion#soportes" class="mob-link">Soportes</a>
                 <a href="/sistemas-de-dispensacion#sistemas" class="mob-link">Sistemas de dispensación</a>
+
                 <div class="mob-cat-title">Accesorios</div>
                 <a href="/accesorios" class="mob-link">Ver todos los accesorios</a>
                 <a href="/accesorios" class="mob-link">Lavarino</a>
@@ -824,7 +851,7 @@
             </div>
         </li>
         <li class="mob-item">
-            <a href="/desarollo-personalizado" class="mob-trigger">Desarrollo personalizado</a>
+            <a href="/desarrollo-personalizado" class="mob-trigger">Desarrollo personalizado</a>
         </li>
         <li class="mob-item">
             <div class="mob-trigger">Sustentabilidad <span>+</span></div>
@@ -848,11 +875,11 @@
                 <a href="/recursos/catalogos" class="mob-link">Catálogos descargables</a>
                 <a href="/recursos/fichas-tecnicas" class="mob-link">Fichas técnicas</a>
                 <div class="mob-cat-title">Contenido y tendencias</div>
-                <a href="/blog" class="mob-link">Blog</a>
+                <a href="/blogs" class="mob-link">Blog</a>
                 <a href="/recursos/tendencias" class="mob-link">Tendencias de hospitalidad</a>
             </div>
         </li>
-        <li class="mob-item" style="padding: 40px 0;">
+        <li class="mob-item" style="padding: 30px 0 40px;">
             <a href="/contacto" class="btn-contact" style="display: block; text-align: center;">Contáctanos</a>
         </li>
     </ul>
@@ -865,6 +892,8 @@
     if (!target) return;
 
     target.innerHTML = widgetHtml;
+
+    const nav = target.querySelector('#nav');
 
     const IMAGES = {
       'Valquer': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1fe7ff3cfa3d446df1_Valque%20menu%C3%8C%20%C2%81.webp',
@@ -913,6 +942,16 @@
     let activeIdx = 0;
     const links = target.querySelectorAll('.option-link[data-p]');
 
+    const hTrigger = target.querySelector('#h-trigger');
+    const mOverlay = target.querySelector('#m-overlay');
+
+    function closeMobileMenu() {
+      if (mOverlay) mOverlay.classList.remove('active');
+      if (hTrigger) hTrigger.classList.remove('active');
+      if (nav) nav.classList.remove('menu-open');
+      document.body.style.overflow = '';
+    }
+
     if (nav) {
       let lastY = window.scrollY;
       let ticking = false;
@@ -920,15 +959,16 @@
         ticking = false;
         const y = window.scrollY;
         nav.classList.toggle('scrolled', y > 20);
-        // Ocultar al bajar, mostrar al subir
-        const mo = target.querySelector('#m-overlay');
-        const menuOpen = mo && mo.classList.contains('active');
+
+        const menuOpen = mOverlay && mOverlay.classList.contains('active');
         if (!menuOpen) {
           if (y > lastY && y > 120) {
             nav.classList.add('nav-hidden');
           } else if (y < lastY) {
             nav.classList.remove('nav-hidden');
           }
+        } else {
+          nav.classList.remove('nav-hidden');
         }
         lastY = y;
       };
@@ -962,12 +1002,12 @@
       });
     }
 
-    const hTrigger = target.querySelector('#h-trigger');
-    const mOverlay = target.querySelector('#m-overlay');
     if (hTrigger && mOverlay) {
       hTrigger.addEventListener('click', () => {
-        mOverlay.classList.toggle('active');
-        hTrigger.classList.toggle('active');
+        const isActive = mOverlay.classList.toggle('active');
+        hTrigger.classList.toggle('active', isActive);
+        if (nav) nav.classList.toggle('menu-open', isActive);
+        document.body.style.overflow = isActive ? 'hidden' : '';
       });
     }
 
@@ -980,6 +1020,15 @@
         });
       }
     });
+
+    // Cerrar menú móvil al hacer clic en cualquier enlace navegable dentro del overlay
+    if (mOverlay) {
+      mOverlay.querySelectorAll('a[href]').forEach(link => {
+        link.addEventListener('click', () => {
+          closeMobileMenu();
+        });
+      });
+    }
   }
 
   if (document.readyState === 'loading') {
