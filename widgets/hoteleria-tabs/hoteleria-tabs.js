@@ -19,24 +19,21 @@
 
   /* ── Widget wrapper ─────────────────────────────────────────── */
   .jht-widget {
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 100%;
     font-family: 'Rubik', sans-serif;
     color: var(--jht-slate);
-    box-sizing: border-box !important;
+    box-sizing: border-box;
     background: transparent;
-    overflow-x: hidden !important;
   }
 
   /* ── Layout 2 columnas (desktop) ────────────────────────────── */
   .jht-inner {
     display: flex;
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 100%;
     min-height: 520px;
     position: relative;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   /* ── COLUMNA IZQUIERDA ──────────────────────────────────────── */
@@ -50,7 +47,7 @@
     flex-direction: column;
   }
 
-  /* Etiqueta "Segmento • Hotelería" */
+  /* Etiqueta "Segmento • Hotelería" (Línea solo bajo la primera palabra) */
   .jht-segment-label {
     display: inline-flex;
     align-items: baseline;
@@ -115,7 +112,7 @@
     max-width: 422px;
   }
 
-  /* ── Contenedor de tabs (lista vertical en Desktop) ────────────────────── */
+  /* ── Contenedor de tabs (lista vertical) ────────────────────── */
   .jht-tabs-nav {
     margin-top: clamp(24px, 2.5vw, 47px);
     display: flex;
@@ -142,8 +139,8 @@
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
 
-  /* Hover: desliza el tab 6 px a la derecha */
-  .jht-tab-btn:hover {
+  /* Hover: desliza el tab 6 px a la derecha (sólo inactivos) */
+  .jht-tab-btn:not(.active):hover {
     transform: translateX(6px);
     opacity: 0.8;
   }
@@ -153,63 +150,67 @@
     font-family: 'Instrument Serif', serif;
     font-style: italic;
     font-weight: 400;
-    font-size: clamp(20px, 1.6vw, 30px);
+    font-size: clamp(17px, 1.4vw, 22px);
     line-height: 1;
+    letter-spacing: 1.1px;
     color: var(--jht-slate);
-    opacity: 0.45;
-    letter-spacing: 1.5px;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, font-size 0.3s ease, left 0.3s ease, transform 0.3s ease;
     white-space: nowrap;
     position: absolute;
-    left: 0;
-    transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, font-size 0.4s ease;
-    user-select: none;
+    left: clamp(40px, 6vw, 132px);
   }
 
+  /* Estado activo del tab */
   .jht-tab-btn.active .jht-tab-btn-label {
     opacity: 1;
-    font-size: clamp(22px, 1.8vw, 32px);
-    left: 17px;
+    font-size: clamp(17px, 1.4vw, 22px);
+    left: clamp(65px, 8vw, 161px);
   }
 
-  /* Línea vertical decorativa del tab activo (Desktop) */
+  /* Línea decorativa bajo el tab activo */
   .jht-tab-btn-line {
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background-color: var(--jht-slate);
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    bottom: -12px;
+    left: clamp(65px, 8vw, 163px);
+    width: clamp(130px, 14vw, 206px);
+    height: 1.5px;
+    background: var(--jht-slate);
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 1px;
   }
 
   .jht-tab-btn.active .jht-tab-btn-line {
-    transform: scaleY(1);
+    opacity: 1;
+    transform: scaleX(1);
   }
 
-  /* ── COLUMNA DERECHA ───────────────────────────────────────── */
+  /* ── COLUMNA DERECHA (panel de contenido) ───────────────────── */
   .jht-right {
     flex: 1;
-    position: relative;
-    padding-right: clamp(16px, 2.5vw, 48px);
-    box-sizing: border-box;
     min-width: 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 520px;
   }
 
-  /* Panels de contenido */
+  /* Panel de contenido (uno por tab) */
   .jht-panel {
     position: absolute;
     inset: 0;
-    padding-left: clamp(24px, 4vw, 80px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2.5vw, 47px);
+    padding-left: clamp(20px, 2.5vw, 45px);
+    padding-right: clamp(16px, 2vw, 30px);
     box-sizing: border-box;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(12px);
-    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(20px);
   }
 
   .jht-panel.active {
@@ -218,36 +219,38 @@
     transform: translateY(0);
   }
 
-  /* Texto descriptivo del panel activo */
+  /* Texto descriptivo del panel */
   .jht-panel-desc {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
-    font-size: clamp(14px, 1.05vw, 16px);
-    line-height: 1.4;
+    font-size: clamp(14.5px, 1.15vw, 18px);
+    line-height: 1.35;
     color: var(--jht-slate);
     margin: 0;
     width: 100%;
-    max-width: 660px;
+    max-width: 700px;
   }
 
-  /* Galería de imágenes (Desktop: grid 3 cols) */
+  /* Contenedor de imágenes */
   .jht-images {
     display: flex;
-    gap: 20px;
+    gap: clamp(8px, 1vw, 12px);
+    align-items: flex-start;
     width: 100%;
     box-sizing: border-box;
-    cursor: grab;
-    user-select: none;
-    -webkit-user-select: none;
   }
 
+  /* Imagen individual */
   .jht-img-wrap {
-    flex: 1;
+    flex: 1 1 0px;
     min-width: 0;
-    aspect-ratio: 247 / 460;
+    max-width: 390px;
+    height: auto;
+    aspect-ratio: 1 / 1;
     background: #d9d9d9;
     overflow: hidden;
     position: relative;
+    flex-shrink: 1;
   }
 
   .jht-img-wrap img {
@@ -256,9 +259,6 @@
     object-fit: cover;
     object-position: center;
     display: block;
-    user-drag: none;
-    -webkit-user-drag: none;
-    pointer-events: none;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -266,21 +266,13 @@
     transform: scale(1.04);
   }
 
-  .jht-dots {
-    display: none;
-  }
 
-  /* ════════════════════════════════════════════════════════════════
-     RESPONSIVE — Tablet / Mobile (≤1100px)
-     ================================================================ */
   @media (max-width: 1100px) {
 
-    .jht-widget,
-    .jht-inner {
-      width: 100% !important;
-      max-width: 100% !important;
-      overflow-x: hidden !important;
-      box-sizing: border-box !important;
+    /* Desactivar hover translateX en touch/tablet (en horizontal no tiene sentido) */
+    .jht-tab-btn:not(.active):hover {
+      transform: none;
+      opacity: 1;
     }
 
     .jht-inner {
@@ -289,12 +281,11 @@
       gap: 0;
     }
 
-    /* ── Columna izquierda full width ── */
+    /* ── Columna izquierda → full width ── */
     .jht-left {
       flex: none;
-      width: 100% !important;
-      padding: 0 24px;
-      box-sizing: border-box;
+      width: 100%;
+      padding: 0 40px;
     }
 
     .jht-segment-label {
@@ -302,7 +293,7 @@
     }
 
     .jht-title {
-      font-size: clamp(32px, 6.5vw, 54px);
+      font-size: 72px;
       width: 100%;
       margin-top: 14px;
     }
@@ -313,44 +304,38 @@
       font-size: 15px;
     }
 
-    /* ── Tabs adaptativos con flex-wrap para que nunca desborden la pantalla ── */
+    /* ── Tabs → flex-wrap para evitar desbordamientos sin mover la pantalla ── */
     .jht-tabs-nav {
-      display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       width: 100%;
       gap: 10px 18px;
-      margin-top: 24px;
-      overflow-x: visible;
+      margin-top: 28px;
       border-bottom: 1.5px solid var(--jht-slate-15);
-      padding-bottom: 12px;
-      box-sizing: border-box;
+      padding-bottom: 10px;
     }
 
+    .jht-tabs-nav::-webkit-scrollbar { display: none; }
+
     .jht-tab-btn {
+      /* Cada tab es una píldora horizontal */
       height: auto;
       width: auto;
       flex-shrink: 0;
-      padding: 4px 6px 8px 6px;
+      padding: 14px 28px;
       align-items: center;
+      /* Reemplazamos la línea vertical por borde inferior */
       border-bottom: 2.5px solid transparent;
-      transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
-    }
-
-    .jht-tab-btn:hover {
-      transform: translateX(6px);
-      opacity: 0.8;
+      transition: border-color 0.3s ease, opacity 0.3s ease;
     }
 
     .jht-tab-btn-label {
+      /* Volvemos al flujo normal (sin absolute) */
       position: static;
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-size: 21px;
-      color: var(--jht-slate);
+      font-size: 18px;
       opacity: 0.45;
-      letter-spacing: 0.8px;
-      word-break: break-word;
+      letter-spacing: 0.9px;
+      /* Eliminamos el transition de left (no aplica) */
       transition: opacity 0.3s ease;
     }
 
@@ -360,31 +345,31 @@
 
     .jht-tab-btn.active .jht-tab-btn-label {
       opacity: 1;
-      font-size: 21px;
+      font-size: 18px;
     }
 
+    /* Ocultamos la línea decorativa vertical de desktop */
     .jht-tab-btn-line {
       display: none;
     }
 
-    /* ── Columna derecha full width ── */
+    /* ── Columna derecha → full width ── */
     .jht-right {
-      width: 100% !important;
-      padding: 0 24px;
-      margin-top: 24px;
-      box-sizing: border-box;
+      width: 100%;
+      padding: 0 40px;
+      margin-top: 32px;
     }
 
+    /* Panels: stacked pero ocultos, sin posición absolute */
     .jht-panel {
       position: static;
       display: none;
       opacity: 0;
       pointer-events: none;
       transform: none;
-      gap: 20px;
+      gap: 24px;
+      padding-left: 0;
       padding: 0;
-      width: 100%;
-      box-sizing: border-box;
     }
 
     .jht-panel.active {
@@ -394,39 +379,153 @@
     }
 
     .jht-panel-desc {
-      font-size: 15px;
+      font-size: 16px;
       width: 100%;
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
-    /* Imágenes en carrusel horizontal limpio sin romper la pantalla */
+    /* Imágenes en carrusel horizontal con snap */
     .jht-images {
-      display: flex;
       flex-wrap: nowrap;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       scroll-snap-type: x mandatory;
-      width: 100% !important;
-      max-width: 100% !important;
-      margin: 0 !important;
-      padding: 8px 0 20px 0 !important;
+      scroll-padding: 0 40px;
+      /* Compensa el padding del contenedor para scroll edge-to-edge */
+      margin: 0 -40px;
+      padding: 4px 40px 16px;
       gap: 16px;
-      box-sizing: border-box;
     }
 
     .jht-images::-webkit-scrollbar { display: none; }
 
     .jht-img-wrap {
-      width: calc(100vw - 48px);
-      max-width: 320px;
-      height: 270px;
-      aspect-ratio: auto;
+      width: 320px;
+      height: 320px;
       flex-shrink: 0;
       scroll-snap-align: start;
-      box-sizing: border-box;
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     RESPONSIVE — Mobile grande (≤768px)
+     Estrategia: reducir padding, imágenes más pequeñas, título más compacto
+  ════════════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+
+    .jht-left {
+      padding: 0 24px;
     }
 
+    .jht-title {
+      font-size: clamp(30px, 7vw, 44px);
+    }
+
+    .jht-right {
+      padding: 0 24px;
+      margin-top: 24px;
+    }
+
+    .jht-tab-btn {
+      padding: 12px 20px;
+    }
+
+    .jht-tab-btn-label {
+      font-size: 16px;
+    }
+
+    .jht-tab-btn.active .jht-tab-btn-label {
+      font-size: 16px;
+    }
+
+    .jht-panel-desc {
+      font-size: 15px;
+    }
+
+    /* Imágenes a tamaño de tarjeta móvil */
+    .jht-images {
+      margin: 0 -24px;
+      padding: 4px 24px 16px;
+      scroll-padding: 0 24px;
+    }
+
+    .jht-img-wrap {
+      /* Casi full-width para ver 1 imagen + un peek de la siguiente */
+      width: calc(100vw - 72px);
+      max-width: 340px;
+      height: 280px;
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     RESPONSIVE — Mobile pequeño (≤480px)
+     Estrategia: full-bleed, título compacto, imágenes full snap
+  ════════════════════════════════════════════════════════════════ */
+  @media (max-width: 480px) {
+
+    .jht-left {
+      padding: 0 16px;
+    }
+
+    .jht-title {
+      font-size: clamp(26px, 7.5vw, 36px);
+      margin-top: 10px;
+    }
+
+    .jht-subtitle {
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    .jht-tabs-nav {
+      margin-top: 20px;
+    }
+
+    .jht-tab-btn {
+      padding: 10px 14px;
+    }
+
+    .jht-tab-btn-label {
+      font-size: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    .jht-tab-btn.active .jht-tab-btn-label {
+      font-size: 15px;
+    }
+
+    .jht-right {
+      padding: 0 16px;
+      margin-top: 20px;
+    }
+
+    .jht-panel {
+      gap: 20px;
+    }
+
+    .jht-panel-desc {
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    /* Imágenes full width con snap */
+    .jht-images {
+      margin: 0 -16px;
+      padding: 4px 16px 20px;
+      scroll-padding: 0 16px;
+      gap: 12px;
+    }
+
+    .jht-img-wrap {
+      width: calc(100vw - 48px);
+      max-width: 100%;
+      height: 240px;
+    }
+  }
+
+  /* ── Dots de paginación para carrusel de imágenes (mobile) ── */
+  @media (max-width: 1100px) {
     .jht-dots {
       display: flex;
       align-items: center;
@@ -446,65 +545,28 @@
     }
 
     .jht-dot.active {
-      background: var(--jht-blue);
-      transform: scale(1.3);
+      background: var(--jht-slate);
+      width: 22px;
+      border-radius: 100px;
     }
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     RESPONSIVE — Mobile (≤480px)
-     ================================================================ */
-  @media (max-width: 480px) {
-    .jht-left, .jht-right {
-      padding: 0 16px;
-    }
+  /* Ocultar dots en desktop */
+  .jht-dots {
+    display: none;
+  }
 
-    .jht-title {
-      font-size: clamp(26px, 7.5vw, 36px);
-      margin-top: 10px;
-    }
-
-    .jht-subtitle {
-      font-size: 14px;
-      margin-top: 12px;
-    }
-
-    .jht-tabs-nav {
-      margin-top: 20px;
-      gap: 8px 14px;
-    }
-
-    .jht-tab-btn-label {
-      font-size: 19px;
-      letter-spacing: 0.5px;
-    }
-
-    .jht-tab-btn.active .jht-tab-btn-label {
-      font-size: 19px;
-    }
-
-    .jht-right {
-      margin-top: 20px;
-    }
-
-    .jht-panel-desc {
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .jht-img-wrap {
-      width: calc(100vw - 32px);
-      max-width: 100%;
-      height: 240px;
-    }
+  /* Ocultar listas fuente del CMS de Webflow para que no rendericen texto/imágenes sin estilo */
+  .jht-cms-source, [class*="cms-source-"] {
+    display: none !important;
   }
   `;
 
-  const styleEl = document.createElement('style');
-  styleEl.textContent = css;
-  document.head.appendChild(styleEl);
+  const style = document.createElement('style');
+  style.textContent = css;
+  document.head.appendChild(style);
 
-  // ─── DATOS POR DEFECTO ────────────────────────────────────────────────────────
+  // ─── Datos fallback ───────────────────────────────────────────────────────────
   const FALLBACK_DATA = {
     segmentLabel: 'Segmento • Hotelería',
     sectionTitle: 'Hotelería',
@@ -513,120 +575,169 @@
       {
         id: 'hoteles-independientes',
         label: 'Hoteles independientes',
-        desc: 'Identidad propia y flexibilidad operativa. Líneas de amenidades que transmiten el carácter único de su propiedad con entregas ágiles sin mínimos restrictivos.',
+        desc: 'Soluciones accesibles, estéticas y funcionales para hoteles que buscan destacar sin complicar su operación.',
         images: [
-          'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a03195ee0498b3c9acfbfe0_hoteles-independientes-1.avif',
-          'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a03195ea11a5c64395df3d0_hoteles-independientes-2.avif',
-          'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a03195e2acb2db2a2a07ddf_hoteles-independientes-3.avif'
+          {
+            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4d5d430c17b94a5ca3d29d_Nosotros%20jypesa.avif',
+            alt: 'Hotel independiente - imagen 1'
+          },
+          {
+            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5bdf58a79c5b45a15c2b55_Desarrollo-personalizado-hero.avif',
+            alt: 'Hotel independiente - imagen 2'
+          },
+          {
+            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5d71d7a5db3796b30d0da4_blur.avif',
+            alt: 'Hotel independiente - imagen 3'
+          }
         ]
       },
       {
         id: 'cadenas-hoteleras',
         label: 'Cadenas hoteleras',
-        desc: 'Estandarización, escala y volumen con garantía de suministro continuo. Desarrollo de programas personalizados alineados con los estándares globales de su marca.',
+        desc: 'Programas de abastecimiento centralizado, consistencia de producto en todas las propiedades y acceso a la plataforma Avendra para simplificar compras.',
         images: [
-          'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a031a029db51d8ff8fe4d41_cadenas-hoteleras-1.avif',
-          'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a031a0209c13554e26cebd9_cadenas-hoteleras-2.avif',
-          'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a031a0279c6ea40eef645d9_cadenas-hoteleras-3.avif'
+          {
+            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1e1e7a654eba705955_sustentabilidad%2001.webp',
+            alt: 'Cadena hotelera - imagen 1'
+          },
+          {
+            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1ee752754a4bde9fe7_sustentabilidad%2002.webp',
+            alt: 'Cadena hotelera - imagen 2'
+          },
+          {
+            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b27c2ad81f74357967e_sustentabilidad%2003.webp',
+            alt: 'Cadena hotelera - imagen 3'
+          }
         ]
       },
       {
-        id: 'grupos-hoteleros-operadores',
+        id: 'grupos-hoteleros',
         label: 'Grupos hoteleros & operadores',
         desc: 'Gestión multi-marca y multi-mercado. Desarrollo de colecciones exclusivas por marca, private label y coordinación logística internacional desde EE.UU. y México.',
         images: [
-          'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a031a590c2394a50bbff8ff_grupos-hoteleros-1.avif',
-          'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a031a59449f1db1237e199d_grupos-hoteleros-2.avif',
-          'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a031a59092490df1bbf43bb_grupos-hoteleros-3.avif'
+          {
+            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1f3fd0d0b22e5f8120_sustentabilidad%2004.webp',
+            alt: 'Grupo hotelero - imagen 1'
+          },
+          {
+            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ffe5e8fd701a7a1134c22_iso%202276.avif',
+            alt: 'Grupo hotelero - imagen 2'
+          },
+          {
+            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ffe5e4489cf12b17d47f4_peta.avif',
+            alt: 'Grupo hotelero - imagen 3'
+          }
         ]
       }
     ]
   };
 
-  // ─── Lectura de Webflow CMS ──────────────────────────────────────────────────
+  // ─── Leer datos desde el CMS de Webflow ──────────────────────────────────────
   function readFromCMS(container) {
-    let sourceSelector = container.getAttribute('data-cms-source');
-    let source = sourceSelector ? document.querySelector(sourceSelector) : null;
+    let source = null;
+    const rawAttr = container.getAttribute('data-cms-source') || '';
+    const cmsSel = rawAttr.trim().replace(/^['"]|['"]$/g, '');
 
-    if (!source) source = container.querySelector('.jht-cms-source, .jypesa-hoteleria-cms-source');
-    if (!source) source = document.querySelector('.jht-cms-source, .jypesa-hoteleria-cms-source, [data-cms-source]');
+    if (cmsSel) {
+      const cleanSel = cmsSel.replace(/^[.#]/, '');
+      source = document.querySelector(cmsSel) ||
+               document.querySelector('.' + cleanSel) ||
+               document.querySelector('#' + cleanSel) ||
+               (container.parentElement ? container.parentElement.querySelector('.' + cleanSel) : null);
+    }
 
+    // Si no tiene data-cms-source explícito, buscar dentro del mismo contenedor padre o hermano
+    if (!source && container.parentElement) {
+      source = container.parentElement.querySelector('.jht-cms-source, [class*="cms-source-"]');
+    }
+
+    // Si no se especificó data-cms-source y no hay local, buscar global
+    if (!source && !cmsSel) {
+      source = document.querySelector('.jht-cms-source, [class*="cms-source-"]');
+    }
     if (!source) return null;
 
-    const items = Array.from(source.querySelectorAll('.w-dyn-item'));
+    // Forzar el ocultamiento de la fuente en el DOM
+    source.style.display = 'none';
+
+    const items = Array.from(source.querySelectorAll('.w-dyn-item, .jht-cms-tab'));
     if (!items.length) return null;
 
-    const segLabelEl = source.querySelector('.jht-cms-segment-label, .segment-label');
-    const secTitleEl = source.querySelector('.jht-cms-section-title, .section-title');
-    const secDescEl  = source.querySelector('.jht-cms-section-desc, .section-desc');
+    // Datos del header (opcionales, tomados del primer elemento o del wrapper)
+    const segmentLabelEl = source.querySelector('.jht-cms-segment-label');
+    const sectionTitleEl = source.querySelector('.jht-cms-section-title');
+    const sectionDescEl  = source.querySelector('.jht-cms-section-desc');
 
-    const cleanText = str => str ? str.replace(/[\u0300-\u036f]/g, '').replace(/[\u00a0\s]+/g, ' ').trim() : '';
+    const tabs = items.map(item => {
+      const labelEl  = item.querySelector('.jht-cms-tab-label');
+      const descEl   = item.querySelector('.jht-cms-tab-desc');
+      const imgEls   = Array.from(item.querySelectorAll('.jht-cms-tab-img'));
+      const label    = labelEl ? labelEl.textContent.trim() : '';
+      if (!label) return null;
 
-    const tabs = items.map((item, idx) => {
-      const labelEl = item.querySelector('.jht-cms-tab-label, .tab-label');
-      const descEl  = item.querySelector('.jht-cms-panel-desc, .panel-desc');
-      const imgEls  = Array.from(item.querySelectorAll('.jht-cms-img, .cms-img, img'));
+      const id = label.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
-      const labelText = cleanText(labelEl?.textContent) || `Opción ${idx + 1}`;
-      const tabId     = item.getAttribute('data-tab-id') ||
-                        labelText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const images = imgEls.map(img => ({
+        src: img.getAttribute('src') || img.src || '',
+        alt: img.getAttribute('alt') || label
+      }));
 
       return {
-        id: tabId,
-        label: labelText,
-        desc: cleanText(descEl?.textContent),
-        images: imgEls.map(img => img.getAttribute('src') || img.src || '').filter(Boolean)
+        id,
+        label,
+        desc: descEl ? descEl.textContent.trim() : '',
+        images
       };
-    });
+    }).filter(Boolean);
+
+    if (!tabs.length) return null;
 
     return {
-      segmentLabel: cleanText(segLabelEl?.textContent) || FALLBACK_DATA.segmentLabel,
-      sectionTitle: cleanText(secTitleEl?.textContent) || FALLBACK_DATA.sectionTitle,
-      sectionDesc:  cleanText(secDescEl?.textContent)  || FALLBACK_DATA.sectionDesc,
+      segmentLabel: segmentLabelEl ? segmentLabelEl.textContent.trim() : FALLBACK_DATA.segmentLabel,
+      sectionTitle: sectionTitleEl ? sectionTitleEl.textContent.trim() : FALLBACK_DATA.sectionTitle,
+      sectionDesc:  sectionDescEl  ? sectionDescEl.textContent.trim()  : FALLBACK_DATA.sectionDesc,
       tabs
     };
   }
 
-  // ─── Helpers de Formateo ─────────────────────────────────────────────────────
-  function formatSegmentLabel(labelStr) {
-    const parts = labelStr.split(/•|·|-/).map(s => s.trim());
-    if (parts.length >= 2) {
-      return `<span class="jht-segment-first">${parts[0]}</span> <span class="jht-segment-rest">• ${parts.slice(1).join(' • ')}</span>`;
+  function formatSegmentLabel(label) {
+    if (!label) return '';
+    const trimmed = label.trim();
+    const spaceIdx = trimmed.indexOf(' ');
+    if (spaceIdx === -1) {
+      return `<span class="jht-segment-first">${trimmed}</span>`;
     }
-    return `<span class="jht-segment-first">${labelStr}</span>`;
+    const firstWord = trimmed.substring(0, spaceIdx);
+    const rest = trimmed.substring(spaceIdx).trim();
+    return `<span class="jht-segment-first">${firstWord}</span><span class="jht-segment-rest">${rest}</span>`;
   }
 
-  // ─── Render HTML ──────────────────────────────────────────────────────────────
+  // ─── Construir HTML ───────────────────────────────────────────────────────────
   function buildWidget(data) {
-    const leftPanels = data.tabs.map((tab, idx) => `
-      <button
-        class="jht-tab-btn ${idx === 0 ? 'active' : ''}"
-        data-tab="${tab.id}"
-        role="tab"
-        aria-selected="${idx === 0 ? 'true' : 'false'}"
-      >
-        <div class="jht-tab-btn-line"></div>
+    const leftPanels = data.tabs.map((tab, i) => `
+      <button class="jht-tab-btn ${i === 0 ? 'active' : ''}" data-tab="${tab.id}" aria-selected="${i === 0}">
         <span class="jht-tab-btn-label">${tab.label}</span>
+        <span class="jht-tab-btn-line" aria-hidden="true"></span>
       </button>
     `).join('');
 
-    const rightPanels = data.tabs.map((tab, idx) => `
-      <div class="jht-panel ${idx === 0 ? 'active' : ''}" data-panel-tab="${tab.id}" role="tabpanel">
+    const rightPanels = data.tabs.map((tab, i) => `
+      <div class="jht-panel ${i === 0 ? 'active' : ''}" data-panel-tab="${tab.id}" role="tabpanel" aria-labelledby="jht-btn-${tab.id}">
         <p class="jht-panel-desc">${tab.desc}</p>
-
-        <div class="jht-images">
-          ${tab.images.map((src, i) => `
+        <div class="jht-images" data-panel-id="${tab.id}">
+          ${tab.images.map(img => `
             <div class="jht-img-wrap">
-              <img src="${src}" alt="${tab.label} ${i + 1}" loading="lazy" />
+              <img src="${img.src}" alt="${img.alt}" loading="lazy">
             </div>
           `).join('')}
         </div>
-
-        <div class="jht-dots">
-          ${tab.images.map((_, i) => `
-            <span class="jht-dot ${i === 0 ? 'active' : ''}" data-dot="${i}"></span>
+        ${tab.images.length > 1 ? `
+        <div class="jht-dots" role="tablist" aria-label="Imágenes">
+          ${tab.images.map((_, idx) => `
+            <span class="jht-dot ${idx === 0 ? 'active' : ''}" data-idx="${idx}" role="tab" aria-label="Imagen ${idx + 1}"></span>
           `).join('')}
         </div>
+        ` : ''}
       </div>
     `).join('');
 
@@ -634,7 +745,7 @@
       <div class="jht-widget">
         <div class="jht-inner">
 
-          <!-- Columna Izquierda -->
+          <!-- ── Columna Izquierda ── -->
           <div class="jht-left">
             <div class="jht-segment-label">
               ${formatSegmentLabel(data.segmentLabel)}
@@ -647,7 +758,7 @@
             </nav>
           </div>
 
-          <!-- Columna Derecha -->
+          <!-- ── Columna Derecha ── -->
           <div class="jht-right">
             ${rightPanels}
           </div>
@@ -657,7 +768,7 @@
     `;
   }
 
-  // ─── Activar tab (SIN romper el scroll de la ventana) ─────────────────────────
+  // ─── Activar tab ────────────────────────────────────────────────────
   function activateTab(container, tabId) {
     // Botones
     container.querySelectorAll('.jht-tab-btn').forEach(btn => {
@@ -670,9 +781,11 @@
     container.querySelectorAll('.jht-panel').forEach(panel => {
       const isActive = panel.getAttribute('data-panel-tab') === tabId;
       panel.classList.toggle('active', isActive);
+      // Al activar un panel, resetear el carrusel de imágenes al inicio
       if (isActive) {
         const images = panel.querySelector('.jht-images');
         if (images) images.scrollLeft = 0;
+        // Resetear dots al primer slide
         panel.querySelectorAll('.jht-dot').forEach((dot, i) => {
           dot.classList.toggle('active', i === 0);
         });
@@ -692,7 +805,7 @@
       });
     });
 
-    // Sincronizar carrusel e imágenes con mouse drag & dots
+    // Sincronizar dots con el scroll horizontal del carrusel de imágenes
     container.querySelectorAll('.jht-images').forEach(imagesEl => {
       const panel = imagesEl.closest('.jht-panel');
       if (!panel) return;
@@ -700,35 +813,12 @@
       if (!dots.length) return;
       const items = imagesEl.querySelectorAll('.jht-img-wrap');
 
-      // Soporte Drag de Mouse en escritorio para imágenes
-      let isMouseDown = false;
-      let startX = 0;
-      let scrollLeftStart = 0;
-
-      imagesEl.addEventListener('mousedown', (e) => {
-        if (e.button !== 0) return;
-        isMouseDown = true;
-        startX = e.pageX - imagesEl.offsetLeft;
-        scrollLeftStart = imagesEl.scrollLeft;
-      });
-
-      window.addEventListener('mousemove', (e) => {
-        if (!isMouseDown) return;
-        const x = e.pageX - imagesEl.offsetLeft;
-        const walk = (x - startX);
-        imagesEl.scrollLeft = scrollLeftStart - walk;
-      });
-
-      window.addEventListener('mouseup', () => {
-        isMouseDown = false;
-      });
-
-      // Hacer clic en un dot desplaza el carrusel a esa imagen usando el scroll interno del contenedor
+      // Hacer clic en un dot desplaza el carrusel a esa imagen
       dots.forEach((dot, idx) => {
         dot.addEventListener('click', () => {
           const target = items[idx];
           if (target) {
-            imagesEl.scrollTo({ left: target.offsetLeft - imagesEl.offsetLeft, behavior: 'smooth' });
+            target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
           }
         });
       });
@@ -801,8 +891,11 @@
       });
 
       if (match) {
-        const tabId = match.getAttribute('data-tab');
-        activateTab(container, tabId);
+        const targetTabId = match.getAttribute('data-tab');
+        activateTab(container, targetTabId);
+        setTimeout(() => {
+          container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
       }
     }
 
@@ -810,41 +903,36 @@
     window.addEventListener('hashchange', checkUrlHash);
   }
 
-  // ─── Auto-init Universal con Montaje Automático ────────────────────────────────
-  function initAll() {
-    let targets = Array.from(document.querySelectorAll(`
-      #jypesa-hoteleria-tabs,
-      #hoteleria-tabs,
-      #jypesa-hoteleria-tabs-widget,
-      .jypesa-hoteleria-tabs-widget-container,
-      .jypesa-hoteleria-tabs,
-      .jypesa-hoteleria-tabs-widget,
-      [data-jypesa-hoteleria-tabs],
-      [data-hoteleria-tabs],
-      .jht-widget-target
-    `));
+  // ─── Buscar y lanzar todos los contenedores ───────────────────────────────────
+  function init() {
+    // Recolectar todos los contenedores posibles sin duplicar
+    const seen = new Set();
+    const all = [];
 
-    // Si hay datos CMS pero falta el div de destino con ID en Webflow
-    if (!targets.length) {
-      const cmsSource = document.querySelector('.jht-cms-source, .jypesa-hoteleria-cms-source');
-      if (cmsSource && cmsSource.parentElement) {
-        const mountPoint = document.createElement('div');
-        mountPoint.id = 'jypesa-hoteleria-tabs';
-        cmsSource.parentElement.insertBefore(mountPoint, cmsSource);
-        targets = [mountPoint];
-      }
+    // 1. Contenedores por clase / atributo
+    document.querySelectorAll('.jht-widget-container, [data-widget="hoteleria-tabs"]')
+      .forEach(el => { if (!seen.has(el)) { seen.add(el); all.push(el); } });
+
+    // 2. Contenedor por id de Webflow embed
+    const byId = document.getElementById('jypesa-hoteleria-tabs-widget');
+    if (byId && !seen.has(byId)) { seen.add(byId); all.push(byId); }
+
+    // 3. Contenedor legacy
+    const legacy = document.getElementById('jht-widget');
+    if (legacy && !seen.has(legacy)) { seen.add(legacy); all.push(legacy); }
+
+    if (all.length === 0) {
+      console.warn('[jht] No se encontró ningún contenedor. Agrega un div con class="jht-widget-container" o id="jypesa-hoteleria-tabs-widget".');
+      return;
     }
 
-    targets.forEach(el => {
-      if (el.getAttribute('data-jht-init') === 'true') return;
-      el.setAttribute('data-jht-init', 'true');
-      initInstance(el);
-    });
+    all.forEach(initInstance);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAll);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initAll();
+    init();
   }
+
 })();
