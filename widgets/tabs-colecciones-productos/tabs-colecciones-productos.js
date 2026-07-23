@@ -124,7 +124,7 @@
     letter-spacing: 2px;
   }
 
-  /* Menú horizontal en móvil */
+  /* Menú horizontal en móvil (base) */
   .jypesa-tabs-menu {
     display: flex;
     flex-direction: row;
@@ -198,7 +198,7 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ÁREA DE INFORMACIÓN (FIGMA STYLE) */
+  /* ÁREA DE INFORMACIÓN (FIGMA STYLE BASE) */
   .jypesa-tabs-info-area {
     display: flex;
     flex-direction: column;
@@ -264,7 +264,7 @@
     white-space: normal;
   }
 
-  /* FRAGRANCE BLOCK MULTICOLUMNA (FIGMA PIXEL PERFECT STYLE) */
+  /* FRAGRANCE BLOCK MULTICOLUMNA (FIGMA PIXEL PERFECT STYLE BASE) */
   .jypesa-tabs-fragrance-block.figma-columns {
     display: flex;
     flex-direction: row;
@@ -327,6 +327,14 @@
     box-sizing: border-box;
   }
 
+  .jypesa-tabs-col-logo-render {
+    max-height: 52px;
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
   /* TÍTULO DE SUB-COLECCIÓN / VARIANTE (FIGMA NODE 953:53400) */
   .jypesa-tabs-subcol-title {
     font-family: 'Montserrat', sans-serif;
@@ -382,7 +390,7 @@
     text-align: center;
   }
 
-  /* SLIDERS DE PRODUCTOS */
+  /* SLIDERS DE PRODUCTOS BASE */
   .jypesa-tabs-slider-outer {
     position: relative;
     width: 100% !important;
@@ -417,7 +425,7 @@
     display: none !important;
   }
 
-  /* TARJETA DE PRODUCTO (FIGMA STYLE) */
+  /* TARJETA DE PRODUCTO (FIGMA STYLE BASE) */
   .jypesa-tabs-product-card {
     flex: 0 0 258px;
     width: 258px;
@@ -633,6 +641,161 @@
 
 
   /* ==========================================================================
+     MEDIA QUERIES (MOBILE LAYOUT - OVERRIDES FOR <= 768px)
+     ========================================================================== */
+  @media (max-width: 768px) {
+    .jypesa-tabs-nav-title {
+      font-size: 24px;
+      line-height: 1.2;
+      gap: 2px;
+      white-space: normal;
+    }
+
+    .jypesa-tabs-nav-title span {
+      font-size: 46px;
+      line-height: 1.1;
+      padding: 2px 8px;
+      margin-top: 0;
+      margin-bottom: 0;
+      letter-spacing: 1.5px;
+    }
+
+    /* Menú vertical en celular */
+    .jypesa-tabs-menu {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding-bottom: 16px;
+      margin: 0;
+      padding-left: 0;
+      padding-right: 0;
+      border-bottom: 1px solid var(--jypesa-tabs-slate-15);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .jypesa-tabs-menu-item {
+      padding-bottom: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.2;
+      border-bottom: 2px solid transparent;
+      width: auto;
+      max-width: 100%;
+      word-break: break-word;
+    }
+
+    .jypesa-tabs-menu-item.active {
+      border-bottom: 2px solid var(--jypesa-tabs-slate);
+    }
+
+    /* Información de la fragancia alineada a la izquierda en 2 columnas en celular */
+    .jypesa-tabs-info-area {
+      gap: 16px;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .jypesa-tabs-fragrance-block {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .jypesa-tabs-fragrance-content {
+      gap: 6px;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .jypesa-tabs-fragrance-title,
+    .jypesa-tabs-fragrance-details,
+    .jypesa-tabs-fragrance-mood,
+    .jypesa-tabs-fragrance-notes {
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .jypesa-tabs-fragrance-block.figma-columns {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px 20px;
+      align-items: start;
+      justify-content: start;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: left;
+    }
+
+    .jypesa-tabs-note-col {
+      gap: 4px;
+      align-items: flex-start;
+      text-align: left;
+      width: 100%;
+    }
+
+    .jypesa-tabs-note-title,
+    .jypesa-tabs-note-text,
+    .jypesa-tabs-note-text p {
+      text-align: left;
+      white-space: normal;
+    }
+
+    .jypesa-tabs-col-logo-wrap {
+      grid-column: 1 / -1;
+      width: 100%;
+      height: auto;
+      max-height: none;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .jypesa-tabs-col-logo-render {
+      max-height: 46px;
+      max-width: 200px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .jypesa-tabs-subcol-title {
+      grid-column: 1 / -1;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .jypesa-tabs-tab-top-desc,
+    .jypesa-tabs-refill-label,
+    .jypesa-tabs-collection-desc {
+      text-align: left;
+      width: auto;
+    }
+
+    /* 1 producto a la vez en celular */
+    .jypesa-tabs-products-container {
+      gap: 0;
+      padding: 10px 0 25px 0 !important;
+      margin: 0;
+      scroll-padding: 0;
+    }
+
+    .jypesa-tabs-product-card {
+      flex: 0 0 100%;
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  /* ==========================================================================
      MEDIA QUERIES (DESKTOP LAYOUT - OVERRIDES FOR >= 769px)
      ========================================================================== */
   @media (min-width: 769px) {
@@ -697,6 +860,8 @@
       padding-bottom: 12px;
       flex-shrink: 1;
       width: 206px;
+      justify-content: flex-start;
+      text-align: left;
     }
 
     /* CONTENIDO DERECHO */
@@ -727,6 +892,8 @@
     }
 
     .jypesa-tabs-fragrance-block.figma-columns {
+      display: flex;
+      flex-direction: row;
       gap: 23px;
       width: max-content;
       max-width: 100%;
@@ -748,9 +915,20 @@
       text-align: left;
     }
 
+    .jypesa-tabs-note-title {
+      white-space: nowrap;
+    }
+
     .jypesa-tabs-col-logo-wrap {
+      grid-column: auto;
       align-self: flex-start;
       align-items: flex-start;
+      margin-bottom: 0;
+    }
+
+    .jypesa-tabs-subcol-title {
+      grid-column: auto;
+      margin-bottom: 0;
     }
 
     .jypesa-tabs-col-logo-render {
@@ -793,6 +971,10 @@
     }
 
     .jypesa-tabs-product-card {
+      flex: 0 0 258px;
+      width: 258px;
+      min-width: 258px;
+      max-width: 258px;
       scroll-snap-align: start;
     }
 
@@ -1454,7 +1636,7 @@
 
       const getScrollStep = () => {
         const width = getCardWidth();
-        const gap = isMobile() ? 16 : 24;
+        const gap = isMobile() ? 0 : 24;
         return width + gap;
       };
 
@@ -1506,7 +1688,7 @@
     if (!cardEl) return;
     
     const cardWidth = cardEl.getBoundingClientRect().width;
-    const gap = window.innerWidth <= 768 ? 16 : 24;
+    const gap = window.innerWidth <= 768 ? 0 : 24;
     const step = cardWidth + gap;
 
     const prevBtn = panel.querySelector('.prev-btn');
