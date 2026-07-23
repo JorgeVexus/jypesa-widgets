@@ -2,10 +2,10 @@
   if (window.__JypesaTabsColeccionesProductosInitialized) return;
   window.__JypesaTabsColeccionesProductosInitialized = true;
 
-  // 1. Inyectar Fuentes y CSS
+  // 1. Inyectar Fuentes y Estilos CSS Pixel-Perfect de Figma
   const fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
-  fontLink.href = 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@400;500;600&family=Rubik:wght@300;400;500;600&display=swap';
+  fontLink.href = 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@400;500;600;700&family=Rubik:wght@300;400;500;600&display=swap';
   document.head.appendChild(fontLink);
 
   const cssStyles = `
@@ -18,7 +18,7 @@
     --jypesa-tabs-light-cyan: #9ef4f5;
     --jypesa-tabs-bg-light: #f8fafc;
     --jypesa-tabs-white: #ffffff;
-    --jypesa-tabs-border-card: rgba(80, 109, 133, 0.12);
+    --jypesa-tabs-shadow: 4px 5px 14.4px 0px rgba(0, 0, 0, 0.1);
   }
 
   .jypesa-tabs-colecciones-widget-container,
@@ -35,17 +35,17 @@
     background: transparent;
     font-family: 'Rubik', sans-serif;
     color: var(--jypesa-tabs-slate);
-    padding: 40px 0;
+    padding: 24px 0;
+    overflow: hidden;
   }
 
   /* LAYOUT GENERAL */
   .jypesa-tabs-layout {
     display: flex !important;
     flex-direction: column;
-    gap: 28px;
+    gap: 24px;
     width: 100% !important;
-    align-self: stretch !important;
-    max-width: 1400px;
+    max-width: 1850px;
     margin: 0 auto;
     padding: 0 16px;
     box-sizing: border-box;
@@ -65,22 +65,21 @@
   .jypesa-tabs-nav-header {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
   }
 
   .jypesa-tabs-nav-subtitle {
     font-family: 'Instrument Serif', serif;
     font-style: italic;
-    font-size: 21px;
+    font-size: 19px;
     font-weight: 400;
     color: var(--jypesa-tabs-slate);
-    letter-spacing: 1.05px;
+    letter-spacing: 1px;
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 6px;
     display: inline-block;
     text-transform: none;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .jypesa-tabs-nav-subtitle::after {
@@ -88,96 +87,85 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 75%;
-    height: 2px;
+    width: 50px;
+    height: 1.5px;
     background-color: var(--jypesa-tabs-slate);
   }
 
   .jypesa-tabs-nav-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: 26px;
-    line-height: 1.1;
+    font-size: 24px;
+    line-height: 1.15;
     color: var(--jypesa-tabs-slate);
-    margin: 0;
-    text-align: center;
+    margin: 0 0 12px 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
+    align-items: flex-start;
+    gap: 2px;
   }
 
   .jypesa-tabs-nav-title span {
     font-family: 'Instrument Serif', serif;
     font-style: italic;
     font-weight: 400;
-    font-size: 52px;
+    font-size: 46px;
     line-height: 1;
-    background: linear-gradient(135deg, var(--jypesa-tabs-blue) 0%, var(--jypesa-tabs-dark-blue) 50%, var(--jypesa-tabs-light-cyan) 100%);
+    background: linear-gradient(135deg, var(--jypesa-tabs-blue) 0%, var(--jypesa-tabs-dark-blue) 60%, var(--jypesa-tabs-light-cyan) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
-    padding: 6px 10px;
-    margin-top: -10px;
-    margin-bottom: -6px;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
   }
 
-  /* Menú horizontal en móvil */
+  /* === EFECTO HOVER EN TABS DE NAVEGACIÓN === */
   .jypesa-tabs-menu {
     display: flex;
     flex-direction: row;
-    overflow-x: auto;
-    gap: 20px;
-    padding-bottom: 10px;
-    margin: 0 -16px;
-    padding-left: 16px;
-    padding-right: 16px;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    width: 100%;
+    margin: 0;
+    padding: 0 0 14px 0;
     border-bottom: 1px solid var(--jypesa-tabs-slate-15);
-    justify-content: flex-start;
-  }
-
-  .jypesa-tabs-menu::-webkit-scrollbar {
-    display: none;
+    box-sizing: border-box;
   }
 
   .jypesa-tabs-menu-item {
     font-family: 'Instrument Serif', serif;
     font-style: italic;
-    font-size: 22px;
+    font-size: 21px;
     color: var(--jypesa-tabs-slate);
-    opacity: 0.5;
+    opacity: 0.45;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.3s ease !important;
     position: relative;
-    padding-bottom: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 4px 6px 8px 6px;
+    display: inline-flex;
+    align-items: center;
     user-select: none;
-    line-height: 1.1;
-    flex-shrink: 0;
-    border-bottom: 1.5px solid transparent;
-    letter-spacing: 1.1px;
+    line-height: 1.15;
+    border-bottom: 2px solid transparent;
+    letter-spacing: 0.8px;
+    word-break: break-word;
   }
 
   .jypesa-tabs-menu-item:hover {
-    opacity: 0.8;
+    opacity: 0.8 !important;
+    transform: translateX(6px) !important; /* Empuja 6 píxeles a la derecha */
   }
 
   .jypesa-tabs-menu-item.active {
-    opacity: 1;
-    border-bottom: 1.5px solid var(--jypesa-tabs-slate);
+    opacity: 1 !important;
+    border-bottom: 2.5px solid var(--jypesa-tabs-slate);
   }
 
-  /* COLUMNA DERECHA (CONTENIDO DINÁMICO) */
+  /* COLUMNA DERECHA */
   .jypesa-tabs-right-col {
     width: 100% !important;
     align-self: stretch !important;
     box-sizing: border-box;
+    position: relative;
   }
 
   .jypesa-tab-content-panel {
@@ -185,7 +173,7 @@
     width: 100% !important;
     align-self: stretch !important;
     box-sizing: border-box;
-    animation: jypesaFadeIn 0.5s ease forwards;
+    animation: jypesaFadeIn 0.4s ease forwards;
   }
 
   .jypesa-tab-content-panel.active {
@@ -198,191 +186,15 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ÁREA DE INFORMACIÓN (FIGMA STYLE) */
-  .jypesa-tabs-info-area {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-bottom: 24px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--jypesa-tabs-slate-15);
-    box-sizing: border-box;
-    align-items: stretch;
-    width: 100% !important;
-    align-self: stretch !important;
-  }
-
-  .jypesa-tabs-fragrance-block {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    width: 100%;
-    justify-content: center;
-    box-sizing: border-box;
-  }
-
-  .jypesa-tabs-fragrance-line {
-    display: none; /* Oculto en móvil */
-  }
-
-  .jypesa-tabs-fragrance-content {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
-    align-items: center;
-    width: 100%;
-  }
-
-  .jypesa-tabs-fragrance-title {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    text-transform: none;
-    margin: 0;
-    color: var(--jypesa-tabs-slate);
-    line-height: 1.1;
-  }
-
-  .jypesa-tabs-fragrance-details {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    align-items: center;
-    font-family: 'Rubik', sans-serif;
-    font-size: 14px;
-    color: var(--jypesa-tabs-slate);
-    line-height: 1.4;
-  }
-
-  .jypesa-tabs-fragrance-mood {
-    margin: 0;
-  }
-
-  .jypesa-tabs-fragrance-notes {
-    margin: 0;
-    white-space: normal;
-  }
-
-  /* FRAGRANCE BLOCK MULTICOLUMNA (FIGMA PIXEL PERFECT STYLE) */
-  .jypesa-tabs-fragrance-block.figma-columns {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 16px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .jypesa-tabs-note-col {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-    align-items: center;
-    text-align: center;
-    color: var(--jypesa-tabs-slate);
-    font-size: 14px;
-    box-sizing: border-box;
-  }
-
-  .jypesa-tabs-note-title {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 1.1;
-    color: var(--jypesa-tabs-slate);
-    margin: 0;
-    white-space: nowrap;
-  }
-
-  .jypesa-tabs-note-text {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.35;
-    color: var(--jypesa-tabs-slate);
-    margin: 0;
-  }
-
-  .jypesa-tabs-note-text p {
-    margin: 0;
-    line-height: 1.35;
-  }
-
-  .jypesa-tabs-note-mood-heading {
-    margin: 0 0 2px 0 !important;
-    font-weight: 400;
-  }
-
-  /* LOGO DE COLECCIÓN */
-  .jypesa-tabs-col-logo-wrap {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    align-self: flex-start;
-    flex-shrink: 0;
-    max-height: 55px;
-    box-sizing: border-box;
-  }
-
-  /* TÍTULO DE SUB-COLECCIÓN / VARIANTE (FIGMA NODE 953:53400) */
-  .jypesa-tabs-subcol-title {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 1.1;
-    color: #B8B036;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    flex-shrink: 0;
-    margin: 0;
-    align-self: flex-start;
-  }
-
-  .jypesa-tabs-subgroup-section {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 44px;
-  }
-
-  .jypesa-tabs-subgroup-section:last-child {
-    margin-bottom: 0;
-  }
-
   .jypesa-tabs-tab-top-desc {
     font-family: 'Rubik', sans-serif;
     font-size: 14px;
     line-height: 1.5;
     color: var(--jypesa-tabs-slate);
-    margin: 0 0 28px 0;
-    max-width: 800px;
+    margin: 0 0 20px 0;
   }
 
-  .jypesa-tabs-refill-label {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    color: rgba(80, 109, 133, 0.5);
-    text-transform: uppercase;
-    margin: 0;
-    text-align: center;
-    width: 100%;
-    letter-spacing: 0.5px;
-  }
-
-  .jypesa-tabs-collection-desc {
-    font-family: 'Rubik', sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 0;
-    color: var(--jypesa-tabs-slate);
-    text-align: center;
-  }
-
-  /* SLIDERS DE PRODUCTOS */
+  /* SLIDERS DE PRODUCTOS Y TARJETAS FIGMA 158-9859 */
   .jypesa-tabs-slider-outer {
     position: relative;
     width: 100% !important;
@@ -393,460 +205,332 @@
   .jypesa-tabs-products-container {
     display: flex;
     width: 100% !important;
-    min-width: 100% !important;
     gap: 16px;
     align-items: stretch;
     justify-content: flex-start;
     overflow-x: auto;
     scroll-behavior: smooth;
-    padding: 10px 5px 25px 5px !important;
-    margin: -10px -5px -25px -5px;
+    scroll-snap-type: x mandatory;
+    padding: 10px 0 24px 0 !important;
+    margin: 0;
     box-sizing: border-box;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    scroll-padding: 0 16px;
   }
 
   .jypesa-tabs-products-container::-webkit-scrollbar {
     display: none;
   }
 
-  /* Desactivar flechas desktop en móvil */
-  .jypesa-tabs-nav-btn {
-    display: none !important;
-  }
-
-  /* TARJETA DE PRODUCTO (FIGMA STYLE) */
+  /* TARJETA EN MÓVIL */
   .jypesa-tabs-product-card {
-    flex: 0 0 258px;
-    width: 258px;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    height: 480px;
     background-color: var(--jypesa-tabs-white);
-    border: 2px solid transparent;
-    border-radius: 15px;
-    overflow: visible;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    box-shadow: var(--jypesa-tabs-shadow);
+    border-radius: 0px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    scroll-snap-align: center;
     text-decoration: none;
     color: inherit;
-    gap: 16px;
-    padding-bottom: 24px;
+    position: relative;
+    scroll-snap-align: center;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, box-shadow 0.35s ease;
+    will-change: transform, opacity;
   }
 
   .jypesa-tabs-product-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(80, 109, 133, 0.08);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
   }
 
+  /* IMAGEN SUPERIOR CARD MÓVIL */
   .jypesa-tabs-card-img-wrap {
     width: 100%;
-    height: 300px;
-    overflow: hidden;
+    height: 72%;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: 15px;
-    box-sizing: border-box;
-    padding: 12px;
+    overflow: hidden;
+    background-color: #f4f7f9;
   }
 
   .jypesa-tabs-card-img {
     width: 100%;
     height: 100%;
-    max-width: 230px;
-    max-height: 270px;
-    object-fit: contain;
+    object-fit: cover;
+    display: block;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .jypesa-tabs-product-card:hover .jypesa-tabs-card-img {
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 
-  .jypesa-tabs-card-details {
-    padding: 0 16px;
+  /* INFO INFERIOR CARD MÓVIL */
+  .jypesa-tabs-card-info {
+    width: 100%;
+    height: 28%;
+    padding: 14px 16px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-sizing: border-box;
+    justify-content: center;
+    gap: 12px;
+    background-color: var(--jypesa-tabs-white);
     text-align: center;
-    width: 100%;
-    margin: 0 auto;
   }
 
-  .jypesa-tabs-card-title {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 500;
-    font-size: 21px;
-    line-height: 1;
-    color: var(--jypesa-tabs-slate);
-    margin: 0;
-  }
-
-  .jypesa-tabs-card-sku {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1;
-    color: var(--jypesa-tabs-slate);
-    margin: 10px 0 0 0;
-    display: block;
-  }
-
-  /* BOTÓN AMAZON (FIGMA NODE 2240:74012) */
-  .jypesa-tabs-amazon-btn {
-    display: inline-flex;
+  .jypesa-tabs-card-logo-wrap {
+    height: 44px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    background-color: #3f586e;
-    border: 2px solid #3f586e;
-    border-radius: 6px;
-    padding: 10px 15px;
+    max-width: 90%;
+  }
+
+  .jypesa-tabs-card-logo {
+    max-height: 40px;
+    max-width: 160px;
+    object-fit: contain;
+    width: auto;
+  }
+
+  .jypesa-tabs-card-title-fallback {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--jypesa-tabs-slate);
+    margin: 0;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  /* === EFECTO HOVER EN BOTÓN "CONOCER MÁS" === */
+  .jypesa-tabs-card-btn {
+    background-color: var(--jypesa-tabs-blue);
     color: var(--jypesa-tabs-white);
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 0.7px;
+    font-size: 15px;
+    letter-spacing: 0.8px;
+    height: 38px;
+    width: 100%;
+    max-width: 200px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     text-decoration: none;
-    line-height: 1;
-    width: 100%;
-    margin-top: 14px;
+    border: none;
     box-sizing: border-box;
-    transition: all 0.2s ease;
-    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease !important;
   }
 
-  .jypesa-tabs-amazon-btn:hover {
-    background-color: #2b3e4f;
-    border-color: #2b3e4f;
-    color: var(--jypesa-tabs-white);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(43, 62, 79, 0.25);
+  .jypesa-tabs-card-btn:hover {
+    background-color: #3b93ac !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(72, 169, 197, 0.4) !important;
   }
 
-  .jypesa-tabs-amazon-icon {
-    width: 16px;
-    height: 16px;
-    fill: currentColor;
+  .jypesa-tabs-card-btn-icon {
+    width: 7px;
+    height: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    transition: transform 0.3s ease !important;
   }
 
-  .jypesa-tabs-card-specs {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+  .jypesa-tabs-card-btn:hover .jypesa-tabs-card-btn-icon {
+    transform: translateX(4px) !important;
+  }
+
+  .jypesa-tabs-card-btn-icon svg {
     width: 100%;
-    margin-top: 20px;
-    box-sizing: border-box;
-  }
-
-  .jypesa-tabs-card-specs span {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    color: var(--jypesa-tabs-slate);
-    line-height: 1;
+    height: 100%;
     display: block;
-    text-align: center;
   }
 
-  /* CONTROLES MÓVILES */
-  .jypesa-tabs-controls-mobile {
+  .jypesa-tabs-desktop-nav-btn {
+    display: none;
+  }
+
+  /* PAGINACIÓN INFERIOR */
+  .jypesa-tabs-pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 16px;
-    margin-top: 24px;
+    gap: 6px;
+    margin-top: 18px;
     width: 100%;
-    box-sizing: border-box;
   }
 
-  .jypesa-tabs-mobile-nav {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--jypesa-tabs-white);
-    border: 1px solid var(--jypesa-tabs-slate-15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--jypesa-tabs-slate);
+  .jypesa-tabs-dot-bar {
+    height: 5px;
+    width: 30px;
+    background-color: rgba(72, 169, 197, 0.35);
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(80, 109, 133, 0.08);
-    transition: all 0.2s ease;
-    padding: 0;
-    outline: none;
+    transition: background-color 0.3s ease;
   }
 
-  .jypesa-tabs-mobile-nav:active {
-    background: var(--jypesa-tabs-bg-light);
-    color: var(--jypesa-tabs-blue);
-    transform: scale(0.95);
+  .jypesa-tabs-dot-bar.active {
+    background-color: var(--jypesa-tabs-blue);
   }
-
-  .jypesa-tabs-mobile-nav.disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-
-  .jypesa-tabs-mobile-nav svg {
-    width: 14px;
-    height: 14px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .jypesa-tabs-dots-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .jypesa-tabs-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(80, 109, 133, 0.25);
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .jypesa-tabs-dot.active {
-    background: var(--jypesa-tabs-blue);
-    width: 20px;
-    border-radius: 100px;
-  }
-
 
   /* ==========================================================================
-     MEDIA QUERIES (DESKTOP LAYOUT - OVERRIDES FOR >= 769px)
+     MEDIA QUERIES (DESKTOP LAYOUT >= 769px)
      ========================================================================== */
   @media (min-width: 769px) {
     .jypesa-tabs-colecciones-widget {
       padding: 60px 0;
     }
 
-    /* LAYOUT A DOS COLUMNAS */
     .jypesa-tabs-layout {
       flex-direction: row;
-      gap: 200px !important;
-      padding: 0 24px;
+      gap: 50px !important;
+      padding: 0 40px;
       align-items: flex-start;
     }
 
-    /* NAVEGACIÓN LATERAL FIJA */
     .jypesa-tabs-left-col {
-      width: 320px;
+      width: 380px;
       flex-shrink: 0;
-      position: -webkit-sticky;
       position: sticky;
       top: 40px;
-      gap: 24px;
-    }
-
-    .jypesa-tabs-nav-header {
-      align-items: flex-start;
-      text-align: left;
+      gap: 28px;
     }
 
     .jypesa-tabs-nav-title {
-      font-size: 37px;
-      text-align: left;
-      align-items: flex-start;
+      font-size: 36px;
+      margin-bottom: 16px;
     }
 
     .jypesa-tabs-nav-title span {
-      font-size: 75px;
-      padding: 10px 15px;
-      margin-left: 75px;
-      margin-top: -18px;
-      margin-bottom: -10px;
-      letter-spacing: 3.75px;
+      font-size: 72px;
     }
 
-    /* Menú vertical */
+    .jypesa-tabs-nav-subtitle {
+      font-size: 21px;
+      margin-bottom: 14px;
+    }
+
+    .jypesa-tabs-nav-subtitle::after {
+      width: 60px;
+    }
+
+    /* Menú vertical en Desktop */
     .jypesa-tabs-menu {
       flex-direction: column;
-      gap: 16px;
+      flex-wrap: nowrap;
+      gap: 20px;
       padding-top: 10px;
       margin: 0;
-      padding-left: 0;
-      padding-right: 0;
+      padding: 0;
       border-bottom: none;
-      overflow-x: visible;
-      justify-content: flex-start;
       width: 100%;
     }
 
     .jypesa-tabs-menu-item {
-      font-size: 22px;
-      padding-bottom: 12px;
-      flex-shrink: 1;
-      width: 206px;
+      font-size: 26px;
+      padding-bottom: 6px;
+      width: fit-content;
     }
 
-    /* CONTENIDO DERECHO */
     .jypesa-tabs-right-col {
       flex: 1 1 0% !important;
       min-width: 0 !important;
-      width: calc(100% - 520px) !important;
-      align-self: stretch !important;
     }
 
-    /* Figma vertical stack overrides for desktop */
-    .jypesa-tabs-info-area {
-      flex-direction: column;
-      gap: 20px;
-      margin-bottom: 36px;
-      padding-bottom: 24px;
-      align-items: flex-start;
-      border-bottom: 1px solid var(--jypesa-tabs-slate-15);
-      width: 100% !important;
-      align-self: stretch !important;
-    }
-
-    .jypesa-tabs-fragrance-block {
-      gap: 23px;
-      width: max-content;
-      max-width: 100%;
-      justify-content: flex-start;
-    }
-
-    .jypesa-tabs-fragrance-block.figma-columns {
-      gap: 23px;
-      width: max-content;
-      max-width: 100%;
-      justify-content: flex-start;
-      align-items: flex-start;
-      flex-wrap: nowrap;
-    }
-
-    .jypesa-tabs-fragrance-block.figma-columns .jypesa-tabs-fragrance-line {
-      display: block;
-      width: 1px;
-      height: 49px;
-      background-color: var(--jypesa-tabs-slate-15);
-      flex-shrink: 0;
-    }
-
-    .jypesa-tabs-note-col {
-      align-items: flex-start;
-      text-align: left;
-    }
-
-    .jypesa-tabs-col-logo-wrap {
-      align-self: flex-start;
-      align-items: flex-start;
-    }
-
-    .jypesa-tabs-col-logo-render {
-      max-height: 52px;
-      max-width: 260px;
-    }
-
-    .jypesa-tabs-fragrance-line {
-      display: block;
-      width: 1px;
-      height: 49px;
-      background-color: var(--jypesa-tabs-slate-15);
-      flex-shrink: 0;
-    }
-
-    .jypesa-tabs-fragrance-content {
-      gap: 9px;
-      text-align: left;
-      align-items: flex-start;
-      width: auto;
-    }
-
-    .jypesa-tabs-fragrance-details {
-      align-items: flex-start;
-    }
-
-    .jypesa-tabs-refill-label {
-      text-align: left;
-      width: auto;
-    }
-
-    .jypesa-tabs-collection-desc {
-      text-align: left;
-    }
-
-    /* Slider de productos desktop */
     .jypesa-tabs-products-container {
-      gap: 24px;
-      scroll-padding: 0 40px;
+      gap: 20px;
+      scroll-snap-type: none;
+      padding: 15px 5px 35px 5px !important;
+      margin: -15px -5px -35px -5px;
     }
 
+    /* TARJETA EN DESKTOP: ANCHO FIJO DE FIGMA (445px) */
     .jypesa-tabs-product-card {
-      scroll-snap-align: start;
+      flex: 0 0 445px;
+      width: 445px;
+      height: 760px;
+      scroll-snap-align: none;
     }
 
-    /* Ocultar controles móviles en desktop */
-    .jypesa-tabs-controls-mobile {
-      display: none !important;
+    .jypesa-tabs-card-img-wrap {
+      height: 74%;
     }
 
-    /* Habilitar y posicionar flechas desktop */
-    .jypesa-tabs-nav-btn {
+    .jypesa-tabs-card-info {
+      height: 26%;
+      padding: 24px 30px;
+      gap: 21px;
+    }
+
+    .jypesa-tabs-card-logo-wrap {
+      height: 60px;
+    }
+
+    .jypesa-tabs-card-logo {
+      max-height: 58px;
+      max-width: 220px;
+    }
+
+    .jypesa-tabs-card-btn {
+      font-size: 18px;
+      height: 39px;
+      max-width: 218px;
+    }
+
+    .jypesa-tabs-desktop-nav-btn {
       position: absolute;
+      right: -24px;
       top: 40%;
       transform: translateY(-50%);
-      width: 42px;
-      height: 42px;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid var(--jypesa-tabs-slate-15);
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
+      background: var(--jypesa-tabs-white);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
       display: flex !important;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 10;
-      box-shadow: 0 4px 12px rgba(80, 109, 133, 0.1);
-      color: var(--jypesa-tabs-slate);
+      z-index: 20;
+      border: none;
+      outline: none;
       transition: all 0.25s ease;
-      user-select: none;
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .jypesa-tabs-nav-btn:hover {
-      background: var(--jypesa-tabs-white);
       color: var(--jypesa-tabs-blue);
-      box-shadow: 0 6px 16px rgba(80, 109, 133, 0.18);
-      border-color: rgba(80, 109, 133, 0.3);
+      opacity: 1 !important;
+      visibility: visible !important;
     }
 
-    .jypesa-tabs-nav-btn.prev-btn { left: -16px; }
-    .jypesa-tabs-nav-btn.next-btn { right: -16px; }
+    .jypesa-tabs-desktop-nav-btn:hover {
+      transform: translateY(-50%) scale(1.08);
+      box-shadow: 0 6px 20px rgba(72, 169, 197, 0.3);
+    }
 
-    .jypesa-tabs-slider-outer:hover .jypesa-tabs-nav-btn {
-      opacity: 1;
-      visibility: visible;
+    .jypesa-tabs-tab-top-desc {
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .jypesa-tabs-dot-bar {
+      width: 33px;
     }
   }
 
-  /* AJUSTE INTERMEDIO PARA TABLETS / PANTALLAS PEQUEÑAS DESKTOP */
-  @media (min-width: 769px) and (max-width: 991px) {
+  @media (min-width: 1400px) {
     .jypesa-tabs-layout {
-      gap: 32px;
+      gap: 80px !important;
     }
     .jypesa-tabs-left-col {
-      width: 240px;
+      width: 420px;
     }
   }
   `;
@@ -855,204 +539,216 @@
   styleEl.textContent = cssStyles;
   document.head.appendChild(styleEl);
 
-  // 2. Iconos SVG
-  const arrowLeftSvg = `<svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>`;
-  const arrowRightSvg = `<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" /></svg>`;
+  // 2. Iconos SVG centralizados
+  const arrowRightSvg = `<svg width="7" height="13" viewBox="0 0 7 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.15013 6.32527L0.25013 11.2253C0.0834632 11.3919 0.00290725 11.5864 0.00846287 11.8086C0.0140185 12.0308 0.10013 12.2253 0.266796 12.3919C0.433463 12.5586 0.627907 12.6419 0.85013 12.6419C1.07235 12.6419 1.2668 12.5586 1.43346 12.3919L6.5668 7.27527C6.70013 7.14194 6.80013 6.99194 6.8668 6.82527C6.93346 6.6586 6.9668 6.49194 6.9668 6.32527C6.9668 6.1586 6.93346 5.99194 6.8668 5.82527C6.80013 5.6586 6.70013 5.5086 6.5668 5.37527L1.43346 0.241935C1.2668 0.0752686 1.06957 -0.005287 0.841797 0.00026855C0.614019 0.0058241 0.416797 0.0919352 0.25013 0.258602C0.0834637 0.425269 0.000130149 0.619713 0.00013014 0.841935C0.00013013 1.06416 0.0834636 1.2586 0.25013 1.42527L5.15013 6.32527Z" fill="currentColor"/></svg>`;
+  const navBtnRightSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="#48A9C5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-  // No active underline SVG definition needed (handled via CSS border-bottom)
-
-  // 3. Colecciones por defecto (Fallback)
+  // 3. Colecciones por defecto según Figma 322-23490 (Estándar, Superior, Premium, Lujo)
   const defaultCollections = [
     {
-      name: 'Jabones',
-      id: 'jabones',
-      mood: 'Sofisticado, herbal, cítrico',
-      refill: 'RELLENABLE',
-      salida: 'Limón y Verbena',
-      corazon: 'Romero',
-      fondo: 'Cedro',
-      desc: 'Una caricia fresca y vigorizante para la piel. Formulado con extractos naturales que limpian suavemente mientras envuelven los sentidos en una experiencia aromática revitalizante.',
-      products: [
+      name: 'Estándar',
+      id: 'estandar',
+      desc: 'Colección de líneas versátiles y esenciales diseñadas para satisfacer las necesidades diarias con un toque distintivo de calidad y frescura.',
+      subgroups: [
         {
-          name: 'Jabón Facial',
-          sku: 'JB-FAC-01',
-          weight: '28 gr | 0.9 oz',
-          packaging: 'Flowpack',
-          qty: '300 pzs/Caja',
-          imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
-          imgAlt: 'Jabón Facial',
-          link: '#'
-        },
-        {
-          name: 'Jabón Corporal',
-          sku: 'JB-COR-02',
-          weight: '50 gr | 1.7 oz',
-          packaging: 'Flowpack',
-          qty: '200 pzs/Caja',
-          imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
-          imgAlt: 'Jabón Corporal',
-          link: '#'
-        },
-        {
-          name: 'Jabón Exfoliante',
-          sku: 'JB-EXF-03',
-          weight: '40 gr | 1.4 oz',
-          packaging: 'Caja de Cartón',
-          qty: '250 pzs/Caja',
-          imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-          imgAlt: 'Jabón Exfoliante',
-          link: '#'
+          products: [
+            {
+              name: 'Elements',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+              link: '#elements'
+            },
+            {
+              name: 'Almond & Olive',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+              link: '#almond-olive'
+            },
+            {
+              name: 'Rainforest Foliage',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+              link: '#rainforest'
+            },
+            {
+              name: 'Tea Leaf',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+              link: '#tealeaf'
+            },
+            {
+              name: 'Persea Botanicals',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+              link: '#persea'
+            },
+            {
+              name: 'Luxury Wood',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+              link: '#luxury-wood'
+            }
+          ]
         }
       ]
     },
     {
-      name: 'Botella Boston',
-      id: 'botella-boston',
-      mood: 'Relajante, lavanda, amaderado',
-      refill: 'RELLENABLE',
-      salida: 'Lavanda Francesa',
-      corazon: 'Eucalipto',
-      fondo: 'Sándalo',
-      desc: 'Elegancia sustentable para el baño contemporáneo. Nuestras botellas Boston combinan un diseño minimalista de alta gama con fórmulas premium, pensadas para rellenar y reducir el desperdicio.',
-      products: [
+      name: 'Superior',
+      id: 'superior',
+      desc: 'Formulaciones enriquecidas con extractos botánicos y envases de diseño contemporáneo para experiencias de hospitalidad superior.',
+      subgroups: [
         {
-          name: 'Shampoo Hidratante',
-          sku: 'BB-SHM-10',
-          weight: '300 ml | 10.1 oz',
-          packaging: 'Botella Boston PET',
-          qty: '36 pzs/Caja',
-          imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
-          imgAlt: 'Shampoo Hidratante',
-          link: '#'
-        },
-        {
-          name: 'Acondicionador Suave',
-          sku: 'BB-ACD-11',
-          weight: '300 ml | 10.1 oz',
-          packaging: 'Botella Boston PET',
-          qty: '36 pzs/Caja',
-          imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
-          imgAlt: 'Acondicionador Suave',
-          link: '#'
-        },
-        {
-          name: 'Gel de Baño Herbal',
-          sku: 'BB-GEL-12',
-          weight: '300 ml | 10.1 oz',
-          packaging: 'Botella Boston PET',
-          qty: '36 pzs/Caja',
-          imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
-          imgAlt: 'Gel de Baño Herbal',
-          link: '#'
+          products: [
+            {
+              name: 'Persea Botanicals',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+              link: '#persea'
+            },
+            {
+              name: 'Green & Citrics',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+              link: '#citrics'
+            },
+            {
+              name: 'Almond & Olive',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+              link: '#almond-olive'
+            },
+            {
+              name: 'Tea Leaf',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+              link: '#tealeaf'
+            },
+            {
+              name: 'Elements',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+              link: '#elements'
+            }
+          ]
         }
       ]
     },
     {
-      name: 'JH Magic',
-      id: 'jh-magic',
-      mood: 'Exótico, especiado, dulce',
-      refill: 'NO RELLENABLE',
-      salida: 'Canela y Vainilla',
-      corazon: 'Cardamomo',
-      fondo: 'Haba Tonka',
-      desc: 'Una experiencia sensorial mística y envolvente. JH Magic transforma la rutina diaria en un ritual de lujo, fusionando notas cálidas y especiadas que perduran delicadamente en la piel.',
-      products: [
+      name: 'Premium',
+      id: 'premium',
+      desc: 'Línea de amenidades de alta gama con aceites esenciales, fragancias complejas y presentaciones recargables sustentables.',
+      subgroups: [
         {
-          name: 'Loción Corporal Magic',
-          sku: 'JH-LOC-20',
-          weight: '60 ml | 2.0 oz',
-          packaging: 'Tubo Aluminio Colapsable',
-          qty: '100 pzs/Caja',
-          imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
-          imgAlt: 'Loción Corporal Magic',
-          link: '#'
-        },
+          products: [
+            {
+              name: 'Luxury Wood',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+              link: '#luxury-wood'
+            },
+            {
+              name: 'nOcean Spa',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+              link: '#nocean'
+            },
+            {
+              name: 'Rainforest Foliage',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+              link: '#rainforest'
+            },
+            {
+              name: 'Persea Botanicals',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+              link: '#persea'
+            },
+            {
+              name: 'Elements',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+              link: '#elements'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: 'Lujo',
+      id: 'lujo',
+      desc: 'Colecciones de máxima exclusividad para hoteles boutique y resorts de ultra lujo, elaboradas con estándares internacionales superiores.',
+      subgroups: [
         {
-          name: 'Jabón de Barra Luxury',
-          sku: 'JH-JAB-21',
-          weight: '80 gr | 2.8 oz',
-          packaging: 'Envoltura de Papel Plisado',
-          qty: '150 pzs/Caja',
-          imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-          imgAlt: 'Jabón de Barra Luxury',
-          link: '#'
+          products: [
+            {
+              name: 'Xinu Haute Parfumerie',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+              link: '#xinu'
+            },
+            {
+              name: 'Luxury Wood',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+              link: '#luxury-wood'
+            },
+            {
+              name: 'nOcean Spa',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+              link: '#nocean'
+            },
+            {
+              name: 'Persea Botanicals',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+              link: '#persea'
+            },
+            {
+              name: 'Rainforest Foliage',
+              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+              link: '#rainforest'
+            }
+          ]
         }
       ]
     }
   ];
 
-  // Helper para limpiar texto de nbsp y espacios vacios
+  // Helper sanitizadores
   function cleanText(text) {
     if (!text) return '';
-    return text.replace(/[\u00a0\s]+/g, ' ').trim();
+    return text.replace(/[\u0300-\u036f]/g, '').replace(/[\u00a0\s]+/g, ' ').trim();
   }
 
-  // Helper para normalizar strings en slugs
   function makeSlug(text) {
     return cleanText(text)
       .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '');
   }
 
-  // 4. Leer del CMS de Webflow
+  // 4. Lector dinámico de Webflow CMS
   function readCollectionsFromCMS(target) {
     let sourceSelector = target.getAttribute('data-cms-source');
     let source = sourceSelector ? document.querySelector(sourceSelector) : null;
 
-    if (!source) {
-      source = target.querySelector('.jypesa-tabs-colecciones-cms-source');
-    }
-    if (!source) {
-      source = target.previousElementSibling;
-      if (source && !source.classList.contains('jypesa-tabs-colecciones-cms-source')) {
-        source = null;
-      }
-    }
-    if (!source) {
-      source = document.querySelector('.jypesa-tabs-colecciones-cms-source');
-    }
-    if (!source) {
-      // Auto-detectar buscando cualquier elemento de producto en el DOM
-      const sampleProdName = document.querySelector('.jypesa-tabs-prod-name');
-      if (sampleProdName) {
-        source = sampleProdName.closest('.w-dyn-list') || 
-                 sampleProdName.closest('.w-dyn-items') || 
-                 sampleProdName.closest('.jypesa-tabs-colecciones-cms-source-test') || 
-                 sampleProdName.parentElement;
-      }
-    }
+    if (!source) source = target.querySelector('.jypesa-tabs-colecciones-cms-source');
+    if (!source) source = document.querySelector('.jypesa-tabs-colecciones-cms-source, .jypesa-tabs-colecciones-cms-source-test');
 
     if (!source) return null;
 
     let items = Array.from(source.querySelectorAll('.w-dyn-item'));
-    if (!items.length) {
-      if (source.classList.contains('w-dyn-item')) {
-        items = [source];
-      } else {
-        // En caso de que no tenga w-dyn-item (por ejemplo, maquetación manual o modificada)
-        items = Array.from(source.querySelectorAll('.w-dyn-item, div')).filter(el => el.querySelector('.jypesa-tabs-prod-name'));
-        // Quitar duplicados si hay anidación
-        items = items.filter((el, idx, self) => !self.some((other, oIdx) => oIdx !== idx && other.contains(el)));
-      }
-    }
-
     if (!items.length) return null;
-
-    const getElText = el => (el ? cleanText(el.textContent) : '');
-
-    // Leer la marca/colección padre desde el primer elemento
-    const parentBrandEl = source.querySelector('.jypesa-tabs-col-parent-brand');
-    const parentBrand = getElText(parentBrandEl);
 
     const collectionsMap = {};
 
     items.forEach(item => {
       const colNameEl = item.querySelector('.jypesa-tabs-col-name');
       if (!colNameEl) return;
-      const colName = getElText(colNameEl);
+      const colName = cleanText(colNameEl.textContent);
       if (!colName) return;
 
       if (!collectionsMap[colName]) {
@@ -1060,118 +756,59 @@
         collectionsMap[colName] = {
           name: colName,
           id: makeSlug(colName),
-          desc: getElText(descEl),
-          subgroupsMap: {},
+          desc: descEl ? cleanText(descEl.textContent) : '',
           products: []
         };
       }
 
-      const subNameEl = item.querySelector('.jypesa-tabs-subcol-name, .jypesa-tabs-col-subgroup, .jypesa-tabs-subgroup-name');
-      const subName = getElText(subNameEl);
-      const subKey = subName || '__default__';
+      const prodNameEl = item.querySelector('.jypesa-tabs-prod-name') || colNameEl;
+      const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-tabs-col-logo-img');
+      const imgEl = item.querySelector('.jypesa-tabs-prod-img');
+      const linkEl = item.querySelector('.jypesa-tabs-prod-link');
 
-      if (!collectionsMap[colName].subgroupsMap[subKey]) {
-        const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-tabs-col-logo-img');
-        let logoSrc = '';
-        let logoAlt = subName || colName;
-        if (logoEl) {
-          let rawSrc = '';
-          if (logoEl.tagName === 'IMG') {
-            rawSrc = logoEl.getAttribute('src') || logoEl.getAttribute('data-src') || '';
-            logoAlt = logoEl.getAttribute('alt') || subName || colName;
-          } else {
-            const childImg = logoEl.querySelector('img');
-            if (childImg) {
-              rawSrc = childImg.getAttribute('src') || childImg.getAttribute('data-src') || '';
-              logoAlt = childImg.getAttribute('alt') || subName || colName;
-            } else {
-              rawSrc = logoEl.getAttribute('data-src') || logoEl.getAttribute('src') || '';
-            }
-          }
-
-          rawSrc = cleanText(rawSrc);
-          if (rawSrc && rawSrc !== '#' && rawSrc !== 'about:blank' && !rawSrc.startsWith('javascript:') && rawSrc.length > 3) {
-            logoSrc = rawSrc;
-          }
-        }
-
-        const moodEl = item.querySelector('.jypesa-tabs-col-mood');
-        const familiaEl = item.querySelector('.jypesa-tabs-col-familia, .jypesa-tabs-col-notes-familia, .jypesa-tabs-col-familia-olfativa');
-        const refillEl = item.querySelector('.jypesa-tabs-col-refill');
-        const salidaEl = item.querySelector('.jypesa-tabs-col-notes-salida');
-        const corazonEl = item.querySelector('.jypesa-tabs-col-notes-corazon');
-        const fondoEl = item.querySelector('.jypesa-tabs-col-notes-fondo');
-        const subDescEl = item.querySelector('.jypesa-tabs-subcol-desc');
-
-        collectionsMap[colName].subgroupsMap[subKey] = {
-          key: subKey,
-          name: subName,
-          logoSrc: logoSrc,
-          logoAlt: logoAlt,
-          mood: getElText(moodEl),
-          familia: getElText(familiaEl),
-          refill: getElText(refillEl).toUpperCase() || '',
-          salida: getElText(salidaEl),
-          corazon: getElText(corazonEl),
-          fondo: getElText(fondoEl),
-          desc: getElText(subDescEl),
-          products: []
-        };
+      let logoSrc = '';
+      if (logoEl) {
+        logoSrc = logoEl.getAttribute('src') || logoEl.getAttribute('data-src') || '';
       }
 
-      const prodNameEl = item.querySelector('.jypesa-tabs-prod-name');
-      if (prodNameEl) {
-        const prodName = getElText(prodNameEl);
-        const skuEl = item.querySelector('.jypesa-tabs-prod-sku');
-        const weightEl = item.querySelector('.jypesa-tabs-prod-weight');
-        const packagingEl = item.querySelector('.jypesa-tabs-prod-packaging');
-        const qtyEl = item.querySelector('.jypesa-tabs-prod-qty');
-        const imgEl = item.querySelector('.jypesa-tabs-prod-img');
-        const linkEl = item.querySelector('.jypesa-tabs-prod-link');
-        const amazonEl = item.querySelector('.jypesa-tabs-prod-amazon-link, .jypesa-tabs-prod-buy-link, .jypesa-tabs-prod-amazon');
+      let imgSrc = imgEl ? (imgEl.getAttribute('src') || imgEl.src || '') : '';
+      if (!imgSrc && logoSrc) imgSrc = logoSrc;
 
-        let amazonLink = '';
-        if (amazonEl) {
-          amazonLink = amazonEl.getAttribute('href') || amazonEl.textContent.trim() || '';
-          amazonLink = cleanText(amazonLink);
-          if (amazonLink === '#' || amazonLink.length <= 3) amazonLink = '';
-        }
+      const prodObj = {
+        name: cleanText(prodNameEl.textContent),
+        logoSrc: logoSrc,
+        imgSrc: imgSrc,
+        link: linkEl ? (linkEl.getAttribute('href') || '#') : '#'
+      };
 
-        const prodObj = {
-          name: prodName,
-          sku: getElText(skuEl),
-          weight: getElText(weightEl),
-          packaging: getElText(packagingEl),
-          qty: getElText(qtyEl),
-          imgSrc: imgEl ? (imgEl.getAttribute('src') || imgEl.src || '') : '',
-          imgAlt: imgEl ? (imgEl.getAttribute('alt') || prodName) : prodName,
-          link: linkEl ? (linkEl.getAttribute('href') || '#') : '#',
-          amazonLink: amazonLink
-        };
-
-        collectionsMap[colName].subgroupsMap[subKey].products.push(prodObj);
-        collectionsMap[colName].products.push(prodObj);
-      }
+      collectionsMap[colName].products.push(prodObj);
     });
 
     const collections = Object.values(collectionsMap).map(col => {
-      col.subgroups = Object.values(col.subgroupsMap);
-      return col;
+      return {
+        name: col.name,
+        id: col.id,
+        desc: col.desc,
+        subgroups: [{ products: col.products }]
+      };
     });
 
-    return collections.length ? { collections, parentBrand } : null;
+    return collections.length ? collections : null;
   }
 
-  // 5. Construir HTML del Widget
+  // 5. Construcción HTML del Widget
   function buildWidgetHtml(collections) {
     return `
       <div class="jypesa-tabs-layout">
-        <!-- Columna Izquierda (Navegación) -->
+        <!-- Columna Izquierda (Navegación / Tabs) -->
         <div class="jypesa-tabs-left-col">
           <div class="jypesa-tabs-nav-header">
-            <span class="jypesa-tabs-nav-subtitle">Productos de la colección</span>
+            <span class="jypesa-tabs-nav-subtitle">Nuestras colecciones</span>
+            <h2 class="jypesa-tabs-nav-title">
+              Conoce nuestras 
+              <span>colecciones</span>
+            </h2>
           </div>
-          <h2 class="jypesa-tabs-nav-title">Descubre nuestros <span>productos</span></h2>
           <div class="jypesa-tabs-menu">
             ${collections.map((col, idx) => `
               <div class="jypesa-tabs-menu-item ${idx === 0 ? 'active' : ''}" data-tab="${col.id}">
@@ -1181,166 +818,43 @@
           </div>
         </div>
 
-        <!-- Columna Derecha (Contenido Dinámico) -->
+        <!-- Columna Derecha (Slider de Productos/Colecciones) -->
         <div class="jypesa-tabs-right-col">
           ${collections.map((col, idx) => `
             <div class="jypesa-tab-content-panel ${idx === 0 ? 'active' : ''}" id="panel-${col.id}">
               ${col.desc ? `<p class="jypesa-tabs-tab-top-desc">${col.desc}</p>` : ''}
+              ${col.subgroups.map(sub => `
+                <div class="jypesa-tabs-slider-outer">
+                  <button class="jypesa-tabs-desktop-nav-btn next-btn" aria-label="Siguiente Colección">
+                    ${navBtnRightSvg}
+                  </button>
 
-              ${col.subgroups.map(sub => {
-                const hasLogo = Boolean(sub.logoSrc);
-                const hasSubTitle = Boolean(sub.name && sub.name !== '__default__');
-                const hasMood = Boolean(sub.mood && sub.mood.trim());
-                const hasFamilia = Boolean(sub.familia && sub.familia.trim());
-                const hasCorazon = Boolean(sub.corazon && sub.corazon.trim());
-                const hasFondo = Boolean(sub.fondo && sub.fondo.trim());
-                const hasSalida = Boolean(sub.salida && sub.salida.trim());
-
-                const hasMultiNotes = Boolean(hasCorazon || hasFondo || hasFamilia);
-                const hasAnyContent = Boolean(hasLogo || hasSubTitle || hasFamilia || hasMood || hasSalida || hasCorazon || hasFondo);
-
-                let fragranceBlockHtml = '';
-                if (hasAnyContent) {
-                  const logoHtml = hasLogo ? `
-                    <div class="jypesa-tabs-col-logo-wrap">
-                      <img class="jypesa-tabs-col-logo-render" src="${sub.logoSrc}" alt="${sub.logoAlt}" onerror="var p=this.closest('.jypesa-tabs-col-logo-wrap');if(p){var n=p.nextElementSibling;if(n&&n.classList.contains('jypesa-tabs-fragrance-line'))n.remove();p.remove();}">
-                    </div>
-                  ` : (hasSubTitle ? `<h3 class="jypesa-tabs-subcol-title">${sub.name}</h3>` : '');
-
-                  if (hasMultiNotes || hasLogo || hasSubTitle) {
-                    fragranceBlockHtml = `
-                      <div class="jypesa-tabs-fragrance-block figma-columns">
-                        ${logoHtml}
-
-                        ${hasFamilia ? `
-                          <div class="jypesa-tabs-fragrance-line"></div>
-                          <div class="jypesa-tabs-note-col">
-                            <h4 class="jypesa-tabs-note-title">Familia olfativa</h4>
-                            <div class="jypesa-tabs-note-text"><p>${sub.familia}</p></div>
+                  <div class="jypesa-tabs-products-container">
+                    ${sub.products.map(prod => `
+                      <a href="${prod.link}" class="jypesa-tabs-product-card">
+                        <div class="jypesa-tabs-card-img-wrap">
+                          ${prod.imgSrc ? `<img class="jypesa-tabs-card-img" src="${prod.imgSrc}" alt="${prod.name}" loading="lazy">` : ''}
+                        </div>
+                        <div class="jypesa-tabs-card-info">
+                          <div class="jypesa-tabs-card-logo-wrap">
+                            ${prod.logoSrc ? `<img class="jypesa-tabs-card-logo" src="${prod.logoSrc}" alt="${prod.name}">` : `<h3 class="jypesa-tabs-card-title-fallback">${prod.name}</h3>`}
                           </div>
-                        ` : ''}
-
-                        ${hasMood ? `
-                          <div class="jypesa-tabs-fragrance-line"></div>
-                          <div class="jypesa-tabs-note-col">
-                            <h4 class="jypesa-tabs-note-title">Sobre la fragancia</h4>
-                            <div class="jypesa-tabs-note-text">
-                              <p class="jypesa-tabs-mood-heading">Mood:</p>
-                              <p>${sub.mood}</p>
-                            </div>
-                          </div>
-                        ` : ''}
-
-                        ${hasCorazon ? `
-                          <div class="jypesa-tabs-fragrance-line"></div>
-                          <div class="jypesa-tabs-note-col">
-                            <h4 class="jypesa-tabs-note-title">Notas de corazón</h4>
-                            <div class="jypesa-tabs-note-text"><p>${sub.corazon}</p></div>
-                          </div>
-                        ` : ''}
-
-                        ${hasFondo ? `
-                          <div class="jypesa-tabs-fragrance-line"></div>
-                          <div class="jypesa-tabs-note-col">
-                            <h4 class="jypesa-tabs-note-title">Notas de base</h4>
-                            <div class="jypesa-tabs-note-text"><p>${sub.fondo}</p></div>
-                          </div>
-                        ` : ''}
-
-                        ${hasSalida ? `
-                          <div class="jypesa-tabs-fragrance-line"></div>
-                          <div class="jypesa-tabs-note-col">
-                            <h4 class="jypesa-tabs-note-title">Notas de salida</h4>
-                            <div class="jypesa-tabs-note-text"><p>${sub.salida}</p></div>
-                          </div>
-                        ` : ''}
-                      </div>
-                    `;
-                  } else {
-                    fragranceBlockHtml = `
-                      <div class="jypesa-tabs-fragrance-block">
-                        <div class="jypesa-tabs-fragrance-line"></div>
-                        <div class="jypesa-tabs-fragrance-content">
-                          ${hasMood ? `<h4 class="jypesa-tabs-fragrance-title">Sobre la fragancia</h4>` : ''}
-                          <div class="jypesa-tabs-fragrance-details">
-                            ${hasMood ? `<p class="jypesa-tabs-fragrance-mood">Mood: ${sub.mood}</p>` : ''}
-                            ${hasSalida ? `<p class="jypesa-tabs-fragrance-notes">Notas de salida: ${sub.salida}</p>` : ''}
+                          <div class="jypesa-tabs-card-btn">
+                            <span>Conocer más</span>
+                            <span class="jypesa-tabs-card-btn-icon">${arrowRightSvg}</span>
                           </div>
                         </div>
-                        <div class="jypesa-tabs-fragrance-line"></div>
-                      </div>
-                    `;
-                  }
-                }
-
-                return `
-                  <div class="jypesa-tabs-subgroup-section">
-                    <!-- Cabecera de Información Subgrupo -->
-                    <div class="jypesa-tabs-info-area">
-                      ${fragranceBlockHtml}
-                      ${sub.refill ? `<div class="jypesa-tabs-refill-label">${sub.refill}</div>` : ''}
-                      ${sub.desc ? `<p class="jypesa-tabs-collection-desc">${sub.desc}</p>` : ''}
-                    </div>
-
-                    <!-- Slider / Carrusel de Productos del Subgrupo -->
-                    <div class="jypesa-tabs-slider-outer">
-                      <div class="jypesa-tabs-nav-btn prev-btn" aria-label="Anterior">
-                        ${arrowLeftSvg}
-                      </div>
-                      <div class="jypesa-tabs-nav-btn next-btn" aria-label="Siguiente">
-                        ${arrowRightSvg}
-                      </div>
-
-                      <div class="jypesa-tabs-products-container">
-                        ${sub.products.map(prod => {
-                          const hasAmazonBtn = Boolean(prod.amazonLink);
-                          const cardTag = hasAmazonBtn ? 'div' : 'a';
-                          const cardAttrs = hasAmazonBtn ? '' : `href="${prod.link}" ${prod.link !== '#' ? 'target="_blank"' : ''}`;
-                          return `
-                            <${cardTag} ${cardAttrs} class="jypesa-tabs-product-card">
-                              <div class="jypesa-tabs-card-img-wrap">
-                                ${prod.imgSrc ? `<img class="jypesa-tabs-card-img" src="${prod.imgSrc}" alt="${prod.imgAlt}" loading="lazy">` : ''}
-                              </div>
-                              <div class="jypesa-tabs-card-details">
-                                <h4 class="jypesa-tabs-card-title">${prod.name}</h4>
-                                ${prod.sku ? `<span class="jypesa-tabs-card-sku">${prod.sku}</span>` : ''}
-                                <div class="jypesa-tabs-card-specs">
-                                  ${prod.weight ? `<span>${prod.weight}</span>` : ''}
-                                  ${prod.packaging ? `<span>${prod.packaging}</span>` : ''}
-                                  ${prod.qty ? `<span>${prod.qty}</span>` : ''}
-                                </div>
-                                ${hasAmazonBtn ? `
-                                  <a href="${prod.amazonLink}" target="_blank" rel="noopener noreferrer" class="jypesa-tabs-amazon-btn">
-                                    <span>Ver en Amazon</span>
-                                    <svg class="jypesa-tabs-amazon-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M14.6645 12.1533C14.6645 12.638 14.3945 13.5713 13.7879 14.084C13.6665 14.1773 13.5452 14.1247 13.5985 13.9887C13.7752 13.5567 14.1792 12.5573 13.9899 12.3273C13.8559 12.1527 13.3025 12.166 12.8305 12.206C12.6152 12.2333 12.4259 12.246 12.2792 12.276C12.1432 12.2867 12.1159 12.1673 12.2519 12.074C12.4291 11.9491 12.6248 11.8528 12.8319 11.7887C13.5985 11.5593 14.4845 11.6973 14.6119 11.844C14.6359 11.872 14.6645 11.9513 14.6645 12.1533ZM13.3832 13.0153C13.2079 13.1505 13.0232 13.273 12.8305 13.382C11.4159 14.232 9.58321 14.6773 7.99188 14.6773C5.42988 14.6773 3.13855 13.7327 1.39988 12.152C1.25055 12.0307 1.37388 11.8547 1.54855 11.95C3.42188 13.0433 5.74055 13.7047 8.14055 13.7047C9.65121 13.7047 11.2792 13.422 12.8305 12.814C12.9392 12.7733 13.0605 12.718 13.1665 12.6793C13.4112 12.5693 13.6265 12.8407 13.3832 13.0153ZM9.26988 5.662C9.26988 4.968 9.29788 4.55933 9.06788 4.20867C8.86388 3.92 8.51255 3.74667 8.02188 3.774C7.48988 3.80333 6.91855 4.152 6.77321 4.79133C6.74455 4.938 6.65921 5.082 6.48188 5.11333L4.85855 4.90667C4.74255 4.88 4.56588 4.79133 4.62388 4.55933C4.97255 2.72533 6.53988 2.086 8.02255 2H8.37055C9.18388 2 10.2292 2.23267 10.8979 2.84267C11.7092 3.6 11.6225 4.61733 11.6225 5.72267V8.34067C11.6225 9.126 11.9412 9.474 12.2612 9.88333C12.3479 10.0293 12.3779 10.2013 12.2319 10.32C11.8119 10.6944 11.3858 11.0621 10.9539 11.4227C10.8372 11.5113 10.6279 11.5207 10.5472 11.4527C10.0339 11.0227 9.90855 10.784 9.59055 10.3473C9.03721 10.928 8.57255 11.2487 8.01988 11.4227C7.63127 11.5216 7.23153 11.57 6.83055 11.5667C5.43721 11.5667 4.33388 6.68533 6.13388 6.246C7.20721 5.806 8.76721 5.666 9.26988 5.66333M8.95188 9.12467C9.29855 8.54333 9.26988 8.06733 9.26988 7.00133C8.83521 7.00133 8.39921 7.03133 8.02255 7.12C7.32588 7.322 6.77255 7.76 6.77255 8.69C6.77255 9.41667 7.15121 9.91133 7.78988 9.91133C7.87788 9.91133 7.95521 9.90133 8.02188 9.88133C8.46855 9.75733 8.74721 9.53333 8.95188 9.12467Z" fill="currentColor"/>
-                                    </svg>
-                                  </a>
-                                ` : ''}
-                              </div>
-                            </${cardTag}>
-                          `;
-                        }).join('')}
-                      </div>
-
-                      <!-- Controles móviles y Paginación -->
-                      <div class="jypesa-tabs-controls-mobile">
-                        <button class="jypesa-tabs-mobile-nav prev-mobile-btn" aria-label="Anterior">
-                          ${arrowLeftSvg}
-                        </button>
-                        <div class="jypesa-tabs-dots-container">
-                          ${sub.products.map((_, pIdx) => `
-                            <span class="jypesa-tabs-dot ${pIdx === 0 ? 'active' : ''}" data-index="${pIdx}"></span>
-                          `).join('')}
-                        </div>
-                        <button class="jypesa-tabs-mobile-nav next-mobile-btn" aria-label="Siguiente">
-                          ${arrowRightSvg}
-                        </button>
-                      </div>
-                    </div>
+                      </a>
+                    `).join('')}
                   </div>
-                `;
-              }).join('')}
+
+                  <div class="jypesa-tabs-pagination">
+                    ${sub.products.map((_, pIdx) => `
+                      <span class="jypesa-tabs-dot-bar ${pIdx === 0 ? 'active' : ''}" data-index="${pIdx}"></span>
+                    `).join('')}
+                  </div>
+                </div>
+              `).join('')}
             </div>
           `).join('')}
         </div>
@@ -1348,194 +862,149 @@
     `;
   }
 
-  // 6. Configurar Eventos e Interactividad
-  function setupWidgetInteractions(target, collections) {
+  // 6. Animación del Slider ("Exit Shrink & Fade") + Eventos con Ciclo Infinito
+  function updateCardExitAnimations(container) {
+    if (!container) return;
+
+    if (window.innerWidth <= 768) {
+      const cards = container.querySelectorAll('.jypesa-tabs-product-card');
+      cards.forEach(card => {
+        card.style.transform = 'none';
+        card.style.opacity = '1';
+      });
+      return;
+    }
+
+    const containerRect = container.getBoundingClientRect();
+    const cards = container.querySelectorAll('.jypesa-tabs-product-card');
+
+    cards.forEach(card => {
+      const cardRect = card.getBoundingClientRect();
+      const cardLeftRelative = cardRect.left - containerRect.left;
+      const cardRightRelative = cardRect.right - containerRect.left;
+      const cardWidth = cardRect.width;
+
+      if (cardLeftRelative < 15) {
+        // Tarjeta saliendo hacia la izquierda (se reduce y desaparece)
+        const exitProgress = Math.max(0, Math.min(1, cardRightRelative / (cardWidth * 0.85)));
+        const scale = 0.70 + (0.30 * exitProgress);
+        const opacity = Math.pow(exitProgress, 1.2);
+        card.style.transform = `scale(${scale.toFixed(3)})`;
+        card.style.opacity = opacity.toFixed(2);
+        card.style.transformOrigin = 'right center';
+      } else if (cardRightRelative > containerRect.width - 15) {
+        // Tarjeta saliendo por la derecha
+        const enterProgress = Math.max(0, Math.min(1, (containerRect.width - cardLeftRelative) / (cardWidth * 0.85)));
+        const scale = 0.82 + (0.18 * enterProgress);
+        const opacity = Math.max(0.3, enterProgress);
+        card.style.transform = `scale(${scale.toFixed(3)})`;
+        card.style.opacity = opacity.toFixed(2);
+        card.style.transformOrigin = 'left center';
+      } else {
+        // Tarjeta completamente visible al centro
+        card.style.transform = 'scale(1)';
+        card.style.opacity = '1';
+        card.style.transformOrigin = 'center center';
+      }
+    });
+  }
+
+  function setupWidgetInteractions(target) {
     const tabButtons = target.querySelectorAll('.jypesa-tabs-menu-item');
     const contentPanels = target.querySelectorAll('.jypesa-tab-content-panel');
 
-    function cleanAlpha(str) {
-      if (!str) return '';
-      return decodeURIComponent(str)
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, '');
-    }
-
-    function slugify(str) {
-      if (!str) return '';
-      return decodeURIComponent(str)
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '');
-    }
-
-    function activateTabById(targetId, shouldScroll = false) {
-      const tSlug = slugify(targetId);
-      const tAlpha = cleanAlpha(targetId);
-      if (!tAlpha) return;
-
-      const btn = Array.from(tabButtons).find(b => {
-        const id = b.getAttribute('data-tab') || '';
-        const text = b.textContent || '';
-        const idSlug = slugify(id);
-        const idAlpha = cleanAlpha(id);
-        const lblSlug = slugify(text);
-        const lblAlpha = cleanAlpha(text);
-
-        return (
-          idSlug === tSlug ||
-          lblSlug === tSlug ||
-          idAlpha === tAlpha ||
-          lblAlpha === tAlpha ||
-          (tAlpha.length >= 3 && (idAlpha.includes(tAlpha) || lblAlpha.includes(tAlpha) || tAlpha.includes(idAlpha) || tAlpha.includes(lblAlpha)))
-        );
+    function activateTab(tabId) {
+      tabButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
       });
-      if (!btn) return;
-      const realTabId = btn.getAttribute('data-tab');
-
-      tabButtons.forEach(b => b.classList.remove('active'));
-      contentPanels.forEach(p => p.classList.remove('active'));
-
-      btn.classList.add('active');
-      const activePanel = target.querySelector(`#panel-${realTabId}`);
-      if (activePanel) {
-        activePanel.classList.add('active');
-        const container = activePanel.querySelector('.jypesa-tabs-products-container');
-        if (container) handleScroll(container, activePanel);
-      }
-      if (shouldScroll) {
-        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
-      }
+      contentPanels.forEach(panel => {
+        const isActive = panel.id === `panel-${tabId}`;
+        panel.classList.toggle('active', isActive);
+        if (isActive) {
+          const container = panel.querySelector('.jypesa-tabs-products-container');
+          if (container) {
+            setTimeout(() => updateCardExitAnimations(container), 50);
+          }
+        }
+      });
     }
 
-    // Manejo de tabs por clic
     tabButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const tabId = btn.getAttribute('data-tab');
-        activateTabById(tabId, false);
+        activateTab(tabId);
       });
     });
 
-    // Deep linking vía Hash o URL Parameter
-    function checkUrlHash() {
-      const rawHash = (window.location.hash || '').replace('#', '').trim();
-      const urlParams = new URLSearchParams(window.location.search);
-      const rawParam = (urlParams.get('tab') || '').trim();
-      const key = rawHash || rawParam;
-      if (key) {
-        activateTabById(key, true);
-      }
-    }
-
-    checkUrlHash();
-    window.addEventListener('hashchange', checkUrlHash);
-
-    // Configurar cada Slider de productos en los paneles
     contentPanels.forEach(panel => {
       const container = panel.querySelector('.jypesa-tabs-products-container');
-      const prevBtn = panel.querySelector('.prev-btn');
       const nextBtn = panel.querySelector('.next-btn');
-      const prevMobileBtn = panel.querySelector('.prev-mobile-btn');
-      const nextMobileBtn = panel.querySelector('.next-mobile-btn');
-      const dots = panel.querySelectorAll('.jypesa-tabs-dot');
+      const dotBars = panel.querySelectorAll('.jypesa-tabs-dot-bar');
 
       if (!container) return;
 
-      const isMobile = () => window.innerWidth <= 768;
-
-      const getCardWidth = () => {
-        const card = container.querySelector('.jypesa-tabs-product-card');
-        if (!card) return 270;
-        return card.getBoundingClientRect().width;
-      };
-
       const getScrollStep = () => {
-        const width = getCardWidth();
-        const gap = isMobile() ? 16 : 24;
-        return width + gap;
+        const card = container.querySelector('.jypesa-tabs-product-card');
+        return card ? card.getBoundingClientRect().width + 16 : container.clientWidth;
       };
 
-      const getScrollStepByMode = (mobileMode = false) => {
-        const step = getScrollStep();
-        if (mobileMode || isMobile()) {
-          return step;
-        }
-        return step * 2; // Scroll de 2 en 2 en Desktop
-      };
-
-      if (prevBtn && nextBtn) {
-        prevBtn.addEventListener('click', () => {
-          container.scrollBy({ left: -getScrollStepByMode(false), behavior: 'smooth' });
-        });
+      // NAVEGACIÓN CON BUCLE INFINITO AL LLEGAR AL ÚLTIMO CARD
+      if (nextBtn) {
         nextBtn.addEventListener('click', () => {
-          container.scrollBy({ left: getScrollStepByMode(false), behavior: 'smooth' });
-        });
-      }
-
-      if (prevMobileBtn && nextMobileBtn) {
-        prevMobileBtn.addEventListener('click', () => {
-          container.scrollBy({ left: -getScrollStepByMode(true), behavior: 'smooth' });
-        });
-        nextMobileBtn.addEventListener('click', () => {
-          container.scrollBy({ left: getScrollStepByMode(true), behavior: 'smooth' });
-        });
-      }
-
-      dots.forEach((dot, dIdx) => {
-        dot.addEventListener('click', () => {
+          const scrollLeft = container.scrollLeft;
+          const maxScroll = container.scrollWidth - container.clientWidth;
           const step = getScrollStep();
-          container.scrollTo({ left: dIdx * step, behavior: 'smooth' });
+
+          if (scrollLeft >= maxScroll - 25) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            container.scrollBy({ left: step, behavior: 'smooth' });
+          }
+        });
+      }
+
+      dotBars.forEach((bar, idx) => {
+        bar.addEventListener('click', () => {
+          if (idx === dotBars.length - 1) {
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            container.scrollTo({ left: maxScroll, behavior: 'smooth' });
+          } else {
+            container.scrollTo({ left: idx * getScrollStep(), behavior: 'smooth' });
+          }
         });
       });
 
-      // Manejar scroll para actualizar botones y dots
-      const onScroll = () => handleScroll(container, panel);
-      container.addEventListener('scroll', onScroll);
-      window.addEventListener('resize', onScroll);
-      setTimeout(onScroll, 200);
+      const handleScroll = () => {
+        const scrollLeft = container.scrollLeft;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        const step = getScrollStep();
+
+        let activeIdx;
+        if (maxScroll > 0 && scrollLeft >= maxScroll - 25) {
+          activeIdx = dotBars.length - 1;
+        } else {
+          activeIdx = Math.min(
+            dotBars.length - 1,
+            Math.max(0, Math.round(scrollLeft / step))
+          );
+        }
+
+        dotBars.forEach((bar, bIdx) => bar.classList.toggle('active', bIdx === activeIdx));
+        
+        // Ejecutar animación dinámica de reducción/desaparición
+        updateCardExitAnimations(container);
+      };
+
+      container.addEventListener('scroll', handleScroll, { passive: true });
+      window.addEventListener('resize', () => {
+        handleScroll();
+      });
+
+      setTimeout(handleScroll, 100);
     });
   }
 
-  function handleScroll(container, panel) {
-    const scrollLeft = container.scrollLeft;
-    const maxScroll = container.scrollWidth - container.clientWidth;
-    const cardEl = container.querySelector('.jypesa-tabs-product-card');
-    if (!cardEl) return;
-    
-    const cardWidth = cardEl.getBoundingClientRect().width;
-    const gap = window.innerWidth <= 768 ? 16 : 24;
-    const step = cardWidth + gap;
-
-    const prevBtn = panel.querySelector('.prev-btn');
-    const nextBtn = panel.querySelector('.next-btn');
-    const prevMobileBtn = panel.querySelector('.prev-mobile-btn');
-    const nextMobileBtn = panel.querySelector('.next-mobile-btn');
-    const dots = panel.querySelectorAll('.jypesa-tabs-dot');
-
-    const activeIndex = Math.min(
-      dots.length - 1,
-      Math.max(0, Math.round(scrollLeft / step))
-    );
-
-    dots.forEach((dot, idx) => dot.classList.toggle('active', idx === activeIndex));
-
-    if (prevBtn && nextBtn) {
-      prevBtn.style.opacity = scrollLeft <= 5 ? '0' : '1';
-      prevBtn.style.visibility = scrollLeft <= 5 ? 'hidden' : 'visible';
-      nextBtn.style.opacity = scrollLeft >= maxScroll - 5 ? '0' : '1';
-      nextBtn.style.visibility = scrollLeft >= maxScroll - 5 ? 'hidden' : 'visible';
-    }
-
-    if (prevMobileBtn && nextMobileBtn) {
-      prevMobileBtn.classList.toggle('disabled', scrollLeft <= 5);
-      nextMobileBtn.classList.toggle('disabled', scrollLeft >= maxScroll - 5);
-    }
-  }
-
-  // 7. Inicializador principal del widget
+  // 7. Inicialización Global
   function initTabsColeccionesWidget() {
     const targets = document.querySelectorAll('.jypesa-tabs-colecciones-widget-container, [data-jypesa-tabs-colecciones-widget], #jypesa-tabs-colecciones-widget');
     if (!targets.length) return;
@@ -1544,12 +1013,9 @@
       if (target.getAttribute('data-initialized') === 'true') return;
       target.setAttribute('data-initialized', 'true');
 
-      const data = readCollectionsFromCMS(target);
-      const collections = data ? data.collections : defaultCollections;
-
+      const collections = readCollectionsFromCMS(target) || defaultCollections;
       target.innerHTML = buildWidgetHtml(collections);
-
-      setupWidgetInteractions(target, collections);
+      setupWidgetInteractions(target);
     });
   }
 
