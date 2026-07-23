@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colecciones Tabs — JYPESA Preview</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f8fafc;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .demo-bar {
+      background: #25282a;
+      color: #fff;
+      padding: 12px 24px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .demo-bar code {
+      background: #0f1113;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #48a9c5;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-bar">
+    <div><strong>JYPESA</strong> • Widget de Tabs con Sliders de Colecciones (Figma Node 322-23490)</div>
+    <div>Usar Script: <code>https://jypesa-widgets.vercel.app/widgets/colecciones-tabs/colecciones-tabs.js</code></div>
+  </div>
+
+  <!-- Contenedor Principal del Widget de Colecciones -->
+  <div id="jypesa-colecciones-tabs-widget"></div>
+
+  <!-- Fuente de Datos CMS Oculta para Pruebas Dinámicas -->
+  <div class="jypesa-colecciones-tabs-cms-source-test" style="display: none;">
+    
+    <!-- Colección Cítrica (CMS) -->
+    <div class="w-dyn-item">
+      <span class="jypesa-coltabs-col-name">Colección Cítrica (CMS)</span>
+      <p class="jypesa-coltabs-col-desc">Cargado de notas frescas y chispeantes que despiertan el cuerpo y la mente de sus huéspedes.</p>
+      <span class="jypesa-coltabs-prod-name">Green & Citrics</span>
+      <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif" alt="Citrics Logo">
+      <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif" alt="Citrics Product">
+      <a class="jypesa-coltabs-prod-link" href="#citrics">Conocer más</a>
+    </div>
+    
+    <div class="w-dyn-item">
+      <span class="jypesa-coltabs-col-name">Colección Cítrica (CMS)</span>
+      <span class="jypesa-coltabs-prod-name">Elements</span>
+      <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif" alt="Elements Logo">
+      <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif" alt="Elements Product">
+      <a class="jypesa-coltabs-prod-link" href="#elements">Conocer más</a>
+    </div>
+
+    <div class="w-dyn-item">
+      <span class="jypesa-coltabs-col-name">Colección Cítrica (CMS)</span>
+      <span class="jypesa-coltabs-prod-name">Rainforest Foliage</span>
+      <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif" alt="Rainforest Logo">
+      <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif" alt="Rainforest Product">
+      <a class="jypesa-coltabs-prod-link" href="#rainforest">Conocer más</a>
+    </div>
+
+    <div class="w-dyn-item">
+      <span class="jypesa-coltabs-col-name">Colección Cítrica (CMS)</span>
+      <span class="jypesa-coltabs-prod-name">Tea Leaf</span>
+      <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif" alt="Tea Leaf Logo">
+      <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif" alt="Tea Leaf Product">
+      <a class="jypesa-coltabs-prod-link" href="#tealeaf">Conocer más</a>
+    </div>
+
+    <div class="w-dyn-item">
+      <span class="jypesa-coltabs-col-name">Colección Cítrica (CMS)</span>
+      <span class="jypesa-coltabs-prod-name">Persea Botanicals</span>
+      <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif" alt="Persea Logo">
+      <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif" alt="Persea Product">
+      <a class="jypesa-coltabs-prod-link" href="#persea">Conocer más</a>
+    </div>
+
+    <!-- Luxury Wood (CMS) -->
+    <div class="w-dyn-item">
+      <span class="jypesa-coltabs-col-name">Luxury Wood (CMS)</span>
+      <p class="jypesa-coltabs-col-desc">Elegantes notas amaderadas y tonos cálidos para experiencias de lujo inolvidables.</p>
+      <span class="jypesa-coltabs-prod-name">Luxury Wood</span>
+      <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif" alt="Luxury Wood Logo">
+      <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif" alt="Luxury Wood Product">
+      <a class="jypesa-coltabs-prod-link" href="#luxury-wood">Conocer más</a>
+    </div>
+
+  </div>
+
+  <script src="widgets/colecciones-tabs/colecciones-tabs.js"></script>
+</body>
+</html>
