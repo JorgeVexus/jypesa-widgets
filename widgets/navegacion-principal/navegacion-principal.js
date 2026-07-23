@@ -681,7 +681,7 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-link-item"><a href="/desarrollo-personalizado" class="nav-link">Desarrollo personalizado</a></li>
+            <li class="nav-link-item"><a href="/desarollo-personalizado" class="nav-link">Desarrollo personalizado</a></li>
             <li class="nav-link-item">
                 <a href="/sustentabilidad" class="nav-link">Sustentabilidad</a>
                 <div class="mega-menu">
@@ -851,7 +851,7 @@
             </div>
         </li>
         <li class="mob-item">
-            <a href="/desarrollo-personalizado" class="mob-trigger">Desarrollo personalizado</a>
+            <a href="/desarollo-personalizado" class="mob-trigger">Desarrollo personalizado</a>
         </li>
         <li class="mob-item">
             <div class="mob-trigger">Sustentabilidad <span>+</span></div>
