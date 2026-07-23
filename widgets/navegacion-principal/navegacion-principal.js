@@ -654,6 +654,7 @@
     const hash = parts.length > 1 ? '#' + parts[1] : '';
 
     if (lang === 'en') {
+      if (base === '/' || base === '') return '/en/home' + hash;
       if (base.startsWith('/en/') || base === '/en') return url;
       const prefixed = '/en' + (base.startsWith('/') ? base : '/' + base);
       return prefixed + hash;
