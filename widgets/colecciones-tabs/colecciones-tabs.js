@@ -22,16 +22,21 @@
   }
 
   .jypesa-colecciones-tabs-widget-container,
+  .jypesa-tabs-colecciones-widget-container,
   [data-jypesa-colecciones-tabs-widget],
+  [data-jypesa-tabs-colecciones-widget],
   #jypesa-colecciones-tabs-widget,
-  .jypesa-colecciones-tabs-widget {
+  #jypesa-tabs-colecciones-widget,
+  .jypesa-colecciones-tabs-widget,
+  .jypesa-tabs-colecciones-widget {
     width: 100% !important;
     display: block !important;
     align-self: stretch !important;
     box-sizing: border-box !important;
   }
 
-  .jypesa-colecciones-tabs-widget {
+  .jypesa-colecciones-tabs-widget,
+  .jypesa-tabs-colecciones-widget {
     background: transparent;
     font-family: 'Rubik', sans-serif;
     color: var(--jypesa-coltabs-slate);
@@ -406,7 +411,8 @@
      MEDIA QUERIES (DESKTOP LAYOUT >= 769px)
      ========================================================================== */
   @media (min-width: 769px) {
-    .jypesa-colecciones-tabs-widget {
+    .jypesa-colecciones-tabs-widget,
+    .jypesa-tabs-colecciones-widget {
       padding: 60px 0;
     }
 
@@ -754,8 +760,8 @@
     let sourceSelector = target.getAttribute('data-cms-source');
     let source = sourceSelector ? document.querySelector(sourceSelector) : null;
 
-    if (!source) source = target.querySelector('.jypesa-colecciones-tabs-cms-source');
-    if (!source) source = document.querySelector('.jypesa-colecciones-tabs-cms-source, .jypesa-colecciones-tabs-cms-source-test');
+    if (!source) source = target.querySelector('.jypesa-colecciones-tabs-cms-source, .jypesa-tabs-colecciones-cms-source');
+    if (!source) source = document.querySelector('.jypesa-colecciones-tabs-cms-source, .jypesa-tabs-colecciones-cms-source, .jypesa-colecciones-tabs-cms-source-test, .jypesa-tabs-colecciones-cms-source-test, [data-cms-source]');
 
     if (!source) return null;
 
@@ -764,14 +770,13 @@
 
     const collectionsMap = {};
 
-    items.forEach(item => {
-      const colNameEl = item.querySelector('.jypesa-coltabs-col-name, .jypesa-tabs-col-name');
-      if (!colNameEl) return;
-      const colName = cleanText(colNameEl.textContent);
-      if (!colName) return;
+    items.forEach((item, idx) => {
+      const colNameEl = item.querySelector('.jypesa-coltabs-col-name, .jypesa-tabs-col-name, .jypesa-col-name, .collection-name, [data-col-name]');
+      let colName = colNameEl ? cleanText(colNameEl.textContent) : '';
+      if (!colName) colName = 'Colección';
 
       if (!collectionsMap[colName]) {
-        const descEl = item.querySelector('.jypesa-coltabs-col-desc, .jypesa-tabs-col-desc');
+        const descEl = item.querySelector('.jypesa-coltabs-col-desc, .jypesa-tabs-col-desc, .collection-desc');
         collectionsMap[colName] = {
           name: colName,
           id: makeSlug(colName),
@@ -780,21 +785,24 @@
         };
       }
 
-      const prodNameEl = item.querySelector('.jypesa-coltabs-prod-name, .jypesa-tabs-prod-name') || colNameEl;
-      const logoEl = item.querySelector('.jypesa-coltabs-col-logo, .jypesa-tabs-col-logo');
-      const imgEl = item.querySelector('.jypesa-coltabs-prod-img, .jypesa-tabs-prod-img');
-      const linkEl = item.querySelector('.jypesa-coltabs-prod-link, .jypesa-tabs-prod-link');
+      const prodNameEl = item.querySelector('.jypesa-coltabs-prod-name, .jypesa-tabs-prod-name, .product-name, [data-prod-name]') || colNameEl;
+      const logoEl = item.querySelector('.jypesa-coltabs-col-logo, .jypesa-tabs-col-logo, img.jypesa-col-logo, [data-logo]');
+      const imgEl = item.querySelector('.jypesa-coltabs-prod-img, .jypesa-tabs-prod-img, img.jypesa-prod-img, [data-img]');
+      const linkEl = item.querySelector('.jypesa-coltabs-prod-link, .jypesa-tabs-prod-link, a.jypesa-prod-link, a');
 
       let logoSrc = '';
       if (logoEl) {
-        logoSrc = logoEl.getAttribute('src') || logoEl.getAttribute('data-src') || '';
+        logoSrc = logoEl.getAttribute('src') || logoEl.getAttribute('data-src') || logoEl.src || '';
       }
 
-      let imgSrc = imgEl ? (imgEl.getAttribute('src') || imgEl.src || '') : '';
-      if (!imgSrc && logoSrc) imgSrc = logoSrc;
+      let imgSrc = imgEl ? (imgEl.getAttribute('src') || imgEl.getAttribute('data-src') || imgEl.src || '') : '';
+      // Si la imagen del producto está vacía, usar una imagen fallback adecuada en lugar de transparent PNG
+      if (!imgSrc) {
+        imgSrc = logoSrc || 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif';
+      }
 
       const prodObj = {
-        name: cleanText(prodNameEl.textContent),
+        name: prodNameEl ? cleanText(prodNameEl.textContent) : `Producto ${idx + 1}`,
         logoSrc: logoSrc,
         imgSrc: imgSrc,
         link: linkEl ? (linkEl.getAttribute('href') || '#') : '#'
@@ -1069,7 +1077,16 @@
 
   // 7. Inicialización Global
   function initColeccionesTabsWidget() {
-    const targets = document.querySelectorAll('.jypesa-colecciones-tabs-widget-container, [data-jypesa-colecciones-tabs-widget], #jypesa-colecciones-tabs-widget');
+    const targets = document.querySelectorAll(`
+      #jypesa-colecciones-tabs-widget,
+      #jypesa-tabs-colecciones-widget,
+      .jypesa-colecciones-tabs-widget-container,
+      .jypesa-tabs-colecciones-widget-container,
+      [data-jypesa-colecciones-tabs-widget],
+      [data-jypesa-tabs-colecciones-widget],
+      .jypesa-colecciones-tabs-widget,
+      .jypesa-tabs-colecciones-widget
+    `);
     if (!targets.length) return;
 
     targets.forEach(target => {

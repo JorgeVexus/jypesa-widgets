@@ -548,24 +548,24 @@
     let sourceSelector = container.getAttribute('data-cms-source');
     let source = sourceSelector ? document.querySelector(sourceSelector) : null;
 
-    if (!source) source = container.querySelector('.jht-cms-source');
-    if (!source) source = document.querySelector('.jht-cms-source');
+    if (!source) source = container.querySelector('.jht-cms-source, .jypesa-hoteleria-cms-source');
+    if (!source) source = document.querySelector('.jht-cms-source, .jypesa-hoteleria-cms-source, [data-cms-source]');
 
     if (!source) return null;
 
     const items = Array.from(source.querySelectorAll('.w-dyn-item'));
     if (!items.length) return null;
 
-    const segLabelEl = source.querySelector('.jht-cms-segment-label');
-    const secTitleEl = source.querySelector('.jht-cms-section-title');
-    const secDescEl  = source.querySelector('.jht-cms-section-desc');
+    const segLabelEl = source.querySelector('.jht-cms-segment-label, .segment-label');
+    const secTitleEl = source.querySelector('.jht-cms-section-title, .section-title');
+    const secDescEl  = source.querySelector('.jht-cms-section-desc, .section-desc');
 
     const cleanText = str => str ? str.replace(/[\u0300-\u036f]/g, '').replace(/[\u00a0\s]+/g, ' ').trim() : '';
 
     const tabs = items.map((item, idx) => {
-      const labelEl = item.querySelector('.jht-cms-tab-label');
-      const descEl  = item.querySelector('.jht-cms-panel-desc');
-      const imgEls  = Array.from(item.querySelectorAll('.jht-cms-img'));
+      const labelEl = item.querySelector('.jht-cms-tab-label, .tab-label');
+      const descEl  = item.querySelector('.jht-cms-panel-desc, .panel-desc');
+      const imgEls  = Array.from(item.querySelectorAll('.jht-cms-img, .cms-img, img'));
 
       const labelText = cleanText(labelEl?.textContent) || `Opción ${idx + 1}`;
       const tabId     = item.getAttribute('data-tab-id') ||
@@ -810,11 +810,30 @@
     window.addEventListener('hashchange', checkUrlHash);
   }
 
-  // ─── Auto-init ───────────────────────────────────────────────────────────────
+  // ─── Auto-init Universal con Montaje Automático ────────────────────────────────
   function initAll() {
-    const targets = document.querySelectorAll(
-      '#jypesa-hoteleria-tabs, [data-jypesa-hoteleria-tabs], .jht-widget-target'
-    );
+    let targets = Array.from(document.querySelectorAll(`
+      #jypesa-hoteleria-tabs,
+      #hoteleria-tabs,
+      #jypesa-hoteleria-tabs-widget,
+      .jypesa-hoteleria-tabs-widget-container,
+      .jypesa-hoteleria-tabs,
+      .jypesa-hoteleria-tabs-widget,
+      [data-jypesa-hoteleria-tabs],
+      [data-hoteleria-tabs],
+      .jht-widget-target
+    `));
+
+    // Si hay datos CMS pero falta el div de destino con ID en Webflow
+    if (!targets.length) {
+      const cmsSource = document.querySelector('.jht-cms-source, .jypesa-hoteleria-cms-source');
+      if (cmsSource && cmsSource.parentElement) {
+        const mountPoint = document.createElement('div');
+        mountPoint.id = 'jypesa-hoteleria-tabs';
+        cmsSource.parentElement.insertBefore(mountPoint, cmsSource);
+        targets = [mountPoint];
+      }
+    }
 
     targets.forEach(el => {
       if (el.getAttribute('data-jht-init') === 'true') return;
