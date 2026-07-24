@@ -829,7 +829,6 @@
                                             <li><a href="${u('/colecciones/premium/for-all-folks')}" class="option-link" data-p="For All Folks">For All Folks</a></li>
                                             <li><a href="${u('/colecciones/premium/persea')}" class="option-link" data-p="Persea">Persea</a></li>
                                             <li><a href="${u('/colecciones/premium/agavia')}" class="option-link" data-p="Agavia">Agavia</a></li>
-                                            <li><a href="#" class="option-link" data-p="Valquer">Valquer</a></li>
                                             <li><a href="${u('/colecciones/premium/botanicus')}" class="option-link" data-p="Botanicus">Botanicus</a></li>
                                         </ul>
                                     </div>
@@ -853,7 +852,6 @@
                                 <div class="accesorios-col">
                                     <a href="${u('/accesorios')}" class="cat-label-link"><p class="cat-label">${t.catAccessories}</p></a>
                                     <div class="accesorios-row">
-                                        <a href="${u('/accesorios')}" class="option-link" data-p="Elements">${t.optAllAccessories}</a>
                                         <a href="${u('/accesorios')}" class="option-link" data-p="Lavarino">Lavarino</a>
                                         <a href="${u('/accesorios')}" class="option-link" data-p="Nocean">Nocean</a>
                                     </div>
@@ -1067,7 +1065,6 @@
                 <a href="${u('/colecciones/premium/for-all-folks')}" class="mob-link">For All Folks</a>
                 <a href="${u('/colecciones/premium/persea')}" class="mob-link">Persea</a>
                 <a href="${u('/colecciones/premium/agavia')}" class="mob-link">Agavia</a>
-                <a href="#" class="mob-link">Valquer</a>
                 <a href="${u('/colecciones/premium/botanicus')}" class="mob-link">Botanicus</a>
 
                 <div class="mob-subcat-title">${t.secLuxury}</div>
@@ -1079,7 +1076,6 @@
                 <a href="${u('/sistemas-de-dispensacion#sistemas')}" class="mob-link">${t.secDispensingSystems}</a>
 
                 <div class="mob-cat-title">${t.catAccessories}</div>
-                <a href="${u('/accesorios')}" class="mob-link">${t.optAllAccessories}</a>
                 <a href="${u('/accesorios')}" class="mob-link">Lavarino</a>
                 <a href="${u('/accesorios')}" class="mob-link">Nocean</a>
             </div>
