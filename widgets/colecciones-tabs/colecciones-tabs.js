@@ -568,179 +568,369 @@
   const arrowRightSvg = `<svg width="7" height="13" viewBox="0 0 7 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.15013 6.32527L0.25013 11.2253C0.0834632 11.3919 0.00290725 11.5864 0.00846287 11.8086C0.0140185 12.0308 0.10013 12.2253 0.266796 12.3919C0.433463 12.5586 0.627907 12.6419 0.85013 12.6419C1.07235 12.6419 1.2668 12.5586 1.43346 12.3919L6.5668 7.27527C6.70013 7.14194 6.80013 6.99194 6.8668 6.82527C6.93346 6.6586 6.9668 6.49194 6.9668 6.32527C6.9668 6.1586 6.93346 5.99194 6.8668 5.82527C6.80013 5.6586 6.70013 5.5086 6.5668 5.37527L1.43346 0.241935C1.2668 0.0752686 1.06957 -0.005287 0.841797 0.00026855C0.614019 0.0058241 0.416797 0.0919352 0.25013 0.258602C0.0834637 0.425269 0.000130149 0.619713 0.00013014 0.841935C0.00013013 1.06416 0.0834636 1.2586 0.25013 1.42527L5.15013 6.32527Z" fill="currentColor"/></svg>`;
   const navBtnRightSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="#48A9C5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-  // 3. Colecciones por defecto según Figma 322-23490 (Estándar, Superior, Premium, Lujo)
-  const defaultCollections = [
-    {
-      name: 'Estándar',
-      id: 'estandar',
-      desc: 'Colección de líneas versátiles y esenciales diseñadas para satisfacer las necesidades diarias con un toque distintivo de calidad y frescura.',
-      subgroups: [
-        {
-          products: [
-            {
-              name: 'Elements',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
-              link: '#elements'
-            },
-            {
-              name: 'Almond & Olive',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
-              link: '#almond-olive'
-            },
-            {
-              name: 'Rainforest Foliage',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
-              link: '#rainforest'
-            },
-            {
-              name: 'Tea Leaf',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
-              link: '#tealeaf'
-            },
-            {
-              name: 'Persea Botanicals',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-              link: '#persea'
-            },
-            {
-              name: 'Luxury Wood',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
-              link: '#luxury-wood'
-            }
-          ]
-        }
-      ]
+  // 3. Diccionario Estático Bilingüe
+  const staticTexts = {
+    es: {
+      subtitle: 'Nuestras colecciones',
+      titleLine: 'Conoce nuestras',
+      titleSpan: 'colecciones',
+      cardBtnText: 'Saber más'
     },
-    {
-      name: 'Superior',
-      id: 'superior',
-      desc: 'Formulaciones enriquecidas con extractos botánicos y envases de diseño contemporáneo para experiencias de hospitalidad superior.',
-      subgroups: [
-        {
-          products: [
-            {
-              name: 'Persea Botanicals',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-              link: '#persea'
-            },
-            {
-              name: 'Green & Citrics',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
-              link: '#citrics'
-            },
-            {
-              name: 'Almond & Olive',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
-              link: '#almond-olive'
-            },
-            {
-              name: 'Tea Leaf',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
-              link: '#tealeaf'
-            },
-            {
-              name: 'Elements',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
-              link: '#elements'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'Premium',
-      id: 'premium',
-      desc: 'Línea de amenidades de alta gama con aceites esenciales, fragancias complejas y presentaciones recargables sustentables.',
-      subgroups: [
-        {
-          products: [
-            {
-              name: 'Luxury Wood',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
-              link: '#luxury-wood'
-            },
-            {
-              name: 'nOcean Spa',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
-              link: '#nocean'
-            },
-            {
-              name: 'Rainforest Foliage',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
-              link: '#rainforest'
-            },
-            {
-              name: 'Persea Botanicals',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-              link: '#persea'
-            },
-            {
-              name: 'Elements',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
-              link: '#elements'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'Lujo',
-      id: 'lujo',
-      desc: 'Colecciones de máxima exclusividad para hoteles boutique y resorts de ultra lujo, elaboradas con estándares internacionales superiores.',
-      subgroups: [
-        {
-          products: [
-            {
-              name: 'Xinu Haute Parfumerie',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-              link: '#xinu'
-            },
-            {
-              name: 'Luxury Wood',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
-              link: '#luxury-wood'
-            },
-            {
-              name: 'nOcean Spa',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
-              link: '#nocean'
-            },
-            {
-              name: 'Persea Botanicals',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
-              link: '#persea'
-            },
-            {
-              name: 'Rainforest Foliage',
-              logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
-              imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
-              link: '#rainforest'
-            }
-          ]
-        }
-      ]
+    en: {
+      subtitle: 'Our collections',
+      titleLine: 'Discover our',
+      titleSpan: 'collections',
+      cardBtnText: 'Learn More'
     }
-  ];
+  };
+
+  // Colecciones por defecto según Figma 322-23490 (Bilingüe)
+  const defaultCollectionsByLang = {
+    es: [
+      {
+        name: 'Estándar',
+        id: 'estandar',
+        desc: 'Colección de líneas versátiles y esenciales diseñadas para satisfacer las necesidades diarias con un toque distintivo de calidad y frescura.',
+        subgroups: [
+          {
+            products: [
+              {
+                name: 'Elements',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                link: '#elements'
+              },
+              {
+                name: 'Almond & Olive',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                link: '#almond-olive'
+              },
+              {
+                name: 'Rainforest Foliage',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                link: '#rainforest'
+              },
+              {
+                name: 'Tea Leaf',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                link: '#tealeaf'
+              },
+              {
+                name: 'Persea Botanicals',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                link: '#persea'
+              },
+              {
+                name: 'Luxury Wood',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                link: '#luxury-wood'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Superior',
+        id: 'superior',
+        desc: 'Formulaciones enriquecidas con extractos botánicos y envases de diseño contemporáneo para experiencias de hospitalidad superior.',
+        subgroups: [
+          {
+            products: [
+              {
+                name: 'Persea Botanicals',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                link: '#persea'
+              },
+              {
+                name: 'Green & Citrics',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                link: '#citrics'
+              },
+              {
+                name: 'Almond & Olive',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                link: '#almond-olive'
+              },
+              {
+                name: 'Tea Leaf',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                link: '#tealeaf'
+              },
+              {
+                name: 'Elements',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                link: '#elements'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Premium',
+        id: 'premium',
+        desc: 'Línea de amenidades de alta gama con aceites esenciales, fragancias complejas y presentaciones recargables sustentables.',
+        subgroups: [
+          {
+            products: [
+              {
+                name: 'Luxury Wood',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                link: '#luxury-wood'
+              },
+              {
+                name: 'nOcean Spa',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                link: '#nocean'
+              },
+              {
+                name: 'Rainforest Foliage',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                link: '#rainforest'
+              },
+              {
+                name: 'Persea Botanicals',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                link: '#persea'
+              },
+              {
+                name: 'Elements',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                link: '#elements'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Lujo',
+        id: 'lujo',
+        desc: 'Colecciones de máxima exclusividad para hoteles boutique y resorts de ultra lujo, elaboradas con estándares internacionales superiores.',
+        subgroups: [
+          {
+            products: [
+              {
+                name: 'Xinu Haute Parfumerie',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                link: '#xinu'
+              },
+              {
+                name: 'Luxury Wood',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                link: '#luxury-wood'
+              },
+              {
+                name: 'nOcean Spa',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                link: '#nocean'
+              },
+              {
+                name: 'Persea Botanicals',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                link: '#persea'
+              },
+              {
+                name: 'Rainforest Foliage',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                link: '#rainforest'
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    en: [
+      {
+        name: 'Standard',
+        id: 'standard',
+        desc: 'A collection of versatile and essential lines designed to satisfy daily needs with a distinctive touch of quality and freshness.',
+        subgroups: [
+          {
+            products: [
+              {
+                name: 'Elements',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                link: '#elements'
+              },
+              {
+                name: 'Almond & Olive',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                link: '#almond-olive'
+              },
+              {
+                name: 'Rainforest Foliage',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                link: '#rainforest'
+              },
+              {
+                name: 'Tea Leaf',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                link: '#tealeaf'
+              },
+              {
+                name: 'Persea Botanicals',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                link: '#persea'
+              },
+              {
+                name: 'Luxury Wood',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                link: '#luxury-wood'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Superior',
+        id: 'superior',
+        desc: 'Formulations enriched with botanical extracts and contemporary container designs for superior hospitality experiences.',
+        subgroups: [
+          {
+            products: [
+              {
+                name: 'Persea Botanicals',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                link: '#persea'
+              },
+              {
+                name: 'Green & Citrics',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                link: '#citrics'
+              },
+              {
+                name: 'Almond & Olive',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                link: '#almond-olive'
+              },
+              {
+                name: 'Tea Leaf',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                link: '#tealeaf'
+              },
+              {
+                name: 'Elements',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                link: '#elements'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Premium',
+        id: 'premium',
+        desc: 'High-end amenity line with essential oils, complex fragrances, and sustainable refillable presentations.',
+        subgroups: [
+          {
+            products: [
+              {
+                name: 'Luxury Wood',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                link: '#luxury-wood'
+              },
+              {
+                name: 'nOcean Spa',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                link: '#nocean'
+              },
+              {
+                name: 'Rainforest Foliage',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                link: '#rainforest'
+              },
+              {
+                name: 'Persea Botanicals',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                link: '#persea'
+              },
+              {
+                name: 'Elements',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif',
+                link: '#elements'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Luxury',
+        id: 'luxury',
+        desc: 'Ultra-exclusive collections for boutique hotels and luxury resorts, crafted to superior international standards.',
+        subgroups: [
+          {
+            products: [
+              {
+                name: 'Xinu Haute Parfumerie',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                link: '#xinu'
+              },
+              {
+                name: 'Luxury Wood',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif',
+                link: '#luxury-wood'
+              },
+              {
+                name: 'nOcean Spa',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif',
+                link: '#nocean'
+              },
+              {
+                name: 'Persea Botanicals',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif',
+                link: '#persea'
+              },
+              {
+                name: 'Rainforest Foliage',
+                logoSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                imgSrc: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif',
+                link: '#rainforest'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  };
 
   // Helper sanitizadores
   function cleanText(text) {
@@ -756,7 +946,7 @@
   }
 
   // 4. Lector dinámico de Webflow CMS
-  function readCollectionsFromCMS(target) {
+  function readCollectionsFromCMS(target, lang = 'es') {
     let sourceSelector = target.getAttribute('data-cms-source');
     let source = sourceSelector ? document.querySelector(sourceSelector) : null;
 
@@ -771,21 +961,48 @@
     const collectionsMap = {};
 
     items.forEach((item, idx) => {
-      const colNameEl = item.querySelector('.jypesa-coltabs-col-name, .jypesa-tabs-col-name, .jypesa-col-name, .collection-name, [data-col-name]');
-      let colName = colNameEl ? cleanText(colNameEl.textContent) : '';
-      if (!colName) colName = 'Colección';
+      const getVal = (selectors) => {
+        for (const sel of selectors) {
+          const el = item.querySelector(sel);
+          if (el && el.textContent.trim()) return cleanText(el.textContent);
+        }
+        return '';
+      };
+
+      let colName = '';
+      if (lang === 'en') {
+        colName = getVal(['.jypesa-coltabs-col-name-en', '.jypesa-tabs-col-name-en', '[data-col-name-en]']);
+      }
+      if (!colName) {
+        colName = getVal(['.jypesa-coltabs-col-name', '.jypesa-tabs-col-name', '.jypesa-col-name', '.collection-name', '[data-col-name]']);
+      }
+      if (!colName) colName = lang === 'en' ? 'Collection' : 'Colección';
 
       if (!collectionsMap[colName]) {
-        const descEl = item.querySelector('.jypesa-coltabs-col-desc, .jypesa-tabs-col-desc, .collection-desc');
+        let desc = '';
+        if (lang === 'en') {
+          desc = getVal(['.jypesa-coltabs-col-desc-en', '.jypesa-tabs-col-desc-en']);
+        }
+        if (!desc) {
+          desc = getVal(['.jypesa-coltabs-col-desc', '.jypesa-tabs-col-desc', '.collection-desc']);
+        }
+
         collectionsMap[colName] = {
           name: colName,
           id: makeSlug(colName),
-          desc: descEl ? cleanText(descEl.textContent) : '',
+          desc: desc,
           products: []
         };
       }
 
-      const prodNameEl = item.querySelector('.jypesa-coltabs-prod-name, .jypesa-tabs-prod-name, .product-name, [data-prod-name]') || colNameEl;
+      let prodName = '';
+      if (lang === 'en') {
+        prodName = getVal(['.jypesa-coltabs-prod-name-en', '.jypesa-tabs-prod-name-en', '[data-prod-name-en]']);
+      }
+      if (!prodName) {
+        prodName = getVal(['.jypesa-coltabs-prod-name', '.jypesa-tabs-prod-name', '.product-name', '[data-prod-name]']) || colName;
+      }
+
       const logoEl = item.querySelector('.jypesa-coltabs-col-logo, .jypesa-tabs-col-logo, img.jypesa-col-logo, [data-logo]');
       const imgEl = item.querySelector('.jypesa-coltabs-prod-img, .jypesa-tabs-prod-img, img.jypesa-prod-img, [data-img]');
       const linkEl = item.querySelector('.jypesa-coltabs-prod-link, .jypesa-tabs-prod-link, a.jypesa-prod-link, a');
@@ -796,13 +1013,12 @@
       }
 
       let imgSrc = imgEl ? (imgEl.getAttribute('src') || imgEl.getAttribute('data-src') || imgEl.src || '') : '';
-      // Si la imagen del producto está vacía, usar una imagen fallback adecuada en lugar de transparent PNG
       if (!imgSrc) {
         imgSrc = logoSrc || 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif';
       }
 
       const prodObj = {
-        name: prodNameEl ? cleanText(prodNameEl.textContent) : `Producto ${idx + 1}`,
+        name: prodName || (lang === 'en' ? `Product ${idx + 1}` : `Producto ${idx + 1}`),
         logoSrc: logoSrc,
         imgSrc: imgSrc,
         link: linkEl ? (linkEl.getAttribute('href') || '#') : '#'
@@ -824,16 +1040,18 @@
   }
 
   // 5. Construcción HTML del Widget
-  function buildWidgetHtml(collections) {
+  function buildWidgetHtml(collections, lang = 'es') {
+    const t = staticTexts[lang] || staticTexts.es;
+
     return `
       <div class="jypesa-coltabs-layout">
         <!-- Columna Izquierda (Navegación / Tabs) -->
         <div class="jypesa-coltabs-left-col">
           <div class="jypesa-coltabs-nav-header">
-            <span class="jypesa-coltabs-nav-subtitle">Nuestras colecciones</span>
+            <span class="jypesa-coltabs-nav-subtitle">${t.subtitle}</span>
             <h2 class="jypesa-coltabs-nav-title">
-              Conoce nuestras 
-              <span>colecciones</span>
+              ${t.titleLine} 
+              <span>${t.titleSpan}</span>
             </h2>
           </div>
           <div class="jypesa-coltabs-menu">
@@ -852,7 +1070,7 @@
               ${col.desc ? `<p class="jypesa-coltabs-tab-top-desc">${col.desc}</p>` : ''}
               ${col.subgroups.map(sub => `
                 <div class="jypesa-coltabs-slider-outer">
-                  <button class="jypesa-coltabs-desktop-nav-btn next-btn" aria-label="Siguiente Colección">
+                  <button class="jypesa-coltabs-desktop-nav-btn next-btn" aria-label="${lang === 'en' ? 'Next Collection' : 'Siguiente Colección'}">
                     ${navBtnRightSvg}
                   </button>
 
@@ -867,7 +1085,7 @@
                             ${prod.logoSrc ? `<img class="jypesa-coltabs-card-logo" src="${prod.logoSrc}" alt="${prod.name}">` : `<h3 class="jypesa-coltabs-card-title-fallback">${prod.name}</h3>`}
                           </div>
                           <div class="jypesa-coltabs-card-btn">
-                            <span>Conocer más</span>
+                            <span>${t.cardBtnText}</span>
                             <span class="jypesa-coltabs-card-btn-icon">${arrowRightSvg}</span>
                           </div>
                         </div>
@@ -1093,8 +1311,20 @@
       if (target.getAttribute('data-initialized') === 'true') return;
       target.setAttribute('data-initialized', 'true');
 
-      const collections = readCollectionsFromCMS(target) || defaultCollections;
-      target.innerHTML = buildWidgetHtml(collections);
+      let lang = (target.getAttribute('data-lang') || '').toLowerCase().trim();
+      if (lang !== 'en' && lang !== 'es') {
+        const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+        if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
+          lang = 'en';
+        } else {
+          lang = 'es';
+        }
+      }
+
+      const collections = readCollectionsFromCMS(target, lang) || (defaultCollectionsByLang[lang] || defaultCollectionsByLang.es);
+      target.innerHTML = buildWidgetHtml(collections, lang);
       setupWidgetInteractions(target);
     });
   }

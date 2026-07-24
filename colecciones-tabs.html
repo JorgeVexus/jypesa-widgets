@@ -19,6 +19,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .demo-bar code {
       background: #0f1113;
@@ -27,17 +29,38 @@
       color: #48a9c5;
       font-family: monospace;
     }
+    .lang-btn {
+      background: #3a3f43;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .lang-btn.active {
+      background: #48a9c5;
+      border-color: #48a9c5;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
 
   <div class="demo-bar">
     <div><strong>JYPESA</strong> • Widget de Tabs con Sliders de Colecciones (Figma Node 322-23490)</div>
+    <div style="display: flex; gap: 8px; align-items: center;">
+      <span>Idioma:</span>
+      <button class="lang-btn active" onclick="switchLang('es')">Español (data-lang="es")</button>
+      <button class="lang-btn" onclick="switchLang('en')">English (data-lang="en")</button>
+    </div>
     <div>Usar Script: <code>https://jypesa-widgets.vercel.app/widgets/colecciones-tabs/colecciones-tabs.js</code></div>
   </div>
 
   <!-- Contenedor Principal del Widget de Colecciones -->
-  <div id="jypesa-colecciones-tabs-widget"></div>
+  <div id="jypesa-colecciones-tabs-widget" data-lang="es"></div>
 
   <!-- Fuente de Datos CMS Oculta para Pruebas Dinámicas -->
   <div class="jypesa-colecciones-tabs-cms-source-test" style="display: none;">
@@ -45,7 +68,9 @@
     <!-- Colección Cítrica (CMS) -->
     <div class="w-dyn-item">
       <span class="jypesa-coltabs-col-name">Colección Cítrica (CMS)</span>
+      <span class="jypesa-coltabs-col-name-en">Citrus Collection (CMS)</span>
       <p class="jypesa-coltabs-col-desc">Cargado de notas frescas y chispeantes que despiertan el cuerpo y la mente de sus huéspedes.</p>
+      <p class="jypesa-coltabs-col-desc-en">Packed with fresh, sparkling notes that awaken the body and mind of your guests.</p>
       <span class="jypesa-coltabs-prod-name">Green & Citrics</span>
       <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif" alt="Citrics Logo">
       <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif" alt="Citrics Product">
@@ -54,40 +79,19 @@
     
     <div class="w-dyn-item">
       <span class="jypesa-coltabs-col-name">Colección Cítrica (CMS)</span>
+      <span class="jypesa-coltabs-col-name-en">Citrus Collection (CMS)</span>
       <span class="jypesa-coltabs-prod-name">Elements</span>
       <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif" alt="Elements Logo">
       <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif" alt="Elements Product">
       <a class="jypesa-coltabs-prod-link" href="#elements">Conocer más</a>
     </div>
 
-    <div class="w-dyn-item">
-      <span class="jypesa-coltabs-col-name">Colección Cítrica (CMS)</span>
-      <span class="jypesa-coltabs-prod-name">Rainforest Foliage</span>
-      <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif" alt="Rainforest Logo">
-      <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif" alt="Rainforest Product">
-      <a class="jypesa-coltabs-prod-link" href="#rainforest">Conocer más</a>
-    </div>
-
-    <div class="w-dyn-item">
-      <span class="jypesa-coltabs-col-name">Colección Cítrica (CMS)</span>
-      <span class="jypesa-coltabs-prod-name">Tea Leaf</span>
-      <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif" alt="Tea Leaf Logo">
-      <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d66ea18620390b0eec_collection-img-set-versatil.avif" alt="Tea Leaf Product">
-      <a class="jypesa-coltabs-prod-link" href="#tealeaf">Conocer más</a>
-    </div>
-
-    <div class="w-dyn-item">
-      <span class="jypesa-coltabs-col-name">Colección Cítrica (CMS)</span>
-      <span class="jypesa-coltabs-prod-name">Persea Botanicals</span>
-      <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif" alt="Persea Logo">
-      <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d59e6389f1a0c8ebbe_collection-img-set-amenidades-premium.avif" alt="Persea Product">
-      <a class="jypesa-coltabs-prod-link" href="#persea">Conocer más</a>
-    </div>
-
     <!-- Luxury Wood (CMS) -->
     <div class="w-dyn-item">
       <span class="jypesa-coltabs-col-name">Luxury Wood (CMS)</span>
+      <span class="jypesa-coltabs-col-name-en">Luxury Wood (CMS)</span>
       <p class="jypesa-coltabs-col-desc">Elegantes notas amaderadas y tonos cálidos para experiencias de lujo inolvidables.</p>
+      <p class="jypesa-coltabs-col-desc-en">Elegant woody notes and warm tones for unforgettable luxury experiences.</p>
       <span class="jypesa-coltabs-prod-name">Luxury Wood</span>
       <img class="jypesa-coltabs-col-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif" alt="Luxury Wood Logo">
       <img class="jypesa-coltabs-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif" alt="Luxury Wood Product">
@@ -95,6 +99,27 @@
     </div>
 
   </div>
+
+  <script>
+    function switchLang(lang) {
+      const widget = document.getElementById('jypesa-colecciones-tabs-widget');
+      if (!widget) return;
+      widget.setAttribute('data-lang', lang);
+      widget.removeAttribute('data-initialized');
+      widget.innerHTML = '';
+      window.__JypesaColeccionesTabsWidgetInitialized = false;
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes(lang));
+      });
+
+      if (typeof initColeccionesTabsWidget === 'function') {
+        initColeccionesTabsWidget();
+      } else {
+        location.reload();
+      }
+    }
+  </script>
 
   <script src="widgets/colecciones-tabs/colecciones-tabs.js"></script>
 </body>
