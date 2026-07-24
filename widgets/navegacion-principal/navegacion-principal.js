@@ -745,6 +745,7 @@
     if (lang === 'en') {
       if (base === '/' || base === '') return '/en/home' + (rawHash ? '#' + rawHash : '');
       if (base === '/nosotros') return '/en/about-us' + (rawHash ? '#' + rawHash : '');
+      if (base === '/contacto') return '/en/contact' + (rawHash ? '#' + rawHash : '');
       if (base === '/soluciones') {
         const enHash = rawHash ? (SOLUCIONES_HASH_MAP_EN[rawHash] || rawHash) : '';
         return '/en/solutions' + (enHash ? '#' + enHash : '');
