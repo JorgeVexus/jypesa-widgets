@@ -567,73 +567,141 @@
   document.head.appendChild(style);
 
   // ─── Datos fallback ───────────────────────────────────────────────────────────
-  const FALLBACK_DATA = {
-    segmentLabel: 'Segmento • Hotelería',
-    sectionTitle: 'Hotelería',
-    sectionDesc: 'Soluciones diseñadas para elevar la experiencia del huésped y optimizar la operación hotelera.',
-    tabs: [
-      {
-        id: 'hoteles-independientes',
-        label: 'Hoteles independientes',
-        desc: 'Soluciones accesibles, estéticas y funcionales para hoteles que buscan destacar sin complicar su operación.',
-        images: [
-          {
-            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4d5d430c17b94a5ca3d29d_Nosotros%20jypesa.avif',
-            alt: 'Hotel independiente - imagen 1'
-          },
-          {
-            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5bdf58a79c5b45a15c2b55_Desarrollo-personalizado-hero.avif',
-            alt: 'Hotel independiente - imagen 2'
-          },
-          {
-            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5d71d7a5db3796b30d0da4_blur.avif',
-            alt: 'Hotel independiente - imagen 3'
-          }
-        ]
-      },
-      {
-        id: 'cadenas-hoteleras',
-        label: 'Cadenas hoteleras',
-        desc: 'Programas de abastecimiento centralizado, consistencia de producto en todas las propiedades y acceso a la plataforma Avendra para simplificar compras.',
-        images: [
-          {
-            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1e1e7a654eba705955_sustentabilidad%2001.webp',
-            alt: 'Cadena hotelera - imagen 1'
-          },
-          {
-            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1ee752754a4bde9fe7_sustentabilidad%2002.webp',
-            alt: 'Cadena hotelera - imagen 2'
-          },
-          {
-            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b27c2ad81f74357967e_sustentabilidad%2003.webp',
-            alt: 'Cadena hotelera - imagen 3'
-          }
-        ]
-      },
-      {
-        id: 'grupos-hoteleros',
-        label: 'Grupos hoteleros & operadores',
-        desc: 'Gestión multi-marca y multi-mercado. Desarrollo de colecciones exclusivas por marca, private label y coordinación logística internacional desde EE.UU. y México.',
-        images: [
-          {
-            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1f3fd0d0b22e5f8120_sustentabilidad%2004.webp',
-            alt: 'Grupo hotelero - imagen 1'
-          },
-          {
-            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ffe5e8fd701a7a1134c22_iso%202276.avif',
-            alt: 'Grupo hotelero - imagen 2'
-          },
-          {
-            src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ffe5e4489cf12b17d47f4_peta.avif',
-            alt: 'Grupo hotelero - imagen 3'
-          }
-        ]
-      }
-    ]
+  // ─── Datos fallback bilingües ───────────────────────────────────────────────
+  const FALLBACK_DATA_BY_LANG = {
+    es: {
+      segmentLabel: 'Segmento • Hotelería',
+      sectionTitle: 'Hotelería',
+      sectionDesc: 'Soluciones diseñadas para elevar la experiencia del huésped y optimizar la operación hotelera.',
+      tabs: [
+        {
+          id: 'hoteles-independientes',
+          label: 'Hoteles independientes',
+          desc: 'Soluciones accesibles, estéticas y funcionales para hoteles que buscan destacar sin complicar su operación.',
+          images: [
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4d5d430c17b94a5ca3d29d_Nosotros%20jypesa.avif',
+              alt: 'Hotel independiente - imagen 1'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5bdf58a79c5b45a15c2b55_Desarrollo-personalizado-hero.avif',
+              alt: 'Hotel independiente - imagen 2'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5d71d7a5db3796b30d0da4_blur.avif',
+              alt: 'Hotel independiente - imagen 3'
+            }
+          ]
+        },
+        {
+          id: 'cadenas-hoteleras',
+          label: 'Cadenas hoteleras',
+          desc: 'Programas de abastecimiento centralizado, consistencia de producto en todas las propiedades y acceso a la plataforma Avendra para simplificar compras.',
+          images: [
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1e1e7a654eba705955_sustentabilidad%2001.webp',
+              alt: 'Cadena hotelera - imagen 1'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1ee752754a4bde9fe7_sustentabilidad%2002.webp',
+              alt: 'Cadena hotelera - imagen 2'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b27c2ad81f74357967e_sustentabilidad%2003.webp',
+              alt: 'Cadena hotelera - imagen 3'
+            }
+          ]
+        },
+        {
+          id: 'grupos-hoteleros',
+          label: 'Grupos hoteleros & operadores',
+          desc: 'Gestión multi-marca y multi-mercado. Desarrollo de colecciones exclusivas por marca, private label y coordinación logística internacional desde EE.UU. y México.',
+          images: [
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1f3fd0d0b22e5f8120_sustentabilidad%2004.webp',
+              alt: 'Grupo hotelero - imagen 1'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ffe5e8fd701a7a1134c22_iso%202276.avif',
+              alt: 'Grupo hotelero - imagen 2'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ffe5e4489cf12b17d47f4_peta.avif',
+              alt: 'Grupo hotelero - imagen 3'
+            }
+          ]
+        }
+      ]
+    },
+    en: {
+      segmentLabel: 'Segment • Hospitality',
+      sectionTitle: 'Hospitality & Hotels',
+      sectionDesc: 'Tailored amenity programs designed to elevate guest satisfaction and streamline hotel operations.',
+      tabs: [
+        {
+          id: 'independent-hotels',
+          label: 'Independent Hotels',
+          desc: 'Accessible, aesthetic, and functional amenity solutions for independent properties seeking to stand out.',
+          images: [
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4d5d430c17b94a5ca3d29d_Nosotros%20jypesa.avif',
+              alt: 'Independent Hotel - image 1'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5bdf58a79c5b45a15c2b55_Desarrollo-personalizado-hero.avif',
+              alt: 'Independent Hotel - image 2'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5d71d7a5db3796b30d0da4_blur.avif',
+              alt: 'Independent Hotel - image 3'
+            }
+          ]
+        },
+        {
+          id: 'hotel-chains',
+          label: 'Hotel Chains',
+          desc: 'Centralized supply management, product consistency across all properties, and Avendra integration for purchasing.',
+          images: [
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1e1e7a654eba705955_sustentabilidad%2001.webp',
+              alt: 'Hotel Chain - image 1'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1ee752754a4bde9fe7_sustentabilidad%2002.webp',
+              alt: 'Hotel Chain - image 2'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b27c2ad81f74357967e_sustentabilidad%2003.webp',
+              alt: 'Hotel Chain - image 3'
+            }
+          ]
+        },
+        {
+          id: 'hotel-groups',
+          label: 'Hotel Groups & Operators',
+          desc: 'Multi-brand management, custom brand collections, private label, and cross-border logistics from the US and Mexico.',
+          images: [
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1f3fd0d0b22e5f8120_sustentabilidad%2004.webp',
+              alt: 'Hotel Group - image 1'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ffe5e8fd701a7a1134c22_iso%202276.avif',
+              alt: 'Hotel Group - image 2'
+            },
+            {
+              src: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4ffe5e4489cf12b17d47f4_peta.avif',
+              alt: 'Hotel Group - image 3'
+            }
+          ]
+        }
+      ]
+    }
   };
 
   // ─── Leer datos desde el CMS de Webflow ──────────────────────────────────────
-  function readFromCMS(container) {
+  function readFromCMS(container, lang = 'es') {
+    const fallbackData = FALLBACK_DATA_BY_LANG[lang] || FALLBACK_DATA_BY_LANG.es;
     let source = null;
     const rawAttr = container.getAttribute('data-cms-source') || '';
     const cmsSel = rawAttr.trim().replace(/^['"]|['"]$/g, '');
@@ -646,12 +714,15 @@
                (container.parentElement ? container.parentElement.querySelector('.' + cleanSel) : null);
     }
 
-    // Si no tiene data-cms-source explícito, buscar dentro del mismo contenedor padre o hermano
-    if (!source && container.parentElement) {
-      source = container.parentElement.querySelector('.jht-cms-source, [class*="cms-source-"]');
+    // Buscar dentro del mismo contenedor padre o sección cercana
+    if (!source) {
+      const parentSec = container.closest('section, .section, .w-section, [data-section]') || container.parentElement;
+      if (parentSec) {
+        source = parentSec.querySelector('.jht-cms-source, [class*="cms-source-"]');
+      }
     }
 
-    // Si no se especificó data-cms-source y no hay local, buscar global
+    // Buscar global como última alternativa si no hay fuente local
     if (!source && !cmsSel) {
       source = document.querySelector('.jht-cms-source, [class*="cms-source-"]');
     }
@@ -663,18 +734,39 @@
     const items = Array.from(source.querySelectorAll('.w-dyn-item, .jht-cms-tab'));
     if (!items.length) return null;
 
-    // Datos del header (opcionales, tomados del primer elemento o del wrapper)
-    const segmentLabelEl = source.querySelector('.jht-cms-segment-label');
-    const sectionTitleEl = source.querySelector('.jht-cms-section-title');
-    const sectionDescEl  = source.querySelector('.jht-cms-section-desc');
+    const getEl = (selectors) => {
+      for (const sel of selectors) {
+        const el = source.querySelector(sel);
+        if (el && el.textContent.trim()) return el;
+      }
+      return null;
+    };
+
+    // Datos del header (apoya -en cuando lang === 'en')
+    const segmentLabelEl = lang === 'en' ? getEl(['.jht-cms-segment-label-en', '.jht-cms-segment-label']) : getEl(['.jht-cms-segment-label']);
+    const sectionTitleEl = lang === 'en' ? getEl(['.jht-cms-section-title-en', '.jht-cms-section-title']) : getEl(['.jht-cms-section-title']);
+    const sectionDescEl  = lang === 'en' ? getEl(['.jht-cms-section-desc-en', '.jht-cms-section-desc']) : getEl(['.jht-cms-section-desc']);
 
     const tabs = items.map(item => {
-      const labelEl  = item.querySelector('.jht-cms-tab-label');
-      const descEl   = item.querySelector('.jht-cms-tab-desc');
-      const imgEls   = Array.from(item.querySelectorAll('.jht-cms-tab-img'));
-      const label    = labelEl ? labelEl.textContent.trim() : '';
+      const getItemVal = (selectors) => {
+        for (const sel of selectors) {
+          const el = item.querySelector(sel);
+          if (el && el.textContent.trim()) return el.textContent.trim();
+        }
+        return '';
+      };
+
+      const label = lang === 'en' 
+        ? (getItemVal(['.jht-cms-tab-label-en', '[data-tab-label-en]']) || getItemVal(['.jht-cms-tab-label', '[data-tab-label]']))
+        : getItemVal(['.jht-cms-tab-label', '[data-tab-label]']);
+
       if (!label) return null;
 
+      const desc = lang === 'en'
+        ? (getItemVal(['.jht-cms-tab-desc-en', '[data-tab-desc-en]']) || getItemVal(['.jht-cms-tab-desc', '[data-tab-desc]']))
+        : getItemVal(['.jht-cms-tab-desc', '[data-tab-desc]']);
+
+      const imgEls = Array.from(item.querySelectorAll('.jht-cms-tab-img'));
       const id = label.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
       const images = imgEls.map(img => ({
@@ -685,7 +777,7 @@
       return {
         id,
         label,
-        desc: descEl ? descEl.textContent.trim() : '',
+        desc,
         images
       };
     }).filter(Boolean);
@@ -693,9 +785,9 @@
     if (!tabs.length) return null;
 
     return {
-      segmentLabel: segmentLabelEl ? segmentLabelEl.textContent.trim() : FALLBACK_DATA.segmentLabel,
-      sectionTitle: sectionTitleEl ? sectionTitleEl.textContent.trim() : FALLBACK_DATA.sectionTitle,
-      sectionDesc:  sectionDescEl  ? sectionDescEl.textContent.trim()  : FALLBACK_DATA.sectionDesc,
+      segmentLabel: segmentLabelEl ? segmentLabelEl.textContent.trim() : fallbackData.segmentLabel,
+      sectionTitle: sectionTitleEl ? sectionTitleEl.textContent.trim() : fallbackData.sectionTitle,
+      sectionDesc:  sectionDescEl  ? sectionDescEl.textContent.trim()  : fallbackData.sectionDesc,
       tabs
     };
   }
@@ -795,7 +887,20 @@
 
   // ─── Inicializar una instancia ──────────────────────────────────────────────
   function initInstance(container) {
-    const data = readFromCMS(container) || FALLBACK_DATA;
+    let lang = (container.getAttribute('data-lang') || '').toLowerCase().trim();
+    if (lang !== 'en' && lang !== 'es') {
+      const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+      if (htmlLang.startsWith('en')) {
+        lang = 'en';
+      } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
+        lang = 'en';
+      } else {
+        lang = 'es';
+      }
+    }
+
+    const fallbackData = FALLBACK_DATA_BY_LANG[lang] || FALLBACK_DATA_BY_LANG.es;
+    const data = readFromCMS(container, lang) || fallbackData;
     container.innerHTML = buildWidget(data);
 
     // Eventos de clic en los tabs
