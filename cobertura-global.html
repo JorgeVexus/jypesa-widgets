@@ -70,10 +70,14 @@
 
   <div class="demo-bar">
     <span class="demo-brand">JYPESA COBERTURA GLOBAL &bull; WEBFLOW EMBED PREVIEW</span>
+    <div style="display: flex; gap: 8px;">
+      <button class="demo-btn active" onclick="switchLang('es')" style="background: #0089C1; color: #fff; border: 1px solid #777; padding: 4px 10px; border-radius: 4px; cursor: pointer;">Español (data-lang="es")</button>
+      <button class="demo-btn" onclick="switchLang('en')" style="background: #fff; color: #0089C1; border: 1px solid #777; padding: 4px 10px; border-radius: 4px; cursor: pointer;">English (data-lang="en")</button>
+    </div>
   </div>
 
   <div class="widget-preview-area">
-    <div id="jypesa-cobertura-global-widget"></div>
+    <div id="jypesa-cobertura-global-widget" data-lang="es"></div>
   </div>
 
   <div class="demo-info">
@@ -85,6 +89,23 @@
 &lt;!-- Enlace del Script (Vercel) --&gt;
 &lt;script src="https://jypesa-widgets.vercel.app/widgets/cobertura-global/cobertura-global.js"&gt;&lt;/script&gt;</code></pre>
   </div>
+
+  <script>
+    function switchLang(lang) {
+      const widget = document.getElementById('jypesa-cobertura-global-widget');
+      if (!widget) return;
+      widget.setAttribute('data-lang', lang);
+      widget.removeAttribute('data-initialized');
+      widget.innerHTML = '';
+      window.__JypesaCoberturaGlobalWidgetInitialized = false;
+
+      if (typeof initCoberturaGlobalWidget === 'function') {
+        initCoberturaGlobalWidget();
+      } else {
+        location.reload();
+      }
+    }
+  </script>
 
   <script src="./widgets/cobertura-global/cobertura-global.js"></script>
 

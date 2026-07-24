@@ -475,18 +475,55 @@
     return `<div class="jypesa-cg-tt-row"><strong>${escapeHtml(label)}:</strong><span>${escapeHtml(value)}</span></div>`;
   }
 
-  function buildDesktopGroups() {
+  /* ==========================================================
+     DICCIONARIO BILINGÜE
+     ========================================================== */
+  const staticTextsByLang = {
+    es: {
+      titleLine1: 'Cobertura estratégica',
+      titleLine2: 'y distribución eficiente',
+      subtitle: 'Integramos producción, operación y distribución para asegurar cobertura, rapidez y consistencia en cada entrega, donde sea que nos necesites.',
+      groups: {
+        Distribuidores: 'Distribuidores',
+        Oficinas: 'Oficinas',
+        'Fábrica': 'Fábrica'
+      },
+      tooltip: {
+        location: 'Ubicación',
+        country: 'País / región',
+        contact: 'Contacto'
+      }
+    },
+    en: {
+      titleLine1: 'Strategic Coverage and',
+      titleLine2: 'Efficient Distribution',
+      subtitle: 'We integrate production, operation, and distribution to ensure coverage, speed, and consistency in every delivery, wherever you need us.',
+      groups: {
+        Distribuidores: 'Distributors',
+        Oficinas: 'Offices',
+        'Fábrica': 'Factory'
+      },
+      tooltip: {
+        location: 'Location',
+        country: 'Country / region',
+        contact: 'Contact'
+      }
+    }
+  };
+
+  function buildDesktopGroups(texts) {
     return GROUP_PRIORITY.map(function (groupName, groupIndex) {
       const group = GROUPS[groupName];
       const locations = groupLocations(groupName);
       const midpoint = Math.ceil(locations.length / 2);
       const columns = locations.length > 8 ? [locations.slice(0, midpoint), locations.slice(midpoint)] : [locations];
+      const displayGroupName = (texts && texts.groups && texts.groups[groupName]) ? texts.groups[groupName] : groupName;
       return `
         <div class="jypesa-cg-group${groupIndex ? ' jypesa-cg-group-bottom' : ''}">
           <div class="jypesa-cg-group-header">
             <div class="jypesa-cg-group-title-wrap">
               ${pinSvg(group.color, 'jypesa-cg-mask-group-' + groupIndex, 'jypesa-cg-pin')}
-              <span class="jypesa-cg-group-title" style="color: ${group.color};">${escapeHtml(groupName)}</span>
+              <span class="jypesa-cg-group-title" style="color: ${group.color};">${escapeHtml(displayGroupName)}</span>
             </div>
             <span class="jypesa-cg-group-count" style="color: ${group.color};">${locations.length}</span>
           </div>
@@ -501,16 +538,17 @@
     }).join('');
   }
 
-  function buildMobileGroups() {
+  function buildMobileGroups(texts) {
     return GROUP_PRIORITY.map(function (groupName, groupIndex) {
       const group = GROUPS[groupName];
       const locations = groupLocations(groupName);
+      const displayGroupName = (texts && texts.groups && texts.groups[groupName]) ? texts.groups[groupName] : groupName;
       return `
         <div class="jypesa-cg-mob-group">
           <div class="jypesa-cg-mob-header">
             <div class="jypesa-cg-mob-title-wrap">
               ${pinSvg(group.color, 'jypesa-cg-mask-mobile-' + groupIndex, 'jypesa-cg-mob-pin')}
-              <span class="jypesa-cg-mob-title" style="color: ${group.color};">${escapeHtml(groupName)}</span>
+              <span class="jypesa-cg-mob-title" style="color: ${group.color};">${escapeHtml(displayGroupName)}</span>
             </div>
             <span class="jypesa-cg-mob-count" style="color: ${group.color};">${locations.length}</span>
           </div>
@@ -523,26 +561,26 @@
     }).join('');
   }
 
-  function buildWidgetHtml() {
+  function buildWidgetHtml(texts) {
     return `
 <div class="jypesa-cg-header">
   <h1 class="jypesa-cg-title">
-    <span class="jypesa-cg-title-line">Cobertura estratégica</span>
-    <span class="jypesa-cg-title-line">y distribución eficiente</span>
+    <span class="jypesa-cg-title-line">${texts.titleLine1}</span>
+    <span class="jypesa-cg-title-line">${texts.titleLine2}</span>
   </h1>
-  <p class="jypesa-cg-subtitle">Integramos producción, operación y distribución para asegurar cobertura, rapidez y consistencia en cada entrega, donde sea que nos necesites.</p>
+  <p class="jypesa-cg-subtitle">${texts.subtitle}</p>
 </div>
 
 <div class="jypesa-cg-map-section">
   <div class="jypesa-cg-map-wrapper">
     <svg class="jypesa-cg-world-map-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"></svg>
 
-    <div class="jypesa-cg-overlay">${buildDesktopGroups()}</div>
+    <div class="jypesa-cg-overlay">${buildDesktopGroups(texts)}</div>
   </div>
 </div>
 
 <div class="jypesa-cg-mobile">
-  <div class="jypesa-cg-mobile-inner">${buildMobileGroups()}</div>
+  <div class="jypesa-cg-mobile-inner">${buildMobileGroups(texts)}</div>
 </div>
 `;
   }
@@ -573,7 +611,7 @@
   /* ==========================================================
      RENDER DEL MAPA
      ========================================================== */
-  function renderMap(target) {
+  function renderMap(target, texts) {
     const coordinateCounts = new Map();
     const markers = LOCATIONS.map(function (location) {
       const key = location.lat.toFixed(4) + ',' + location.lon.toFixed(4);
@@ -615,15 +653,20 @@
 
     function showTT(ev, m) {
       window.clearTimeout(hideTimer);
+      const displayType = (texts && texts.groups && texts.groups[m.type]) ? texts.groups[m.type] : m.type;
+      const contactLabel = texts ? texts.tooltip.contact : 'Contacto';
+      const locationLabel = texts ? texts.tooltip.location : 'Ubicación';
+      const countryLabel = texts ? texts.tooltip.country : 'País / región';
+
       const contact = m.contact
-        ? `<div class="jypesa-cg-tt-row"><strong>Contacto:</strong><a class="jypesa-cg-tt-link" href="${escapeHtml(contactHref(m.contact))}" target="${isEmail(m.contact) ? '_self' : '_blank'}" rel="noopener noreferrer">${escapeHtml(m.contact)}</a></div>`
+        ? `<div class="jypesa-cg-tt-row"><strong>${escapeHtml(contactLabel)}:</strong><a class="jypesa-cg-tt-link" href="${escapeHtml(contactHref(m.contact))}" target="${isEmail(m.contact) ? '_self' : '_blank'}" rel="noopener noreferrer">${escapeHtml(m.contact)}</a></div>`
         : '';
       tt.innerHTML = `
         <div class="jypesa-cg-tt-inner">
           <div class="jypesa-cg-tt-title">${escapeHtml(m.name)}</div>
-          <div class="jypesa-cg-tt-category" style="color: ${m.color};">${escapeHtml(m.type)}</div>
-          ${tooltipRow('Ubicación', m.location)}
-          ${tooltipRow('País / región', m.country)}
+          <div class="jypesa-cg-tt-category" style="color: ${m.color};">${escapeHtml(displayType)}</div>
+          ${tooltipRow(locationLabel, m.location)}
+          ${tooltipRow(countryLabel, m.country)}
           ${contact}
         </div>
       `;
@@ -686,21 +729,16 @@
           .attr('transform', 'translate(' + coords[0] + ',' + coords[1] + ')')
           .style('cursor', 'pointer');
 
-        // Área de hover invisible y estable: el ícono real (con máscara + filtro
-        // de glow animados) tiene bordes que parpadean al hacer hit-testing pixel
-        // a pixel, así que el mouseenter/leave se ancla a esta forma fija en vez.
         g.append('circle')
           .attr('class', 'jypesa-cg-hit-area')
           .attr('cx', 0).attr('cy', headY).attr('r', PIN_SIZE * 0.62)
           .attr('fill', 'transparent');
 
-        // Anillo de pulso, centrado en la cabeza del pin (mismo ícono que overlay/tooltip)
         g.append('circle')
           .attr('class', 'jypesa-cg-pulse-ring')
           .attr('cx', 0).attr('cy', headY).attr('r', headR)
           .attr('fill', 'none').attr('stroke', m.color).attr('stroke-width', 1).attr('opacity', 0);
 
-        // El pin se ancla por su punta en (0,0), que coincide con las coordenadas geográficas
         const iconG = g.append('g').attr('class', 'jypesa-cg-pin-icon');
 
         iconG.append('svg')
@@ -713,12 +751,6 @@
           showTT(ev, m);
           iconG.transition().duration(160).attr('transform', 'scale(1.35)').attr('filter', 'url(#jypesa-cg-glow)');
           g.select('.jypesa-cg-pulse-ring').transition().duration(160).attr('r', headR * 1.5).attr('opacity', 0.35);
-        }
-
-        function handleLeave() {
-          hideTT();
-          iconG.transition().duration(180).attr('transform', 'scale(1)').attr('filter', null);
-          g.select('.jypesa-cg-pulse-ring').transition().duration(180).attr('r', headR).attr('opacity', 0);
         }
 
         g.on('mouseenter', handleEnter);
@@ -752,13 +784,33 @@
      INIT
      ========================================================== */
   function initCoberturaGlobalWidget() {
-    const target = document.getElementById('jypesa-cobertura-global-widget') || document.querySelector('[data-jypesa-cobertura-global-widget]');
-    if (!target) return;
+    const targets = document.querySelectorAll(
+      '#jypesa-cobertura-global-widget, [data-jypesa-cobertura-global-widget], .jypesa-cobertura-global-widget, .jypesa-cobertura-global-widget-container'
+    );
+    if (!targets.length) return;
 
-    target.classList.add('jypesa-cobertura-global-widget');
-    target.innerHTML = buildWidgetHtml();
+    targets.forEach(function (target) {
+      if (target.getAttribute('data-initialized') === 'true') return;
+      target.setAttribute('data-initialized', 'true');
 
-    loadMapLibs(function () { renderMap(target); });
+      let lang = (target.getAttribute('data-lang') || '').toLowerCase().trim();
+      if (lang !== 'en' && lang !== 'es') {
+        const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+        if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
+          lang = 'en';
+        } else {
+          lang = 'es';
+        }
+      }
+
+      target.classList.add('jypesa-cobertura-global-widget');
+      const texts = staticTextsByLang[lang] || staticTextsByLang.es;
+      target.innerHTML = buildWidgetHtml(texts);
+
+      loadMapLibs(function () { renderMap(target, texts); });
+    });
   }
 
   if (document.readyState === 'loading') {
