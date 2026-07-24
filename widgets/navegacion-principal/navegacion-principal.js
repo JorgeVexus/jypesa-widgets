@@ -147,10 +147,83 @@
   display: flex;
   padding: 8px;
   transition: var(--transition);
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .jypesa-nav-principal-widget .action-icon:hover {
   color: var(--secondary);
+}
+
+.jypesa-nav-principal-widget .lang-selector-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.jypesa-nav-principal-widget .lang-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(80, 109, 133, 0.15);
+  padding: 6px 0;
+  min-width: 145px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2500;
+}
+
+.jypesa-nav-principal-widget .lang-selector-wrapper:hover .lang-dropdown-menu,
+.jypesa-nav-principal-widget .lang-dropdown-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.jypesa-nav-principal-widget .lang-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #506D85;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.jypesa-nav-principal-widget .lang-option:hover {
+  background: #EEF7FA;
+  color: #0088BD;
+}
+
+.jypesa-nav-principal-widget .lang-option.active {
+  font-weight: 600;
+  color: #0088BD;
+  background: rgba(72, 169, 197, 0.08);
+}
+
+.jypesa-nav-principal-widget .mob-lang-btn {
+  font-size: 14px;
+  font-weight: 500;
+  color: #506D85;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.jypesa-nav-principal-widget .mob-lang-btn.active {
+  background: #506D85;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 .jypesa-nav-principal-widget .smart-order {
@@ -655,6 +728,7 @@
 
     if (lang === 'en') {
       if (base === '/' || base === '') return '/en/home' + hash;
+      if (base === '/nosotros') return '/en/about-us' + hash;
       if (base.startsWith('/en/') || base === '/en') return url;
       const prefixed = '/en' + (base.startsWith('/') ? base : '/' + base);
       return prefixed + hash;
@@ -758,6 +832,7 @@
                                 <div class="accesorios-col">
                                     <a href="${u('/accesorios')}" class="cat-label-link"><p class="cat-label">${t.catAccessories}</p></a>
                                     <div class="accesorios-row">
+                                        <a href="${u('/accesorios')}" class="option-link" data-p="Elements">${t.optAllAccessories}</a>
                                         <a href="${u('/accesorios')}" class="option-link" data-p="Lavarino">Lavarino</a>
                                         <a href="${u('/accesorios')}" class="option-link" data-p="Nocean">Nocean</a>
                                     </div>
@@ -772,61 +847,59 @@
                 <div class="mega-menu">
                     <div class="mega-content">
                         <div class="visual-block">
-                            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5a93f331191cd8cd4670a3_soluciones%20menu.avif" alt="Soluciones">
+                            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5a92ddf931dcfaf8fb4bce_soluciones%20menu.avif" alt="Soluciones">
                             <div class="visual-overlay"></div>
                         </div>
                         <div class="links-container">
                             <div class="category-block">
                                 <p class="cat-label">${t.catSolutions}</p>
-                                <div class="soluciones-grid-wrap">
-                                    <div class="sections-row">
-                                        <div class="menu-section">
-                                            <div class="section-header">${t.secHotels}</div>
-                                            <ul class="options-list">
-                                                <li><a href="${u('/soluciones#hoteles-independientes')}" class="option-link">${t.optIndieHotels}</a></li>
-                                                <li><a href="${u('/soluciones#cadenas-hoteleras')}" class="option-link">${t.optHotelChains}</a></li>
-                                                <li><a href="${u('/soluciones#grupos-hoteleros')}" class="option-link">${t.optHotelGroups}</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="menu-section">
-                                             <div class="section-header">${t.secAltHospitality}</div>
-                                             <ul class="options-list">
-                                                 <li><a href="${u('/soluciones#airbnb')}" class="option-link">${t.optAirbnb}</a></li>
-                                                 <li><a href="${u('/soluciones#short-term-rental-str')}" class="option-link">${t.optStr}</a></li>
-                                             </ul>
-                                         </div>
-                                         <div class="menu-section">
-                                             <div class="section-header">${t.secInstitutional}</div>
-                                             <ul class="options-list">
-                                                 <li><a href="${u('/soluciones#hospitales-y-clinicas')}" class="option-link">${t.optHospitals}</a></li>
-                                                 <li><a href="${u('/soluciones#restaurantes')}" class="option-link">${t.optRestaurants}</a></li>
-                                                 <li><a href="${u('/soluciones#clubes-centros-deportivos')}" class="option-link">${t.optSportsClubs}</a></li>
-                                             </ul>
-                                         </div>
-                                     </div>
+                                <div class="sections-row">
+                                    <div class="menu-section">
+                                        <div class="section-header">${t.secHotels}</div>
+                                        <ul class="options-list">
+                                            <li><a href="${u('/soluciones#hoteles-independientes')}" class="option-link">${t.optIndieHotels}</a></li>
+                                            <li><a href="${u('/soluciones#cadenas-hoteleras')}" class="option-link">${t.optHotelChains}</a></li>
+                                            <li><a href="${u('/soluciones#grupos-hoteleros')}" class="option-link">${t.optHotelGroups}</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">${t.secAltHospitality}</div>
+                                        <ul class="options-list">
+                                            <li><a href="${u('/soluciones#airbnb')}" class="option-link">${t.optAirbnb}</a></li>
+                                            <li><a href="${u('/soluciones#short-term-rental-str')}" class="option-link">${t.optStr}</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">${t.secInstitutional}</div>
+                                        <ul class="options-list">
+                                            <li><a href="${u('/soluciones#hospitales-y-clinicas')}" class="option-link">${t.optHospitals}</a></li>
+                                            <li><a href="${u('/soluciones#restaurantes')}" class="option-link">${t.optRestaurants}</a></li>
+                                            <li><a href="${u('/soluciones#clubes-centros-deportivos')}" class="option-link">${t.optSportsClubs}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
 
-                                     <div class="sections-row" style="margin-top: 45px;">
-                                         <div class="menu-section">
-                                             <div class="section-header">${t.secCommercialChannel}</div>
-                                             <ul class="options-list">
-                                                 <li><a href="${u('/soluciones#distribuidor-autorizado')}" class="option-link">${t.optDistributor}</a></li>
-                                             </ul>
-                                         </div>
-                                         <div class="menu-section">
-                                             <div class="section-header">${t.secCorporate}</div>
-                                             <ul class="options-list">
-                                                 <li><a href="${u('/soluciones#corporativo-oficinas')}" class="option-link">${t.optOffices}</a></li>
-                                                 <li><a href="${u('/soluciones#regalos-empresariales')}" class="option-link">${t.optCorporateGifts}</a></li>
-                                             </ul>
-                                         </div>
-                                         <div class="menu-section">
-                                             <div class="section-header">${t.secSpecializedHospitality}</div>
-                                             <ul class="options-list">
-                                                 <li><a href="${u('/soluciones#cruceros')}" class="option-link">${t.optCruises}</a></li>
-                                                 <li><a href="${u('/soluciones#glamping-campamentos')}" class="option-link">${t.optGlamping}</a></li>
-                                             </ul>
-                                         </div>
-                                     </div>
+                                <div class="sections-row" style="margin-top: 45px;">
+                                    <div class="menu-section">
+                                        <div class="section-header">${t.secCommercialChannel}</div>
+                                        <ul class="options-list">
+                                            <li><a href="${u('/soluciones#distribuidor-autorizado')}" class="option-link">${t.optDistributor}</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">${t.secCorporate}</div>
+                                        <ul class="options-list">
+                                            <li><a href="${u('/soluciones#corporativo-oficinas')}" class="option-link">${t.optOffices}</a></li>
+                                            <li><a href="${u('/soluciones#regalos-empresariales')}" class="option-link">${t.optCorporateGifts}</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">${t.secSpecializedHospitality}</div>
+                                        <ul class="options-list">
+                                            <li><a href="${u('/soluciones#cruceros')}" class="option-link">${t.optCruises}</a></li>
+                                            <li><a href="${u('/soluciones#glamping-campamentos')}" class="option-link">${t.optGlamping}</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -915,9 +988,21 @@
         </ul>
 
         <div class="nav-actions">
-            <a href="#" class="action-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-            </a>
+            <div class="lang-selector-wrapper">
+                <button class="action-icon lang-btn-toggle" aria-label="Seleccionar idioma / Select language" type="button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                </button>
+                <div class="lang-dropdown-menu">
+                    <a href="/" class="lang-option ${lang === 'es' ? 'active' : ''}">
+                        <span class="lang-flag">🇲🇽</span>
+                        <span class="lang-name">Español</span>
+                    </a>
+                    <a href="/en/home" class="lang-option ${lang === 'en' ? 'active' : ''}">
+                        <span class="lang-flag">🇺🇸</span>
+                        <span class="lang-name">English</span>
+                    </a>
+                </div>
+            </div>
             <a href="https://sm.jypesa.com/jypesa/public/login" class="smart-order" target="_blank" rel="noopener noreferrer">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 ${t.smartOrder}
@@ -1031,7 +1116,14 @@
                 <a href="${u('/recursos/tendencias')}" class="mob-link">${t.optHospitalityTrends}</a>
             </div>
         </li>
-        <li class="mob-item" style="padding: 30px 0 40px;">
+        <li class="mob-item mob-lang-item" style="padding: 20px 0; border-top: 1px solid rgba(0,0,0,0.06);">
+            <div style="display: flex; gap: 16px; align-items: center; justify-content: center;">
+                <a href="/" class="mob-lang-btn ${lang === 'es' ? 'active' : ''}">Español</a>
+                <span style="color: #bbb;">|</span>
+                <a href="/en/home" class="mob-lang-btn ${lang === 'en' ? 'active' : ''}">English</a>
+            </div>
+        </li>
+        <li class="mob-item" style="padding: 20px 0 40px;">
             <a href="${u('/contacto')}" class="btn-contact" style="display: block; text-align: center;">${t.contact}</a>
         </li>
     </ul>
@@ -1042,6 +1134,23 @@
 
   function setupNavEvents(target, lang) {
     const nav = target.querySelector('#nav');
+
+    // Desplegable de Selección de Idioma (Globo)
+    const langBtnToggle = target.querySelector('.lang-btn-toggle');
+    const langDropdownMenu = target.querySelector('.lang-dropdown-menu');
+
+    if (langBtnToggle && langDropdownMenu) {
+      langBtnToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        langDropdownMenu.classList.toggle('open');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.lang-selector-wrapper')) {
+          langDropdownMenu.classList.remove('open');
+        }
+      });
+    }
 
     const IMAGES = {
       'Valquer': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1fe7ff3cfa3d446df1_Valque%20menu%C3%8C%20%C2%81.webp',
