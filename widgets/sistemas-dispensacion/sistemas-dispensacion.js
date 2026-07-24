@@ -397,19 +397,34 @@
   }
 
   // ─── 3. DATOS DE FALLBACK (VALORES POR DEFECTO DE FIGMA) ──────────────────────
-  // ─── 3. DATOS DE DISEÑO ESTÁTICOS (FIGMA REF) ────────────────────────────────
-  const fallbackData = {
-    title: '<span class="jypesa-disp-title-line">Menos residuos,</span><span class="jypesa-disp-title-line">mayor <span class="jypesa-disp-split-italic-highlight">eficiencia</span></span>',
-    subtitle: 'Sistemas de dispensación',
-    desc: 'Dispensadores que combinan estética, practicidad y sostenibilidad para mejorar la presentación y gestión de amenidades en hoteles.',
-    btnText: 'Ver sistemas de dispensación',
-    btnLink: '/sistemas-de-dispensacion',
-    images: [
-      'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a517650cc0f99d3d0a0d182_elements%2003.avif', // Izquierda 1
-      'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a51765121c2aa4efdc14b0b_elements%2004.avif', // Izquierda 2
-      'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a51765095d88faa906532c8_elements%2001.avif', // Derecha 1
-      'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5176510c1099a1f3814e4d_elements%2002.avif'  // Derecha 2
-    ]
+  // ─── 3. DATOS DE DISEÑO ESTÁTICOS (FIGMA REF & BILINGÜE) ──────────────────────
+  const staticDataByLang = {
+    es: {
+      title: '<span class="jypesa-disp-title-line">Menos residuos,</span><span class="jypesa-disp-title-line">mayor <span class="jypesa-disp-split-italic-highlight">eficiencia</span></span>',
+      subtitle: 'Sistemas de dispensación',
+      desc: 'Dispensadores que combinan estética, practicidad y sostenibilidad para mejorar la presentación y gestión de amenidades en hoteles.',
+      btnText: 'Ver sistemas de dispensación',
+      btnLink: '/sistemas-de-dispensacion',
+      images: [
+        'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a517650cc0f99d3d0a0d182_elements%2003.avif', // Izquierda 1
+        'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a51765121c2aa4efdc14b0b_elements%2004.avif', // Izquierda 2
+        'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a51765095d88faa906532c8_elements%2001.avif', // Derecha 1
+        'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5176510c1099a1f3814e4d_elements%2002.avif'  // Derecha 2
+      ]
+    },
+    en: {
+      title: '<span class="jypesa-disp-title-line">Less Waste, Greater</span><span class="jypesa-disp-title-line"><span class="jypesa-disp-split-italic-highlight">Efficiency</span></span>',
+      subtitle: 'Dispensing Systems',
+      desc: 'Dispensers that combine aesthetics, practicality, and sustainability to improve the presentation and management of amenities in hotels.',
+      btnText: 'View Dispensing Systems',
+      btnLink: '/en/sistemas-de-dispensacion',
+      images: [
+        'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a517650cc0f99d3d0a0d182_elements%2003.avif', // Izquierda 1
+        'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a51765121c2aa4efdc14b0b_elements%2004.avif', // Izquierda 2
+        'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a51765095d88faa906532c8_elements%2001.avif', // Derecha 1
+        'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5176510c1099a1f3814e4d_elements%2002.avif'  // Derecha 2
+      ]
+    }
   };
 
   // ─── 5. GENERACIÓN HTML DINÁMICO ───────────────────────────────────────────
@@ -632,8 +647,22 @@
       if (target.getAttribute('data-initialized') === 'true') return;
       target.setAttribute('data-initialized', 'true');
 
+      let lang = (target.getAttribute('data-lang') || '').toLowerCase().trim();
+      if (lang !== 'en' && lang !== 'es') {
+        const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+        if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
+          lang = 'en';
+        } else {
+          lang = 'es';
+        }
+      }
+
+      const data = staticDataByLang[lang] || staticDataByLang.es;
+
       // Cargar HTML
-      target.innerHTML = buildWidgetHtml(fallbackData);
+      target.innerHTML = buildWidgetHtml(data);
 
       // Configurar scroll interactivo desktop
       setupDesktopScroll(target);

@@ -104,7 +104,15 @@
     <h1>Panel de Pruebas — Sistemas de Dispensación (Scroll Split)</h1>
     <p>
       Este widget implementa una sección de dispensadores interactiva con scroll opuesto (las imágenes suben, el texto central baja) en desktop y carrusel horizontal táctil interactivo en móviles.
+      Soporta <strong>Multi-idioma bilingüe (Español e Inglés)</strong> mediante el atributo <code>data-lang="es"</code> / <code>data-lang="en"</code> o autodetección.
     </p>
+
+    <!-- Selector de Idioma -->
+    <div style="display: flex; gap: 10px; margin: 15px 0; align-items: center;">
+      <strong style="font-size: 14px; color: #506D85;">Seleccionar Idioma del Widget:</strong>
+      <button class="lang-btn active" onclick="setWidgetLang('es')" style="padding: 8px 16px; border-radius: 6px; border: 1px solid #506D85; background: #506D85; color: #fff; cursor: pointer; font-weight: 500;">Español (data-lang="es")</button>
+      <button class="lang-btn" onclick="setWidgetLang('en')" style="padding: 8px 16px; border-radius: 6px; border: 1px solid #506D85; background: #fff; color: #506D85; cursor: pointer; font-weight: 500;">English (data-lang="en")</button>
+    </div>
 
     <div class="preview-features">
       <div class="feature-card">
@@ -117,7 +125,7 @@
       </div>
       <div class="feature-card">
         <h3>Componente Autónomo y Estático</h3>
-        <p>El widget no depende de colecciones del CMS de Webflow, se alimenta de forma estática con imágenes AVIF de alta velocidad y resolución desde el CDN de Webflow.</p>
+        <p>El widget es estático bilingüe y se alimenta de imágenes AVIF de alta velocidad y resolución desde el CDN de Webflow.</p>
       </div>
     </div>
 
@@ -127,12 +135,39 @@
   </div>
 
   <!-- INSTANCIA DEL WIDGET -->
-  <div class="jypesa-sistemas-dispensacion-widget"></div>
+  <div id="jypesa-sistemas-dispensacion-widget" data-lang="es"></div>
 
   <!-- Relleno inferior para permitir continuar el scroll después de la sección sticky -->
   <div class="preview-footer-spacer">
     Fin de página — Jypesa Widgets
   </div>
+
+  <script>
+    function setWidgetLang(lang) {
+      const widgetDiv = document.getElementById('jypesa-sistemas-dispensacion-widget');
+      if (!widgetDiv) return;
+      widgetDiv.setAttribute('data-lang', lang);
+      widgetDiv.removeAttribute('data-initialized');
+      widgetDiv.innerHTML = '';
+      window.__JypesaSistemasDispensacionWidgetInitialized = false;
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        if ((lang === 'es' && btn.textContent.includes('Español')) || (lang === 'en' && btn.textContent.includes('English'))) {
+          btn.style.background = '#506D85';
+          btn.style.color = '#fff';
+        } else {
+          btn.style.background = '#fff';
+          btn.style.color = '#506D85';
+        }
+      });
+
+      if (typeof initSistemasDispensacionWidget === 'function') {
+        initSistemasDispensacionWidget();
+      } else {
+        location.reload();
+      }
+    }
+  </script>
 
   <!-- Cargar Widget JS -->
   <script src="./sistemas-dispensacion.js"></script>
