@@ -685,7 +685,7 @@
       optAirbnb: "Airbnb",
       optStr: "Short-Term Rental (STR)",
       secInstitutional: "Institutional",
-      optHospitals: "Hospitals & Clinics",
+      optHospitals: "Hospitals and Clinics",
       optRestaurants: "Restaurants",
       optSportsClubs: "Clubs & Sports Centers",
       secCommercialChannel: "Commercial Channel",
@@ -695,7 +695,7 @@
       optCorporateGifts: "Corporate Gifts",
       secSpecializedHospitality: "Specialized Hospitality",
       optCruises: "Cruise Ships",
-      optGlamping: "Glamping & Camps",
+      optGlamping: "Glamping & Campsites",
 
       // Megamenú Sustentabilidad
       catSustainability: "SUSTAINABILITY",
@@ -720,18 +720,38 @@
     }
   };
 
+  const SOLUCIONES_HASH_MAP_EN = {
+    'hoteles-independientes': 'independent-hotels',
+    'cadenas-hoteleras': 'hotel-chains',
+    'grupos-hoteleros': 'hotel-groups',
+    'airbnb': 'airbnb',
+    'short-term-rental-str': 'short-term-rental-str',
+    'hospitales-y-clinicas': 'hospitals-and-clinics',
+    'restaurantes': 'restaurants',
+    'clubes-centros-deportivos': 'clubs-and-sports-centers',
+    'distribuidor-autorizado': 'authorized-distributor',
+    'corporativo-oficinas': 'corporate-and-offices',
+    'regalos-empresariales': 'corporate-gifts',
+    'cruceros': 'cruise-ships',
+    'glamping-campamentos': 'glamping-and-campsites'
+  };
+
   function buildUrl(url, lang) {
     if (!url || url === '#' || url.startsWith('http://') || url.startsWith('https://')) return url;
     const parts = url.split('#');
     const base = parts[0];
-    const hash = parts.length > 1 ? '#' + parts[1] : '';
+    const rawHash = parts.length > 1 ? parts[1] : '';
 
     if (lang === 'en') {
-      if (base === '/' || base === '') return '/en/home' + hash;
-      if (base === '/nosotros') return '/en/about-us' + hash;
+      if (base === '/' || base === '') return '/en/home' + (rawHash ? '#' + rawHash : '');
+      if (base === '/nosotros') return '/en/about-us' + (rawHash ? '#' + rawHash : '');
+      if (base === '/soluciones') {
+        const enHash = rawHash ? (SOLUCIONES_HASH_MAP_EN[rawHash] || rawHash) : '';
+        return '/en/solutions' + (enHash ? '#' + enHash : '');
+      }
       if (base.startsWith('/en/') || base === '/en') return url;
       const prefixed = '/en' + (base.startsWith('/') ? base : '/' + base);
-      return prefixed + hash;
+      return prefixed + (rawHash ? '#' + rawHash : '');
     }
     return url;
   }
