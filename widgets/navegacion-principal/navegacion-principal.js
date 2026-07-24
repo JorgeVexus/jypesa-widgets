@@ -852,7 +852,7 @@
                                 <div class="accesorios-col">
                                     <a href="${u('/accesorios')}" class="cat-label-link"><p class="cat-label">${t.catAccessories}</p></a>
                                     <div class="accesorios-row">
-                                        <a href="${u('/accesorios')}" class="option-link" data-p="Lavarino">Lavarino</a>
+                                        <a href="${u('/accesorios#lavarino')}" class="option-link" data-p="Lavarino">Lavarino</a>
                                         <a href="${u('/accesorios')}" class="option-link" data-p="Nocean">Nocean</a>
                                     </div>
                                 </div>
@@ -1076,7 +1076,7 @@
                 <a href="${u('/sistemas-de-dispensacion#sistemas')}" class="mob-link">${t.secDispensingSystems}</a>
 
                 <div class="mob-cat-title">${t.catAccessories}</div>
-                <a href="${u('/accesorios')}" class="mob-link">Lavarino</a>
+                <a href="${u('/accesorios#lavarino')}" class="mob-link">Lavarino</a>
                 <a href="${u('/accesorios')}" class="mob-link">Nocean</a>
             </div>
         </li>
