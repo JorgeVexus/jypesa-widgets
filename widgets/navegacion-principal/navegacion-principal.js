@@ -830,12 +830,12 @@
                                             <li><a href="${u('/colecciones/premium/persea')}" class="option-link" data-p="Persea">Persea</a></li>
                                             <li><a href="${u('/colecciones/premium/agavia')}" class="option-link" data-p="Agavia">Agavia</a></li>
                                             <li><a href="${u('/colecciones/premium/botanicus')}" class="option-link" data-p="Botanicus">Botanicus</a></li>
+                                            <li><a href="${u('/colecciones/premium/botanicaromatica')}" class="option-link" data-p="Botanicaromatica">Botanicaromatica</a></li>
                                         </ul>
                                     </div>
                                     <div class="menu-section">
                                         <div class="section-header">${t.secLuxury}</div>
                                         <ul class="options-list">
-                                            <li><a href="${u('/colecciones/lujo/botanicaromatica')}" class="option-link" data-p="Botanicaromatica">Botanicaromatica</a></li>
                                             <li><a href="${u('/colecciones/lujo/xinu')}" class="option-link" data-p="Xinu">Xinu</a></li>
                                         </ul>
                                     </div>
@@ -1066,9 +1066,9 @@
                 <a href="${u('/colecciones/premium/persea')}" class="mob-link">Persea</a>
                 <a href="${u('/colecciones/premium/agavia')}" class="mob-link">Agavia</a>
                 <a href="${u('/colecciones/premium/botanicus')}" class="mob-link">Botanicus</a>
+                <a href="${u('/colecciones/premium/botanicaromatica')}" class="mob-link">Botanicaromatica</a>
 
                 <div class="mob-subcat-title">${t.secLuxury}</div>
-                <a href="${u('/colecciones/lujo/botanicaromatica')}" class="mob-link">Botanicaromatica</a>
                 <a href="${u('/colecciones/lujo/xinu')}" class="mob-link">Xinu</a>
 
                 <div class="mob-cat-title">${t.catDispensers}</div>
