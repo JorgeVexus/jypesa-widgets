@@ -93,7 +93,15 @@
     <h1>Panel de Pruebas — Línea de Tiempo (Timeline Widget)</h1>
     <p>
       Este widget representa la historia de JYPESA en formato de línea de tiempo horizontal. Cuenta con navegación interactiva al hacer click sobre los hitos, progreso dinámico de la línea e integración responsiva táctil en dispositivos móviles.
+      Soporta <strong>Multi-idioma bilingüe (Español e Inglés)</strong> mediante el atributo <code>data-lang="es"</code> / <code>data-lang="en"</code> o autodetección.
     </p>
+
+    <!-- Selector de Idioma -->
+    <div style="display: flex; gap: 10px; margin: 15px 0; align-items: center;">
+      <strong style="font-size: 14px; color: #506D85;">Seleccionar Idioma del Widget:</strong>
+      <button class="lang-btn active" onclick="setWidgetLang('es')" style="padding: 8px 16px; border-radius: 6px; border: 1px solid #48A9C5; background: #48A9C5; color: #fff; cursor: pointer; font-weight: 500;">Español (data-lang="es")</button>
+      <button class="lang-btn" onclick="setWidgetLang('en')" style="padding: 8px 16px; border-radius: 6px; border: 1px solid #48A9C5; background: #fff; color: #48A9C5; cursor: pointer; font-weight: 500;">English (data-lang="en")</button>
+    </div>
 
     <div class="preview-features">
       <div class="feature-card">
@@ -113,12 +121,39 @@
 
   <!-- Contenedor del Widget -->
   <div class="widget-preview-area">
-    <div id="jypesa-timeline-widget"></div>
+    <div id="jypesa-timeline-widget" data-lang="es"></div>
   </div>
 
   <div class="preview-footer-spacer">
     Fin de la Página de Demostración
   </div>
+
+  <script>
+    function setWidgetLang(lang) {
+      const widgetDiv = document.getElementById('jypesa-timeline-widget');
+      if (!widgetDiv) return;
+      widgetDiv.setAttribute('data-lang', lang);
+      widgetDiv.removeAttribute('data-initialized');
+      widgetDiv.innerHTML = '';
+      window.__JypesaTimelineWidgetInitialized = false;
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        if ((lang === 'es' && btn.textContent.includes('Español')) || (lang === 'en' && btn.textContent.includes('English'))) {
+          btn.style.background = '#48A9C5';
+          btn.style.color = '#fff';
+        } else {
+          btn.style.background = '#fff';
+          btn.style.color = '#48A9C5';
+        }
+      });
+
+      if (typeof initTimeline === 'function') {
+        initTimeline();
+      } else {
+        location.reload();
+      }
+    }
+  </script>
 
   <!-- Carga del JS del Widget -->
   <script src="./timeline-widget.js"></script>

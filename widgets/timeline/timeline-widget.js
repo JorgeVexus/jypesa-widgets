@@ -396,83 +396,85 @@
   styleEl.appendChild(document.createTextNode(cssStyles));
   document.head.appendChild(styleEl);
 
-  // HTML del widget
-  const widgetHtml = `
-<div class="jypesa-timeline-wrap" role="region" aria-label="Línea de tiempo JYPESA">
+  // Diccionario Bilingüe para la Línea de Tiempo
+  const timelineTexts = {
+    es: [
+      {
+        year: '1975',
+        title: 'Nacimiento de las amenidades en México',
+        desc: 'JYPESA comienza a fabricar productos de higiene para la industria farmacéutica y lanza la primera línea de amenidades para hospitalidad del país.'
+      },
+      {
+        year: '1978',
+        title: 'JYPESA Amenities: jabón y shampoo',
+        desc: 'Nace formalmente la división Amenities con 2 productos. Con el tiempo, el catálogo crece junto con la presencia nacional e internacional.'
+      },
+      {
+        year: "2000's",
+        title: 'Expansión internacional y 5 líneas de producto',
+        desc: 'Apertura de oficinas en EE.UU. (×2), Guatemala, Perú y Cuba. El portafolio evoluciona a 5 líneas que atienden todos los segmentos del sector.'
+      },
+      {
+        year: 'Hoy',
+        title: '21 países · 7,000 m² · Laboratorio propio',
+        desc: 'Presente en 21 países de las Américas, Europa y Asia, con instalaciones de 7,000 m² y un laboratorio de fragancias que colabora con casas fragancistas de renombre mundial.'
+      }
+    ],
+    en: [
+      {
+        year: '1975',
+        title: 'Birth of Amenities in Mexico',
+        desc: "JYPESA begins manufacturing hygiene products for the pharmaceutical industry and launches the country's first hospitality amenity line."
+      },
+      {
+        year: '1978',
+        title: 'JYPESA Amenities: Soap and Shampoo',
+        desc: 'The Amenities division is formally born with 2 products. Over time, the catalog grows alongside national and international presence.'
+      },
+      {
+        year: "2000's",
+        title: 'International Expansion and 5 Product Lines',
+        desc: 'Opening of offices in the US (×2), Guatemala, Peru, and Cuba. The portfolio evolves into 5 lines serving all sectors of the industry.'
+      },
+      {
+        year: 'Today',
+        title: '21 Countries · 7,000 m² · In-House Laboratory',
+        desc: 'Present in 21 countries across the Americas, Europe, and Asia, featuring 7,000 m² facilities and a fragrance laboratory collaborating with world-renowned fragrance houses.'
+      }
+    ]
+  };
+
+  // Generar HTML del widget según idioma
+  function buildWidgetHtml(itemsData, lang) {
+    const ariaLabel = lang === 'en' ? 'JYPESA Timeline' : 'Línea de tiempo JYPESA';
+    return `
+<div class="jypesa-timeline-wrap" role="region" aria-label="${ariaLabel}">
   <div class="jypesa-timeline" role="list">
     <div class="timeline-track">
       <div class="timeline-line"></div>
       <div class="timeline-progress" aria-hidden="true"></div>
     </div>
 
-    <!-- 1975 -->
-    <div class="timeline-item" role="listitem" tabindex="0" data-index="0">
-      <div class="timeline-year">1975</div>
-      <div class="timeline-dot" aria-hidden="true">
-        <div class="dot-ring dot-ring--outer"></div>
-        <div class="dot-ring dot-ring--mid"></div>
-        <div class="dot-ring dot-ring--inner"></div>
+    ${itemsData.map((item, idx) => `
+      <div class="timeline-item" role="listitem" tabindex="0" data-index="${idx}">
+        <div class="timeline-year">${item.year}</div>
+        <div class="timeline-dot" aria-hidden="true">
+          <div class="dot-ring dot-ring--outer"></div>
+          <div class="dot-ring dot-ring--mid"></div>
+          <div class="dot-ring dot-ring--inner"></div>
+        </div>
+        <div class="timeline-body">
+          <h3>${item.title}</h3>
+          <p>${item.desc}</p>
+        </div>
       </div>
-      <div class="timeline-body">
-        <h3>Nacimiento de las amenidades en México</h3>
-        <p>JYPESA comienza a fabricar productos de higiene para la industria farmacéutica y lanza la primera línea de amenidades para hospitalidad del país.</p>
-      </div>
-    </div>
-
-    <!-- 1978 -->
-    <div class="timeline-item" role="listitem" tabindex="0" data-index="1">
-      <div class="timeline-year">1978</div>
-      <div class="timeline-dot" aria-hidden="true">
-        <div class="dot-ring dot-ring--outer"></div>
-        <div class="dot-ring dot-ring--mid"></div>
-        <div class="dot-ring dot-ring--inner"></div>
-      </div>
-      <div class="timeline-body">
-        <h3>JYPESA Amenities: jabón y shampoo</h3>
-        <p>Nace formalmente la división Amenities con 2 productos. Con el tiempo, el catálogo crece junto con la presencia nacional e internacional.</p>
-      </div>
-    </div>
-
-    <!-- 2000's -->
-    <div class="timeline-item" role="listitem" tabindex="0" data-index="2">
-      <div class="timeline-year">2000's</div>
-      <div class="timeline-dot" aria-hidden="true">
-        <div class="dot-ring dot-ring--outer"></div>
-        <div class="dot-ring dot-ring--mid"></div>
-        <div class="dot-ring dot-ring--inner"></div>
-      </div>
-      <div class="timeline-body">
-        <h3>Expansión internacional y 5 líneas de producto</h3>
-        <p>Apertura de oficinas en EE.UU. (×2), Guatemala, Perú y Cuba. El portafolio evoluciona a 5 líneas que atienden todos los segmentos del sector.</p>
-      </div>
-    </div>
-
-    <!-- Hoy -->
-    <div class="timeline-item" role="listitem" tabindex="0" data-index="3">
-      <div class="timeline-year">Hoy</div>
-      <div class="timeline-dot" aria-hidden="true">
-        <div class="dot-ring dot-ring--outer"></div>
-        <div class="dot-ring dot-ring--mid"></div>
-        <div class="dot-ring dot-ring--inner"></div>
-      </div>
-      <div class="timeline-body">
-        <h3>21 países · 7,000 m² · Laboratorio propio</h3>
-        <p>Presente en 21 países de las Américas, Europa y Asia, con instalaciones de 7,000 m² y un laboratorio de fragancias que colabora con casas fragancistas de renombre mundial.</p>
-      </div>
-    </div>
+    `).join('')}
   </div>
 </div>
 `;
+  }
 
-  function initTimeline() {
-    const target = document.getElementById('jypesa-timeline-widget') || document.querySelector('[data-jypesa-timeline-widget]');
-    if (!target) {
-      console.warn("Jypesa Timeline Widget target element not found.");
-      return;
-    }
-
-    target.innerHTML = widgetHtml;
-
+  function setupTimelineInteractions(target) {
     const wrap = target.querySelector('.jypesa-timeline-wrap');
     const items = target.querySelectorAll('.timeline-item');
     const progress = target.querySelector('.timeline-progress');
@@ -599,6 +601,38 @@
         const active = target.querySelector('.timeline-item.active');
         if (active) updateProgress(active);
       }, 200);
+    });
+  }
+
+  function initTimeline() {
+    const targets = document.querySelectorAll(
+      '#jypesa-timeline-widget, [data-jypesa-timeline-widget], .jypesa-timeline-widget, .jypesa-timeline-widget-container'
+    );
+    if (!targets.length) {
+      console.warn("Jypesa Timeline Widget target element not found.");
+      return;
+    }
+
+    targets.forEach(target => {
+      if (target.getAttribute('data-initialized') === 'true') return;
+      target.setAttribute('data-initialized', 'true');
+
+      let lang = (target.getAttribute('data-lang') || '').toLowerCase().trim();
+      if (lang !== 'en' && lang !== 'es') {
+        const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+        if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
+          lang = 'en';
+        } else {
+          lang = 'es';
+        }
+      }
+
+      const itemsData = timelineTexts[lang] || timelineTexts.es;
+      target.innerHTML = buildWidgetHtml(itemsData, lang);
+
+      setupTimelineInteractions(target);
     });
   }
 
