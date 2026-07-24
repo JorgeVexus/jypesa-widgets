@@ -50,7 +50,7 @@
       transition: background-color 0.2s;
       font-size: 12px;
     }
-    .demo-btn:hover {
+    .demo-btn:hover, .demo-btn.active {
       background-color: #48A9C5;
     }
     
@@ -65,23 +65,34 @@
   <div class="demo-bar">
     <span class="demo-brand">JYPESA HERO WIDGET &bull; WEBFLOW EMBED PREVIEW</span>
     <div class="demo-controls">
+      <button class="demo-btn active" onclick="switchLang('es')">Español (data-lang="es")</button>
+      <button class="demo-btn" onclick="switchLang('en')">English (data-lang="en")</button>
       <button class="demo-btn" onclick="replayAnimation()">Reiniciar Animación</button>
     </div>
   </div>
 
   <div class="widget-preview-area">
     <!-- Webflow embed target div -->
-    <div id="jypesa-hero-widget"></div>
+    <div id="jypesa-hero-widget" data-lang="es"></div>
   </div>
 
   <!-- Enlace del Script del Widget -->
   <script src="./widgets/hero-interactive/hero-widget.js"></script>
 
   <script>
+    function switchLang(lang) {
+      const target = document.getElementById('jypesa-hero-widget');
+      if (target) {
+        target.setAttribute('data-lang', lang);
+        replayAnimation();
+      }
+    }
+
     function replayAnimation() {
       const target = document.getElementById('jypesa-hero-widget');
       if (target) {
         target.innerHTML = '';
+        target.removeAttribute('data-initialized');
         window.__JypesaHeroWidgetInitialized = false;
         
         const oldScript = document.querySelector('script[src*="hero-widget.js"]');

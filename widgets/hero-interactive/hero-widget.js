@@ -470,8 +470,71 @@
     `).join('');
   }
 
-  // HTML Structure
-  const widgetHtml = `
+  // Diccionario Bilingüe para Hero Widget
+  const heroTexts = {
+    es: {
+      sobreText: 'Sobre',
+      kpis: [
+        {
+          num: '+50',
+          suffix: 'años',
+          heading: 'De experiencia en hospitalidad',
+          desc: 'Soluciones de amenidades y cuidado personal para la hotelería.'
+        },
+        {
+          num: '+21',
+          suffix: 'países',
+          heading: 'Con presencia internacional',
+          desc: 'Más de 30 países atendidos en Norteamérica, Latinoamérica y EMEA.'
+        },
+        {
+          num: '7,000',
+          suffix: 'm²',
+          heading: 'De infraestructura operativa',
+          desc: 'Logística diseñada para garantizar abastecimiento continuo.'
+        },
+        {
+          num: '3',
+          suffix: 'continentes',
+          heading: 'Alcance global',
+          desc: 'Desde donde hacemos posible nuestra producción y distribución.'
+        }
+      ]
+    },
+    en: {
+      sobreText: 'About',
+      kpis: [
+        {
+          num: '+50',
+          suffix: 'Years',
+          heading: 'Hospitality Experience',
+          desc: 'Amenity and personal care solutions for the hotel industry.'
+        },
+        {
+          num: '+21',
+          suffix: 'Countries',
+          heading: 'International Presence',
+          desc: 'More than 30 countries served in North America, Latin America, and EMEA.'
+        },
+        {
+          num: '7,000',
+          suffix: 'm²',
+          heading: 'Of Operational Infrastructure',
+          desc: 'Logistics designed to guarantee continuous supply.'
+        },
+        {
+          num: '3',
+          suffix: 'Continents',
+          heading: 'Global Reach',
+          desc: 'From where we make our production and distribution possible.'
+        }
+      ]
+    }
+  };
+
+  // Generador de HTML del Widget según idioma
+  function buildWidgetHtml(t) {
+    return `
 <div class="jypesa-hero-widget">
   <!-- Sección Superior: Imagen Hero con Texto, Logo centralizado y Marquee overlay -->
   <div class="jypesa-hero-top">
@@ -481,7 +544,7 @@
     <div class="jypesa-hero-overlay"></div>
     <div class="jypesa-hero-center-content">
       <div class="jypesa-hero-sobre-wrapper">
-        <p class="jypesa-hero-sobre">Sobre</p>
+        <p class="jypesa-hero-sobre">${t.sobreText}</p>
       </div>
       <div class="jypesa-hero-logo-wrapper">
         <img src="${logoJypesaSvgUrl}" class="jypesa-hero-logo-svg" alt="Jypesa Logo" />
@@ -498,80 +561,68 @@
     </div>
   </div>
 
-  <!-- Sección Inferior: KPIs (Fondo Transparente) -->
+  <!-- Sección Inferior: KPIs -->
   <div class="jypesa-hero-bottom">
     <div class="jypesa-stats-grid">
-      <!-- Bloque 1 -->
-      <div class="jypesa-stat-block">
-        <div class="jypesa-stat-number-wrapper">
-          <span class="jypesa-stat-number">+50</span>
-          <span class="jypesa-stat-suffix">años</span>
+      ${t.kpis.map(kpi => `
+        <div class="jypesa-stat-block">
+          <div class="jypesa-stat-number-wrapper">
+            <span class="jypesa-stat-number">${kpi.num}</span>
+            <span class="jypesa-stat-suffix">${kpi.suffix}</span>
+          </div>
+          <div class="jypesa-stat-heading">${kpi.heading}</div>
+          <div class="jypesa-stat-description">${kpi.desc}</div>
         </div>
-        <div class="jypesa-stat-heading">De experiencia en hospitalidad</div>
-        <div class="jypesa-stat-description">Soluciones de amenidades y cuidado personal para la hotelería.</div>
-      </div>
-
-      <!-- Bloque 2 -->
-      <div class="jypesa-stat-block">
-        <div class="jypesa-stat-number-wrapper">
-          <span class="jypesa-stat-number">+21</span>
-          <span class="jypesa-stat-suffix">países</span>
-        </div>
-        <div class="jypesa-stat-heading">Con presencia internacional</div>
-        <div class="jypesa-stat-description">Más de 30 países atendidos en Norteamérica, Latinoamérica y EMEA.</div>
-      </div>
-
-      <!-- Bloque 3 -->
-      <div class="jypesa-stat-block">
-        <div class="jypesa-stat-number-wrapper">
-          <span class="jypesa-stat-number">7,000</span>
-          <span class="jypesa-stat-suffix">m²</span>
-        </div>
-        <div class="jypesa-stat-heading">De infraestructura operativa</div>
-        <div class="jypesa-stat-description">Logística diseñada para garantizar abastecimiento continuo.</div>
-      </div>
-
-      <!-- Bloque 4 -->
-      <div class="jypesa-stat-block">
-        <div class="jypesa-stat-number-wrapper">
-          <span class="jypesa-stat-number">3</span>
-          <span class="jypesa-stat-suffix">continentes</span>
-        </div>
-        <div class="jypesa-stat-heading">Alcance global</div>
-        <div class="jypesa-stat-description">Desde donde hacemos posible nuestra producción y distribución.</div>
-      </div>
+      `).join('')}
     </div>
   </div>
 </div>
 `;
+  }
 
   // Find target container and inject
   function initWidget() {
-    const target = document.getElementById('jypesa-hero-widget') || document.querySelector('[data-jypesa-hero-widget]');
-    if (!target) {
+    const targets = document.querySelectorAll(
+      '#jypesa-hero-widget, [data-jypesa-hero-widget], .jypesa-hero-widget-container, .jypesa-hero-widget'
+    );
+    if (!targets.length) {
       console.warn("Jypesa Hero Widget target element not found. Make sure an element with ID 'jypesa-hero-widget' exists on the page.");
       return;
     }
 
-    target.innerHTML = widgetHtml;
-    const widgetContainer = target.querySelector('.jypesa-hero-widget');
+    targets.forEach((target) => {
+      if (target.getAttribute('data-initialized') === 'true') return;
+      target.setAttribute('data-initialized', 'true');
 
-    // Run 3-phase animations
-    
-    // Fase 1: Entrada inicial (imagen a pantalla completa)
-    setTimeout(() => {
-      widgetContainer.classList.add('phase-1');
-    }, 50);
+      let lang = (target.getAttribute('data-lang') || '').toLowerCase().trim();
+      if (lang !== 'en' && lang !== 'es') {
+        const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+        if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
+          lang = 'en';
+        } else {
+          lang = 'es';
+        }
+      }
 
-    // Fase 2: Aparece "Sobre" y el logotipo central
-    setTimeout(() => {
-      widgetContainer.classList.add('phase-2');
-    }, 600);
+      const t = heroTexts[lang] || heroTexts.es;
+      target.innerHTML = buildWidgetHtml(t);
+      const widgetContainer = target.querySelector('.jypesa-hero-widget');
 
-    // Fase 3: La imagen se encoge revelando logos y KPIs
-    setTimeout(() => {
-      widgetContainer.classList.add('phase-3');
-    }, 2800);
+      // Run 3-phase animations
+      setTimeout(() => {
+        widgetContainer.classList.add('phase-1');
+      }, 50);
+
+      setTimeout(() => {
+        widgetContainer.classList.add('phase-2');
+      }, 600);
+
+      setTimeout(() => {
+        widgetContainer.classList.add('phase-3');
+      }, 2800);
+    });
   }
 
   // Load widget on DOMContentLoaded or immediately if already loaded
