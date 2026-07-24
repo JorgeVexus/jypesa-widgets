@@ -43,17 +43,35 @@
 <body>
   <div class="demo-bar">
     <span>PRESENCIA INTERNACIONAL — PREVIEW LOCAL</span>
-    <code>jypesa-presencia-internacional-widget</code>
+    <div style="display: flex; gap: 8px; align-items: center;">
+      <button onclick="setLang('es')" style="padding: 4px 12px; background: #48A9C5; color: #fff; border: none; border-radius: 4px; cursor: pointer;">ES</button>
+      <button onclick="setLang('en')" style="padding: 4px 12px; background: #506D85; color: #fff; border: none; border-radius: 4px; cursor: pointer;">EN</button>
+      <code>jypesa-presencia-internacional-widget</code>
+    </div>
   </div>
 
   <div id="jypesa-presencia-internacional-widget"></div>
 
   <div class="note">
-    <strong>Embed para Webflow</strong>
-    <pre style="background:#f8fafc;padding:14px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;margin-top:8px;overflow-x:auto;"><code>&lt;div id="jypesa-presencia-internacional-widget"&gt;&lt;/div&gt;
+    <strong>Embed para Webflow (Español)</strong>
+    <pre style="background:#f8fafc;padding:14px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;margin-top:8px;overflow-x:auto;"><code>&lt;div id="jypesa-presencia-internacional-widget" data-lang="es"&gt;&lt;/div&gt;
+&lt;script src="https://jypesa-widgets.vercel.app/widgets/presencia-internacional/presencia-internacional.js"&gt;&lt;/script&gt;</code></pre>
+    <strong>Embed para Webflow (Inglés)</strong>
+    <pre style="background:#f8fafc;padding:14px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;margin-top:8px;overflow-x:auto;"><code>&lt;div id="jypesa-presencia-internacional-widget" data-lang="en"&gt;&lt;/div&gt;
 &lt;script src="https://jypesa-widgets.vercel.app/widgets/presencia-internacional/presencia-internacional.js"&gt;&lt;/script&gt;</code></pre>
   </div>
 
   <script src="./widgets/presencia-internacional/presencia-internacional.js"></script>
+  <script>
+    function setLang(lang) {
+      const widget = document.getElementById('jypesa-presencia-internacional-widget');
+      if (widget) {
+        widget.removeAttribute('data-initialized');
+        widget.setAttribute('data-lang', lang);
+        delete window.__JypesaPresenciaInternacionalWidgetInitialized;
+        location.reload();
+      }
+    }
+  </script>
 </body>
 </html>

@@ -7,19 +7,62 @@
      Reemplaza este arreglo con el listado real de JYPESA.
      type acepta: 'oficina' | 'distribuidor' | 'cedis'
      ========================================================== */
+  /* ==========================================================
+     DATOS DE LOCACIONES (PLACEHOLDER BILINGÜE)
+     ========================================================== */
   const LOCATIONS = [
-    { id: 1, type: 'oficina', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '33 3540 2939', hours: 'Abierto ahora • Cierra a las 20:00 hrs', lat: 22.1565, lng: -100.9855, isDefault: true },
-    { id: 2, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '33 3540 2939', hours: 'Abierto ahora • Cierra a las 20:00 hrs', lat: 25.6866, lng: -100.3161 },
-    { id: 3, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '33 3540 2939', hours: 'Abierto ahora • Cierra a las 20:00 hrs', lat: 25.4260, lng: -101.0053 },
-    { id: 4, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '33 3540 2939', hours: 'Abierto ahora • Cierra a las 20:00 hrs', lat: 22.7709, lng: -102.5832 },
-    { id: 5, type: 'cedis', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '33 3540 2939', hours: 'Abierto ahora • Cierra a las 20:00 hrs', lat: 21.9623, lng: -99.6134 },
-    { id: 6, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '33 3540 2939', hours: 'Abierto ahora • Cierra a las 20:00 hrs', lat: 22.2331, lng: -97.8614 },
+    { id: 1, type: 'oficina', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 22.1565, lng: -100.9855, isDefault: true },
+    { id: 2, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 25.6866, lng: -100.3161 },
+    { id: 3, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 25.4260, lng: -101.0053 },
+    { id: 4, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 22.7709, lng: -102.5832 },
+    { id: 5, type: 'cedis', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 21.9623, lng: -99.6134 },
+    { id: 6, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 22.2331, lng: -97.8614 },
   ];
 
-  const TYPE_LABELS = {
-    oficina: { singular: 'oficina', plural: 'oficinas' },
-    distribuidor: { singular: 'distribuidor', plural: 'distribuidores' },
-    cedis: { singular: 'CEDIS', plural: 'CEDIS' },
+  /* ==========================================================
+     DICCIONARIO BILINGÜE
+     ========================================================== */
+  const staticTextsByLang = {
+    es: {
+      titleMain: 'Presencia',
+      titleAccent: 'internacional',
+      searchPlaceholder: 'Buscar locación',
+      description: 'JYPESA cuenta con una red de distribuidores autorizados en América, Europa y el Caribe para brindarte servicio local y soporte en tu idioma.',
+      filtersBtn: 'Filtros',
+      filterOptions: {
+        oficina: 'Oficinas',
+        distribuidor: 'Distribuidor',
+        cedis: 'CEDIS'
+      },
+      countText: function(count, word) { return `${count} <em>${word}</em> cerca tuyo`; },
+      emptyMessage: 'No encontramos locaciones con esos filtros.',
+      fullscreenLabel: 'Pantalla completa',
+      typeLabels: {
+        oficina: { singular: 'oficina', plural: 'oficinas' },
+        distribuidor: { singular: 'distribuidor', plural: 'distribuidores' },
+        cedis: { singular: 'CEDIS', plural: 'CEDIS' },
+      }
+    },
+    en: {
+      titleMain: 'International',
+      titleAccent: 'Presence',
+      searchPlaceholder: 'Search Location',
+      description: 'JYPESA has a network of authorized distributors in the Americas, Europe, and the Caribbean to provide you with local service and support in your language.',
+      filtersBtn: 'Filters',
+      filterOptions: {
+        oficina: 'Offices',
+        distribuidor: 'Distributors',
+        cedis: 'CEDIS'
+      },
+      countText: function(count, word) { return `${count} <em>${word}</em> Near You`; },
+      emptyMessage: 'No locations found with those filters.',
+      fullscreenLabel: 'Fullscreen',
+      typeLabels: {
+        oficina: { singular: 'Location', plural: 'Locations' },
+        distribuidor: { singular: 'Location', plural: 'Locations' },
+        cedis: { singular: 'Location', plural: 'Locations' },
+      }
+    }
   };
 
   const cssStyles = `
@@ -447,28 +490,29 @@
     check: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`,
   };
 
-  const widgetHtml = `
+  function buildWidgetHtml(t) {
+    return `
 <div class="jypesa-presencia-internacional-widget">
   <div class="jypesa-pi-grid">
     <div class="jypesa-pi-panel">
-      <h2 class="jypesa-pi-title">Presencia<span class="jypesa-pi-title-accent">internacional</span></h2>
+      <h2 class="jypesa-pi-title">${t.titleMain} <span class="jypesa-pi-title-accent">${t.titleAccent}</span></h2>
 
       <div class="jypesa-pi-search">
-        <input type="text" id="pi-search-input" placeholder="Buscar locación" autocomplete="off">
+        <input type="text" class="pi-search-input" id="pi-search-input" placeholder="${t.searchPlaceholder}" autocomplete="off">
         ${ICONS.search}
       </div>
 
-      <p class="jypesa-pi-desc">JYPESA cuenta con una red de distribuidores autorizados en América, Europa y el Caribe para brindarte servicio local y soporte en tu idioma.</p>
+      <p class="jypesa-pi-desc">${t.description}</p>
 
       <div class="jypesa-pi-meta-row">
         <span class="jypesa-pi-count" id="pi-count"></span>
         <button type="button" class="jypesa-pi-filters-btn" id="pi-filters-btn">
-          Filtros ${ICONS.filters}
+          ${t.filtersBtn} ${ICONS.filters}
         </button>
         <div class="jypesa-pi-filters-dropdown" id="pi-filters-dropdown">
-          <label class="jypesa-pi-filter-option"><input type="checkbox" value="oficina"> Oficinas</label>
-          <label class="jypesa-pi-filter-option"><input type="checkbox" value="distribuidor"> Distribuidor</label>
-          <label class="jypesa-pi-filter-option"><input type="checkbox" value="cedis"> CEDIS</label>
+          <label class="jypesa-pi-filter-option"><input type="checkbox" value="oficina"> ${t.filterOptions.oficina}</label>
+          <label class="jypesa-pi-filter-option"><input type="checkbox" value="distribuidor"> ${t.filterOptions.distribuidor}</label>
+          <label class="jypesa-pi-filter-option"><input type="checkbox" value="cedis"> ${t.filterOptions.cedis}</label>
         </div>
       </div>
 
@@ -476,12 +520,13 @@
     </div>
 
     <div class="jypesa-pi-map-wrap" id="pi-map-wrap">
-      <button type="button" class="jypesa-pi-fullscreen-btn" id="pi-fullscreen-btn" aria-label="Pantalla completa">${ICONS.expand}</button>
+      <button type="button" class="jypesa-pi-fullscreen-btn" id="pi-fullscreen-btn" aria-label="${t.fullscreenLabel}">${ICONS.expand}</button>
       <div class="jypesa-pi-map" id="pi-map"></div>
     </div>
   </div>
 </div>
 `;
+  }
 
   function loadLeaflet(callback) {
     if (window.L) { callback(); return; }
@@ -505,201 +550,229 @@
     if (window.L) callback();
   }
 
+  function getHours(loc, lang) {
+    if (lang === 'en') {
+      return loc.hoursEn || 'Open Now • Closes at 8:00 PM';
+    }
+    return loc.hoursEs || loc.hours || 'Abierto ahora • Cierra a las 20:00 hrs';
+  }
+
   function initPresenciaInternacionalWidget() {
-    const target = document.getElementById('jypesa-presencia-internacional-widget') || document.querySelector('[data-jypesa-presencia-internacional-widget]');
-    if (!target) return;
+    const targets = document.querySelectorAll(
+      '#jypesa-presencia-internacional-widget, [data-jypesa-presencia-internacional-widget], .jypesa-presencia-internacional-widget, .jypesa-presencia-internacional-widget-container'
+    );
+    if (!targets.length) return;
 
-    target.innerHTML = widgetHtml;
+    targets.forEach(target => {
+      if (target.getAttribute('data-initialized') === 'true') return;
+      target.setAttribute('data-initialized', 'true');
 
-    const searchInput = target.querySelector('#pi-search-input');
-    const countEl = target.querySelector('#pi-count');
-    const listEl = target.querySelector('#pi-list');
-    const filtersBtn = target.querySelector('#pi-filters-btn');
-    const filtersDropdown = target.querySelector('#pi-filters-dropdown');
-    const filterCheckboxes = target.querySelectorAll('.jypesa-pi-filter-option input');
-    const mapWrap = target.querySelector('#pi-map-wrap');
-    const fullscreenBtn = target.querySelector('#pi-fullscreen-btn');
-
-    let activeId = LOCATIONS.find(l => l.isDefault) ? LOCATIONS.find(l => l.isDefault).id : LOCATIONS[0].id;
-    let map = null;
-    const markers = {};
-
-    function getActiveTypes() {
-      return Array.from(filterCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
-    }
-
-    function getFiltered() {
-      const query = searchInput.value.trim().toLowerCase();
-      const activeTypes = getActiveTypes();
-      return LOCATIONS.filter(loc => {
-        const matchesType = activeTypes.length === 0 || activeTypes.includes(loc.type);
-        const matchesQuery = !query || loc.name.toLowerCase().includes(query) || loc.address.toLowerCase().includes(query);
-        return matchesType && matchesQuery;
-      });
-    }
-
-    function updateCount(filtered) {
-      const activeTypes = getActiveTypes();
-      let word = filtered.length === 1 ? 'locación' : 'locaciones';
-      if (activeTypes.length === 1) {
-        const labels = TYPE_LABELS[activeTypes[0]];
-        word = filtered.length === 1 ? labels.singular : labels.plural;
-      }
-      countEl.innerHTML = `${filtered.length} <em>${word}</em> cerca tuyo`;
-    }
-
-    function renderList() {
-      const filtered = getFiltered();
-      updateCount(filtered);
-
-      if (filtered.length === 0) {
-        listEl.innerHTML = '<div class="jypesa-pi-empty">No encontramos locaciones con esos filtros.</div>';
-        return;
+      let lang = (target.getAttribute('data-lang') || '').toLowerCase().trim();
+      if (lang !== 'en' && lang !== 'es') {
+        const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+        if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
+          lang = 'en';
+        } else {
+          lang = 'es';
+        }
       }
 
-      listEl.innerHTML = filtered.map(loc => `
-        <div class="jypesa-pi-item${loc.id === activeId ? ' active' : ''}" data-id="${loc.id}">
-          <p class="jypesa-pi-item-name">${loc.name}</p>
-          <div class="jypesa-pi-item-row">${ICONS.pin}<span>${loc.address}</span></div>
-          <div class="jypesa-pi-item-row">${ICONS.phone}<a href="tel:${loc.phone.replace(/\s+/g, '')}">${loc.phone}</a></div>
-          <div class="jypesa-pi-item-hours">${loc.hours}</div>
-        </div>
-      `).join('');
+      target.classList.add('jypesa-presencia-internacional-widget');
+      const t = staticTextsByLang[lang] || staticTextsByLang.es;
+      target.innerHTML = buildWidgetHtml(t);
 
-      listEl.querySelectorAll('.jypesa-pi-item').forEach(item => {
-        item.addEventListener('click', () => {
-          const id = Number(item.getAttribute('data-id'));
-          selectLocation(id, true);
+      const searchInput = target.querySelector('#pi-search-input');
+      const countEl = target.querySelector('#pi-count');
+      const listEl = target.querySelector('#pi-list');
+      const filtersBtn = target.querySelector('#pi-filters-btn');
+      const filtersDropdown = target.querySelector('#pi-filters-dropdown');
+      const filterCheckboxes = target.querySelectorAll('.jypesa-pi-filter-option input');
+      const mapWrap = target.querySelector('#pi-map-wrap');
+      const fullscreenBtn = target.querySelector('#pi-fullscreen-btn');
+
+      let activeId = LOCATIONS.find(l => l.isDefault) ? LOCATIONS.find(l => l.isDefault).id : LOCATIONS[0].id;
+      let map = null;
+      const markers = {};
+
+      function getActiveTypes() {
+        return Array.from(filterCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+      }
+
+      function getFiltered() {
+        const query = searchInput.value.trim().toLowerCase();
+        const activeTypes = getActiveTypes();
+        return LOCATIONS.filter(loc => {
+          const matchesType = activeTypes.length === 0 || activeTypes.includes(loc.type);
+          const matchesQuery = !query || loc.name.toLowerCase().includes(query) || loc.address.toLowerCase().includes(query);
+          return matchesType && matchesQuery;
         });
-      });
-    }
+      }
 
-    function buildIcon(loc, isActive) {
-      if (!window.L) return null;
-      const size = isActive ? 44 : 34;
-      return window.L.divIcon({
-        className: `jypesa-pi-marker type-${loc.type}${isActive ? ' active' : ''}`,
-        html: `<div class="jypesa-pi-pin"><div class="jypesa-pi-pin-circle">${ICONS.check}</div></div>`,
-        iconSize: [size, size],
-        iconAnchor: [size / 2, size + 6],
-        popupAnchor: [0, -(size + 6)],
-      });
-    }
-
-    function popupHtml(loc) {
-      return `
-        <div class="jypesa-pi-popup-name">${loc.name}</div>
-        <div class="jypesa-pi-popup-row">${ICONS.pin}<span>${loc.address}</span></div>
-        <div class="jypesa-pi-popup-row">${ICONS.phone}<a href="tel:${loc.phone.replace(/\s+/g, '')}">${loc.phone}</a></div>
-        <div class="jypesa-pi-popup-hours">${loc.hours}</div>
-      `;
-    }
-
-    function selectLocation(id, flyTo) {
-      const prevId = activeId;
-      activeId = id;
-      const loc = LOCATIONS.find(l => l.id === id);
-      if (!loc) return;
-
-      if (map) {
-        if (markers[prevId]) markers[prevId].setIcon(buildIcon(LOCATIONS.find(l => l.id === prevId), false));
-        if (markers[id]) {
-          markers[id].setIcon(buildIcon(loc, true));
-          markers[id].openPopup();
+      function updateCount(filtered) {
+        const activeTypes = getActiveTypes();
+        let word = filtered.length === 1 ? t.typeLabels.oficina.singular : t.typeLabels.oficina.plural;
+        if (activeTypes.length === 1 && t.typeLabels[activeTypes[0]]) {
+          const labels = t.typeLabels[activeTypes[0]];
+          word = filtered.length === 1 ? labels.singular : labels.plural;
         }
-        if (flyTo) map.flyTo([loc.lat, loc.lng], Math.max(map.getZoom(), 7), { duration: 0.6 });
+        countEl.innerHTML = t.countText(filtered.length, word);
       }
 
-      target.querySelectorAll('.jypesa-pi-item').forEach(el => {
-        el.classList.toggle('active', Number(el.getAttribute('data-id')) === id);
-      });
+      function renderList() {
+        const filtered = getFiltered();
+        updateCount(filtered);
 
-      if (flyTo) {
-        const activeEl = target.querySelector(`.jypesa-pi-item[data-id="${id}"]`);
-        if (activeEl) activeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      }
-    }
-
-    function renderMarkers() {
-      if (!map) return;
-      const filtered = getFiltered();
-      const filteredIds = new Set(filtered.map(l => l.id));
-
-      Object.keys(markers).forEach(id => {
-        const numId = Number(id);
-        if (filteredIds.has(numId)) {
-          if (!map.hasLayer(markers[id])) markers[id].addTo(map);
-        } else if (map.hasLayer(markers[id])) {
-          map.removeLayer(markers[id]);
+        if (filtered.length === 0) {
+          listEl.innerHTML = `<div class="jypesa-pi-empty">${t.emptyMessage}</div>`;
+          return;
         }
-      });
-    }
 
-    function initMap() {
-      map = window.L.map(target.querySelector('#pi-map'), {
-        zoomControl: true,
-        attributionControl: true,
-      });
+        listEl.innerHTML = filtered.map(loc => `
+          <div class="jypesa-pi-item${loc.id === activeId ? ' active' : ''}" data-id="${loc.id}">
+            <p class="jypesa-pi-item-name">${loc.name}</p>
+            <div class="jypesa-pi-item-row">${ICONS.pin}<span>${loc.address}</span></div>
+            <div class="jypesa-pi-item-row">${ICONS.phone}<a href="tel:${loc.phone.replace(/[\s+]+/g, '')}">${loc.phone}</a></div>
+            <div class="jypesa-pi-item-hours">${getHours(loc, lang)}</div>
+          </div>
+        `).join('');
 
-      window.L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      }).addTo(map);
-
-      LOCATIONS.forEach(loc => {
-        const marker = window.L.marker([loc.lat, loc.lng], { icon: buildIcon(loc, loc.id === activeId) });
-        marker.bindPopup(popupHtml(loc), { className: 'jypesa-pi-popup', closeButton: true, offset: [0, 0] });
-        marker.on('click', () => selectLocation(loc.id, true));
-        marker.addTo(map);
-        markers[loc.id] = marker;
-      });
-
-      const bounds = window.L.latLngBounds(LOCATIONS.map(l => [l.lat, l.lng]));
-      map.fitBounds(bounds, { padding: [50, 50] });
-
-      const activeLoc = LOCATIONS.find(l => l.id === activeId);
-      if (activeLoc && markers[activeId]) {
-        setTimeout(() => markers[activeId].openPopup(), 300);
+        listEl.querySelectorAll('.jypesa-pi-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const id = Number(item.getAttribute('data-id'));
+            selectLocation(id, true);
+          });
+        });
       }
-    }
 
-    searchInput.addEventListener('input', () => {
-      renderList();
-      renderMarkers();
-    });
+      function buildIcon(loc, isActive) {
+        if (!window.L) return null;
+        const size = isActive ? 44 : 34;
+        return window.L.divIcon({
+          className: `jypesa-pi-marker type-${loc.type}${isActive ? ' active' : ''}`,
+          html: `<div class="jypesa-pi-pin"><div class="jypesa-pi-pin-circle">${ICONS.check}</div></div>`,
+          iconSize: [size, size],
+          iconAnchor: [size / 2, size + 6],
+          popupAnchor: [0, -(size + 6)],
+        });
+      }
 
-    filterCheckboxes.forEach(cb => {
-      cb.addEventListener('change', () => {
+      function popupHtml(loc) {
+        return `
+          <div class="jypesa-pi-popup-name">${loc.name}</div>
+          <div class="jypesa-pi-popup-row">${ICONS.pin}<span>${loc.address}</span></div>
+          <div class="jypesa-pi-popup-row">${ICONS.phone}<a href="tel:${loc.phone.replace(/[\s+]+/g, '')}">${loc.phone}</a></div>
+          <div class="jypesa-pi-popup-hours">${getHours(loc, lang)}</div>
+        `;
+      }
+
+      function selectLocation(id, flyTo) {
+        const prevId = activeId;
+        activeId = id;
+        const loc = LOCATIONS.find(l => l.id === id);
+        if (!loc) return;
+
+        if (map) {
+          if (markers[prevId]) markers[prevId].setIcon(buildIcon(LOCATIONS.find(l => l.id === prevId), false));
+          if (markers[id]) {
+            markers[id].setIcon(buildIcon(loc, true));
+            markers[id].openPopup();
+          }
+          if (flyTo) map.flyTo([loc.lat, loc.lng], Math.max(map.getZoom(), 7), { duration: 0.6 });
+        }
+
+        target.querySelectorAll('.jypesa-pi-item').forEach(el => {
+          el.classList.toggle('active', Number(el.getAttribute('data-id')) === id);
+        });
+
+        if (flyTo) {
+          const activeEl = target.querySelector(`.jypesa-pi-item[data-id="${id}"]`);
+          if (activeEl) activeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+      }
+
+      function renderMarkers() {
+        if (!map) return;
+        const filtered = getFiltered();
+        const filteredIds = new Set(filtered.map(l => l.id));
+
+        Object.keys(markers).forEach(id => {
+          const numId = Number(id);
+          if (filteredIds.has(numId)) {
+            if (!map.hasLayer(markers[id])) markers[id].addTo(map);
+          } else if (map.hasLayer(markers[id])) {
+            map.removeLayer(markers[id]);
+          }
+        });
+      }
+
+      function initMap() {
+        map = window.L.map(target.querySelector('#pi-map'), {
+          zoomControl: true,
+          attributionControl: true,
+        });
+
+        window.L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+          maxZoom: 19,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        }).addTo(map);
+
+        LOCATIONS.forEach(loc => {
+          const marker = window.L.marker([loc.lat, loc.lng], { icon: buildIcon(loc, loc.id === activeId) });
+          marker.bindPopup(popupHtml(loc), { className: 'jypesa-pi-popup', closeButton: true, offset: [0, 0] });
+          marker.on('click', () => selectLocation(loc.id, true));
+          marker.addTo(map);
+          markers[loc.id] = marker;
+        });
+
+        const bounds = window.L.latLngBounds(LOCATIONS.map(l => [l.lat, l.lng]));
+        map.fitBounds(bounds, { padding: [50, 50] });
+
+        const activeLoc = LOCATIONS.find(l => l.id === activeId);
+        if (activeLoc && markers[activeId]) {
+          setTimeout(() => markers[activeId].openPopup(), 300);
+        }
+      }
+
+      searchInput.addEventListener('input', () => {
         renderList();
         renderMarkers();
       });
-    });
 
-    filtersBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      filtersDropdown.classList.toggle('open');
-    });
+      filterCheckboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+          renderList();
+          renderMarkers();
+        });
+      });
 
-    document.addEventListener('click', (e) => {
-      if (!filtersDropdown.contains(e.target) && e.target !== filtersBtn) {
-        filtersDropdown.classList.remove('open');
-      }
-    });
+      filtersBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        filtersDropdown.classList.toggle('open');
+      });
 
-    fullscreenBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        mapWrap.requestFullscreen && mapWrap.requestFullscreen();
-      } else {
-        document.exitFullscreen && document.exitFullscreen();
-      }
-    });
+      document.addEventListener('click', (e) => {
+        if (!filtersDropdown.contains(e.target) && e.target !== filtersBtn) {
+          filtersDropdown.classList.remove('open');
+        }
+      });
 
-    document.addEventListener('fullscreenchange', () => {
-      if (map) setTimeout(() => map.invalidateSize(), 100);
-    });
+      fullscreenBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          mapWrap.requestFullscreen && mapWrap.requestFullscreen();
+        } else {
+          document.exitFullscreen && document.exitFullscreen();
+        }
+      });
 
-    renderList();
-    loadLeaflet(initMap);
+      document.addEventListener('fullscreenchange', () => {
+        if (map) setTimeout(() => map.invalidateSize(), 100);
+      });
+
+      renderList();
+      loadLeaflet(initMap);
+    });
   }
 
   if (document.readyState === 'loading') {
