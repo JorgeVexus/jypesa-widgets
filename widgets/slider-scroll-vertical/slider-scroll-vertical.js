@@ -644,6 +644,7 @@
         slideDesc: 'Compromiso con estándares de calidad, prácticas responsables y acciones orientadas a generar un impacto ambiental y social positivo.',
         slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1f3fd0d0b22e5f8120_sustentabilidad%2004.webp',
         logoSpecial: '',
+        certsImgSrc: basePath + 'assets/images/slider scroll vertical home/Certifications Container.png',
         showCerts: true
       }
     ],
@@ -678,6 +679,7 @@
         slideDesc: 'Commitment to quality standards, responsible practices, and actions aimed at generating a positive environmental and social impact.',
         slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1f3fd0d0b22e5f8120_sustentabilidad%2004.webp',
         logoSpecial: '',
+        certsImgSrc: basePath + 'assets/images/slider scroll vertical home/Certifications Container.png',
         showCerts: true
       }
     ]
@@ -761,12 +763,8 @@
                             !slide.certsImgSrc.includes('placeholder') &&
                             slide.certsImgSrc !== '#';
 
-        const certsImgToUse = hasCertsImg 
-          ? slide.certsImgSrc 
-          : `${basePath}assets/images/slider scroll vertical home/Certifications Container.png`;
-
-        const certsRow = slide.showCerts
-          ? `<img class="jypesa-sust-certs-img" src="${certsImgToUse}" alt="Certificaciones" loading="lazy">`
+        const certsRow = (slide.showCerts && hasCertsImg)
+          ? `<img class="jypesa-sust-certs-img" src="${slide.certsImgSrc}" alt="Certificaciones" loading="lazy" onerror="this.style.display='none'">`
           : '';
 
         return `
@@ -806,12 +804,8 @@
                             !slide.certsImgSrc.includes('placeholder') &&
                             slide.certsImgSrc !== '#';
 
-        const certsImgToUse = hasCertsImg 
-          ? slide.certsImgSrc 
-          : `${basePath}assets/images/slider scroll vertical home/Certifications Container.png`;
-
-        const certsRow = slide.showCerts
-          ? `<img class="jypesa-sust-certs-img-mobile" src="${certsImgToUse}" alt="Certificaciones" loading="lazy">`
+        const certsRow = (slide.showCerts && hasCertsImg)
+          ? `<img class="jypesa-sust-certs-img-mobile" src="${slide.certsImgSrc}" alt="Certificaciones" loading="lazy" onerror="this.style.display='none'">`
           : '';
 
         return `
