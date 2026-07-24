@@ -603,12 +603,12 @@
       btnLink: '/sustentabilidad'
     },
     en: {
-      destacable: 'Commitment to the planet',
+      destacable: 'Commitment to the Planet',
       mainTitle: 'Sustainability',
-      introDesc: 'At Jypesa we develop solutions for the hospitality industry that combine innovation, quality, and environmental responsibility.<br><br>Through responsible materials, refillable systems, and optimized processes, we seek to reduce the environmental impact of amenities used in hotels and hospitality spaces.',
-      mobileIntroDesc: 'At Jypesa we develop solutions for the hospitality industry that combine innovation, quality, and environmental responsibility.',
-      btnText: 'Learn more',
-      btnLink: '/en/sustentabilidad'
+      introDesc: 'At Jypesa we develop solutions for the hospitality industry that integrate innovation, quality, and environmental responsibility.<br><br>Through responsible materials, refillable systems, and optimized processes, we seek to reduce the environmental impact of amenities used in hotels and hospitality spaces.',
+      mobileIntroDesc: 'At Jypesa we develop solutions for the hospitality industry that integrate innovation, quality, and environmental responsibility.',
+      btnText: 'Learn More',
+      btnLink: '/en/sustainability'
     }
   };
 
