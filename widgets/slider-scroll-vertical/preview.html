@@ -104,7 +104,15 @@
     <h1>Panel de Pruebas — Widget de Sustentabilidad (Scroll Vertical)</h1>
     <p>
       Este widget implementa una sección de sustentabilidad responsiva e interactiva basada en scroll en desktop y táctil en móviles.
+      Soporta <strong>Multi-idioma bilingüe (Español e Inglés)</strong> mediante el atributo <code>data-lang="es"</code> / <code>data-lang="en"</code> o autodetección.
     </p>
+
+    <!-- Selector de Idioma -->
+    <div style="display: flex; gap: 10px; margin: 15px 0; align-items: center;">
+      <strong style="font-size: 14px; color: #506D85;">Seleccionar Idioma del Widget:</strong>
+      <button class="lang-btn active" onclick="setWidgetLang('es')" style="padding: 8px 16px; border-radius: 6px; border: 1px solid #74C87D; background: #74C87D; color: #fff; cursor: pointer; font-weight: 500;">Español (data-lang="es")</button>
+      <button class="lang-btn" onclick="setWidgetLang('en')" style="padding: 8px 16px; border-radius: 6px; border: 1px solid #506D85; background: #fff; color: #506D85; cursor: pointer; font-weight: 500;">English (data-lang="en")</button>
+    </div>
 
     <div class="preview-features">
       <div class="feature-card">
@@ -116,8 +124,8 @@
         <p>En dispositivos móviles (ancho de pantalla &lt; 992px), el widget se reorganiza automáticamente a un slider horizontal táctil nativo con dots de navegación.</p>
       </div>
       <div class="feature-card">
-        <h3>Integración CMS Webflow</h3>
-        <p>Este panel simula datos inyectados dinámicamente desde el CMS mediante una lista oculta en el DOM, permitiendo modificar contenidos sin tocar el JavaScript.</p>
+        <h3>Integración CMS Webflow (Duplicado o Bilingüe)</h3>
+        <p>Funciona con páginas duplicadas vinculando los campos <code>Título (EN)</code> y <code>Descripción (EN)</code> en el Designer, o agregando elementos con clase <code>.jypesa-sust-prod-desc-en</code>.</p>
       </div>
     </div>
 
@@ -133,7 +141,9 @@
     <div class="w-dyn-item">
       <div class="jypesa-sust-prod-index">01</div>
       <div class="jypesa-sust-prod-title"></div>
-      <div class="jypesa-sust-prod-desc">Simulando CMS: Todos nuestros tubos tienen en su composición plástico recuperado del océano Nocean, previniendo la contaminación y promoviendo la circularidad en amenidades hoteleras.</div>
+      <div class="jypesa-sust-prod-title-en"></div>
+      <div class="jypesa-sust-prod-desc">Simulando CMS (ES): Todos nuestros tubos tienen en su composición plástico recuperado del océano Nocean, previniendo la contaminación y promoviendo la circularidad en amenidades hoteleras.</div>
+      <div class="jypesa-sust-prod-desc-en">Simulating CMS (EN): All of our tubes feature Ocean Bound Plastic (Nocean) in their composition, preventing pollution and promoting circularity in hotel amenities.</div>
       <img class="jypesa-sust-prod-img" src="../assets/images/slider scroll vertical home/01.webp" alt="Nocean CMS">
       <img class="jypesa-sust-prod-logo" src="../assets/images/slider scroll vertical home/Logo nocean.webp" alt="Nocean Logo">
       <div class="jypesa-sust-prod-show-certs">false</div>
@@ -143,7 +153,9 @@
     <div class="w-dyn-item">
       <div class="jypesa-sust-prod-index">02</div>
       <div class="jypesa-sust-prod-title">Refill systems</div>
-      <div class="jypesa-sust-prod-desc">Simulando CMS: Sistemas recargables de dispensación de alto rendimiento que disminuyen drásticamente el uso de plásticos de un solo uso por habitación.</div>
+      <div class="jypesa-sust-prod-title-en">Refill systems (EN)</div>
+      <div class="jypesa-sust-prod-desc">Simulando CMS (ES): Sistemas recargables de dispensación de alto rendimiento que disminuyen drásticamente el uso de plásticos de un solo uso por habitación.</div>
+      <div class="jypesa-sust-prod-desc-en">Simulating CMS (EN): High-performance refillable dispensing systems that dramatically reduce single-use plastic per guest room.</div>
       <img class="jypesa-sust-prod-img" src="../assets/images/slider scroll vertical home/02.webp" alt="Refill CMS">
       <div class="jypesa-sust-prod-show-certs">false</div>
     </div>
@@ -152,7 +164,9 @@
     <div class="w-dyn-item">
       <div class="jypesa-sust-prod-index">03</div>
       <div class="jypesa-sust-prod-title">Reducción de residuos</div>
-      <div class="jypesa-sust-prod-desc">Simulando CMS: Procesos de desarrollo optimizados y formulaciones que minimizan el desperdicio operativo en hoteles de gran escala.</div>
+      <div class="jypesa-sust-prod-title-en">Waste reduction</div>
+      <div class="jypesa-sust-prod-desc">Simulando CMS (ES): Procesos de desarrollo optimizados y formulaciones que minimizan el desperdicio operativo en hoteles de gran escala.</div>
+      <div class="jypesa-sust-prod-desc-en">Simulating CMS (EN): Optimized development processes and formulations that minimize operational waste in large-scale hotels.</div>
       <img class="jypesa-sust-prod-img" src="../assets/images/slider scroll vertical home/03.webp" alt="Residuos CMS">
       <div class="jypesa-sust-prod-show-certs">false</div>
     </div>
@@ -161,7 +175,9 @@
     <div class="w-dyn-item">
       <div class="jypesa-sust-prod-index">04</div>
       <div class="jypesa-sust-prod-title">Certificaciones de impacto</div>
-      <div class="jypesa-sust-prod-desc">Simulando CMS: Certificaciones globales avalan nuestro compromiso social, cruelty-free, reducción de carbono y reciclaje post-consumo.</div>
+      <div class="jypesa-sust-prod-title-en">Impact certifications</div>
+      <div class="jypesa-sust-prod-desc">Simulando CMS (ES): Certificaciones globales avalan nuestro compromiso social, cruelty-free, reducción de carbono y reciclaje post-consumo.</div>
+      <div class="jypesa-sust-prod-desc-en">Simulating CMS (EN): Global certifications endorse our social commitment, cruelty-free practices, carbon reduction, and post-consumer recycling.</div>
       <img class="jypesa-sust-prod-img" src="../assets/images/slider scroll vertical home/04.webp" alt="Certificaciones CMS">
       <img class="jypesa-sust-prod-certs-img" src="../assets/images/slider scroll vertical home/Certifications Container.png" alt="Contenedor de Certificaciones CMS">
       <div class="jypesa-sust-prod-show-certs">true</div>
@@ -170,12 +186,43 @@
   </div>
 
   <!-- ─── INSTANCIA DEL WIDGET ──────────────────────────────────────────────── -->
-  <div class="jypesa-sustentabilidad-widget"></div>
+  <div id="jypesa-sustentabilidad-widget" data-lang="es"></div>
 
   <!-- Relleno inferior para permitir continuar el scroll después del sticky -->
   <div class="preview-footer-spacer">
     Fin de la sección sticky de Sustentabilidad — Fin de página
   </div>
+
+  <script>
+    function setWidgetLang(lang) {
+      const widgetDiv = document.getElementById('jypesa-sustentabilidad-widget');
+      if (!widgetDiv) return;
+      widgetDiv.setAttribute('data-lang', lang);
+      widgetDiv.removeAttribute('data-initialized');
+      widgetDiv.innerHTML = '';
+      window.__JypesaSustentabilidadScrollWidgetInitialized = false;
+
+      // Actualizar botones UI del preview
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        if ((lang === 'es' && btn.textContent.includes('Español')) || (lang === 'en' && btn.textContent.includes('English'))) {
+          btn.style.background = '#74C87D';
+          btn.style.color = '#fff';
+          btn.style.borderColor = '#74C87D';
+        } else {
+          btn.style.background = '#fff';
+          btn.style.color = '#506D85';
+          btn.style.borderColor = '#506D85';
+        }
+      });
+
+      // Re-inicializar widget
+      if (typeof initSustentabilidadWidget === 'function') {
+        initSustentabilidadWidget();
+      } else {
+        location.reload();
+      }
+    }
+  </script>
 
   <!-- Cargar Widget JS -->
   <script src="./slider-scroll-vertical.js"></script>

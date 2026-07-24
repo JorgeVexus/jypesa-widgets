@@ -586,50 +586,105 @@
     </svg>`
   };
 
-  // ─── 3. MOCK DATA / FALLBACKS (Alineado a Figma) ───────────────────────────
+  // ─── 3. MOCK DATA / FALLBACKS (Alineado a Figma & Bilingüe) ───────────────
   // Resolver ruta base para las imágenes locales en el panel de pruebas
   let basePath = './widgets/';
   if (window.location.pathname.includes('widgets/slider-scroll-vertical')) {
     basePath = '../';
   }
 
-  const fallbackSlides = [
-    {
-      indexNumber: '01',
-      slideTitle: '',
-      slideDesc: 'Todos nuestros tubos tienen en su composición plástico recuperado del océano (ocean bound plastic) Nocean fomentando el uso de materiales responsables y evitando que más plástico llegue al océano.',
-      slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1e1e7a654eba705955_sustentabilidad%2001.webp',
-      logoSpecial: basePath + 'assets/images/slider scroll vertical home/Logo nocean.webp',
-      showCerts: false
+  const staticTexts = {
+    es: {
+      destacable: 'Compromiso con el planeta',
+      mainTitle: 'Sustentabilidad',
+      introDesc: 'En Jypesa desarrollamos soluciones para la industria de la hospitalidad que integran innovación, calidad y responsabilidad ambiental.<br><br>A través de materiales responsables, sistemas recargables y procesos optimizados, buscamos reducir el impacto ambiental de las amenidades utilizadas en hoteles y espacios de hospitalidad.',
+      mobileIntroDesc: 'En Jypesa desarrollamos soluciones para la industria de la hospitalidad que integran innovación, calidad y responsabilidad ambiental.',
+      btnText: 'Saber más',
+      btnLink: '/sustentabilidad'
     },
-    {
-      indexNumber: '02',
-      slideTitle: 'Refill systems',
-      slideDesc: 'Sistemas de dispensación recargables diseñados para reducir el uso de envases de un solo uso en hoteles y operaciones de hospitalidad.',
-      slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1ee752754a4bde9fe7_sustentabilidad%2002.webp',
-      logoSpecial: '',
-      showCerts: false
-    },
-    {
-      indexNumber: '03',
-      slideTitle: 'Reducción de residuos',
-      slideDesc: 'Desarrollo de soluciones que optimizan el consumo de productos y disminuyen la generación de residuos en la operación diaria de hoteles y empresas de hospitalidad.',
-      slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b27c2ad81f74357967e_sustentabilidad%2003.webp',
-      logoSpecial: '',
-      showCerts: false
-    },
-    {
-      indexNumber: '04',
-      slideTitle: 'Certificaciones e impacto',
-      slideDesc: 'Compromiso con estándares de calidad, prácticas responsables y acciones orientadas a generar un impacto ambiental y social positivo.',
-      slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1f3fd0d0b22e5f8120_sustentabilidad%2004.webp',
-      logoSpecial: '',
-      showCerts: true
+    en: {
+      destacable: 'Commitment to the planet',
+      mainTitle: 'Sustainability',
+      introDesc: 'At Jypesa we develop solutions for the hospitality industry that combine innovation, quality, and environmental responsibility.<br><br>Through responsible materials, refillable systems, and optimized processes, we seek to reduce the environmental impact of amenities used in hotels and hospitality spaces.',
+      mobileIntroDesc: 'At Jypesa we develop solutions for the hospitality industry that combine innovation, quality, and environmental responsibility.',
+      btnText: 'Learn more',
+      btnLink: '/en/sustentabilidad'
     }
-  ];
+  };
+
+  const fallbackSlidesByLang = {
+    es: [
+      {
+        indexNumber: '01',
+        slideTitle: '',
+        slideDesc: 'Todos nuestros tubos tienen en su composición plástico recuperado del océano (ocean bound plastic) Nocean fomentando el uso de materiales responsables y evitando que más plástico llegue al océano.',
+        slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1e1e7a654eba705955_sustentabilidad%2001.webp',
+        logoSpecial: basePath + 'assets/images/slider scroll vertical home/Logo nocean.webp',
+        showCerts: false
+      },
+      {
+        indexNumber: '02',
+        slideTitle: 'Refill systems',
+        slideDesc: 'Sistemas de dispensación recargables diseñados para reducir el uso de envases de un solo uso en hoteles y operaciones de hospitalidad.',
+        slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1ee752754a4bde9fe7_sustentabilidad%2002.webp',
+        logoSpecial: '',
+        showCerts: false
+      },
+      {
+        indexNumber: '03',
+        slideTitle: 'Reducción de residuos',
+        slideDesc: 'Desarrollo de soluciones que optimizan el consumo de productos y disminuyen la generación de residuos en la operación diaria de hoteles y empresas de hospitalidad.',
+        slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b27c2ad81f74357967e_sustentabilidad%2003.webp',
+        logoSpecial: '',
+        showCerts: false
+      },
+      {
+        indexNumber: '04',
+        slideTitle: 'Certificaciones e impacto',
+        slideDesc: 'Compromiso con estándares de calidad, prácticas responsables y acciones orientadas a generar un impacto ambiental y social positivo.',
+        slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1f3fd0d0b22e5f8120_sustentabilidad%2004.webp',
+        logoSpecial: '',
+        showCerts: true
+      }
+    ],
+    en: [
+      {
+        indexNumber: '01',
+        slideTitle: '',
+        slideDesc: 'All of our tubes feature Ocean Bound Plastic (Nocean) in their composition, encouraging the use of responsible materials and preventing more plastic from reaching the ocean.',
+        slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1e1e7a654eba705955_sustentabilidad%2001.webp',
+        logoSpecial: basePath + 'assets/images/slider scroll vertical home/Logo nocean.webp',
+        showCerts: false
+      },
+      {
+        indexNumber: '02',
+        slideTitle: 'Refill systems',
+        slideDesc: 'Refillable dispensing systems designed to reduce single-use packaging in hotel and hospitality operations.',
+        slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1ee752754a4bde9fe7_sustentabilidad%2002.webp',
+        logoSpecial: '',
+        showCerts: false
+      },
+      {
+        indexNumber: '03',
+        slideTitle: 'Waste reduction',
+        slideDesc: 'Development of solutions that optimize product consumption and lower waste generation in daily hotel and hospitality operations.',
+        slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b27c2ad81f74357967e_sustentabilidad%2003.webp',
+        logoSpecial: '',
+        showCerts: false
+      },
+      {
+        indexNumber: '04',
+        slideTitle: 'Certifications and impact',
+        slideDesc: 'Commitment to quality standards, responsible practices, and actions aimed at generating a positive environmental and social impact.',
+        slideImg: 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5f9b1f3fd0d0b22e5f8120_sustentabilidad%2004.webp',
+        logoSpecial: '',
+        showCerts: true
+      }
+    ]
+  };
 
   // ─── 4. PARSEO DE DATOS CMS DESDE EL DOM ─────────────────────────────────────
-  function readSlidesFromCMS() {
+  function readSlidesFromCMS(lang = 'es') {
     const sourceContainer = document.querySelector('.jypesa-sust-cms-source');
     if (!sourceContainer) return null;
 
@@ -650,6 +705,15 @@
         return el.textContent.trim();
       };
 
+      const getLocalizedVal = (baseSelector, attr = '') => {
+        if (lang === 'en') {
+          const enSelector = baseSelector + '-en';
+          const valEn = getVal(enSelector, attr);
+          if (valEn) return valEn;
+        }
+        return getVal(baseSelector, attr);
+      };
+
       const showCertsText = getVal('.jypesa-sust-prod-show-certs').toLowerCase();
       // Si es el slide 04 o 4, o si el switch está activado, mostrar certificaciones
       const isFourthSlide = indexNumber === '04' || indexNumber === '4';
@@ -657,8 +721,8 @@
 
       slides.push({
         indexNumber: indexNumber,
-        slideTitle: getVal('.jypesa-sust-prod-title'),
-        slideDesc: getVal('.jypesa-sust-prod-desc'),
+        slideTitle: getLocalizedVal('.jypesa-sust-prod-title'),
+        slideDesc: getLocalizedVal('.jypesa-sust-prod-desc'),
         slideImg: getVal('.jypesa-sust-prod-img', 'src'),
         logoSpecial: getVal('.jypesa-sust-prod-logo', 'src'),
         certsImgSrc: getVal('.jypesa-sust-prod-certs-img', 'src'),
@@ -677,7 +741,9 @@
   }
 
   // ─── 5. GENERACIÓN HTML DINÁMICO ───────────────────────────────────────────
-  function buildWidgetHtml(slides) {
+  function buildWidgetHtml(slides, lang = 'es') {
+    const t = staticTexts[lang] || staticTexts.es;
+
     // ── HTML Desktop Left Column Blocks ──
     const desktopLeftBlocks = slides
       .map((slide, idx) => {
@@ -779,12 +845,12 @@
           <div class="jypesa-sust-desktop-left">
             <div class="jypesa-sust-left-top">
               <div class="jypesa-sust-destacable">
-                <p>Compromiso con el planeta</p>
+                <p>${t.destacable}</p>
               </div>
-              <h2 class="jypesa-sust-main-title">Sustentabilidad</h2>
-              <p class="jypesa-sust-intro-desc">En Jypesa desarrollamos soluciones para la industria de la hospitalidad que integran innovación, calidad y responsabilidad ambiental.<br><br>A través de materiales responsables, sistemas recargables y procesos optimizados, buscamos reducir el impacto ambiental de las amenidades utilizadas en hoteles y espacios de hospitalidad.</p>
-              <a href="/sustentabilidad" class="jypesa-sust-btn">
-                Saber más 
+              <h2 class="jypesa-sust-main-title">${t.mainTitle}</h2>
+              <p class="jypesa-sust-intro-desc">${t.introDesc}</p>
+              <a href="${t.btnLink}" class="jypesa-sust-btn">
+                ${t.btnText} 
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -813,12 +879,12 @@
       <div class="jypesa-sust-mobile-wrapper">
         <div class="jypesa-sust-mobile-header">
           <div class="jypesa-sust-destacable">
-            <p>Compromiso con el planeta</p>
+            <p>${t.destacable}</p>
           </div>
-          <h2 class="jypesa-sust-mobile-title">Sustentabilidad</h2>
-          <p class="jypesa-sust-mobile-slide-desc" style="opacity: 0.9; margin-bottom: 15px;">En Jypesa desarrollamos soluciones para la industria de la hospitalidad que integran innovación, calidad y responsabilidad ambiental.</p>
-          <a href="/sustentabilidad" class="jypesa-sust-btn">
-            Saber más 
+          <h2 class="jypesa-sust-mobile-title">${t.mainTitle}</h2>
+          <p class="jypesa-sust-mobile-slide-desc" style="opacity: 0.9; margin-bottom: 15px;">${t.mobileIntroDesc}</p>
+          <a href="${t.btnLink}" class="jypesa-sust-btn">
+            ${t.btnText} 
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -993,16 +1059,28 @@
     );
     if (!targets.length) return;
 
-    const cmsSlides = readSlidesFromCMS();
-    const slides = cmsSlides || fallbackSlides;
-
     targets.forEach((target) => {
       if (target.getAttribute('data-initialized') === 'true') return;
       target.setAttribute('data-initialized', 'true');
 
+      let lang = (target.getAttribute('data-lang') || '').toLowerCase().trim();
+      if (lang !== 'en' && lang !== 'es') {
+        const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+        if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
+          lang = 'en';
+        } else {
+          lang = 'es';
+        }
+      }
+
+      const cmsSlides = readSlidesFromCMS(lang);
+      const slides = cmsSlides || (fallbackSlidesByLang[lang] || fallbackSlidesByLang.es);
+
       const wrapper = document.createElement('div');
       wrapper.className = 'jypesa-sust-widget';
-      wrapper.innerHTML = buildWidgetHtml(slides);
+      wrapper.innerHTML = buildWidgetHtml(slides, lang);
       target.appendChild(wrapper);
 
       // Configurar interactividades
