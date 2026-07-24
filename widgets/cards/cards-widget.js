@@ -239,67 +239,116 @@
     </svg>
   `;
 
-  // HTML Estructura del Widget
-  const widgetHtml = `
-<div class="jypesa-cards-wrap" role="region" aria-label="Líneas de Negocio JYPESA">
+  // Diccionario Bilingüe para Tarjetas de Capacidades
+  const cardsDataByLang = {
+    es: [
+      {
+        title: 'Producción',
+        desc: 'Desarrollo y fabricación de amenidades con control de calidad en cada etapa.',
+        btnText: 'Saber más',
+        link: '/desarollo-personalizado',
+        img: imgProduccion,
+        alt: 'Producción Jypesa'
+      },
+      {
+        title: 'Private label',
+        desc: 'Creación de productos personalizados alineados a la identidad de cada cliente.',
+        btnText: 'Saber más',
+        link: '/desarollo-personalizado',
+        img: imgPrivateLabel,
+        alt: 'Private Label Jypesa'
+      },
+      {
+        title: 'Licencias',
+        desc: 'Colaboración con marcas reconocidas para ofrecer colecciones diferenciadas.',
+        btnText: 'Ver colecciones',
+        link: '/desarollo-personalizado',
+        img: imgLicencias,
+        alt: 'Licencias Jypesa'
+      }
+    ],
+    en: [
+      {
+        title: 'Production',
+        desc: 'Development and manufacturing of amenities with quality control at every stage.',
+        btnText: 'Learn More',
+        link: '/en/desarollo-personalizado',
+        img: imgProduccion,
+        alt: 'Production Jypesa'
+      },
+      {
+        title: 'Private Label',
+        desc: "Creation of customized products aligned with each client's identity.",
+        btnText: 'Learn More',
+        link: '/en/desarollo-personalizado',
+        img: imgPrivateLabel,
+        alt: 'Private Label Jypesa'
+      },
+      {
+        title: 'Licenses',
+        desc: 'Collaboration with recognized brands to offer differentiated collections.',
+        btnText: 'Learn More',
+        link: '/en/desarollo-personalizado',
+        img: imgLicencias,
+        alt: 'Licenses Jypesa'
+      }
+    ]
+  };
+
+  // Generador de HTML del Widget según idioma
+  function buildWidgetHtml(cards, lang) {
+    const ariaLabel = lang === 'en' ? 'JYPESA Business Lines' : 'Líneas de Negocio JYPESA';
+    return `
+<div class="jypesa-cards-wrap" role="region" aria-label="${ariaLabel}">
   <div class="jypesa-cards-grid">
-    
-    <!-- Producción -->
-    <a href="/desarollo-personalizado" class="jypesa-card" tabindex="0">
-      <div class="jypesa-card-img">
-        <img src="${imgProduccion}" alt="Producción Jypesa" loading="lazy" />
-      </div>
-      <div class="jypesa-card-content">
-        <h3 class="jypesa-card-title">Producción</h3>
-        <p class="jypesa-card-desc">Desarrollo y fabricación de amenidades con control de calidad en cada etapa.</p>
-        <button class="jypesa-card-btn" tabindex="-1">
-          Saber más
-          ${arrowSvg}
-        </button>
-      </div>
-    </a>
-
-    <!-- Private Label -->
-    <a href="/desarollo-personalizado" class="jypesa-card" tabindex="0">
-      <div class="jypesa-card-img">
-        <img src="${imgPrivateLabel}" alt="Private Label Jypesa" loading="lazy" />
-      </div>
-      <div class="jypesa-card-content">
-        <h3 class="jypesa-card-title">Private label</h3>
-        <p class="jypesa-card-desc">Creación de productos personalizados alineados a la identidad de cada cliente.</p>
-        <button class="jypesa-card-btn" tabindex="-1">
-          Saber más
-          ${arrowSvg}
-        </button>
-      </div>
-    </a>
-
-    <!-- Licencias -->
-    <a href="/desarollo-personalizado" class="jypesa-card" tabindex="0">
-      <div class="jypesa-card-img">
-        <img src="${imgLicencias}" alt="Licencias Jypesa" loading="lazy" />
-      </div>
-      <div class="jypesa-card-content">
-        <h3 class="jypesa-card-title">Licencias</h3>
-        <p class="jypesa-card-desc">Colaboración con marcas reconocidas para ofrecer colecciones diferenciadas.</p>
-        <button class="jypesa-card-btn" tabindex="-1">
-          Ver colecciones
-          ${arrowSvg}
-        </button>
-      </div>
-    </a>
-
+    ${cards.map(card => `
+      <a href="${card.link}" class="jypesa-card" tabindex="0">
+        <div class="jypesa-card-img">
+          <img src="${card.img}" alt="${card.alt}" loading="lazy" />
+        </div>
+        <div class="jypesa-card-content">
+          <h3 class="jypesa-card-title">${card.title}</h3>
+          <p class="jypesa-card-desc">${card.desc}</p>
+          <button class="jypesa-card-btn" tabindex="-1">
+            ${card.btnText}
+            ${arrowSvg}
+          </button>
+        </div>
+      </a>
+    `).join('')}
   </div>
 </div>
 `;
+  }
 
   function initCards() {
-    const target = document.getElementById('jypesa-cards-widget') || document.querySelector('[data-jypesa-cards-widget]');
-    if (!target) {
+    const targets = document.querySelectorAll(
+      '#jypesa-cards-widget, [data-jypesa-cards-widget], .jypesa-cards-widget, .jypesa-cards-widget-container'
+    );
+    if (!targets.length) {
       console.warn("Jypesa Cards Widget target element not found. Make sure an element with ID 'jypesa-cards-widget' exists on the page.");
       return;
     }
-    target.innerHTML = widgetHtml;
+
+    targets.forEach((target) => {
+      if (target.getAttribute('data-initialized') === 'true') return;
+      target.setAttribute('data-initialized', 'true');
+
+      let lang = (target.getAttribute('data-lang') || '').toLowerCase().trim();
+      if (lang !== 'en' && lang !== 'es') {
+        const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+        if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
+          lang = 'en';
+        } else {
+          lang = 'es';
+        }
+      }
+
+      const cards = cardsDataByLang[lang] || cardsDataByLang.es;
+      target.innerHTML = buildWidgetHtml(cards, lang);
+    });
   }
 
   // Cargar widget

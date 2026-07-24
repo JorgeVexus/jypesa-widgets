@@ -71,11 +71,15 @@
 
   <div class="demo-bar">
     <span class="demo-brand">JYPESA CARDS &bull; WEBFLOW EMBED PREVIEW</span>
+    <div style="display: flex; gap: 8px;">
+      <button class="demo-btn active" onclick="switchLang('es')" style="background: #506D85; color: #fff; border: 1px solid #777; padding: 4px 10px; border-radius: 4px; cursor: pointer;">Español (data-lang="es")</button>
+      <button class="demo-btn" onclick="switchLang('en')" style="background: #fff; color: #506D85; border: 1px solid #777; padding: 4px 10px; border-radius: 4px; cursor: pointer;">English (data-lang="en")</button>
+    </div>
   </div>
 
   <div class="widget-preview-area">
     <!-- Webflow embed target div -->
-    <div id="jypesa-cards-widget"></div>
+    <div id="jypesa-cards-widget" data-lang="es"></div>
   </div>
 
   <div class="demo-info">
@@ -87,6 +91,23 @@
 &lt;!-- Enlace del Script (Vercel) --&gt;
 &lt;script src="https://jypesa-widgets.vercel.app/widgets/cards/cards-widget.js"&gt;&lt;/script&gt;</code></pre>
   </div>
+
+  <script>
+    function switchLang(lang) {
+      const widget = document.getElementById('jypesa-cards-widget');
+      if (!widget) return;
+      widget.setAttribute('data-lang', lang);
+      widget.removeAttribute('data-initialized');
+      widget.innerHTML = '';
+      window.__JypesaCardsWidgetInitialized = false;
+
+      if (typeof initCards === 'function') {
+        initCards();
+      } else {
+        location.reload();
+      }
+    }
+  </script>
 
   <!-- Enlace del Script del Widget -->
   <script src="./widgets/cards/cards-widget.js"></script>
