@@ -122,22 +122,6 @@
     transform: scale(1.03);
   }
 
-  /* BADGE DE TIPO (ECONOMY) */
-  .jypesa-sdc-badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #4aa25d;
-    color: #ffffff;
-    padding: 4px 14px;
-    border-radius: 2px;
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-size: clamp(18px, 1.6vw, 24px);
-    line-height: 1;
-    z-index: 5;
-  }
-
   /* CONTENEDOR DE MINIATURAS/COMPATIBILIDADES */
   .jypesa-sdc-thumbs-row {
     border-top: 1px solid rgba(80, 109, 133, 0.2);
@@ -808,13 +792,10 @@
         `;
       }
 
-      const badgeStyle = disp.badgeColor ? ` style="background-color: ${disp.badgeColor};"` : '';
-
       return `
         <div class="jypesa-sdc-column">
           <!-- Casing / Visual Display -->
           <div class="jypesa-sdc-display-container">
-            ${disp.badge ? `<div class="jypesa-sdc-badge"${badgeStyle}>${disp.badge}</div>` : ''}
             ${disp.imgMain ? `<img class="jypesa-sdc-img-main" src="${disp.imgMain}" alt="${disp.name}" loading="lazy">` : ''}
           </div>
 
