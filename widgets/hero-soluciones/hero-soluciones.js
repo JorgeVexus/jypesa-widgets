@@ -245,18 +245,7 @@
   flex-direction: column;
 }
 
-/* Título arriba del Marquee en Instrument Serif Italic 18px */
-.jhs-marquee-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(15px, 1.1vw, 18px);
-  font-weight: 400;
-  font-style: italic;
-  color: #ffffff;
-  margin-bottom: clamp(8px, 1.2vh, 14px);
-  padding-left: clamp(24px, 5vw, 92px);
-  opacity: 0.92;
-  letter-spacing: 0.03em;
-}
+
 
 .jhs-marquee-track {
   display: flex;
@@ -326,9 +315,7 @@
     margin: 0;
     padding-left: 125px;
   }
-  .jhs-marquee-title {
-    padding-left: 125px;
-  }
+
 }
 
 /* ── RESPONSIVE PARA PANTALLAS ≤ 1439px Y MENORES ─────────────────────────── */
@@ -366,9 +353,7 @@
   .jhs-line2 {
     padding-left: 20px;
   }
-  .jhs-marquee-title {
-    padding-left: 24px;
-  }
+
 }
 
 @media (max-width: 600px) {
@@ -386,9 +371,7 @@
   .jhs-btn {
     width: 100%;
   }
-  .jhs-marquee-title {
-    padding-left: 20px;
-  }
+
 }
 `;
 
@@ -507,9 +490,8 @@
 
   </div>
 
-  <!-- Marquee al fondo con título en Instrument Serif Italic 18px -->
+  <!-- Marquee al fondo -->
   <div class="jhs-marquee-row">
-    <span class="jhs-marquee-title">Nuestras líneas de producto</span>
     <div class="jhs-marquee-track">
       ${marqueeHtml}
     </div>
