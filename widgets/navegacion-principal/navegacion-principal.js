@@ -648,7 +648,11 @@
       catResources: "RECURSOS",
       secCommercialMaterial: "Material comercial",
       optDownloadableCatalogs: "Catálogos descargables",
-      optTechnicalDatasheets: "Fichas técnicas",
+      urlDownloadableCatalogs: "https://jypesa.aflip.in/hojas-de-venta",
+      optFullCollectionsCatalog: "Catálogo completo de colecciones",
+      urlFullCollectionsCatalog: "https://jypesa.aflip.in/colecciones-jypesa-completas",
+      optGreenCredentials: "Credenciales verdes",
+      urlGreenCredentials: "https://jypesa.aflip.in/credecialesverdes",
       secContentTrends: "Contenido y tendencias",
       optBlog: "Blog",
       optHospitalityTrends: "Tendencias de hospitalidad"
@@ -713,7 +717,11 @@
       catResources: "RESOURCES",
       secCommercialMaterial: "Commercial Materials",
       optDownloadableCatalogs: "Downloadable Catalogs",
-      optTechnicalDatasheets: "Technical Datasheets",
+      urlDownloadableCatalogs: "https://jypesa.aflip.in/hojas-de-venta",
+      optFullCollectionsCatalog: "Complete Collections Catalog",
+      urlFullCollectionsCatalog: "https://jypesa.aflip.in/collections-catalog",
+      optGreenCredentials: "Sustainability Credentials",
+      urlGreenCredentials: "https://jypesa.aflip.in/Sustainability-credentials",
       secContentTrends: "Content & Trends",
       optBlog: "Blog",
       optHospitalityTrends: "Hospitality Trends"
@@ -987,8 +995,9 @@
                                     <div class="menu-section">
                                         <div class="section-header">${t.secCommercialMaterial}</div>
                                         <ul class="options-list">
-                                            <li><a href="${u('/recursos/catalogos')}" class="option-link">${t.optDownloadableCatalogs}</a></li>
-                                            <li><a href="${u('/recursos/fichas-tecnicas')}" class="option-link">${t.optTechnicalDatasheets}</a></li>
+                                            <li><a href="${t.urlDownloadableCatalogs}" target="_blank" rel="noopener noreferrer" class="option-link">${t.optDownloadableCatalogs}</a></li>
+                                            <li><a href="${t.urlFullCollectionsCatalog}" target="_blank" rel="noopener noreferrer" class="option-link">${t.optFullCollectionsCatalog}</a></li>
+                                            <li><a href="${t.urlGreenCredentials}" target="_blank" rel="noopener noreferrer" class="option-link">${t.optGreenCredentials}</a></li>
                                         </ul>
                                     </div>
                                     <div class="menu-section">
@@ -1126,8 +1135,9 @@
             <div class="mob-trigger">${t.resources} <span>+</span></div>
             <div class="mob-submenu">
                 <div class="mob-cat-title">${t.secCommercialMaterial}</div>
-                <a href="${u('/recursos/catalogos')}" class="mob-link">${t.optDownloadableCatalogs}</a>
-                <a href="${u('/recursos/fichas-tecnicas')}" class="mob-link">${t.optTechnicalDatasheets}</a>
+                <a href="${t.urlDownloadableCatalogs}" target="_blank" rel="noopener noreferrer" class="mob-link">${t.optDownloadableCatalogs}</a>
+                <a href="${t.urlFullCollectionsCatalog}" target="_blank" rel="noopener noreferrer" class="mob-link">${t.optFullCollectionsCatalog}</a>
+                <a href="${t.urlGreenCredentials}" target="_blank" rel="noopener noreferrer" class="mob-link">${t.optGreenCredentials}</a>
                 <div class="mob-cat-title">${t.secContentTrends}</div>
                 <a href="${u('/blogs')}" class="mob-link">${t.optBlog}</a>
                 <a href="${u('/recursos/tendencias')}" class="mob-link">${t.optHospitalityTrends}</a>
