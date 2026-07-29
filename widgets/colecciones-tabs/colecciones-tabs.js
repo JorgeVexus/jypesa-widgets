@@ -978,6 +978,10 @@
       }
       if (!colName) colName = lang === 'en' ? 'Collection' : 'Colección';
 
+      // Leer orden numérico personalizado si existe en el CMS item
+      let colOrderRaw = getVal(['.jypesa-coltabs-col-order', '.jypesa-tabs-col-order', '.jypesa-col-order', '.collection-order', '[data-col-order]']);
+      let colOrderNum = colOrderRaw ? parseInt(colOrderRaw, 10) : NaN;
+
       if (!collectionsMap[colName]) {
         let desc = '';
         if (lang === 'en') {
@@ -991,8 +995,13 @@
           name: colName,
           id: makeSlug(colName),
           desc: desc,
+          order: !isNaN(colOrderNum) ? colOrderNum : 999,
           products: []
         };
+      } else {
+        if (!isNaN(colOrderNum) && colOrderNum < collectionsMap[colName].order) {
+          collectionsMap[colName].order = colOrderNum;
+        }
       }
 
       let prodName = '';
@@ -1027,14 +1036,48 @@
       collectionsMap[colName].products.push(prodObj);
     });
 
-    const collections = Object.values(collectionsMap).map(col => {
+    let collections = Object.values(collectionsMap).map(col => {
       return {
         name: col.name,
         id: col.id,
         desc: col.desc,
+        order: col.order,
         subgroups: [{ products: col.products }]
       };
     });
+
+    // Ordenamiento de Pestañas / Tabs
+    const customOrderAttr = target.getAttribute('data-tabs-order') ||
+                            target.getAttribute('data-tab-order') ||
+                            target.getAttribute('data-tabs-sort') ||
+                            (source ? source.getAttribute('data-tabs-order') : null);
+
+    if (customOrderAttr) {
+      // 1. Orden especificado explícitamente por el usuario en HTML/Webflow data-tabs-order="Estándar, Superior, Premium, Lujo"
+      const customOrderList = customOrderAttr.split(',').map(s => makeSlug(s.trim())).filter(Boolean);
+      collections.sort((a, b) => {
+        let indexA = customOrderList.indexOf(a.id);
+        let indexB = customOrderList.indexOf(b.id);
+        if (indexA === -1) indexA = 999;
+        if (indexB === -1) indexB = 999;
+        if (indexA !== indexB) return indexA - indexB;
+        return (a.order || 999) - (b.order || 999);
+      });
+    } else {
+      // 2. Orden canónico estándar si no se especifica custom (Estándar -> Superior -> Premium -> Lujo)
+      const canonicalOrder = ['estandar', 'standard', 'superior', 'premium', 'lujo', 'luxury'];
+      collections.sort((a, b) => {
+        if (a.order !== 999 || b.order !== 999) {
+          if (a.order !== b.order) return a.order - b.order;
+        }
+        let indexA = canonicalOrder.indexOf(a.id);
+        let indexB = canonicalOrder.indexOf(b.id);
+        if (indexA === -1) indexA = 999;
+        if (indexB === -1) indexB = 999;
+        if (indexA !== indexB) return indexA - indexB;
+        return 0;
+      });
+    }
 
     return collections.length ? collections : null;
   }

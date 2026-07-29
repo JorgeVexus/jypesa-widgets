@@ -1237,15 +1237,23 @@
       const colName = getElText(colNameEl);
       if (!colName) return;
 
+      let colOrderRaw = getElText(item.querySelector('.jypesa-tabs-col-order, .jypesa-col-order, [data-col-order]'));
+      let colOrderNum = colOrderRaw ? parseInt(colOrderRaw, 10) : NaN;
+
       if (!collectionsMap[colName]) {
         const descEl = item.querySelector('.jypesa-tabs-col-desc');
         collectionsMap[colName] = {
           name: colName,
           id: makeSlug(colName),
           desc: getElText(descEl),
+          order: !isNaN(colOrderNum) ? colOrderNum : 999,
           subgroupsMap: {},
           products: []
         };
+      } else {
+        if (!isNaN(colOrderNum) && colOrderNum < collectionsMap[colName].order) {
+          collectionsMap[colName].order = colOrderNum;
+        }
       }
 
       const subNameEl = item.querySelector('.jypesa-tabs-subcol-name, .jypesa-tabs-col-subgroup, .jypesa-tabs-subgroup-name');
@@ -1336,10 +1344,40 @@
       }
     });
 
-    const collections = Object.values(collectionsMap).map(col => {
+    let collections = Object.values(collectionsMap).map(col => {
       col.subgroups = Object.values(col.subgroupsMap);
       return col;
     });
+
+    const customOrderAttr = target.getAttribute('data-tabs-order') ||
+                            target.getAttribute('data-tab-order') ||
+                            target.getAttribute('data-tabs-sort') ||
+                            (source ? source.getAttribute('data-tabs-order') : null);
+
+    if (customOrderAttr) {
+      const customOrderList = customOrderAttr.split(',').map(s => makeSlug(s.trim())).filter(Boolean);
+      collections.sort((a, b) => {
+        let indexA = customOrderList.indexOf(a.id);
+        let indexB = customOrderList.indexOf(b.id);
+        if (indexA === -1) indexA = 999;
+        if (indexB === -1) indexB = 999;
+        if (indexA !== indexB) return indexA - indexB;
+        return (a.order || 999) - (b.order || 999);
+      });
+    } else {
+      const canonicalOrder = ['estandar', 'standard', 'superior', 'premium', 'lujo', 'luxury'];
+      collections.sort((a, b) => {
+        if (a.order !== 999 || b.order !== 999) {
+          if (a.order !== b.order) return a.order - b.order;
+        }
+        let indexA = canonicalOrder.indexOf(a.id);
+        let indexB = canonicalOrder.indexOf(b.id);
+        if (indexA === -1) indexA = 999;
+        if (indexB === -1) indexB = 999;
+        if (indexA !== indexB) return indexA - indexB;
+        return 0;
+      });
+    }
 
     return collections.length ? { collections, parentBrand } : null;
   }
