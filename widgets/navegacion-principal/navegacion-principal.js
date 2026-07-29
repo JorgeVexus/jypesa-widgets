@@ -655,7 +655,8 @@
       urlGreenCredentials: "https://jypesa.aflip.in/credecialesverdes",
       secContentTrends: "Contenido y tendencias",
       optBlog: "Blog",
-      optHospitalityTrends: "Tendencias de hospitalidad"
+      optAmenitiesGuide: "Guía de amenidades hoteleras",
+      urlAmenitiesGuide: "https://jypesa.aflip.in/guia-amenidades-hoteleras"
     },
     en: {
       about: "About Us",
@@ -724,7 +725,8 @@
       urlGreenCredentials: "https://jypesa.aflip.in/Sustainability-credentials",
       secContentTrends: "Content & Trends",
       optBlog: "Blog",
-      optHospitalityTrends: "Hospitality Trends"
+      optAmenitiesGuide: "Hotel Amenities Guide",
+      urlAmenitiesGuide: "https://jypesa.aflip.in/guia-amenidades-hoteleras"
     }
   };
 
@@ -1004,7 +1006,7 @@
                                         <div class="section-header">${t.secContentTrends}</div>
                                         <ul class="options-list">
                                             <li><a href="${u('/blogs')}" class="option-link">${t.optBlog}</a></li>
-                                            <li><a href="${u('/recursos/tendencias')}" class="option-link">${t.optHospitalityTrends}</a></li>
+                                            <li><a href="${t.urlAmenitiesGuide}" target="_blank" rel="noopener noreferrer" class="option-link">${t.optAmenitiesGuide}</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -1140,7 +1142,7 @@
                 <a href="${t.urlGreenCredentials}" target="_blank" rel="noopener noreferrer" class="mob-link">${t.optGreenCredentials}</a>
                 <div class="mob-cat-title">${t.secContentTrends}</div>
                 <a href="${u('/blogs')}" class="mob-link">${t.optBlog}</a>
-                <a href="${u('/recursos/tendencias')}" class="mob-link">${t.optHospitalityTrends}</a>
+                <a href="${t.urlAmenitiesGuide}" target="_blank" rel="noopener noreferrer" class="mob-link">${t.optAmenitiesGuide}</a>
             </div>
         </li>
         <li class="mob-item mob-lang-item" style="padding: 20px 0; border-top: 1px solid rgba(0,0,0,0.06);">
