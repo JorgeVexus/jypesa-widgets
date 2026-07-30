@@ -1240,13 +1240,15 @@
       const rawColName = getElText(rawColNameEl);
 
       let colName = '';
-      let explicitSubName = '';
+      let subNameFromCol = '';
 
       if (parentTabName) {
-        // Si hay una Pestaña Padre (ej: "Botanicus" o "Botella 300 ml"), esa es el nombre de la Pestaña
+        // Pestaña principal es la Pestaña Padre (ej: "Botella 300 ml")
         colName = parentTabName;
-        // La colección referenciada (ej: "Amapola Negra", "Lavanda") pasa a ser el nombre del subgrupo/fila
-        explicitSubName = rawColName;
+        // Si el nombre de la colección referenciada es distinto al nombre del padre, usarlo como subnombre
+        if (rawColName && makeSlug(rawColName) !== makeSlug(parentTabName)) {
+          subNameFromCol = rawColName;
+        }
       } else {
         if (!rawColName) return;
         colName = rawColName;
@@ -1272,27 +1274,30 @@
       }
 
       const subNameEl = item.querySelector('.jypesa-tabs-subcol-name, .jypesa-tabs-col-subgroup, .jypesa-tabs-subgroup-name, .jypesa-tabs-col-variant');
-      const subName = explicitSubName || getElText(subNameEl);
+      const explicitSubName = getElText(subNameEl);
+      const subName = explicitSubName || subNameFromCol;
+
+      // Extraer Firma Olfativa / Logo para garantizar claves de subgrupo verdaderamente aisladas
+      const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-tabs-col-logo-img');
+      const moodEl = item.querySelector('.jypesa-tabs-col-mood');
+      const salidaEl = item.querySelector('.jypesa-tabs-col-notes-salida');
+      const corazonEl = item.querySelector('.jypesa-tabs-col-notes-corazon');
+      const fondoEl = item.querySelector('.jypesa-tabs-col-notes-fondo');
       
-      let subKey = subName;
-      if (!subKey) {
-        const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-tabs-col-logo-img');
-        const moodEl = item.querySelector('.jypesa-tabs-col-mood');
-        const salidaEl = item.querySelector('.jypesa-tabs-col-notes-salida');
-        const corazonEl = item.querySelector('.jypesa-tabs-col-notes-corazon');
-        const fondoEl = item.querySelector('.jypesa-tabs-col-notes-fondo');
-        
-        let logoSrc = logoEl ? (logoEl.getAttribute('src') || logoEl.getAttribute('data-src') || '') : '';
-        let moodText = getElText(moodEl);
-        let salidaText = getElText(salidaEl);
-        let corazonText = getElText(corazonEl);
-        let fondoText = getElText(fondoEl);
-        
-        if (logoSrc || moodText || salidaText || corazonText || fondoText) {
-          subKey = `${cleanText(logoSrc)}|${moodText}|${salidaText}|${corazonText}|${fondoText}`;
-        } else {
-          subKey = '__default__';
-        }
+      let logoSrc = logoEl ? (logoEl.getAttribute('src') || logoEl.getAttribute('data-src') || '') : '';
+      let moodText = getElText(moodEl);
+      let salidaText = getElText(salidaEl);
+      let corazonText = getElText(corazonEl);
+      let fondoText = getElText(fondoEl);
+      const notesSignature = `${cleanText(logoSrc)}|${moodText}|${salidaText}|${corazonText}|${fondoText}`;
+
+      let subKey = '';
+      if (subName && makeSlug(subName) !== makeSlug(colName)) {
+        subKey = `${makeSlug(subName)}_${notesSignature}`;
+      } else if (notesSignature.replace(/\|/g, '').trim()) {
+        subKey = notesSignature;
+      } else {
+        subKey = '__default__';
       }
 
       if (!collectionsMap[colName].subgroupsMap[subKey]) {
