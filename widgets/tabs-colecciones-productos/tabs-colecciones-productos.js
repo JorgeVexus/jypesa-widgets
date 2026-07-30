@@ -1256,9 +1256,29 @@
         }
       }
 
-      const subNameEl = item.querySelector('.jypesa-tabs-subcol-name, .jypesa-tabs-col-subgroup, .jypesa-tabs-subgroup-name');
+      const subNameEl = item.querySelector('.jypesa-tabs-subcol-name, .jypesa-tabs-col-subgroup, .jypesa-tabs-subgroup-name, .jypesa-tabs-col-variant');
       const subName = getElText(subNameEl);
-      const subKey = subName || '__default__';
+      
+      let subKey = subName;
+      if (!subKey) {
+        const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-tabs-col-logo-img');
+        const moodEl = item.querySelector('.jypesa-tabs-col-mood');
+        const salidaEl = item.querySelector('.jypesa-tabs-col-notes-salida');
+        const corazonEl = item.querySelector('.jypesa-tabs-col-notes-corazon');
+        const fondoEl = item.querySelector('.jypesa-tabs-col-notes-fondo');
+        
+        let logoSrc = logoEl ? (logoEl.getAttribute('src') || logoEl.getAttribute('data-src') || '') : '';
+        let moodText = getElText(moodEl);
+        let salidaText = getElText(salidaEl);
+        let corazonText = getElText(corazonEl);
+        let fondoText = getElText(fondoEl);
+        
+        if (logoSrc || moodText || salidaText || corazonText || fondoText) {
+          subKey = `${cleanText(logoSrc)}|${moodText}|${salidaText}|${corazonText}|${fondoText}`;
+        } else {
+          subKey = '__default__';
+        }
+      }
 
       if (!collectionsMap[colName].subgroupsMap[subKey]) {
         const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-tabs-col-logo-img');
