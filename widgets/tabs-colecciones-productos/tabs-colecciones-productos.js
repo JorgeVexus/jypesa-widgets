@@ -1232,10 +1232,25 @@
     const collectionsMap = {};
 
     items.forEach(item => {
-      const colNameEl = item.querySelector('.jypesa-tabs-col-name');
-      if (!colNameEl) return;
-      const colName = getElText(colNameEl);
-      if (!colName) return;
+      // Detectar si existe una Pestaña Padre (ej: "Botanicus" o "Botella 300 ml")
+      const parentTabEl = item.querySelector('.jypesa-tabs-col-tab-group, .jypesa-tabs-col-parent-tab, .jypesa-tabs-parent-tab, .jypesa-tabs-col-parent-brand');
+      const parentTabName = getElText(parentTabEl);
+
+      const rawColNameEl = item.querySelector('.jypesa-tabs-col-name');
+      const rawColName = getElText(rawColNameEl);
+
+      let colName = '';
+      let explicitSubName = '';
+
+      if (parentTabName) {
+        // Si hay una Pestaña Padre (ej: "Botanicus" o "Botella 300 ml"), esa es el nombre de la Pestaña
+        colName = parentTabName;
+        // La colección referenciada (ej: "Amapola Negra", "Lavanda") pasa a ser el nombre del subgrupo/fila
+        explicitSubName = rawColName;
+      } else {
+        if (!rawColName) return;
+        colName = rawColName;
+      }
 
       let colOrderRaw = getElText(item.querySelector('.jypesa-tabs-col-order, .jypesa-col-order, [data-col-order]'));
       let colOrderNum = colOrderRaw ? parseInt(colOrderRaw, 10) : NaN;
@@ -1257,7 +1272,7 @@
       }
 
       const subNameEl = item.querySelector('.jypesa-tabs-subcol-name, .jypesa-tabs-col-subgroup, .jypesa-tabs-subgroup-name, .jypesa-tabs-col-variant');
-      const subName = getElText(subNameEl);
+      const subName = explicitSubName || getElText(subNameEl);
       
       let subKey = subName;
       if (!subKey) {
