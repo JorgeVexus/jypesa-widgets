@@ -2,8 +2,6 @@
   if (window.__JypesaSliderColProductosInitialized) return;
   window.__JypesaSliderColProductosInitialized = true;
 
-  let _instanceCount = 0;
-
   // ─── 1. FUENTES Y CSS ───────────────────────────────────────────────────────
   const fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
