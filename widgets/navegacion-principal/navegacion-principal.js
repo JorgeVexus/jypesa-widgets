@@ -1181,16 +1181,37 @@
       });
     }
 
+    let basePath = './';
+    if (document.currentScript && document.currentScript.src) {
+      const src = document.currentScript.src;
+      const idx = src.indexOf('widgets/navegacion-principal');
+      if (idx !== -1) {
+        basePath = src.substring(0, idx);
+      }
+    } else {
+      const scripts = document.getElementsByTagName('script');
+      for (let i = 0; i < scripts.length; i++) {
+        const src = scripts[i].src;
+        if (src && src.includes('navegacion-principal.js')) {
+          const idx = src.indexOf('widgets/navegacion-principal');
+          if (idx !== -1) {
+            basePath = src.substring(0, idx);
+          }
+          break;
+        }
+      }
+    }
+
     const IMAGES = {
       'Valquer': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1fe7ff3cfa3d446df1_Valque%20menu%C3%8C%20%C2%81.webp',
       'Hawaiian': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1fb3721bd1607834ee_Hawaiian%20Tropic%20menu%C3%8C%C2%81.webp',
       'Xinu': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1fce91ebe09257f40e_Xinu%C3%8C%C2%81%20menu%C3%8C%C2%81.webp',
       'Persea': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e1fc216bcbf94bff1_Persea%20menu%C3%8C%C2%81.webp',
-      'Lavarino': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e54ff69caf5c7db28_Lavarino%20menu%C3%8C%C2%81.webp',
-      'Nocean': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e54ff69caf5c7db28_Lavarino%20menu%C3%8C%C2%81.webp',
+      'Lavarino': basePath + 'widgets/navegacion-principal/images/Lavarino.webp',
+      'Nocean': basePath + 'widgets/navegacion-principal/images/nOcean.webp',
       'Elements': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1efc9fb63da3bbe96f_Elements%20menu%C3%8C%C2%81.webp',
-      'Sistemas': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1efc9fb63da3bbe96f_Elements%20menu%C3%8C%C2%81.webp',
-      'Soportes': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1efc9fb63da3bbe96f_Elements%20menu%C3%8C%C2%81.webp',
+      'Sistemas': basePath + 'widgets/navegacion-principal/images/Sistemas.webp',
+      'Soportes': basePath + 'widgets/navegacion-principal/images/Soportes.webp',
       'Tresemme': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e66dcf59e15d3c2ca_Tresemme%20menu%C3%8C%C2%81.webp',
       'Tea Leaf': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d8292eb38827b77f0_Tea%20Leaf%20manu%C3%8C%C2%81.webp',
       'Botanicaromatica': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1df209c74d9a0bf46c_botanicaromatica%20menu%C3%8C%C2%81.webp',
@@ -1198,6 +1219,11 @@
       'Cava': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d2fd55338e35d58ea_Cava%20menu%C3%8C%C2%81.webp',
       'Agavia': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d40c2a13025483ff0_Agavia%20menu%C3%8C%C2%81.webp',
       'Biogena': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d8ecf2458e29f0dec_Biogena%20menu%C3%8C%C2%81.webp',
+      'Almond': basePath + 'widgets/navegacion-principal/images/Almond.webp',
+      'Botanicus': basePath + 'widgets/navegacion-principal/images/Botanicus.webp',
+      'For All Folks': basePath + 'widgets/navegacion-principal/images/For-All-Folks.webp',
+      'Vervan': basePath + 'widgets/navegacion-principal/images/Vervan.webp',
+      'Rainforest': basePath + 'widgets/navegacion-principal/images/rain%20forest.webp',
     };
 
     // Detección automática de la página actual (Current URL)
