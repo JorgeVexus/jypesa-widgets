@@ -1225,6 +1225,51 @@
 
     const getElText = el => (el ? cleanText(el.textContent) : '');
 
+    const getColOrderVal = (itemEl) => {
+      const selectors = [
+        '.jypesa-coltabs-col-order',
+        '.jypesa-tabs-col-order',
+        '.jypesa-col-order',
+        '.jypesa-tab-order',
+        '.jypesa-tabs-order',
+        '.collection-order',
+        '.tab-order',
+        '.sort-order',
+        '[data-col-order]',
+        '[data-tab-order]',
+        '[data-sort-order]',
+        '[data-order]'
+      ];
+
+      for (const sel of selectors) {
+        const el = itemEl.matches && itemEl.matches(sel) ? itemEl : itemEl.querySelector(sel);
+        if (el) {
+          const txt = cleanText(el.textContent);
+          if (txt) {
+            const match = txt.match(/-?\d+/);
+            if (match) return parseInt(match[0], 10);
+          }
+          for (const attr of ['data-col-order', 'data-tab-order', 'data-sort-order', 'data-order', 'value', 'content']) {
+            const val = el.getAttribute(attr);
+            if (val) {
+              const match = val.match(/-?\d+/);
+              if (match) return parseInt(match[0], 10);
+            }
+          }
+        }
+      }
+
+      for (const attr of ['data-col-order', 'data-tab-order', 'data-sort-order', 'data-order']) {
+        const val = itemEl.getAttribute ? itemEl.getAttribute(attr) : null;
+        if (val) {
+          const match = val.match(/-?\d+/);
+          if (match) return parseInt(match[0], 10);
+        }
+      }
+
+      return NaN;
+    };
+
     // Leer la marca/colección padre desde el primer elemento
     const parentBrandEl = source.querySelector('.jypesa-tabs-col-parent-brand');
     const parentBrand = getElText(parentBrandEl);
@@ -1254,8 +1299,7 @@
         colName = rawColName;
       }
 
-      let colOrderRaw = getElText(item.querySelector('.jypesa-tabs-col-order, .jypesa-col-order, [data-col-order]'));
-      let colOrderNum = colOrderRaw ? parseInt(colOrderRaw, 10) : NaN;
+      let colOrderNum = getColOrderVal(item);
 
       if (!collectionsMap[colName]) {
         const descEl = item.querySelector('.jypesa-tabs-col-desc');
@@ -1345,6 +1389,7 @@
           corazon: getElText(corazonEl),
           fondo: getElText(fondoEl),
           desc: getElText(subDescEl),
+          order: !isNaN(colOrderNum) ? colOrderNum : 999,
           products: []
         };
       }
@@ -1386,6 +1431,7 @@
 
     let collections = Object.values(collectionsMap).map(col => {
       col.subgroups = Object.values(col.subgroupsMap);
+      col.subgroups.sort((a, b) => (a.order !== undefined ? a.order : 999) - (b.order !== undefined ? b.order : 999));
       return col;
     });
 
@@ -1402,13 +1448,15 @@
         if (indexA === -1) indexA = 999;
         if (indexB === -1) indexB = 999;
         if (indexA !== indexB) return indexA - indexB;
-        return (a.order || 999) - (b.order || 999);
+        return (a.order !== undefined ? a.order : 999) - (b.order !== undefined ? b.order : 999);
       });
     } else {
       const canonicalOrder = ['estandar', 'standard', 'superior', 'premium', 'lujo', 'luxury'];
       collections.sort((a, b) => {
-        if (a.order !== 999 || b.order !== 999) {
-          if (a.order !== b.order) return a.order - b.order;
+        const orderA = a.order !== undefined ? a.order : 999;
+        const orderB = b.order !== undefined ? b.order : 999;
+        if (orderA !== 999 || orderB !== 999) {
+          if (orderA !== orderB) return orderA - orderB;
         }
         let indexA = canonicalOrder.indexOf(a.id);
         let indexB = canonicalOrder.indexOf(b.id);
