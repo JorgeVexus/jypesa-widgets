@@ -2,6 +2,8 @@
   if (window.__JypesaSliderColProductosInitialized) return;
   window.__JypesaSliderColProductosInitialized = true;
 
+  let _instanceCount = 0;
+
   // ─── 1. FUENTES Y CSS ───────────────────────────────────────────────────────
   const fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
@@ -507,24 +509,79 @@
   }
 
   // ─── 5. LEER PRODUCTOS DEL CMS ──────────────────────────────────────────────
-  function readProductsFromCMS(target) {
+  function findCmsSource(target, uid) {
     let source = null;
 
+    // 1. Selector explícito por atributo data-cms-source en target (ej: data-cms-source="#source-1")
     const cmsAttr = target.getAttribute('data-cms-source');
-    if (cmsAttr) source = document.querySelector(cmsAttr);
-
-    if (!source) source = target.querySelector('.jypesa-scol-cms-source');
-
-    if (!source) {
-      const prev = target.previousElementSibling;
-      if (prev && prev.classList.contains('jypesa-scol-cms-source'))
-        source = prev;
+    if (cmsAttr) {
+      source = document.querySelector(cmsAttr);
+      if (source) return source;
     }
 
-    if (!source) source = document.querySelector('.jypesa-scol-cms-source');
-    
-    // Ocultar fuente CMS si existe
-    if (source) source.style.display = 'none';
+    // 2. Buscar dentro del propio target (si el embed está dentro de la lista o viceversa)
+    source = target.querySelector('.jypesa-scol-cms-source');
+    if (source) return source;
+
+    // 3. Buscar en el mismo elemento padre: hermanos inmediatos (hacia atrás y hacia adelante)
+    let parent = target.parentElement;
+    if (parent) {
+      // Hermanos anteriores
+      let sib = target.previousElementSibling;
+      while (sib) {
+        if (sib.classList.contains('jypesa-scol-cms-source')) return sib;
+        const inner = sib.querySelector('.jypesa-scol-cms-source');
+        if (inner) return inner;
+        sib = sib.previousElementSibling;
+      }
+
+      // Hermanos posteriores
+      sib = target.nextElementSibling;
+      while (sib) {
+        if (sib.classList.contains('jypesa-scol-cms-source')) return sib;
+        const inner = sib.querySelector('.jypesa-scol-cms-source');
+        if (inner) return inner;
+        sib = sib.nextElementSibling;
+      }
+    }
+
+    // 4. Buscar dentro de la sección o contenedor padre más cercano (ej: .w-section, section, .container, .wrapper)
+    let current = target.parentElement;
+    while (current && current !== document.body) {
+      const inParent = current.querySelector('.jypesa-scol-cms-source');
+      if (inParent && inParent !== target && !inParent.contains(target)) return inParent;
+      current = current.parentElement;
+    }
+
+    // 5. Auto-detectar un Collection List hermano en la misma sección que contenga .jypesa-scol-prod-name
+    current = target.parentElement;
+    while (current && current !== document.body) {
+      const sampleProd = current.querySelector('.jypesa-scol-prod-name');
+      if (sampleProd) {
+        const list = sampleProd.closest('.w-dyn-list, .w-dyn-items, .jypesa-scol-cms-source') || sampleProd.parentElement;
+        if (list && list !== target && !list.contains(target)) return list;
+      }
+      current = current.parentElement;
+    }
+
+    // 6. Fallback global: buscar fuentes .jypesa-scol-cms-source no reclamadas aún por otra instancia
+    const allSources = Array.from(document.querySelectorAll('.jypesa-scol-cms-source'));
+    if (allSources.length) {
+      const unclaimed = allSources.find(s => !s.getAttribute('data-claimed-by'));
+      if (unclaimed) return unclaimed;
+      return allSources[0];
+    }
+
+    return null;
+  }
+
+  function readProductsFromCMS(target, uid) {
+    const source = findCmsSource(target, uid);
+
+    if (source) {
+      source.setAttribute('data-claimed-by', `scol-widget-${uid}`);
+      source.style.display = 'none';
+    }
 
     const headerData = readHeaderData(target, source);
 
@@ -716,17 +773,17 @@
 
       const uid = ++_instanceCount;
 
-      const cmsRes = readProductsFromCMS(target);
+      const cmsRes = readProductsFromCMS(target, uid);
       let products = cmsRes.products || fallbackProducts;
       const headerData = cmsRes.headerData;
 
-      // Filtro por "Coleccion Padre / Marca"
+      // Filtro opcional por "Colección Padre / Marca"
       // Uso: <div data-jypesa-scol-widget data-page-filter="Botanicus">
-      const pageFilter = (target.getAttribute('data-page-filter') || '').trim();
+      const pageFilter = (target.getAttribute('data-page-filter') || target.getAttribute('data-filter') || target.getAttribute('data-brand-filter') || '').trim();
       if (pageFilter) {
         const fl = pageFilter.toLowerCase();
         const filtered = products.filter(
-          (p) => p.marca.toLowerCase() === fl
+          (p) => p.marca && (p.marca.toLowerCase() === fl || p.marca.toLowerCase().includes(fl))
         );
         if (filtered.length) products = filtered;
       }
