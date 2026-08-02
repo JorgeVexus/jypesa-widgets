@@ -1215,7 +1215,7 @@
       'Tresemme': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e66dcf59e15d3c2ca_Tresemme%20menu%C3%8C%C2%81.webp',
       'Tea Leaf': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d8292eb38827b77f0_Tea%20Leaf%20manu%C3%8C%C2%81.webp',
       'Botanicaromatica': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1df209c74d9a0bf46c_botanicaromatica%20menu%C3%8C%C2%81.webp',
-      'Dove': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d527cb5a0a41eed38_Dove%20menu%C3%8C%C2%81.webp',
+      'Dove': basePath + 'widgets/navegacion-principal/images/dove.webp',
       'Cava': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d2fd55338e35d58ea_Cava%20menu%C3%8C%C2%81.webp',
       'Agavia': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d40c2a13025483ff0_Agavia%20menu%C3%8C%C2%81.webp',
       'Biogena': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1d8ecf2458e29f0dec_Biogena%20menu%C3%8C%C2%81.webp',
