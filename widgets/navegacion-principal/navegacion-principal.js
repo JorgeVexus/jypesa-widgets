@@ -862,7 +862,7 @@
                                 <div class="accesorios-col">
                                     <a href="${u('/accesorios')}" class="cat-label-link"><p class="cat-label">${t.catAccessories}</p></a>
                                     <div class="accesorios-row">
-                                        <a href="${u('/accesorios#lavarino')}" class="option-link" data-p="Lavarino">Lavarino</a>
+                                        <a href="${u('/accesorios#lavarino')}" class="option-link" data-p="LavarinoAccesorios">Lavarino</a>
                                         <a href="${u('/accesorios')}" class="option-link" data-p="Nocean">Nocean</a>
                                     </div>
                                 </div>
@@ -1208,6 +1208,7 @@
       'Xinu': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1fce91ebe09257f40e_Xinu%C3%8C%C2%81%20menu%C3%8C%C2%81.webp',
       'Persea': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1e1fc216bcbf94bff1_Persea%20menu%C3%8C%C2%81.webp',
       'Lavarino': basePath + 'widgets/navegacion-principal/images/Lavarino.webp',
+      'LavarinoAccesorios': basePath + 'widgets/navegacion-principal/images/lavarino%20accesorios.webp',
       'Nocean': basePath + 'widgets/navegacion-principal/images/nOcean.webp',
       'Elements': 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1efc9fb63da3bbe96f_Elements%20menu%C3%8C%C2%81.webp',
       'Sistemas': basePath + 'widgets/navegacion-principal/images/Sistemas.webp',
