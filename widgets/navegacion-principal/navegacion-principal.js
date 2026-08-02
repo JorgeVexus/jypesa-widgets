@@ -592,7 +592,7 @@
       about: "Nosotros",
       products: "Productos",
       solutions: "Soluciones",
-      customDev: "Desarrollo personalizado",
+      customDev: "Desarrollo y Maquilas",
       sustainability: "Sustentabilidad",
       resources: "Recursos",
       smartOrder: "Smart order",
