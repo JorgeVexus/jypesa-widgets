@@ -29,7 +29,8 @@
   gap: var(--gpk-cert-gap);
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 20px;
+  box-sizing: border-box;
   list-style: none;
   transform: translate3d(var(--gpk-cert-offset, 0px), 0, 0);
   transition: transform 520ms cubic-bezier(.22, 1, .36, 1);
@@ -117,19 +118,21 @@
 
 .gpk-cert-widget .gpk-cert-header {
   display: grid;
-  grid-template-columns: minmax(0, auto) 1px minmax(9ch, 1fr);
+  grid-template-columns: minmax(0, auto) 1px minmax(0, 1fr);
   align-items: center;
-  gap: clamp(12px, 1.5vw, 22px);
+  gap: clamp(10px, 1.2vw, 18px);
 }
 
 .gpk-cert-widget .gpk-cert-header h2 {
   margin: 0;
   color: #506d85;
   font-family: Montserrat, Arial, sans-serif;
-  font-size: clamp(18px, 1.55vw, 25px);
+  font-size: clamp(17px, 1.45vw, 24px);
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.1;
   letter-spacing: -.035em;
+  max-width: 13ch;
+  word-break: break-word;
 }
 
 .gpk-cert-widget .gpk-cert-divider {
@@ -142,9 +145,9 @@
   margin: 0;
   color: #506d85;
   font-family: "Instrument Serif", Georgia, serif;
-  font-size: clamp(18px, 1.7vw, 27px);
+  font-size: clamp(17px, 1.5vw, 25px);
   font-style: italic;
-  line-height: 1;
+  line-height: 1.05;
 }
 
 .gpk-cert-widget .gpk-cert-copy {
@@ -222,6 +225,11 @@
   .gpk-cert-widget {
     --gpk-cert-visible: 2;
     --gpk-cert-gap-adjustment: clamp(8px, .9vw, 17.5px);
+    padding: clamp(20px, 4vw, 40px) clamp(28px, 4.5vw, 56px);
+  }
+
+  .gpk-cert-widget .gpk-cert-track {
+    padding: 15px 10px;
   }
 
   .gpk-cert-widget .gpk-cert-track > li {
@@ -232,7 +240,11 @@
 @media (max-width: 639px) {
   .gpk-cert-widget {
     --gpk-cert-visible: 1;
-    padding: 24px 42px;
+    padding: 16px 16px 64px;
+  }
+
+  .gpk-cert-widget .gpk-cert-track {
+    padding: 10px 5px;
   }
 
   .gpk-cert-widget .gpk-cert-header {
@@ -250,14 +262,33 @@
   }
 
   .gpk-cert-widget .gpk-cert-controls {
-    right: 5px;
-    left: 5px;
+    right: 8px;
+    left: 8px;
   }
 
   .gpk-cert-widget .gpk-cert-prev,
   .gpk-cert-widget .gpk-cert-next {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .gpk-cert-widget .gpk-cert-body {
+    padding: clamp(16px, 4vw, 24px);
+    gap: 12px;
+  }
+
+  .gpk-cert-widget .gpk-cert-header h2 {
+    font-size: 20px;
+    line-height: 1.15;
+  }
+
+  .gpk-cert-widget .gpk-cert-tagline {
+    font-size: 19px;
+  }
+
+  .gpk-cert-widget .gpk-cert-copy {
+    font-size: 13.5px;
+    line-height: 1.5;
   }
 }
 
