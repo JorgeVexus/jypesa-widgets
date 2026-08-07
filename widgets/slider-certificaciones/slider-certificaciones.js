@@ -447,12 +447,18 @@
     padding: 0 20px;
   }
 
+  .gpk-cert-widget .gpk-cert-track,
+  .gpk-cert-track,
+  .jypesa-cert-products-container,
+  .jypesa-cert-products-container-desktop {
+    padding: 20px !important;
+  }
+
   .jypesa-cert-products-container {
     overflow-x: auto !important;
     scroll-snap-type: x mandatory !important;
     justify-content: flex-start;
     gap: clamp(16px, 2vw, 35px);
-    padding: 15px 5px 30px;
     margin: -15px -5px -30px;
   }
 
@@ -462,6 +468,8 @@
 }
 
 /* Contenedor con snap para centrar el paso de cards en desktop */
+.gpk-cert-widget .gpk-cert-track,
+.gpk-cert-track,
 .jypesa-cert-products-container-desktop {
   display: flex;
   gap: clamp(16px, 2vw, 35px);
@@ -471,12 +479,13 @@
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scroll-padding: 0 40px;
-  padding: 15px 15px 30px !important;
+  padding: 20px !important;
   margin: -15px -15px -30px;
   box-sizing: border-box;
   scrollbar-width: none;
 }
-
+.gpk-cert-products-container-desktop::-webkit-scrollbar,
+.gpk-cert-track::-webkit-scrollbar,
 .jypesa-cert-products-container-desktop::-webkit-scrollbar {
   display: none;
 }
@@ -584,7 +593,7 @@
 
   function buildWidgetHtml(certifications) {
     return `
-<div class="jypesa-slider-certificaciones-widget">
+<div class="jypesa-slider-certificaciones-widget gpk-cert-widget">
   
 
   <div class="jypesa-cert-slider-outer">
@@ -595,7 +604,7 @@
       <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
     </div>
 
-    <div class="jypesa-cert-products-container-desktop">
+    <div class="jypesa-cert-products-container-desktop gpk-cert-track">
       ${certifications.map(cert => `
       <div class="jypesa-cert-card" id="${cert.id}">
         <div class="jypesa-cert-card-img-wrap">
@@ -637,7 +646,7 @@
 
     target.innerHTML = buildWidgetHtml(certifications);
 
-    const container = target.querySelector('.jypesa-cert-products-container-desktop');
+    const container = target.querySelector('.jypesa-cert-products-container-desktop') || target.querySelector('.gpk-cert-track');
     const prevBtn = target.querySelector('.prev-btn');
     const nextBtn = target.querySelector('.next-btn');
     const prevMobileBtn = target.querySelector('.prev-mobile-btn');
