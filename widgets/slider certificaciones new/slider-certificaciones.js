@@ -43,6 +43,7 @@
     var onLoad = function () {
       if (callback) callback();
       initAll();
+      remeasureAll();
     };
     link.addEventListener("load", onLoad);
     link.addEventListener("error", function () {
@@ -165,6 +166,7 @@
       viewport.removeEventListener("pointerup", onPointerUp);
       viewport.removeEventListener("pointercancel", onPointerCancel);
       removalObserver.disconnect();
+      delete widget._gpkCertMeasure;
       delete widget.dataset.gpkCertInitialized;
     }
     if ("ResizeObserver" in window) {
@@ -177,26 +179,21 @@
       if (!document.documentElement.contains(widget)) cleanup();
     });
     removalObserver.observe(document.documentElement, { childList: true, subtree: true });
+    widget._gpkCertMeasure = measure;
     measure();
+  }
+
+  function remeasureAll() {
+    document.querySelectorAll(".gpk-cert-widget").forEach(function (widget) {
+      if (typeof widget._gpkCertMeasure === "function") {
+        widget._gpkCertMeasure();
+      }
+    });
   }
 
   function initAll() {
     document.querySelectorAll(".gpk-cert-widget").forEach(function (widget) {
-      if (widget.dataset.gpkCertInitialized === "true") {
-        // Si ya estaba inicializado antes de cargar el CSS, forzar un remeasure con los estilos reales
-        var viewport = widget.querySelector(".gpk-cert-viewport");
-        var track = widget.querySelector(".gpk-cert-track");
-        var slides = Array.prototype.slice.call(track ? track.children : []);
-        if (viewport && track && slides.length) {
-          var styles = window.getComputedStyle(widget);
-          var trackStyles = window.getComputedStyle(track);
-          var visible = Math.max(1, parseInt(styles.getPropertyValue("--gpk-cert-visible"), 10) || 1);
-          var step = slides[0].getBoundingClientRect().width +
-            (parseFloat(trackStyles.columnGap || trackStyles.gap) || 0);
-          widget.style.setProperty("--gpk-cert-offset", "0px");
-        }
-        return;
-      }
+      if (widget.dataset.gpkCertInitialized === "true") return;
       initWidget(widget);
     });
   }
@@ -221,9 +218,13 @@
       .then(function (html) {
         root.innerHTML = html;
         if (typeof requestAnimationFrame === "function") {
-          requestAnimationFrame(initAll);
+          requestAnimationFrame(function() {
+            initAll();
+            remeasureAll();
+          });
         } else {
           initAll();
+          remeasureAll();
         }
       })
       .catch(function (error) { report("Could not load widget markup.", error); });
