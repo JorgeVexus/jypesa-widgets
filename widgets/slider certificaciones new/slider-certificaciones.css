@@ -118,19 +118,21 @@
 
 .gpk-cert-widget .gpk-cert-header {
   display: grid;
-  grid-template-columns: minmax(0, auto) 1px minmax(9ch, 1fr);
+  grid-template-columns: minmax(0, auto) 1px minmax(0, 1fr);
   align-items: center;
-  gap: clamp(12px, 1.5vw, 22px);
+  gap: clamp(10px, 1.2vw, 18px);
 }
 
 .gpk-cert-widget .gpk-cert-header h2 {
   margin: 0;
   color: #506d85;
   font-family: Montserrat, Arial, sans-serif;
-  font-size: clamp(18px, 1.55vw, 25px);
+  font-size: clamp(17px, 1.45vw, 24px);
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.1;
   letter-spacing: -.035em;
+  max-width: 13ch;
+  word-break: break-word;
 }
 
 .gpk-cert-widget .gpk-cert-divider {
@@ -143,9 +145,9 @@
   margin: 0;
   color: #506d85;
   font-family: "Instrument Serif", Georgia, serif;
-  font-size: clamp(18px, 1.7vw, 27px);
+  font-size: clamp(17px, 1.5vw, 25px);
   font-style: italic;
-  line-height: 1;
+  line-height: 1.05;
 }
 
 .gpk-cert-widget .gpk-cert-copy {
