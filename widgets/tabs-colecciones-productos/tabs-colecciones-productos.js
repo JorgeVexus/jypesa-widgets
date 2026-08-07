@@ -1241,20 +1241,30 @@
         '[data-order]'
       ];
 
+      // Buscar en itemEl, sus hijos, ancestros o contenedores relacionales
+      const candidates = [];
       for (const sel of selectors) {
-        const el = itemEl.matches && itemEl.matches(sel) ? itemEl : itemEl.querySelector(sel);
-        if (el) {
-          const txt = cleanText(el.textContent);
-          if (txt) {
-            const match = txt.match(/-?\d+/);
+        if (itemEl.matches && itemEl.matches(sel)) candidates.push(itemEl);
+        const found = itemEl.querySelectorAll ? Array.from(itemEl.querySelectorAll(sel)) : [];
+        candidates.push(...found);
+        if (itemEl.closest) {
+          const ancestor = itemEl.closest(sel);
+          if (ancestor) candidates.push(ancestor);
+        }
+      }
+
+      for (const el of candidates) {
+        if (!el) continue;
+        const txt = cleanText(el.textContent);
+        if (txt) {
+          const match = txt.match(/-?\d+/);
+          if (match) return parseInt(match[0], 10);
+        }
+        for (const attr of ['data-col-order', 'data-tab-order', 'data-sort-order', 'data-order', 'value', 'content']) {
+          const val = el.getAttribute ? el.getAttribute(attr) : null;
+          if (val) {
+            const match = val.match(/-?\d+/);
             if (match) return parseInt(match[0], 10);
-          }
-          for (const attr of ['data-col-order', 'data-tab-order', 'data-sort-order', 'data-order', 'value', 'content']) {
-            const val = el.getAttribute(attr);
-            if (val) {
-              const match = val.match(/-?\d+/);
-              if (match) return parseInt(match[0], 10);
-            }
           }
         }
       }
@@ -1312,7 +1322,7 @@
           products: []
         };
       } else {
-        if (!isNaN(colOrderNum) && colOrderNum < collectionsMap[colName].order) {
+        if (!isNaN(colOrderNum) && (collectionsMap[colName].order === 999 || colOrderNum < collectionsMap[colName].order)) {
           collectionsMap[colName].order = colOrderNum;
         }
       }
