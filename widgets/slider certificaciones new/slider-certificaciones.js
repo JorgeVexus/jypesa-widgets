@@ -29,15 +29,25 @@
     return new URL(value, baseURL).href;
   }
 
-  function injectStylesheet() {
+  function injectStylesheet(callback) {
     var marker = "gpk-certifications-styles";
-    if (document.getElementById(marker)) return;
+    var existing = document.getElementById(marker);
+    if (existing) {
+      if (callback) callback();
+      return;
+    }
     var link = document.createElement("link");
     link.id = marker;
     link.rel = "stylesheet";
     link.href = assetURL("slider-certificaciones.css");
+    var onLoad = function () {
+      if (callback) callback();
+      initAll();
+    };
+    link.addEventListener("load", onLoad);
     link.addEventListener("error", function () {
       report("Could not load stylesheet.");
+      if (callback) callback();
     });
     document.head.appendChild(link);
   }
@@ -171,7 +181,24 @@
   }
 
   function initAll() {
-    document.querySelectorAll(".gpk-cert-widget").forEach(initWidget);
+    document.querySelectorAll(".gpk-cert-widget").forEach(function (widget) {
+      if (widget.dataset.gpkCertInitialized === "true") {
+        // Si ya estaba inicializado antes de cargar el CSS, forzar un remeasure con los estilos reales
+        var viewport = widget.querySelector(".gpk-cert-viewport");
+        var track = widget.querySelector(".gpk-cert-track");
+        var slides = Array.prototype.slice.call(track ? track.children : []);
+        if (viewport && track && slides.length) {
+          var styles = window.getComputedStyle(widget);
+          var trackStyles = window.getComputedStyle(track);
+          var visible = Math.max(1, parseInt(styles.getPropertyValue("--gpk-cert-visible"), 10) || 1);
+          var step = slides[0].getBoundingClientRect().width +
+            (parseFloat(trackStyles.columnGap || trackStyles.gap) || 0);
+          widget.style.setProperty("--gpk-cert-offset", "0px");
+        }
+        return;
+      }
+      initWidget(widget);
+    });
   }
 
   function observeWidgets() {
@@ -193,7 +220,11 @@
       })
       .then(function (html) {
         root.innerHTML = html;
-        initAll();
+        if (typeof requestAnimationFrame === "function") {
+          requestAnimationFrame(initAll);
+        } else {
+          initAll();
+        }
       })
       .catch(function (error) { report("Could not load widget markup.", error); });
   }
