@@ -5,13 +5,13 @@
 
   function resolveBaseURL(protocol, hostname, origin, scriptSource) {
     var widgetPath = "/widgets/slider%20certificaciones%20new";
-    if (protocol === "file:" && scriptSource) {
+    if (scriptSource) {
       return new URL(".", scriptSource).href;
     }
     if (hostname === "localhost" || hostname === "127.0.0.1") {
       return new URL(widgetPath + "/", origin).href;
     }
-    return "https://grupak-widgets.vercel.app" + widgetPath + "/";
+    return "https://jypesa-widgets.vercel.app" + widgetPath + "/";
   }
 
   var baseURL = resolveBaseURL(
