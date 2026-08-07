@@ -240,20 +240,62 @@
 @media (max-width: 639px) {
   .gpk-cert-widget {
     --gpk-cert-visible: 1;
-    padding: 16px 16px 64px;
+    padding: 16px 12px 64px;
+    overflow: hidden;
+  }
+
+  .gpk-cert-widget .gpk-cert-viewport {
+    width: 100%;
+    overflow: hidden;
   }
 
   .gpk-cert-widget .gpk-cert-track {
-    padding: 10px 5px;
+    padding: 10px 0;
+    gap: 16px;
+  }
+
+  .gpk-cert-widget .gpk-cert-track > li {
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .gpk-cert-widget .gpk-cert-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .gpk-cert-widget .gpk-cert-media {
+    aspect-ratio: 16 / 9;
+    max-height: 200px;
+  }
+
+  .gpk-cert-widget .gpk-cert-media img {
+    max-width: 75% !important;
+    max-height: 75% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: auto !important;
+  }
+
+  .gpk-cert-widget .gpk-cert-card--iso .gpk-cert-media img,
+  .gpk-cert-widget .gpk-cert-card--peta .gpk-cert-media img,
+  .gpk-cert-widget .gpk-cert-card--rspo .gpk-cert-media img,
+  .gpk-cert-widget .gpk-cert-card--ocean .gpk-cert-media img,
+  .gpk-cert-widget .gpk-cert-card--carbon .gpk-cert-media img {
+    max-width: 75% !important;
+    max-height: 75% !important;
+    width: auto !important;
+    height: auto !important;
   }
 
   .gpk-cert-widget .gpk-cert-header {
     grid-template-columns: minmax(0, 1fr);
     gap: 9px;
-  }
-
-  .gpk-cert-widget .gpk-cert-track > li {
-    flex-basis: 100%;
   }
 
   .gpk-cert-widget .gpk-cert-divider {
@@ -280,6 +322,7 @@
   .gpk-cert-widget .gpk-cert-header h2 {
     font-size: 20px;
     line-height: 1.15;
+    max-width: 100%;
   }
 
   .gpk-cert-widget .gpk-cert-tagline {
