@@ -223,18 +223,18 @@
 }
 
 .gpk-cert-widget .gpk-cert-controls {
-  position: absolute;
+  position: absolute !important;
   inset: 50% 14px auto;
-  z-index: 1;
-  display: flex;
+  z-index: 10 !important;
+  display: flex !important;
   justify-content: space-between;
-  pointer-events: none;
+  pointer-events: none !important;
   transform: translateY(-50%);
 }
 
 .gpk-cert-widget .gpk-cert-prev,
 .gpk-cert-widget .gpk-cert-next {
-  display: grid;
+  display: grid !important;
   place-items: center;
   width: 46px;
   height: 46px;
@@ -244,8 +244,10 @@
   background: #fff;
   color: #506d85;
   box-shadow: 2px 3px 10px rgba(0, 0, 0, .1);
-  cursor: pointer;
-  pointer-events: auto;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation !important;
   transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
@@ -288,52 +290,52 @@
   .gpk-cert-widget {
     --gpk-cert-visible: 2;
     --gpk-cert-gap-adjustment: clamp(8px, .9vw, 17.5px);
-    padding: clamp(20px, 4vw, 40px) clamp(28px, 4.5vw, 56px);
+    padding: clamp(20px, 4vw, 40px) clamp(28px, 4.5vw, 56px) !important;
   }
 
   .gpk-cert-widget .gpk-cert-track {
-    padding: 15px 10px;
+    padding: 15px 10px !important;
   }
 
   .gpk-cert-widget .gpk-cert-track > li {
-    flex-basis: calc(50% - var(--gpk-cert-gap-adjustment));
+    flex: 0 0 calc(50% - var(--gpk-cert-gap-adjustment)) !important;
   }
 }
 
 @media (max-width: 639px) {
   .gpk-cert-widget {
     --gpk-cert-visible: 1;
-    padding: 16px 12px 64px;
-    overflow: hidden;
+    padding: 16px 12px 64px !important;
+    overflow: hidden !important;
   }
 
   .gpk-cert-widget .gpk-cert-viewport {
-    width: 100%;
-    overflow: hidden;
+    width: 100% !important;
+    overflow: hidden !important;
   }
 
   .gpk-cert-widget .gpk-cert-track {
-    padding: 10px 0;
-    gap: 16px;
+    padding: 10px 0 !important;
+    gap: 16px !important;
   }
 
   .gpk-cert-widget .gpk-cert-track > li {
-    flex-basis: 100%;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
   }
 
   .gpk-cert-widget .gpk-cert-card {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .gpk-cert-widget .gpk-cert-media {
-    aspect-ratio: 16 / 9;
-    max-height: 200px;
+    aspect-ratio: 16 / 9 !important;
+    max-height: 200px !important;
   }
 
   .gpk-cert-widget .gpk-cert-media img {
@@ -357,44 +359,47 @@
   }
 
   .gpk-cert-widget .gpk-cert-header {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 9px;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 9px !important;
   }
 
   .gpk-cert-widget .gpk-cert-divider {
-    width: 54px;
-    min-height: 1px;
+    width: 54px !important;
+    min-height: 1px !important;
   }
 
   .gpk-cert-widget .gpk-cert-controls {
-    right: 8px;
-    left: 8px;
+    top: auto !important;
+    bottom: 12px !important;
+    right: 8px !important;
+    left: 8px !important;
+    transform: none !important;
   }
 
   .gpk-cert-widget .gpk-cert-prev,
   .gpk-cert-widget .gpk-cert-next {
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
+    height: 40px !important;
   }
 
   .gpk-cert-widget .gpk-cert-body {
-    padding: clamp(16px, 4vw, 24px);
-    gap: 12px;
+    padding: clamp(16px, 4vw, 24px) !important;
+    gap: 12px !important;
   }
 
   .gpk-cert-widget .gpk-cert-header h2 {
-    font-size: 20px;
-    line-height: 1.15;
-    max-width: 100%;
+    font-size: 20px !important;
+    line-height: 1.15 !important;
+    max-width: 100% !important;
   }
 
   .gpk-cert-widget .gpk-cert-tagline {
-    font-size: 19px;
+    font-size: 19px !important;
   }
 
   .gpk-cert-widget .gpk-cert-copy {
-    font-size: 13.5px;
-    line-height: 1.5;
+    font-size: 13.5px !important;
+    line-height: 1.5 !important;
   }
 }
 
