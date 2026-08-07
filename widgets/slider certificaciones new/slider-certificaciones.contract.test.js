@@ -298,7 +298,8 @@ test('styles image modifiers, accessible controls, and reduced motion', async ()
   assert.match(css, /\.gpk-cert-card--ocean\s+\.gpk-cert-media\s+img\s*{[\s\S]*?width:\s*56\.8662%\s*;[\s\S]*?height:\s*auto\s*;/i);
   assert.match(css, /\.gpk-cert-card--carbon\s+\.gpk-cert-media\s+img\s*{[\s\S]*?width:\s*85\.7394%\s*;[\s\S]*?height:\s*auto\s*;/i);
   assert.doesNotMatch(css, /\.gpk-cert-card--(?:iso|peta|rspo|ocean|carbon)[^{]*{[^}]*height:\s*\d+(?:\.\d+)?px/i);
-  assert.equal((html.match(/\bgpk-cert-card--carbon\b/g) || []).length, 2);
+  assert.equal((html.match(/\bgpk-cert-card--carbon\b/g) || []).length, 1);
+  assert.equal((html.match(/\bgpk-cert-card--fda\b/g) || []).length, 1);
   assert.doesNotMatch(css, /nth-child\([^)]*\)[^{]*\.gpk-cert-media/i);
   assert.match(css, /\.gpk-cert-(?:prev|next):focus-visible\s*{[\s\S]*?outline:/i);
   assert.match(css, /\.gpk-cert-(?:prev|next):disabled\s*{[\s\S]*?cursor:\s*not-allowed\s*;/i);
@@ -346,9 +347,9 @@ test('uses the approved local image mapping', async () => {
     'Images/RSPO.png',
     'Images/ocean bound.png',
     'Images/carbonfree-certified.png',
-    'Images/carbonfree-certified.png',
+    'Images/FDA.png',
   ]);
-  assert.equal(sources.filter((source) => source === 'Images/carbonfree-certified.png').length, 2);
+  assert.equal(sources.includes('Images/FDA.png'), true);
   sources.forEach((source) => {
     const assetPath = path.resolve(path.dirname(htmlPath), source);
     assert.equal(existsSync(assetPath), true, `Expected local image asset to exist: ${assetPath}`);
