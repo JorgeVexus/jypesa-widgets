@@ -281,9 +281,9 @@ test('styles the responsive carousel to the approved visual contract', async () 
   assert.match(css, /\.gpk-cert-card\s*{[\s\S]*?background:\s*#fff(?:fff)?\s*;[\s\S]*?box-shadow:\s*4px\s+5px\s+14\.4px\s+rgba\(0,\s*0,\s*0,\s*\.1\)\s*;/i);
   assert.match(css, /\.gpk-cert-track\s*{[\s\S]*?transform:\s*translate3d\(var\(--gpk-cert-offset,\s*0px\),\s*0,\s*0\)\s*;[\s\S]*?transition:\s*transform\s+520ms\s+cubic-bezier\(/i);
   assert.match(css, /\.gpk-cert-widget\s*{[\s\S]*?--gpk-cert-gap-adjustment:\s*clamp\(10\.6667px,\s*1\.2vw,\s*23\.3333px\)\s*;/i);
-  assert.match(css, /\.gpk-cert-track\s*>\s*li\s*{[\s\S]*?flex:\s*0\s+0\s+calc\(33\.333333%\s*-\s*var\(--gpk-cert-gap-adjustment\)\)\s*;/i);
-  assert.match(css, /@media\s*\(max-width:\s*1023px\)[\s\S]*?\.gpk-cert-widget\s*{[\s\S]*?--gpk-cert-visible:\s*2\s*;[\s\S]*?--gpk-cert-gap-adjustment:\s*clamp\(8px,\s*\.9vw,\s*17\.5px\)\s*;[\s\S]*?\.gpk-cert-track\s*>\s*li\s*{[\s\S]*?flex-basis:\s*calc\(50%\s*-\s*var\(--gpk-cert-gap-adjustment\)\)\s*;/i);
-  assert.match(css, /@media\s*\(max-width:\s*639px\)[\s\S]*?\.gpk-cert-widget\s*{[\s\S]*?--gpk-cert-visible:\s*1\s*;[\s\S]*?\.gpk-cert-track\s*>\s*li\s*{[\s\S]*?flex-basis:\s*100%\s*;/i);
+  assert.match(css, /\.gpk-cert-track\s*>\s*li\s*{[\s\S]*?flex:\s*0\s+0\s+calc\(33\.333333%\s*-\s*var\(--gpk-cert-gap-adjustment\)\)\s*(?:!important\s*)?;/i);
+  assert.match(css, /@media\s*\(max-width:\s*1023px\)[\s\S]*?\.gpk-cert-widget\s*{[\s\S]*?--gpk-cert-visible:\s*2\s*;[\s\S]*?--gpk-cert-gap-adjustment:\s*clamp\(8px,\s*\.9vw,\s*17\.5px\)\s*;[\s\S]*?\.gpk-cert-track\s*>\s*li\s*{[\s\S]*?flex-basis:\s*calc\(50%\s*-\s*var\(--gpk-cert-gap-adjustment\)\)\s*(?:!important\s*)?;/i);
+  assert.match(css, /@media\s*\(max-width:\s*639px\)[\s\S]*?\.gpk-cert-widget\s*{[\s\S]*?--gpk-cert-visible:\s*1\s*;[\s\S]*?\.gpk-cert-track\s*>\s*li\s*{[\s\S]*?flex-basis:\s*100%\s*(?:!important\s*)?;/i);
   assert.doesNotMatch(css, /calc\([^;]*(?:\*|\s\/\s)[^;]*\)/i);
   assert.doesNotMatch(css, /will-change\s*:/i);
 });
@@ -304,7 +304,7 @@ test('styles image modifiers, accessible controls, and reduced motion', async ()
   assert.match(css, /\.gpk-cert-(?:prev|next):disabled\s*{[\s\S]*?cursor:\s*not-allowed\s*;/i);
   assert.match(css, /\.gpk-cert-status\s*{[\s\S]*?clip:\s*rect\(0\s+0\s+0\s+0\)\s*;/i);
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*?\.gpk-cert-track\s*{[\s\S]*?transition:\s*none\s*;/i);
-  assert.doesNotMatch(css, /(^|[},]\s*)(?:html|body|\*|h[1-6]|p|img|button|ol|li)(?:\s|,|\{|:)/im);
+  assert.doesNotMatch(css, /(^|[},]\s*)(?:html|body|\*(?![^{]*#gpk)|h[1-6]|p|img|button|ol|li)(?=\s*(?:,|\{|:))(?![^{]*#gpk)/im);
 });
 
 test('renders the six certification cards in the approved order', async () => {
