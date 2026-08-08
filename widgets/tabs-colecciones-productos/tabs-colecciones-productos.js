@@ -176,21 +176,24 @@
   /* COLUMNA DERECHA (CONTENIDO DINÁMICO) */
   .jypesa-tabs-right-col {
     width: 100% !important;
+    min-width: 100% !important;
     align-self: stretch !important;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
   }
 
   .jypesa-tab-content-panel {
     display: none;
     width: 100% !important;
+    min-width: 100% !important;
     align-self: stretch !important;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
     animation: jypesaFadeIn 0.5s ease forwards;
   }
 
   .jypesa-tab-content-panel.active {
     display: block !important;
     width: 100% !important;
+    min-width: 100% !important;
   }
 
   @keyframes jypesaFadeIn {
@@ -868,8 +871,9 @@
     .jypesa-tabs-right-col {
       flex: 1 1 0% !important;
       min-width: 0 !important;
-      width: calc(100% - 520px) !important;
+      width: auto !important;
       align-self: stretch !important;
+      box-sizing: border-box !important;
     }
 
     /* Figma vertical stack overrides for desktop */
@@ -1280,6 +1284,58 @@
       return NaN;
     };
 
+    const getProdOrderVal = (itemEl) => {
+      const selectors = [
+        '.jypesa-tabsprod-prod-order',
+        '.jypesa-tabs-prod-order',
+        '.jypesa-prod-order',
+        '.jypesa-product-order',
+        '.product-order',
+        '.prod-order',
+        '[data-prod-order]',
+        '[data-product-order]',
+        '[data-sort-order]',
+        '[data-order]'
+      ];
+
+      const candidates = [];
+      for (const sel of selectors) {
+        if (itemEl.matches && itemEl.matches(sel)) candidates.push(itemEl);
+        const found = itemEl.querySelectorAll ? Array.from(itemEl.querySelectorAll(sel)) : [];
+        candidates.push(...found);
+        if (itemEl.closest) {
+          const ancestor = itemEl.closest(sel);
+          if (ancestor) candidates.push(ancestor);
+        }
+      }
+
+      for (const el of candidates) {
+        if (!el) continue;
+        const txt = cleanText(el.textContent);
+        if (txt) {
+          const match = txt.match(/-?\d+/);
+          if (match) return parseInt(match[0], 10);
+        }
+        for (const attr of ['data-prod-order', 'data-product-order', 'data-sort-order', 'data-order', 'value', 'content']) {
+          const val = el.getAttribute ? el.getAttribute(attr) : null;
+          if (val) {
+            const match = val.match(/-?\d+/);
+            if (match) return parseInt(match[0], 10);
+          }
+        }
+      }
+
+      for (const attr of ['data-prod-order', 'data-product-order', 'data-sort-order', 'data-order']) {
+        const val = itemEl.getAttribute ? itemEl.getAttribute(attr) : null;
+        if (val) {
+          const match = val.match(/-?\d+/);
+          if (match) return parseInt(match[0], 10);
+        }
+      }
+
+      return NaN;
+    };
+
     // Leer la marca/colección padre desde el primer elemento
     const parentBrandEl = source.querySelector('.jypesa-tabs-col-parent-brand');
     const parentBrand = getElText(parentBrandEl);
@@ -1422,6 +1478,8 @@
           if (amazonLink === '#' || amazonLink.length <= 3) amazonLink = '';
         }
 
+        let prodOrderNum = getProdOrderVal(item);
+
         const prodObj = {
           name: prodName,
           sku: getElText(skuEl),
@@ -1431,7 +1489,8 @@
           imgSrc: imgEl ? (imgEl.getAttribute('src') || imgEl.src || '') : '',
           imgAlt: imgEl ? (imgEl.getAttribute('alt') || prodName) : prodName,
           link: linkEl ? (linkEl.getAttribute('href') || '#') : '#',
-          amazonLink: amazonLink
+          amazonLink: amazonLink,
+          order: !isNaN(prodOrderNum) ? prodOrderNum : 999
         };
 
         collectionsMap[colName].subgroupsMap[subKey].products.push(prodObj);
@@ -1442,6 +1501,10 @@
     let collections = Object.values(collectionsMap).map(col => {
       col.subgroups = Object.values(col.subgroupsMap);
       col.subgroups.sort((a, b) => (a.order !== undefined ? a.order : 999) - (b.order !== undefined ? b.order : 999));
+      col.subgroups.forEach(sub => {
+        sub.products.sort((a, b) => (a.order !== undefined ? a.order : 999) - (b.order !== undefined ? b.order : 999));
+      });
+      col.products.sort((a, b) => (a.order !== undefined ? a.order : 999) - (b.order !== undefined ? b.order : 999));
       return col;
     });
 
