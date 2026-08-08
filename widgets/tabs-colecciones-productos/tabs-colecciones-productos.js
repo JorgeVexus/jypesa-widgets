@@ -176,7 +176,7 @@
   /* COLUMNA DERECHA (CONTENIDO DINÁMICO) */
   .jypesa-tabs-right-col {
     width: 100% !important;
-    min-width: 0 !important;
+    min-width: 100% !important;
     align-self: stretch !important;
     box-sizing: border-box !important;
   }
@@ -184,17 +184,16 @@
   .jypesa-tab-content-panel {
     display: none;
     width: 100% !important;
-    min-width: 0 !important;
+    min-width: 100% !important;
     align-self: stretch !important;
     box-sizing: border-box !important;
     animation: jypesaFadeIn 0.5s ease forwards;
   }
 
   .jypesa-tab-content-panel.active {
-    display: flex !important;
-    flex-direction: column !important;
+    display: block !important;
     width: 100% !important;
-    min-width: 0 !important;
+    min-width: 100% !important;
   }
 
   @keyframes jypesaFadeIn {
@@ -356,9 +355,7 @@
   .jypesa-tabs-subgroup-section {
     display: flex;
     flex-direction: column;
-    width: 100% !important;
-    min-width: 0 !important;
-    box-sizing: border-box;
+    width: 100%;
     margin-bottom: 44px;
   }
 
@@ -400,7 +397,6 @@
   .jypesa-tabs-slider-outer {
     position: relative;
     width: 100% !important;
-    min-width: 0 !important;
     align-self: stretch !important;
     box-sizing: border-box;
   }
@@ -875,14 +871,9 @@
     .jypesa-tabs-right-col {
       flex: 1 1 0% !important;
       min-width: 0 !important;
-      width: 0 !important;
+      width: auto !important;
       align-self: stretch !important;
       box-sizing: border-box !important;
-    }
-
-    .jypesa-tab-content-panel.active {
-      width: 100% !important;
-      min-width: 0 !important;
     }
 
     /* Figma vertical stack overrides for desktop */
