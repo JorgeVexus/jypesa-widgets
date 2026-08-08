@@ -1,14 +1,19 @@
 (function () {
-  if (window.__JypesaSliderColProductosInitialized) return;
-  window.__JypesaSliderColProductosInitialized = true;
+  // ─── GUARD: CSS/fuentes solo se inyectan una vez, pero el inicializador
+  //     se ejecuta siempre para soportar múltiples instancias en la misma página.
+  const _cssAlreadyInjected = window.__JypesaSliderColProductosCSS === true;
+  if (!_cssAlreadyInjected) {
+    window.__JypesaSliderColProductosCSS = true;
 
-  // ─── 1. FUENTES Y CSS ───────────────────────────────────────────────────────
-  const fontLink = document.createElement('link');
-  fontLink.rel = 'stylesheet';
-  fontLink.href =
-    'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Rubik:wght@300;400;500;600&display=swap';
-  document.head.appendChild(fontLink);
+    // ─── 1. FUENTES Y CSS ───────────────────────────────────────────────────────
+    const fontLink = document.createElement('link');
+    fontLink.rel = 'stylesheet';
+    fontLink.href =
+      'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Rubik:wght@300;400;500;600&display=swap';
+    document.head.appendChild(fontLink);
+  }
 
+  // ─── 1. CSS (se construye siempre para tener la variable disponible; se inyecta solo una vez) ───
   const css = `
   /* ── WIDGET ROOT ── */
   .jypesa-scol-widget {
@@ -340,8 +345,10 @@
   `;
 
   const styleEl = document.createElement('style');
-  styleEl.textContent = css;
-  document.head.appendChild(styleEl);
+  if (!_cssAlreadyInjected) {
+    styleEl.textContent = css;
+    document.head.appendChild(styleEl);
+  }
 
   // ─── 2. SVGs DE FLECHAS (Figma) ─────────────────────────────────────────────
   let _instanceCount = 0;
@@ -573,6 +580,54 @@
     return null;
   }
 
+  // ─── 5b. DETECTAR ORDEN DE PRODUCTO (jypesa-prod-order) ─────────────────────
+  function getProdOrderVal(itemEl) {
+    // Solo selectores estrictamente de producto, nunca de colección/tab,
+    // para evitar capturar col-order values accidentalmente.
+    const selectors = [
+      '.jypesa-prod-order',
+      '.jypesa-scol-prod-order',
+      '.jypesa-product-order',
+      '[data-prod-order]',
+      '[data-product-order]'
+    ];
+
+    // Buscar ÚNICAMENTE dentro del item (nunca en ancestros).
+    for (const sel of selectors) {
+      if (itemEl.matches && itemEl.matches(sel)) {
+        const txt = (itemEl.textContent || '').trim();
+        const m = txt.match(/^\s*(-?\d+)\s*$/);
+        if (m) return parseInt(m[1], 10);
+      }
+      const found = itemEl.querySelectorAll ? Array.from(itemEl.querySelectorAll(sel)) : [];
+      for (const el of found) {
+        // El texto debe ser SOLO un número para evitar falsos positivos.
+        const txt = (el.textContent || '').trim();
+        const m = txt.match(/^\s*(-?\d+)\s*$/);
+        if (m) return parseInt(m[1], 10);
+        // Fallback: leer atributo directo.
+        for (const attr of ['data-prod-order', 'data-product-order']) {
+          const val = el.getAttribute ? el.getAttribute(attr) : null;
+          if (val) {
+            const am = val.match(/-?\d+/);
+            if (am) return parseInt(am[0], 10);
+          }
+        }
+      }
+    }
+
+    // También leer el atributo directamente en el item.
+    for (const attr of ['data-prod-order', 'data-product-order']) {
+      const val = itemEl.getAttribute ? itemEl.getAttribute(attr) : null;
+      if (val) {
+        const m = val.match(/-?\d+/);
+        if (m) return parseInt(m[0], 10);
+      }
+    }
+
+    return NaN;
+  }
+
   function readProductsFromCMS(target, uid) {
     const source = findCmsSource(target, uid);
 
@@ -616,6 +671,8 @@
       const imgEl = item.querySelector('.jypesa-scol-prod-img');
       const linkEl = item.querySelector('.jypesa-scol-prod-link');
 
+      const orderNum = getProdOrderVal(item);
+
       products.push({
         name,
         type: get('.jypesa-scol-prod-type'),
@@ -627,8 +684,12 @@
         imgAlt: imgEl ? (imgEl.getAttribute('alt') || name) : name,
         link: linkEl ? (linkEl.getAttribute('href') || '#') : '#',
         marca: get('.jypesa-scol-prod-marca'),
+        order: !isNaN(orderNum) ? orderNum : 999,
       });
     });
+
+    // Ordenar de menor a mayor según order
+    products.sort((a, b) => a.order - b.order);
 
     return {
       products: products.length ? products : null,
@@ -759,6 +820,8 @@
   }
 
   // ─── 8. INICIALIZADOR ───────────────────────────────────────────────────────
+  // Corre siempre que el script se carga para detectar nuevos containers,
+  // incluso si el CSS ya fue inyectado por una instancia anterior.
   function initSliderColWidget() {
     const targets = document.querySelectorAll(
       '.jypesa-scol-widget-container, [data-jypesa-scol-widget], #jypesa-scol-widget'
@@ -788,7 +851,7 @@
 
       const wrapper = document.createElement('div');
       wrapper.className = 'jypesa-scol-widget';
-      wrapper.innerHTML = buildWidgetHtml(products, uid);
+      wrapper.innerHTML = buildWidgetHtml(products, headerData, uid);
       target.appendChild(wrapper);
 
       setupInteractions(wrapper, products.length);
