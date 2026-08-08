@@ -423,6 +423,11 @@
     display: none;
   }
 
+  /* Con 1 solo producto: centrar la tarjeta para que el contenido se vea completo */
+  .jypesa-tabs-products-container[data-prod-count="1"] {
+    justify-content: center;
+  }
+
   /* Desactivar flechas desktop en móvil */
   .jypesa-tabs-nav-btn {
     display: none !important;
@@ -1285,47 +1290,41 @@
     };
 
     const getProdOrderVal = (itemEl) => {
+      // Solo buscar selectores estrictamente de producto, nunca los de colección/tab
       const selectors = [
-        '.jypesa-tabsprod-prod-order',
         '.jypesa-tabs-prod-order',
         '.jypesa-prod-order',
         '.jypesa-product-order',
-        '.product-order',
-        '.prod-order',
         '[data-prod-order]',
-        '[data-product-order]',
-        '[data-sort-order]',
-        '[data-order]'
+        '[data-product-order]'
       ];
 
-      const candidates = [];
+      // Buscar ÚNICAMENTE dentro del item (nunca en ancestros para evitar
+      // capturar el col-order de la colección padre)
       for (const sel of selectors) {
-        if (itemEl.matches && itemEl.matches(sel)) candidates.push(itemEl);
+        if (itemEl.matches && itemEl.matches(sel)) {
+          const txt = cleanText(itemEl.textContent);
+          const match = txt && txt.match(/^\s*(-?\d+)\s*$/);
+          if (match) return parseInt(match[1], 10);
+        }
         const found = itemEl.querySelectorAll ? Array.from(itemEl.querySelectorAll(sel)) : [];
-        candidates.push(...found);
-        if (itemEl.closest) {
-          const ancestor = itemEl.closest(sel);
-          if (ancestor) candidates.push(ancestor);
-        }
-      }
-
-      for (const el of candidates) {
-        if (!el) continue;
-        const txt = cleanText(el.textContent);
-        if (txt) {
-          const match = txt.match(/-?\d+/);
-          if (match) return parseInt(match[0], 10);
-        }
-        for (const attr of ['data-prod-order', 'data-product-order', 'data-sort-order', 'data-order', 'value', 'content']) {
-          const val = el.getAttribute ? el.getAttribute(attr) : null;
-          if (val) {
-            const match = val.match(/-?\d+/);
-            if (match) return parseInt(match[0], 10);
+        for (const el of found) {
+          const txt = cleanText(el.textContent);
+          // Texto debe ser solo un número (evitar capturar un span con texto largo que contenga un número)
+          const match = txt && txt.match(/^\s*(-?\d+)\s*$/);
+          if (match) return parseInt(match[1], 10);
+          for (const attr of ['data-prod-order', 'data-product-order']) {
+            const val = el.getAttribute ? el.getAttribute(attr) : null;
+            if (val) {
+              const attrMatch = val.match(/-?\d+/);
+              if (attrMatch) return parseInt(attrMatch[0], 10);
+            }
           }
         }
       }
 
-      for (const attr of ['data-prod-order', 'data-product-order', 'data-sort-order', 'data-order']) {
+      // También leer directo como atributo del item
+      for (const attr of ['data-prod-order', 'data-product-order']) {
         const val = itemEl.getAttribute ? itemEl.getAttribute(attr) : null;
         if (val) {
           const match = val.match(/-?\d+/);
@@ -1672,7 +1671,7 @@
                         ${arrowRightSvg}
                       </div>
 
-                      <div class="jypesa-tabs-products-container">
+                      <div class="jypesa-tabs-products-container" data-prod-count="${sub.products.length}">
                         ${sub.products.map(prod => {
                           const hasAmazonBtn = Boolean(prod.amazonLink);
                           const cardTag = hasAmazonBtn ? 'div' : 'a';
