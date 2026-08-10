@@ -757,6 +757,7 @@
       if (base === '/nosotros') return '/en/about-us' + (rawHash ? '#' + rawHash : '');
       if (base === '/contacto') return '/en/contact' + (rawHash ? '#' + rawHash : '');
       if (base === '/desarollo-personalizado') return '/en/custom-development' + (rawHash ? '#' + rawHash : '');
+      if (base === '/colecciones/estandar/elements') return '/en/standar/elements' + (rawHash ? '#' + rawHash : '');
       if (base === '/soluciones') {
         const enHash = rawHash ? (SOLUCIONES_HASH_MAP_EN[rawHash] || rawHash) : '';
         return '/en/solutions' + (enHash ? '#' + enHash : '');

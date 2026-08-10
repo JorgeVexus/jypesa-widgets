@@ -68,6 +68,16 @@ test('desktop and mobile Custom Development links use the shared URL resolver', 
   assert.equal(matches.length, 2);
 });
 
+test('English Elements links use /en/standar/elements on desktop and mobile', () => {
+  const englishHtml = renderNavigation('en');
+  const links = [...englishHtml.matchAll(/href="([^"]+)"[^>]*>Elements<\/a>/g)].map(
+    (match) => match[1]
+  );
+
+  assert.deepEqual(links, ['/en/standar/elements', '/en/standar/elements']);
+  assert.doesNotMatch(englishHtml, /href="\/en\/colecciones\/estandar\/elements"/);
+});
+
 test('Smart Order is rendered in Spanish desktop navigation only', () => {
   const spanishHtml = renderNavigation('es');
   const englishHtml = renderNavigation('en');
