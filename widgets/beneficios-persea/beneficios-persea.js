@@ -8,7 +8,7 @@
   var ST_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
   var SOAP_IMG = 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a566ccb56a4028bde4f9216_persea%20beneficios.avif';
 
-  var BENEFITS = [
+  var BENEFITS_ES = [
     { n: 1,  t: 'Vegano',              d: 'Sin ingredientes de origen animal ni subproductos' },
     { n: 2,  t: 'Cruelty-free',        d: 'No probado en animales' },
     { n: 3,  t: 'Libre de parabenos',  d: 'Conservado sin parabenos' },
@@ -21,6 +21,24 @@
     { n: 10, t: 'No GMO',              d: 'Menor riesgo de alergia de contacto' },
     { n: 11, t: 'Sin MIT/CMIT',        d: 'Menor riesgo de alergia de contacto' }
   ];
+
+  var BENEFITS_EN = [
+    { n: 1,  t: 'Vegan',                  d: 'No animal-derived ingredients or by-products' },
+    { n: 2,  t: 'Cruelty-free',           d: 'Not tested on animals' },
+    { n: 3,  t: 'Paraben-free',           d: 'Preserved without parabens' },
+    { n: 4,  t: 'Phthalate-free',         d: 'Free from restricted plasticizers' },
+    { n: 5,  t: 'Mineral oil-free',       d: 'Free from paraffin and mineral oil' },
+    { n: 6,  t: 'Biodegradable formula',  d: 'Designed for responsible consumption' },
+    { n: 7,  t: 'Free from drying alcohol', d: 'Helps reduce dryness and irritation' },
+    { n: 8,  t: 'Formaldehyde-free',      d: 'No formaldehyde donors or release' },
+    { n: 9,  t: 'Microbiome-friendly',    d: 'Formulated and tested to respect the microbiome' },
+    { n: 10, t: 'Non-GMO',                d: 'Helps reduce the risk of contact allergies' },
+    { n: 11, t: 'MIT/CMIT-free',          d: 'Helps reduce the risk of contact allergies' }
+  ];
+
+  function getLang(target) {
+    return String(target.getAttribute('data-lang') || 'es').toLowerCase() === 'en' ? 'en' : 'es';
+  }
 
   function injectStyles() {
     if (document.getElementById('bp-styles-' + SLUG)) return;
@@ -148,8 +166,10 @@
     document.head.appendChild(style);
   }
 
-  function buildHtml(centralImg) {
-    var items = BENEFITS.map(function (b) {
+  function buildHtml(centralImg, lang) {
+    var isEnglish = lang === 'en';
+    var benefits = isEnglish ? BENEFITS_EN : BENEFITS_ES;
+    var items = benefits.map(function (b) {
       return '' +
         '<div class="bp-item bp-pos-' + b.n + '" data-index="' + b.n + '">' +
           '<span class="bp-num">' + b.n + '</span>' +
@@ -165,11 +185,11 @@
       '<div class="bp-widget">' +
         '<div class="bp-widget-inner">' +
           '<div class="bp-header">' +
-            '<h2 class="bp-title">Beneficios</h2>' +
-            '<p class="bp-slogan"><span class="bp-slogan-desktop-spaces">                   </span>que marcan la diferencia</p>' +
+            '<h2 class="bp-title">' + (isEnglish ? 'Benefits' : 'Beneficios') + '</h2>' +
+            '<p class="bp-slogan"><span class="bp-slogan-desktop-spaces">                   </span>' + (isEnglish ? 'that make a difference' : 'que marcan la diferencia') + '</p>' +
           '</div>' +
           '<div class="bp-stage">' +
-            '<img class="bp-soap" src="' + (centralImg || SOAP_IMG) + '" alt="Jabón Persea">' +
+            '<img class="bp-soap" src="' + (centralImg || SOAP_IMG) + '" alt="' + (isEnglish ? 'Persea soap' : 'Jabón Persea') + '">' +
             items +
           '</div>' +
         '</div>' +
@@ -299,7 +319,7 @@
       var bgImg = customBgImg || (cmsData && cmsData.bgImg) || 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a567e82b6dd63d7d58888a8_background%20beneficios%20persea.webp';
       var textColor = customTextColor || (cmsData && cmsData.textColor) || null;
 
-      target.innerHTML = buildHtml(centralImg);
+      target.innerHTML = buildHtml(centralImg, getLang(target));
 
       var widgetEl = target.querySelector('.bp-widget');
       if (widgetEl) {
