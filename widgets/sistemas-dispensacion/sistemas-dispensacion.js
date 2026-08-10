@@ -68,17 +68,20 @@
   .jypesa-disp-main-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: clamp(34px, 3.8vw, 70px); /* Tamaño fluido según el ancho de pantalla */
+    font-size: clamp(34px, 3.8vw, 70px);
+    font-size: clamp(34px, 11cqi, 70px);
     line-height: 1.15;
     color: var(--jypesa-disp-slate);
     text-align: center;
-    max-width: 1148px;
+    width: 100%;
+    max-width: 100%;
+    text-wrap: balance;
     margin-bottom: 25px;
   }
 
   .jypesa-disp-title-line {
     display: block;
-    white-space: nowrap; /* Evita que el texto de la línea se divida */
+    white-space: normal;
   }
 
   /* Cursiva con degradado para el título */
@@ -100,7 +103,9 @@
     line-height: 1.45;
     color: var(--jypesa-disp-slate);
     text-align: center;
-    max-width: 732px;
+    width: 100%;
+    max-width: min(732px, 100%);
+    overflow-wrap: anywhere;
     margin-bottom: 35px;
   }
 
@@ -123,6 +128,10 @@
     outline: none;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    max-width: 100%;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .jypesa-disp-btn:hover {
@@ -132,6 +141,7 @@
 
   .jypesa-disp-btn svg {
     transition: transform 0.3s ease;
+    flex-shrink: 0;
   }
 
   .jypesa-disp-btn:hover svg {
@@ -205,6 +215,7 @@
     align-items: center;
     position: relative;
     padding: 80px 20px;
+    container-type: inline-size;
   }
 
   .jypesa-disp-split-center-textbox {
@@ -234,15 +245,16 @@
     text-align: center;
     margin-bottom: 40px;
     width: 100%;
+    container-type: inline-size;
   }
 
   .jypesa-disp-split-mobile-header .jypesa-disp-main-title {
-    font-size: 42px;
+    font-size: clamp(32px, 10cqi, 42px);
     line-height: 1.2;
   }
 
   .jypesa-disp-split-mobile-header .jypesa-disp-intro-desc {
-    font-size: 16px;
+    font-size: clamp(14px, 4cqi, 16px);
     line-height: 1.5;
   }
 
@@ -319,7 +331,7 @@
       width: calc(100% - 720px); /* Ancho dinámico restante */
     }
     .jypesa-disp-main-title {
-      font-size: 50px;
+      font-size: clamp(38px, 10cqi, 50px);
     }
     .jypesa-disp-intro-desc {
       font-size: 16px;
@@ -338,7 +350,7 @@
       width: calc(100% - 560px); /* Más espacio libre para los textos */
     }
     .jypesa-disp-main-title {
-      font-size: 40px;
+      font-size: clamp(34px, 10cqi, 40px);
       margin-bottom: 15px;
     }
     .jypesa-disp-intro-desc {
@@ -371,7 +383,7 @@
       padding: 40px 16px;
     }
     .jypesa-disp-split-mobile-header .jypesa-disp-main-title {
-      font-size: 32px;
+      font-size: clamp(28px, 10cqi, 32px);
     }
     .jypesa-disp-split-mobile-grid {
       grid-template-columns: 1fr; /* 1 columna en celulares pequeños */

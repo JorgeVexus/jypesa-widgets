@@ -771,6 +771,12 @@
   function buildWidgetHtml(lang) {
     const t = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.es;
     const u = url => buildUrl(url, lang);
+    const smartOrderLink = lang === 'es' ? `
+            <a href="https://sm.jypesa.com/jypesa/public/login" class="smart-order" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                ${t.smartOrder}
+            </a>
+` : '';
 
     return `
 <div class="jypesa-nav-principal-widget">
@@ -1034,10 +1040,7 @@
                     </a>
                 </div>
             </div>
-            <a href="https://sm.jypesa.com/jypesa/public/login" class="smart-order" target="_blank" rel="noopener noreferrer">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                ${t.smartOrder}
-            </a>
+            ${smartOrderLink}
             <a href="${u('/contacto')}" class="btn-contact">${t.contact}</a>
         </div>
 
