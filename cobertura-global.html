@@ -99,11 +99,16 @@
       widget.innerHTML = '';
       window.__JypesaCoberturaGlobalWidgetInitialized = false;
 
-      if (typeof initCoberturaGlobalWidget === 'function') {
-        initCoberturaGlobalWidget();
-      } else {
-        location.reload();
-      }
+      const script = document.createElement('script');
+      script.src = './widgets/cobertura-global/cobertura-global.js?t=' + Date.now();
+      document.body.appendChild(script);
+
+      document.querySelectorAll('.demo-btn').forEach(function (button) {
+        const active = button.getAttribute('onclick').includes("'" + lang + "'");
+        button.classList.toggle('active', active);
+        button.style.background = active ? '#0089C1' : '#fff';
+        button.style.color = active ? '#fff' : '#0089C1';
+      });
     }
   </script>
 

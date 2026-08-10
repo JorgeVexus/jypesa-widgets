@@ -6,54 +6,35 @@
      DATOS DE UBICACIONES
      ========================================================== */
   const GROUPS = {
-    Distribuidores: { color: '#0089C1' },
-    Oficinas: { color: '#4AA25D' },
-    'Fábrica': { color: '#FBB31F' },
+    representativeOffices: { color: '#0089C1' },
+    jypesaFactories: { color: '#4AA25D' },
+    associatedFactories: { color: '#FBB31F' },
   };
 
-  const GROUP_PRIORITY = ['Distribuidores', 'Oficinas', 'Fábrica'];
+  const GROUP_PRIORITY = ['representativeOffices', 'jypesaFactories', 'associatedFactories'];
 
   /* LOCATIONS_DATA_START */
   const LOCATIONS = [
-    { name: 'Cafi Guatemala', type: 'Distribuidores', location: 'Avenida Elena 6-42, Zona 3, Ciudad de Guatemala', country: 'Guatemala', contact: 'ventasguatemala@jypesa.com', lat: 14.6349, lon: -90.5069 },
-    { name: 'Cafi El Salvador', type: 'Distribuidores', location: 'Blvd. Vijosa, calle L-1 N.° 44-C, Ciudad Merliot', country: 'El Salvador', contact: 'ventassalvador@jypesa.com', lat: 13.6745, lon: -89.2787 },
-    { name: 'Cafi Belén', type: 'Distribuidores', location: 'Potrerillos, 400 m oeste y 25 m sur del Sol Naciente, bodegas 3 y 4, San Rafael de Alajuela 20108', country: 'Costa Rica', contact: 'ventascr@jypesa.com', lat: 10.0132, lon: -84.2116 },
-    { name: 'Distribuidora M y G', type: 'Distribuidores', location: 'Edificio Plaza Real, local 10, entre 18 y 19 avenida, 2 calle, barrio Río de Piedras, San Pedro Sula, Cortés 21101', country: 'Honduras', contact: 'ventashonduras@jypesa.com', lat: 15.5050, lon: -88.0250 },
-    { name: 'Rutacom', type: 'Distribuidores', location: 'Av. Portales 856, entre Av. Pando y Av. M. Urquidi, Ed. Hupermall, piso 8, oficina 7, Queru Queru, Cochabamba', country: 'Bolivia', contact: 'ventasbol@jypesa.com', lat: -17.3716, lon: -66.1432 },
-    { name: 'Droguería', type: 'Distribuidores', location: 'Av. Emilio Cavenecia 151, interior 702, Miraflores, Lima', country: 'Perú', contact: 'ventasperu@jypesa.com', lat: -12.1111, lon: -77.0316 },
-    { name: 'Onatextiles', type: 'Distribuidores', location: 'Naves del Canal Este, fase II, local 5, sector Friusa, Bávaro, La Altagracia', country: 'República Dominicana', contact: 'ventasrd@jypesa.com', lat: 18.6991, lon: -68.4358 },
-    { name: 'DFL Importers', type: 'Distribuidores', location: '71 Molynes Road, Kingston 10', country: 'Jamaica', contact: 'salesjamaica@jypesa.com', lat: 18.0105, lon: -76.7990 },
-    { name: 'Cosmoceutical Pharma', type: 'Distribuidores', location: 'La Niña E8-52 y Diego de Almagro, Edif. Royal Business, oficina 608, Quito', country: 'Ecuador', contact: 'ventasecuador@jypesa.com', lat: -0.1868, lon: -78.4826 },
-    { name: 'World Target Supplies', type: 'Distribuidores', location: 'Urbanización Los Ángeles, calle 63, casa A-11, corregimiento de Betania, Panamá', country: 'Panamá', contact: 'ventaspanama@jypesa.com', lat: 9.0052, lon: -79.5348 },
-    { name: 'Helios Colombia', type: 'Distribuidores', location: 'Calle 127 70G-78, oficina 411, Bogotá', country: 'Colombia', contact: 'ventascolombia@jypesa.com', lat: 4.7077, lon: -74.0711 },
-    { name: 'Jypesa Chile', type: 'Distribuidores', location: 'Coyancura 2241, Providencia 7510151, Región Metropolitana', country: 'Chile', contact: 'ventaschile@jypesa.com', lat: -33.4197, lon: -70.6064 },
-    { name: 'Galyfer', type: 'Distribuidores', location: 'Alicante 1740, Montevideo', country: 'Uruguay', contact: 'ventasuruguay@jypesa.com', lat: -34.8738, lon: -56.1667 },
-    { name: 'Productos de Limpieza del Valle', type: 'Distribuidores', location: 'Melchor Ocampo 717, Oaxaca de Juárez', country: 'México', contact: 'https://www.facebook.com/naturyoaxaca', lat: 17.0654, lon: -96.7236 },
-    { name: 'Insumos del Norte', type: 'Distribuidores', location: 'Manuel J. Clouthier 451-5, Ciudad Juárez', country: 'México', contact: 'https://insumosdelnorte.com/', lat: 31.6904, lon: -106.4245 },
-    { name: 'Hotel Store Puerto Vallarta', type: 'Distribuidores', location: 'Av. Tepic Norte 473, Puerto Vallarta', country: 'México', lat: 20.6534, lon: -105.2253 },
-    { name: 'Farmases', type: 'Distribuidores', location: 'Calle Cabrera 147, Monterrey', country: 'México', contact: 'https://www.farmases.com/', lat: 25.6866, lon: -100.3161 },
-    { name: 'Oran Químicos e Insumos', type: 'Distribuidores', location: 'Amado Nervo 805-A, Tamaulipas', country: 'México', contact: 'https://www.distribucionesestrella.com/', lat: 23.7369, lon: -99.1411 },
-    { name: 'Comercial Sanitaria', type: 'Distribuidores', location: 'Blvd. Luis Encinas s/n, entre Carbó y Ures, Col. Centro, Hermosillo, Sonora 83000', country: 'México', contact: 'https://www.comercialsanitaria.mx/', lat: 29.0729, lon: -110.9559 },
-    { name: 'Insumos de la Limpieza e Higiene', type: 'Distribuidores', location: 'Circuito Bosques de la Trinidad 220, Plan de Ayala, Tuxtla Gutiérrez, Chiapas', country: 'México', contact: 'https://insumos.com.mx/', lat: 16.7516, lon: -93.1161 },
-    { name: 'Equilimp', type: 'Distribuidores', location: 'Av. Peñuelas 21, interior 20B, San Pedrito Peñuelas, Querétaro', country: 'México', contact: 'https://equilimp.com.mx/', lat: 20.6139, lon: -100.3896 },
-    { name: 'JOFA', type: 'Distribuidores', location: 'Calle F 2473, Mexicali; cobertura también en Tijuana', country: 'México', contact: 'https://jofa.com.mx/', lat: 32.6245, lon: -115.4523 },
-    { name: 'Escencia Hotelera', type: 'Distribuidores', location: 'Calle Millet 19, departamento 13, Eucalipto Vallarta, Colima', country: 'México', lat: 19.2433, lon: -103.7250 },
-    { name: 'Marquise Hospitality', type: 'Distribuidores', country: 'Texas, Estados Unidos', contact: 'www.marquisehospitality.com', lat: 31.0000, lon: -99.9018 },
-    { name: 'Rutherford Supply', type: 'Distribuidores', country: 'Virginia, Estados Unidos', contact: 'https://rutherfordsupply.com/', lat: 37.4316, lon: -78.6569 },
-    { name: 'Justice Packaging', type: 'Distribuidores', country: 'Georgia, Estados Unidos', contact: 'https://correctionsmarketplace.com/', lat: 32.1656, lon: -82.9001 },
-    { name: 'Turnkey Options', type: 'Distribuidores', country: 'Virginia, Estados Unidos', contact: 'https://www.turnkeyoptionsllc.com/', lat: 37.5816, lon: -78.5069 },
-    { name: 'Liberty Distribution', type: 'Distribuidores', country: 'West Virginia, Estados Unidos', contact: 'https://libertydistributors.com/', lat: 38.5976, lon: -80.4549 },
-    { name: 'Bright Textiles', type: 'Distribuidores', location: '3542 E. T. C. Jester Blvd., Houston, Texas 77018', country: 'Estados Unidos', contact: 'https://www.facebook.com/brightextiles/', lat: 29.8196, lon: -95.4500 },
-    { name: 'Paper Chemical', type: 'Distribuidores', country: 'Savannah, Georgia, Estados Unidos', contact: 'https://www.paperchemicalsupply.com/Web/', lat: 32.0809, lon: -81.0912 },
-    { name: 'GARAU', type: 'Distribuidores', country: 'Palma de Mallorca, España', lat: 39.5696, lon: 2.6502 },
-    { name: 'Tu Pack', type: 'Distribuidores', country: 'Barcelona, España', lat: 41.3874, lon: 2.1686 },
-    { name: 'Packetalia', type: 'Distribuidores', country: 'Comunidad Valenciana, España', lat: 39.4699, lon: -0.3763 },
-    { name: 'Eco One', type: 'Distribuidores', country: 'Madrid, España', lat: 40.4168, lon: -3.7038 },
-    { name: 'Juan de Hoyos', type: 'Distribuidores', country: 'Colombia', contact: 'https://www.jdh.com.co/', lat: 4.5709, lon: -74.2973 },
-    { name: 'Jypesa Oficinas Centrales', type: 'Oficinas', location: 'Av. Acueducto 2100, Colinas de San Javier, Guadalajara, Jalisco 45110', country: 'México', lat: 20.7027, lon: -103.3938 },
-    { name: 'Jypesa North America', type: 'Oficinas', location: 'Ubicación aproximada', country: 'Texas, Estados Unidos', lat: 31.1000, lon: -99.8018 },
-    { name: 'Jypesa Colombia', type: 'Oficinas', location: 'Ubicación aproximada en Bogotá', country: 'Colombia', lat: 4.7110, lon: -74.0721 },
-    { name: 'Jypesa', type: 'Fábrica', location: 'Cernícalo 155, Guadalajara, Jalisco', country: 'México', lat: 20.6597, lon: -103.3496 },
+    { type: 'representativeOffices', city: { es: 'Guadalajara', en: 'Guadalajara' }, country: { es: 'México', en: 'Mexico' }, lat: 20.6597, lon: -103.3496 },
+    { type: 'representativeOffices', city: { es: 'Cancún', en: 'Cancun' }, country: { es: 'México', en: 'Mexico' }, lat: 21.1619, lon: -86.8515 },
+    { type: 'representativeOffices', city: { es: 'Punta Cana', en: 'Punta Cana' }, country: { es: 'República Dominicana', en: 'Dominican Republic' }, lat: 18.5601, lon: -68.3725 },
+    { type: 'representativeOffices', city: { es: 'Kingston', en: 'Kingston' }, country: { es: 'Jamaica', en: 'Jamaica' }, lat: 17.9712, lon: -76.7936 },
+    { type: 'representativeOffices', city: { es: 'Las Vegas', en: 'Las Vegas' }, country: { es: 'Estados Unidos', en: 'United States' }, lat: 36.1699, lon: -115.1398 },
+    { type: 'representativeOffices', city: { es: 'Dallas', en: 'Dallas' }, country: { es: 'Estados Unidos', en: 'United States' }, lat: 32.7767, lon: -96.7970 },
+    { type: 'representativeOffices', city: { es: 'Ciudad de Guatemala', en: 'Guatemala City' }, country: { es: 'Guatemala', en: 'Guatemala' }, lat: 14.6349, lon: -90.5069 },
+    { type: 'representativeOffices', city: { es: 'San José', en: 'San Jose' }, country: { es: 'Costa Rica', en: 'Costa Rica' }, lat: 9.9281, lon: -84.0907 },
+    { type: 'representativeOffices', city: { es: 'Bogotá', en: 'Bogota' }, country: { es: 'Colombia', en: 'Colombia' }, lat: 4.7110, lon: -74.0721 },
+    { type: 'representativeOffices', city: { es: 'Lima', en: 'Lima' }, country: { es: 'Perú', en: 'Peru' }, lat: -12.0464, lon: -77.0428 },
+    { type: 'representativeOffices', city: { es: 'Santiago', en: 'Santiago' }, country: { es: 'Chile', en: 'Chile' }, lat: -33.4489, lon: -70.6693 },
+    { type: 'representativeOffices', city: { es: 'Alicante', en: 'Alicante' }, country: { es: 'España', en: 'Spain' }, lat: 38.3452, lon: -0.4810 },
+    { type: 'representativeOffices', city: { es: 'Guangzhou', en: 'Guangzhou' }, country: { es: 'China', en: 'China' }, lat: 23.1291, lon: 113.2644 },
+    { type: 'representativeOffices', city: { es: 'Sydney', en: 'Sydney' }, country: { es: 'Australia', en: 'Australia' }, lat: -33.8688, lon: 151.2093 },
+    { type: 'jypesaFactories', city: { es: 'Guadalajara', en: 'Guadalajara' }, country: { es: 'México', en: 'Mexico' }, lat: 20.6597, lon: -103.3496 },
+    { type: 'jypesaFactories', city: { es: 'Toledo', en: 'Toledo' }, country: { es: 'España', en: 'Spain' }, lat: 39.8628, lon: -4.0273 },
+    { type: 'jypesaFactories', city: { es: 'Yangzhou', en: 'Yangzhou' }, country: { es: 'China', en: 'China' }, lat: 32.3942, lon: 119.4129 },
+    { type: 'associatedFactories', city: { es: 'Medellín', en: 'Medellin' }, country: { es: 'Colombia', en: 'Colombia' }, lat: 6.2442, lon: -75.5812 },
+    { type: 'associatedFactories', city: { es: 'Buenos Aires', en: 'Buenos Aires' }, country: { es: 'Argentina', en: 'Argentina' }, lat: -34.6037, lon: -58.3816 },
+    { type: 'associatedFactories', city: { es: 'Kuala Lumpur', en: 'Kuala Lumpur' }, country: { es: 'Malasia', en: 'Malaysia' }, lat: 3.1390, lon: 101.6869 },
   ];
   /* LOCATIONS_DATA_END */
 
@@ -248,9 +229,9 @@
 .jypesa-cg-tooltip {
   position: fixed;
   display: flex;
-  width: 337px;
+  width: auto;
   max-width: calc(100vw - 32px);
-  padding: 14px 15px 40px 15px;
+  padding: 12px 15px;
   justify-content: center;
   align-items: center;
   border-radius: 6px;
@@ -264,13 +245,6 @@
   visibility: hidden;
   transform: translateY(4px);
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-}
-
-.jypesa-cg-tt-link {
-  color: #0089C1;
-  overflow-wrap: anywhere;
-  text-decoration: underline;
-  text-underline-offset: 2px;
 }
 
 .jypesa-cg-tooltip.jypesa-cg-tooltip-visible {
@@ -292,21 +266,6 @@
   font-weight: 600;
   font-size: 16px;
   color: #1a2e3f;
-}
-
-.jypesa-cg-tt-category {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.jypesa-cg-tt-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--jypesa-cg-text-city);
-  line-height: 1.4;
 }
 
 .jypesa-cg-tt-pin-icon { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; }
@@ -401,10 +360,8 @@
     padding: 0.2rem 1rem 0.5rem;
     border: 1px solid rgba(255,255,255,0.7);
   }
-  .jypesa-cg-tooltip { width: 280px; padding: 12px 14px 28px 14px; }
+  .jypesa-cg-tooltip { width: auto; padding: 12px 14px; }
   .jypesa-cg-tt-title { font-size: 14px; }
-  .jypesa-cg-tt-category { font-size: 12px; }
-  .jypesa-cg-tt-row { font-size: 12px; }
 }
 
 @media (max-width: 480px) {
@@ -457,22 +414,15 @@
     return LOCATIONS.filter(function (location) { return location.type === groupName; });
   }
 
-  function listLabel(location) {
-    return location.name + (location.country ? ', ' + location.country : '');
-  }
-
-  function isEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value || '');
-  }
-
-  function contactHref(value) {
-    if (isEmail(value)) return 'mailto:' + value;
-    return /^https?:\/\//i.test(value) ? value : 'https://' + value;
-  }
-
-  function tooltipRow(label, value) {
+  function localizedValue(value, lang) {
     if (!value) return '';
-    return `<div class="jypesa-cg-tt-row"><strong>${escapeHtml(label)}:</strong><span>${escapeHtml(value)}</span></div>`;
+    return value[lang] || value.es || '';
+  }
+
+  function locationLabel(location, lang) {
+    return [localizedValue(location.city, lang), localizedValue(location.country, lang)]
+      .filter(Boolean)
+      .join(', ');
   }
 
   /* ==========================================================
@@ -484,14 +434,9 @@
       titleLine2: 'y distribución eficiente',
       subtitle: 'Integramos producción, operación y distribución para asegurar cobertura, rapidez y consistencia en cada entrega, donde sea que nos necesites.',
       groups: {
-        Distribuidores: 'Distribuidores',
-        Oficinas: 'Oficinas',
-        'Fábrica': 'Fábrica'
-      },
-      tooltip: {
-        location: 'Ubicación',
-        country: 'País / región',
-        contact: 'Contacto'
+        representativeOffices: 'Oficinas de representación',
+        jypesaFactories: 'Fábricas Jypesa',
+        associatedFactories: 'Fábricas asociadas'
       }
     },
     en: {
@@ -499,19 +444,14 @@
       titleLine2: 'Efficient Distribution',
       subtitle: 'We integrate production, operation, and distribution to ensure coverage, speed, and consistency in every delivery, wherever you need us.',
       groups: {
-        Distribuidores: 'Distributors',
-        Oficinas: 'Offices',
-        'Fábrica': 'Factory'
-      },
-      tooltip: {
-        location: 'Location',
-        country: 'Country / region',
-        contact: 'Contact'
+        representativeOffices: 'Representative Offices',
+        jypesaFactories: 'Jypesa Factories',
+        associatedFactories: 'Associated Factories'
       }
     }
   };
 
-  function buildDesktopGroups(texts) {
+  function buildDesktopGroups(texts, lang) {
     return GROUP_PRIORITY.map(function (groupName, groupIndex) {
       const group = GROUPS[groupName];
       const locations = groupLocations(groupName);
@@ -530,7 +470,7 @@
           <div class="jypesa-cg-cities">
             ${columns.map(function (column) {
               return `<div class="jypesa-cg-cities-col">${column.map(function (location) {
-                return escapeHtml(listLabel(location));
+                return escapeHtml(locationLabel(location, lang));
               }).join('<br>')}</div>`;
             }).join('')}
           </div>
@@ -538,7 +478,7 @@
     }).join('');
   }
 
-  function buildMobileGroups(texts) {
+  function buildMobileGroups(texts, lang) {
     return GROUP_PRIORITY.map(function (groupName, groupIndex) {
       const group = GROUPS[groupName];
       const locations = groupLocations(groupName);
@@ -554,14 +494,14 @@
           </div>
           <div class="jypesa-cg-mob-cities">
             ${locations.map(function (location) {
-              return `<span class="jypesa-cg-mob-city">${escapeHtml(listLabel(location))}</span>`;
+              return `<span class="jypesa-cg-mob-city">${escapeHtml(locationLabel(location, lang))}</span>`;
             }).join('')}
           </div>
         </div>`;
     }).join('');
   }
 
-  function buildWidgetHtml(texts) {
+  function buildWidgetHtml(texts, lang) {
     return `
 <div class="jypesa-cg-header">
   <h1 class="jypesa-cg-title">
@@ -575,12 +515,12 @@
   <div class="jypesa-cg-map-wrapper">
     <svg class="jypesa-cg-world-map-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"></svg>
 
-    <div class="jypesa-cg-overlay">${buildDesktopGroups(texts)}</div>
+    <div class="jypesa-cg-overlay">${buildDesktopGroups(texts, lang)}</div>
   </div>
 </div>
 
 <div class="jypesa-cg-mobile">
-  <div class="jypesa-cg-mobile-inner">${buildMobileGroups(texts)}</div>
+  <div class="jypesa-cg-mobile-inner">${buildMobileGroups(texts, lang)}</div>
 </div>
 `;
   }
@@ -611,7 +551,7 @@
   /* ==========================================================
      RENDER DEL MAPA
      ========================================================== */
-  function renderMap(target, texts) {
+  function renderMap(target, texts, lang) {
     const coordinateCounts = new Map();
     const markers = LOCATIONS.map(function (location) {
       const key = location.lat.toFixed(4) + ',' + location.lon.toFixed(4);
@@ -653,21 +593,9 @@
 
     function showTT(ev, m) {
       window.clearTimeout(hideTimer);
-      const displayType = (texts && texts.groups && texts.groups[m.type]) ? texts.groups[m.type] : m.type;
-      const contactLabel = texts ? texts.tooltip.contact : 'Contacto';
-      const locationLabel = texts ? texts.tooltip.location : 'Ubicación';
-      const countryLabel = texts ? texts.tooltip.country : 'País / región';
-
-      const contact = m.contact
-        ? `<div class="jypesa-cg-tt-row"><strong>${escapeHtml(contactLabel)}:</strong><a class="jypesa-cg-tt-link" href="${escapeHtml(contactHref(m.contact))}" target="${isEmail(m.contact) ? '_self' : '_blank'}" rel="noopener noreferrer">${escapeHtml(m.contact)}</a></div>`
-        : '';
       tt.innerHTML = `
         <div class="jypesa-cg-tt-inner">
-          <div class="jypesa-cg-tt-title">${escapeHtml(m.name)}</div>
-          <div class="jypesa-cg-tt-category" style="color: ${m.color};">${escapeHtml(displayType)}</div>
-          ${tooltipRow(locationLabel, m.location)}
-          ${tooltipRow(countryLabel, m.country)}
-          ${contact}
+          <div class="jypesa-cg-tt-title">${escapeHtml(locationLabel(m, lang))}</div>
         </div>
       `;
       posTT(ev);
@@ -807,9 +735,9 @@
 
       target.classList.add('jypesa-cobertura-global-widget');
       const texts = staticTextsByLang[lang] || staticTextsByLang.es;
-      target.innerHTML = buildWidgetHtml(texts);
+      target.innerHTML = buildWidgetHtml(texts, lang);
 
-      loadMapLibs(function () { renderMap(target, texts); });
+      loadMapLibs(function () { renderMap(target, texts, lang); });
     });
   }
 
