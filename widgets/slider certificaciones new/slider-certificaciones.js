@@ -65,6 +65,49 @@
     });
   }
 
+  var englishCards = [
+    ["Good Manufacturing Practices", "We operate under ISO 22716 certification, ensuring that our cosmetic manufacturing processes meet international standards for quality, safety, and control.", "For hotels, this means offering reliable, consistent, and safe amenities in every room. For guests, it provides a personal care experience aligned with global standards, building confidence and satisfaction throughout their stay."],
+    ["Cruelty-free beauty", "Our PETA certification confirms that our products are not tested on animals and align with the industry’s ethical standards.", "For hotels, this helps meet the expectations of increasingly informed and discerning guests. For guests, it reinforces an experience grounded in respect and responsibility while strengthening positive brand perception."],
+    ["Sustainable palm oil", "Our RSPO certification allows us to develop products using palm oil from responsible sources. This certification applies to specific formulations upon client request.", "Hotels can integrate products aligned with sustainability and environmental responsibility policies. For guests, it represents a more conscious choice that adds value to the property’s brand experience."],
+    ["Plastic recovered before reaching the ocean", "Our tube packaging is made with Ocean Bound Plastic collected before it reaches the ocean, helping reduce marine pollution.", "Hotels can reduce their environmental impact through concrete actions in their amenity programs. For guests, each product represents a tangible contribution to protecting the planet and integrating sustainability into their daily experience."],
+    ["Climate commitment", "In 2025, we offset 292 metric tons of CO2 as part of our environmental commitment and as an initial step in an ongoing impact reduction and mitigation strategy.", "For hotels, this adds value to ESG goals and sustainability reporting. For guests, it reinforces the perception of a stay at a property committed to the environment and the planet’s future."],
+    ["Quality that builds trust", "Our facilities and products are registered in accordance with U.S. Food and Drug Administration regulations, allowing us to operate compliantly in the U.S. market.", "For international hotels and hotel groups, this provides confidence and security when selecting suppliers. For guests, it ensures that products meet strict quality and safety requirements."]
+  ];
+
+  function resolveLanguage(widget) {
+    var root = widget.closest && widget.closest("#gpk-slider-certificaciones-widget-root");
+    var value = widget.getAttribute("data-lang") || (root && root.getAttribute("data-lang")) || "es";
+    return String(value).toLowerCase().trim() === "en" ? "en" : "es";
+  }
+
+  function applyLanguage(widget, lang) {
+    if (lang !== "en") return;
+    widget.setAttribute("aria-roledescription", "carousel");
+    widget.setAttribute("aria-label", "Certifications");
+    var previous = widget.querySelector(".gpk-cert-prev");
+    var next = widget.querySelector(".gpk-cert-next");
+    if (previous) previous.setAttribute("aria-label", "View previous certification");
+    if (next) next.setAttribute("aria-label", "View next certification");
+    var cards = widget.querySelectorAll(".gpk-cert-card");
+    cards.forEach(function (card, index) {
+      var copy = englishCards[index];
+      if (!copy) return;
+      var tagline = card.querySelector(".gpk-cert-tagline");
+      var paragraphs = card.querySelectorAll(".gpk-cert-copy");
+      if (tagline) tagline.textContent = copy[0];
+      if (paragraphs[0]) paragraphs[0].textContent = copy[1];
+      if (paragraphs[1]) paragraphs[1].textContent = copy[2];
+    });
+    var carbonTitle = widget.querySelector(".gpk-cert-card--carbon h2");
+    var carbonFallback = widget.querySelector(".gpk-cert-card--carbon .gpk-cert-image-fallback");
+    var fdaTitle = widget.querySelector(".gpk-cert-card--fda h2");
+    var fdaFallback = widget.querySelector(".gpk-cert-card--fda .gpk-cert-image-fallback");
+    if (carbonTitle) carbonTitle.textContent = "Carbon Offset";
+    if (carbonFallback) carbonFallback.textContent = "Carbon Offset";
+    if (fdaTitle) fdaTitle.textContent = "Regulatory Compliance";
+    if (fdaFallback) fdaFallback.textContent = "Regulatory Compliance";
+  }
+
   function initWidget(widget) {
     if (!widget || widget.dataset.gpkCertInitialized === "true") return;
 
@@ -75,12 +118,14 @@
     var previous = widget.querySelector(".gpk-cert-prev");
     var next = widget.querySelector(".gpk-cert-next");
     var status = widget.querySelector(".gpk-cert-status");
+    var lang = resolveLanguage(widget);
     var state = { index: 0, visible: 1, step: 0, dragStart: null, pointerId: null };
     if (!viewport || !track || !previous || !next || !slides.length || cards.length !== slides.length) {
       report("Widget markup is incomplete.");
       return;
     }
     widget.dataset.gpkCertInitialized = "true";
+    applyLanguage(widget, lang);
 
     if (status) status.textContent = "";
     resolveImages(widget);
@@ -99,8 +144,9 @@
         card.setAttribute("aria-hidden", String(!visible));
       });
       if (announce && status) {
-        status.textContent = "Certificaciones " + (state.index + 1) + " a " +
-          Math.min(slides.length, state.index + state.visible) + " de " + slides.length;
+        status.textContent = lang === "en"
+          ? "Certifications " + (state.index + 1) + " to " + Math.min(slides.length, state.index + state.visible) + " of " + slides.length
+          : "Certificaciones " + (state.index + 1) + " a " + Math.min(slides.length, state.index + state.visible) + " de " + slides.length;
       }
     }
 
@@ -231,7 +277,7 @@
   }
 
   if (typeof module === "object" && module.exports) {
-    module.exports = { initWidget: initWidget, initAll: initAll, observeWidgets: observeWidgets };
+    module.exports = { initWidget: initWidget, initAll: initAll, observeWidgets: observeWidgets, resolveLanguage: resolveLanguage, applyLanguage: applyLanguage };
     return;
   }
 
