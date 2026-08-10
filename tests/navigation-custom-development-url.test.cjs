@@ -78,6 +78,17 @@ test('English Elements links use /en/standar/elements on desktop and mobile', ()
   assert.doesNotMatch(englishHtml, /href="\/en\/colecciones\/estandar\/elements"/);
 });
 
+test('English Sustainability links use /en/sustainability and preserve section hashes', () => {
+  const englishHtml = renderNavigation('en');
+  const spanishHtml = renderNavigation('es');
+
+  assert.match(englishHtml, /href="\/en\/sustainability" class="nav-link">Sustainability<\/a>/);
+  assert.match(englishHtml, /href="\/en\/sustainability#materiales"/);
+  assert.match(englishHtml, /href="\/en\/sustainability#certificaciones"/);
+  assert.doesNotMatch(englishHtml, /href="\/en\/sustentabilidad/);
+  assert.match(spanishHtml, /href="\/sustentabilidad" class="nav-link">Sustentabilidad<\/a>/);
+});
+
 test('Smart Order is rendered in Spanish desktop navigation only', () => {
   const spanishHtml = renderNavigation('es');
   const englishHtml = renderNavigation('en');
