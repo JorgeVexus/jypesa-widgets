@@ -429,7 +429,26 @@
   }
 
   // ─── GENERAR TRACK DEL MARQUEE INFINITO ──────────────────────────────────────
-  function buildMarqueeHtml(logos) {
+  const CONTENT = {
+    es: {
+      line1: 'Creamos productos', line2: 'a la medida', line3: 'de tu marca',
+      description: 'Desarrollamos amenidades personalizadas desde la conceptualización hasta la producción, alineadas a la identidad y necesidades de cada cliente.',
+      primaryCta: 'Desarrollar mi proyecto', secondaryCta: 'Contactar a un asesor',
+      contactUrl: '/contacto', imageAlt: 'Jypesa — Desarrollo Personalizado', partnerAlt: 'Logo de socio'
+    },
+    en: {
+      line1: 'We create products', line2: 'tailored', line3: 'to your brand',
+      description: 'We develop custom amenities from concept through production, aligned with each client’s identity and needs.',
+      primaryCta: 'Develop my project', secondaryCta: 'Contact an advisor',
+      contactUrl: '/en/contact', imageAlt: 'Jypesa — Custom Development', partnerAlt: 'Partner logo'
+    }
+  };
+
+  function resolveLanguage(target) {
+    return String(target.getAttribute('data-lang') || '').trim().toLowerCase() === 'en' ? 'en' : 'es';
+  }
+
+  function buildMarqueeHtml(logos, copy) {
     let baseList = [...logos];
     while (baseList.length < 14) {
       baseList = baseList.concat(logos);
@@ -437,22 +456,22 @@
     const fullList = baseList.concat(baseList);
 
     return fullList.map(function (src) {
-      return `<div class="jhs-marquee-item"><img src="${src}" alt="Partner Logo" loading="lazy"></div>`;
+      return `<div class="jhs-marquee-item"><img src="${src}" alt="${copy.partnerAlt}" loading="lazy"></div>`;
     }).join('');
   }
 
   // ─── ESTRUCTURA HTML ─────────────────────────────────────────────────────────
-  function buildWidgetHtml(marqueeHtml) {
+  function buildWidgetHtml(marqueeHtml, copy) {
     const svgArrow = `<svg class="jhs-btn-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-    const contactUrl = '/contacto';
+    const contactUrl = copy.contactUrl;
 
     return `
 <div class="jhs-widget" id="jhs-inner">
 
   <!-- Imagen de fondo -->
   <div class="jhs-bg">
-    <img src="${heroImageUrl}" alt="Jypesa — Desarrollo Personalizado" loading="eager">
+    <img src="${heroImageUrl}" alt="${copy.imageAlt}" loading="eager">
   </div>
 
   <!-- Overlay sutil izquierda -->
@@ -463,26 +482,26 @@
 
     <!-- Bloque de Títulos -->
     <div class="jhs-title-block">
-      <h1 class="jhs-line1">Creamos productos</h1>
-      <span class="jhs-line2">a la medida</span>
-      <span class="jhs-line3">de tu marca</span>
+      <h1 class="jhs-line1">${copy.line1}</h1>
+      <span class="jhs-line2">${copy.line2}</span>
+      <span class="jhs-line3">${copy.line3}</span>
     </div>
 
     <!-- Subtítulo + Botones -->
     <div class="jhs-sub-block">
       <div class="jhs-description-container">
         <p class="jhs-description">
-          Desarrollamos amenidades personalizadas desde la conceptualización hasta la producción, alineadas a la identidad y necesidades de cada cliente.
+          ${copy.description}
         </p>
       </div>
 
       <div class="jhs-buttons">
         <a href="${contactUrl}" class="jhs-btn jhs-btn-primary">
-          <span>Desarrollar mi proyecto</span>
+          <span>${copy.primaryCta}</span>
           ${svgArrow}
         </a>
         <a href="${contactUrl}" class="jhs-btn jhs-btn-secondary">
-          <span>Contactar a un asesor</span>
+          <span>${copy.secondaryCta}</span>
           ${svgArrow}
         </a>
       </div>
@@ -514,9 +533,10 @@
 
     const cmsLogos = readLogosFromCMS();
     const logos = cmsLogos || fallbackLogos;
-    const marqueeHtml = buildMarqueeHtml(logos);
+    const copy = CONTENT[resolveLanguage(target)];
+    const marqueeHtml = buildMarqueeHtml(logos, copy);
 
-    target.innerHTML = buildWidgetHtml(marqueeHtml);
+    target.innerHTML = buildWidgetHtml(marqueeHtml, copy);
 
     const widget = target.querySelector('.jhs-widget');
     if (!widget) return;

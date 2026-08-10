@@ -7,6 +7,55 @@
   var GSAP_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
   var ST_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
 
+  var ENGLISH_COPY = {
+    'Fórmula': 'Formula',
+    'Desarrollo de fórmula': 'Formula development',
+    'Desde cero': 'From scratch',
+    'Adaptación de fórmulas': 'Formula adaptation',
+    'Optimización': 'Optimization',
+    'Replicación técnica': 'Technical replication',
+    'Investigación<br>y desarrollo': 'Research<br>and development',
+    'I+D': 'R&D',
+    'Laboratorio interno': 'In-house laboratory',
+    'Pruebas microbiológicas': 'Microbiological testing',
+    'Estudios de estabilidad': 'Stability studies',
+    'Empaque': 'Packaging',
+    'Branding y empaque': 'Branding and packaging',
+    'Diseño y adaptación': 'Design and adaptation',
+    'Selección de materiales': 'Material selection',
+    'Almacén de optimización': 'Optimization warehouse',
+    'Modelo de servicio integral': 'Integrated service model',
+    'Sistemas de dispensación recargables diseñados para reducir el uso de envases de un solo uso en hoteles y operaciones de hospitalidad.': 'Refillable dispensing systems designed to reduce single-use packaging in hotels and hospitality operations.',
+    'Reducimos la fricción operativa y aceleramos tu salida al mercado.': 'We reduce operational friction and accelerate your time to market.',
+    'Innovación aplicada': 'Applied innovation',
+    'Escuchamos tu necesidad principal, la resolvemos técnicamente.': 'We listen to your main need and solve it technically.',
+    'Optimización sensorial': 'Sensory optimization',
+    'Alternativas de materias primas': 'Raw material alternatives',
+    'Mejora de estabilidad': 'Stability improvement',
+    'Sustitución estratégica de ingredientes': 'Strategic ingredient substitution',
+    'Diferenciación competitiva': 'Competitive differentiation',
+    'Alternativas sostenibles': 'Sustainable alternatives',
+    'No nos limitamos a ejecutar instrucciones, aportamos criterio técnico.': 'We do more than follow instructions—we contribute technical judgment.',
+    'Un solo proceso': 'One process',
+    'múltiples soluciones': 'multiple solutions',
+    'De la formulación a la optimización': 'From formulation to optimization',
+    'Integramos desarrollo, adaptación y optimización en un solo proceso, aportando criterio técnico en cada etapa para mejorar el desempeño, la viabilidad y la competitividad del producto.': 'We integrate development, adaptation, and optimization into one process, applying technical expertise at every stage to improve product performance, feasibility, and competitiveness.'
+  };
+
+  function resolveLanguage(target) {
+    return String(target.getAttribute('data-lang') || '').trim().toLowerCase() === 'en' ? 'en' : 'es';
+  }
+
+  function localizeHtml(html, language) {
+    if (language !== 'en') return html;
+    Object.keys(ENGLISH_COPY)
+      .sort(function (a, b) { return b.length - a.length; })
+      .forEach(function (source) {
+        html = html.split(source).join(ENGLISH_COPY[source]);
+      });
+    return html;
+  }
+
   // Helper to load CSS link dynamically based on script location
   function injectStylesheet() {
     var scriptEl = document.currentScript || document.querySelector('script[src*="sustentabilidad-widget.js"]');
@@ -263,7 +312,7 @@
     injectStylesheet();
 
     // Render HTML content
-    target.innerHTML = buildHtml();
+    target.innerHTML = localizeHtml(buildHtml(), resolveLanguage(target));
 
     // Setup GSAP
     ensureGsap(function () {

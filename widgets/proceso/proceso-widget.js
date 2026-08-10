@@ -7,16 +7,44 @@
   var GSAP_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
   var ST_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
 
-  var STEPS = [
-    { n: 1, t: 'Brief técnico', d: 'Levantamiento de requerimientos y especificaciones clave.' },
-    { n: 2, t: 'Análisis de viabilidad', d: 'Evaluación técnica, de costos y factibilidad de producción.' },
-    { n: 3, t: 'Desarrollo o adaptación', d: 'Formulación y desarrollo a medida según necesidades.' },
-    { n: 4, t: 'Validación de muestras', d: 'Elaboración de prototipos para pruebas y aprobación.' },
-    { n: 5, t: 'Ajustes regulatorios', d: 'Cumplimiento normativo, etiquetado y certificaciones.' },
-    { n: 6, t: 'Producción piloto', d: 'Prueba a escala inicial para verificación de calidad.' },
-    { n: 7, t: 'Producción industrial', d: 'Fabricación masiva bajo estándares rigurosos.' },
-    { n: 8, t: 'Entrega', d: 'Empaque, logística y entrega en destino final.' }
-  ];
+  var CONTENT = {
+    es: {
+      eyebrow: 'Nuestro proceso',
+      title: 'De la idea a la ',
+      accent: 'producción',
+      description: 'Metodología clara que reduce riesgos y retrabajos.',
+      steps: [
+        ['Brief técnico', 'Levantamiento de requerimientos y especificaciones clave.'],
+        ['Análisis de viabilidad', 'Evaluación técnica, de costos y factibilidad de producción.'],
+        ['Desarrollo o adaptación', 'Formulación y desarrollo a medida según necesidades.'],
+        ['Validación de muestras', 'Elaboración de prototipos para pruebas y aprobación.'],
+        ['Ajustes regulatorios', 'Cumplimiento normativo, etiquetado y certificaciones.'],
+        ['Producción piloto', 'Prueba a escala inicial para verificación de calidad.'],
+        ['Producción industrial', 'Fabricación masiva bajo estándares rigurosos.'],
+        ['Entrega', 'Empaque, logística y entrega en destino final.']
+      ]
+    },
+    en: {
+      eyebrow: 'Our process',
+      title: 'From idea to ',
+      accent: 'production',
+      description: 'A clear methodology that reduces risk and rework.',
+      steps: [
+        ['Technical brief', 'Gathering requirements and key specifications.'],
+        ['Feasibility analysis', 'Technical, cost, and production feasibility assessment.'],
+        ['Development or adaptation', 'Custom formulation and development based on project needs.'],
+        ['Sample validation', 'Prototype development for testing and approval.'],
+        ['Regulatory adjustments', 'Regulatory compliance, labeling, and certifications.'],
+        ['Pilot production', 'Initial-scale testing to verify quality.'],
+        ['Industrial production', 'Large-scale manufacturing under rigorous standards.'],
+        ['Delivery', 'Packaging, logistics, and delivery to the final destination.']
+      ]
+    }
+  };
+
+  function resolveLanguage(target) {
+    return String(target.getAttribute('data-lang') || '').trim().toLowerCase() === 'en' ? 'en' : 'es';
+  }
 
   // Helper to load CSS link dynamically based on script location
   function injectStylesheet() {
@@ -55,10 +83,11 @@
     });
   }
 
-  function buildHtml() {
+  function buildHtml(copy) {
     var cardsHtml = '';
 
-    STEPS.forEach(function (step) {
+    copy.steps.forEach(function (step, index) {
+      step = { n: index + 1, t: step[0], d: step[1] };
       var descHtml = step.d ? '<p class="jyp-step-desc">' + step.d + '</p>' : '';
       cardsHtml += '' +
         '<div class="jyp-step-card step-' + step.n + '" data-step="' + step.n + '">' +
@@ -81,15 +110,15 @@
           '<!-- Header -->' +
           '<div class="jyp-proceso-header">' +
             '<div class="jyp-proceso-sub">' +
-              '<p>Nuestro proceso</p>' +
+              '<p>' + copy.eyebrow + '</p>' +
             '</div>' +
             '<div class="jyp-proceso-header-row">' +
               '<div class="jyp-proceso-title-wrap">' +
-                '<h2 class="jyp-proceso-title-main">De la idea a la </h2>' +
-                '<p class="jyp-proceso-title-gradient">producción</p>' +
+                '<h2 class="jyp-proceso-title-main">' + copy.title + '</h2>' +
+                '<p class="jyp-proceso-title-gradient">' + copy.accent + '</p>' +
               '</div>' +
               '<div class="jyp-proceso-header-desc">' +
-                '<strong>Metodología clara que reduce riesgos y retrabajos.</strong>' +
+                '<strong>' + copy.description + '</strong>' +
               '</div>' +
             '</div>' +
           '</div>' +
@@ -295,7 +324,7 @@
     injectStylesheet();
 
     // Render HTML content
-    target.innerHTML = buildHtml();
+    target.innerHTML = buildHtml(CONTENT[resolveLanguage(target)]);
 
     // Boot GSAP
     ensureGsap(function () {
