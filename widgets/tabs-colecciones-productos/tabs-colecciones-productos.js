@@ -423,9 +423,11 @@
     display: none;
   }
 
-  /* Con 1 solo producto: centrar la tarjeta para que el contenido se vea completo */
+  /* 1 solo producto: MISMA alineación que 3 (flex-start) para que el ancho del
+     widget no cambie ni "salte" al cambiar de pestaña. El contenedor ya es
+     width:100% en ambos casos; lo único que saltaba era el centrado. */
   .jypesa-tabs-products-container[data-prod-count="1"] {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   /* Desactivar flechas desktop en móvil */
