@@ -12,7 +12,7 @@ test('tabs widget keeps Spanish as default and exposes English UI copy', () => {
   assert.match(source, /collectionProducts: 'Collection products'/);
   assert.match(source, /olfactoryFamily: 'Olfactory family'/);
   assert.match(source, /viewAmazon: 'View on Amazon'/);
-  assert.match(source, /buildWidgetHtml\(collections, getWidgetLang\(target\)\)/);
+  assert.match(source, /buildWidgetHtml\(collections, getWidgetLang\(target\)/);
 });
 
 test('benefits widget selects complete English benefit copy through data-lang', () => {

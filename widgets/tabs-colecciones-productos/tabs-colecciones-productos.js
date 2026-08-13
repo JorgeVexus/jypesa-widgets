@@ -1194,29 +1194,103 @@
   // Contador global de instancias para IDs unicos
   let __jypesaInstanceCounter = 0;
 
-  // 4. Leer del CMS de Webflow
-  function readCollectionsFromCMS(target) {
-    let sourceSelector = target.getAttribute('data-cms-source');
-    let source = sourceSelector ? document.querySelector(sourceSelector) : null;
+  // Helper para buscar la fuente CMS adecuada para una instancia específica
+  function findCmsSource(target, instanceId) {
+    let source = null;
 
-    if (!source) {
-      source = target.querySelector('.jypesa-tabs-colecciones-cms-source');
-    }
-    if (!source) {
-      source = target.previousElementSibling;
-      if (source && !source.classList.contains('jypesa-tabs-colecciones-cms-source')) {
-        source = null;
+    // 1. Selector explícito por atributo data-cms-source en target (ej: data-cms-source="#source-1" o data-cms-source=".mi-fuente-1")
+    const cmsAttr = target.getAttribute('data-cms-source');
+    if (cmsAttr) {
+      source = document.querySelector(cmsAttr);
+      if (source) {
+        if (instanceId) source.setAttribute('data-claimed-by', instanceId);
+        return source;
       }
     }
-    if (!source) {
-      source = target.querySelector('.jypesa-tabs-colecciones-cms-source');
-    }
-    if (!source) {
-      // NO busques globalmente: cada instancia debe tener su propia fuente CMS
-      // Si no hay fuente dentro del target, retorna null para usar fallback
-      return null;
+
+    // 2. Buscar dentro del propio target (si el embed contiene la lista o viceversa)
+    source = target.querySelector('.jypesa-tabs-colecciones-cms-source');
+    if (source) {
+      if (instanceId) source.setAttribute('data-claimed-by', instanceId);
+      return source;
     }
 
+    // 3. Buscar en el mismo contenedor padre: hermanos inmediatos (hacia atrás y hacia adelante)
+    let parent = target.parentElement;
+    if (parent) {
+      // Hermanos anteriores
+      let sib = target.previousElementSibling;
+      while (sib) {
+        if (sib.classList.contains('jypesa-tabs-colecciones-cms-source')) {
+          if (instanceId) sib.setAttribute('data-claimed-by', instanceId);
+          return sib;
+        }
+        const inner = sib.querySelector('.jypesa-tabs-colecciones-cms-source');
+        if (inner) {
+          if (instanceId) inner.setAttribute('data-claimed-by', instanceId);
+          return inner;
+        }
+        sib = sib.previousElementSibling;
+      }
+
+      // Hermanos posteriores (ej: en Webflow cuando el Code Embed está antes del div CMS oculto)
+      sib = target.nextElementSibling;
+      while (sib) {
+        if (sib.classList.contains('jypesa-tabs-colecciones-cms-source')) {
+          if (instanceId) sib.setAttribute('data-claimed-by', instanceId);
+          return sib;
+        }
+        const inner = sib.querySelector('.jypesa-tabs-colecciones-cms-source');
+        if (inner) {
+          if (instanceId) inner.setAttribute('data-claimed-by', instanceId);
+          return inner;
+        }
+        sib = sib.nextElementSibling;
+      }
+    }
+
+    // 4. Buscar dentro de la sección o contenedor padre más cercano (ej: .coleccion-productos, .w-section, section, div)
+    let current = target.parentElement;
+    while (current && current !== document.body) {
+      const inParent = current.querySelector('.jypesa-tabs-colecciones-cms-source');
+      if (inParent && inParent !== target && !inParent.contains(target)) {
+        if (instanceId) inParent.setAttribute('data-claimed-by', instanceId);
+        return inParent;
+      }
+      current = current.parentElement;
+    }
+
+    // 5. Auto-detectar un Collection List hermano en la misma sección que contenga .jypesa-tabs-prod-name o .jypesa-tabs-col-name
+    current = target.parentElement;
+    while (current && current !== document.body) {
+      const sampleProd = current.querySelector('.jypesa-tabs-prod-name, .jypesa-tabs-col-name');
+      if (sampleProd) {
+        const list = sampleProd.closest('.w-dyn-list, .w-dyn-items, .jypesa-tabs-colecciones-cms-source') || sampleProd.parentElement;
+        if (list && list !== target && !list.contains(target)) {
+          if (instanceId) list.setAttribute('data-claimed-by', instanceId);
+          return list;
+        }
+      }
+      current = current.parentElement;
+    }
+
+    // 6. Fallback global: buscar fuentes .jypesa-tabs-colecciones-cms-source no reclamadas aún por otra instancia
+    const allSources = Array.from(document.querySelectorAll('.jypesa-tabs-colecciones-cms-source'));
+    if (allSources.length) {
+      const unclaimed = allSources.find(s => !s.getAttribute('data-claimed-by') || s.getAttribute('data-claimed-by') === instanceId);
+      if (unclaimed) {
+        if (instanceId) unclaimed.setAttribute('data-claimed-by', instanceId);
+        return unclaimed;
+      }
+      return allSources[0];
+    }
+
+    return null;
+  }
+
+  // 4. Leer del CMS de Webflow
+  function readCollectionsFromCMS(target, instanceId) {
+    let source = findCmsSource(target, instanceId);
     if (!source) return null;
 
     let items = Array.from(source.querySelectorAll('.w-dyn-item'));
@@ -1960,7 +2034,7 @@
       target.setAttribute('data-instance-id', instanceId);
       target.setAttribute('data-initialized', 'true');
 
-      const data = readCollectionsFromCMS(target);
+      const data = readCollectionsFromCMS(target, instanceId);
       const collections = data ? data.collections : defaultCollections;
 
       target.innerHTML = buildWidgetHtml(collections, getWidgetLang(target), instanceId);
