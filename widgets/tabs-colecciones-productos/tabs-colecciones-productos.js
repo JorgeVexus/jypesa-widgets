@@ -1,12 +1,12 @@
 (function () {
-  if (window.__JypesaTabsColeccionesProductosInitialized) return;
-  window.__JypesaTabsColeccionesProductosInitialized = true;
+  // 1. Inyectar Fuentes y CSS (solo una vez)
+  if (!window.__JypesaTabsColeccionesProductosStylesInjected) {
+    window.__JypesaTabsColeccionesProductosStylesInjected = true;
 
-  // 1. Inyectar Fuentes y CSS
-  const fontLink = document.createElement('link');
-  fontLink.rel = 'stylesheet';
-  fontLink.href = 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@400;500;600&family=Rubik:wght@300;400;500;600&display=swap';
-  document.head.appendChild(fontLink);
+    const fontLink = document.createElement('link');
+    fontLink.rel = 'stylesheet';
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@400;500;600&family=Rubik:wght@300;400;500;600&display=swap';
+    document.head.appendChild(fontLink);
 
   const cssStyles = `
   :root {
@@ -1047,6 +1047,7 @@
   const styleEl = document.createElement('style');
   styleEl.textContent = cssStyles;
   document.head.appendChild(styleEl);
+  }
 
   // 2. Iconos SVG
   const arrowLeftSvg = `<svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>`;
@@ -1190,6 +1191,9 @@
       .replace(/(^-|-$)/g, '');
   }
 
+  // Contador global de instancias para IDs unicos
+  let __jypesaInstanceCounter = 0;
+
   // 4. Leer del CMS de Webflow
   function readCollectionsFromCMS(target) {
     let sourceSelector = target.getAttribute('data-cms-source');
@@ -1205,17 +1209,12 @@
       }
     }
     if (!source) {
-      source = document.querySelector('.jypesa-tabs-colecciones-cms-source');
+      source = target.querySelector('.jypesa-tabs-colecciones-cms-source');
     }
     if (!source) {
-      // Auto-detectar buscando cualquier elemento de producto en el DOM
-      const sampleProdName = document.querySelector('.jypesa-tabs-prod-name');
-      if (sampleProdName) {
-        source = sampleProdName.closest('.w-dyn-list') || 
-                 sampleProdName.closest('.w-dyn-items') || 
-                 sampleProdName.closest('.jypesa-tabs-colecciones-cms-source-test') || 
-                 sampleProdName.parentElement;
-      }
+      // NO busques globalmente: cada instancia debe tener su propia fuente CMS
+      // Si no hay fuente dentro del target, retorna null para usar fallback
+      return null;
     }
 
     if (!source) return null;
@@ -1549,7 +1548,8 @@
     return String(target.getAttribute('data-lang') || 'es').toLowerCase() === 'en' ? 'en' : 'es';
   }
 
-  function buildWidgetHtml(collections, lang) {
+  function buildWidgetHtml(collections, lang, instanceId) {
+    const panelPrefix = instanceId ? instanceId + '-' : '';
     const isEnglish = lang === 'en';
     const ui = isEnglish ? {
       collectionProducts: 'Collection products',
@@ -1596,7 +1596,7 @@
         <!-- Columna Derecha (Contenido Dinámico) -->
         <div class="jypesa-tabs-right-col">
           ${collections.map((col, idx) => `
-            <div class="jypesa-tab-content-panel ${idx === 0 ? 'active' : ''}" id="panel-${col.id}">
+            <div class="jypesa-tab-content-panel ${idx === 0 ? 'active' : ''}" id="panel-${panelPrefix}${col.id}">
               ${col.desc ? `<p class="jypesa-tabs-tab-top-desc">${col.desc}</p>` : ''}
 
               ${col.subgroups.map(sub => {
@@ -1761,9 +1761,10 @@
   }
 
   // 6. Configurar Eventos e Interactividad
-  function setupWidgetInteractions(target, collections) {
+  function setupWidgetInteractions(target, collections, instanceId) {
     const tabButtons = target.querySelectorAll('.jypesa-tabs-menu-item');
     const contentPanels = target.querySelectorAll('.jypesa-tab-content-panel');
+    const panelPrefix = instanceId ? instanceId + '-' : '';
 
     function cleanAlpha(str) {
       if (!str) return '';
@@ -1812,7 +1813,7 @@
       contentPanels.forEach(p => p.classList.remove('active'));
 
       btn.classList.add('active');
-      const activePanel = target.querySelector(`#panel-${realTabId}`);
+      const activePanel = target.querySelector(`#panel-${panelPrefix}${realTabId}`);
       if (activePanel) {
         activePanel.classList.add('active');
         const container = activePanel.querySelector('.jypesa-tabs-products-container');
@@ -1947,21 +1948,24 @@
     }
   }
 
-  // 7. Inicializador principal del widget
+  // 7. Inicializador principal del widget (soporta multiples instancias)
   function initTabsColeccionesWidget() {
     const targets = document.querySelectorAll('.jypesa-tabs-colecciones-widget-container, [data-jypesa-tabs-colecciones-widget], #jypesa-tabs-colecciones-widget');
     if (!targets.length) return;
 
     targets.forEach(target => {
       if (target.getAttribute('data-initialized') === 'true') return;
+
+      const instanceId = 'jtypesa-inst-' + (__jypesaInstanceCounter++);
+      target.setAttribute('data-instance-id', instanceId);
       target.setAttribute('data-initialized', 'true');
 
       const data = readCollectionsFromCMS(target);
       const collections = data ? data.collections : defaultCollections;
 
-      target.innerHTML = buildWidgetHtml(collections, getWidgetLang(target));
+      target.innerHTML = buildWidgetHtml(collections, getWidgetLang(target), instanceId);
 
-      setupWidgetInteractions(target, collections);
+      setupWidgetInteractions(target, collections, instanceId);
     });
   }
 
