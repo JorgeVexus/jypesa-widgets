@@ -1209,7 +1209,7 @@
     }
 
     // 2. Buscar dentro del propio target (si el embed contiene la lista o viceversa)
-    source = target.querySelector('.jypesa-tabs-colecciones-cms-source');
+    source = target.querySelector('.jypesa-tabs-colecciones-cms-source, [class*="tabs-colecciones-cms-source"]');
     if (source) {
       if (instanceId) source.setAttribute('data-claimed-by', instanceId);
       return source;
@@ -1221,14 +1221,20 @@
       // Hermanos anteriores
       let sib = target.previousElementSibling;
       while (sib) {
-        if (sib.classList.contains('jypesa-tabs-colecciones-cms-source')) {
-          if (instanceId) sib.setAttribute('data-claimed-by', instanceId);
-          return sib;
+        if (sib.classList && (sib.classList.contains('jypesa-tabs-colecciones-cms-source') || sib.className.indexOf('tabs-colecciones-cms-source') !== -1)) {
+          const claimedBy = sib.getAttribute('data-claimed-by');
+          if (!claimedBy || claimedBy === instanceId) {
+            if (instanceId) sib.setAttribute('data-claimed-by', instanceId);
+            return sib;
+          }
         }
-        const inner = sib.querySelector('.jypesa-tabs-colecciones-cms-source');
+        const inner = sib.querySelector && sib.querySelector('.jypesa-tabs-colecciones-cms-source, [class*="tabs-colecciones-cms-source"]');
         if (inner) {
-          if (instanceId) inner.setAttribute('data-claimed-by', instanceId);
-          return inner;
+          const claimedBy = inner.getAttribute('data-claimed-by');
+          if (!claimedBy || claimedBy === instanceId) {
+            if (instanceId) inner.setAttribute('data-claimed-by', instanceId);
+            return inner;
+          }
         }
         sib = sib.previousElementSibling;
       }
@@ -1236,14 +1242,20 @@
       // Hermanos posteriores (ej: en Webflow cuando el Code Embed está antes del div CMS oculto)
       sib = target.nextElementSibling;
       while (sib) {
-        if (sib.classList.contains('jypesa-tabs-colecciones-cms-source')) {
-          if (instanceId) sib.setAttribute('data-claimed-by', instanceId);
-          return sib;
+        if (sib.classList && (sib.classList.contains('jypesa-tabs-colecciones-cms-source') || sib.className.indexOf('tabs-colecciones-cms-source') !== -1)) {
+          const claimedBy = sib.getAttribute('data-claimed-by');
+          if (!claimedBy || claimedBy === instanceId) {
+            if (instanceId) sib.setAttribute('data-claimed-by', instanceId);
+            return sib;
+          }
         }
-        const inner = sib.querySelector('.jypesa-tabs-colecciones-cms-source');
+        const inner = sib.querySelector && sib.querySelector('.jypesa-tabs-colecciones-cms-source, [class*="tabs-colecciones-cms-source"]');
         if (inner) {
-          if (instanceId) inner.setAttribute('data-claimed-by', instanceId);
-          return inner;
+          const claimedBy = inner.getAttribute('data-claimed-by');
+          if (!claimedBy || claimedBy === instanceId) {
+            if (instanceId) inner.setAttribute('data-claimed-by', instanceId);
+            return inner;
+          }
         }
         sib = sib.nextElementSibling;
       }
@@ -1252,30 +1264,40 @@
     // 4. Buscar dentro de la sección o contenedor padre más cercano (ej: .coleccion-productos, .w-section, section, div)
     let current = target.parentElement;
     while (current && current !== document.body) {
-      const inParent = current.querySelector('.jypesa-tabs-colecciones-cms-source');
-      if (inParent && inParent !== target && !inParent.contains(target)) {
-        if (instanceId) inParent.setAttribute('data-claimed-by', instanceId);
-        return inParent;
+      const candidates = Array.from(current.querySelectorAll('.jypesa-tabs-colecciones-cms-source, [class*="tabs-colecciones-cms-source"], [class*="tabs-col-cms-source"]'));
+      for (const inParent of candidates) {
+        if (inParent && inParent !== target && !inParent.contains(target)) {
+          const claimedBy = inParent.getAttribute('data-claimed-by');
+          if (!claimedBy || claimedBy === instanceId) {
+            if (instanceId) inParent.setAttribute('data-claimed-by', instanceId);
+            return inParent;
+          }
+        }
       }
       current = current.parentElement;
     }
 
-    // 5. Auto-detectar un Collection List hermano en la misma sección que contenga .jypesa-tabs-prod-name o .jypesa-tabs-col-name
+    // 5. Auto-detectar un Collection List hermano en la misma sección que contenga elementos de producto o colección
     current = target.parentElement;
     while (current && current !== document.body) {
-      const sampleProd = current.querySelector('.jypesa-tabs-prod-name, .jypesa-tabs-col-name');
-      if (sampleProd) {
-        const list = sampleProd.closest('.w-dyn-list, .w-dyn-items, .jypesa-tabs-colecciones-cms-source') || sampleProd.parentElement;
-        if (list && list !== target && !list.contains(target)) {
-          if (instanceId) list.setAttribute('data-claimed-by', instanceId);
-          return list;
+      const lists = Array.from(current.querySelectorAll('.w-dyn-list, .w-dyn-items'));
+      for (const list of lists) {
+        if (list !== target && !list.contains(target)) {
+          const sample = list.querySelector('.jypesa-tabs-prod-name, .jypesa-prod-name, .jypesa-tabs-col-name, .jypesa-col-name, [class*="prod-name"], [class*="col-name"]');
+          if (sample) {
+            const claimedBy = list.getAttribute('data-claimed-by');
+            if (!claimedBy || claimedBy === instanceId) {
+              if (instanceId) list.setAttribute('data-claimed-by', instanceId);
+              return list;
+            }
+          }
         }
       }
       current = current.parentElement;
     }
 
     // 6. Fallback global: buscar fuentes .jypesa-tabs-colecciones-cms-source no reclamadas aún por otra instancia
-    const allSources = Array.from(document.querySelectorAll('.jypesa-tabs-colecciones-cms-source'));
+    const allSources = Array.from(document.querySelectorAll('.jypesa-tabs-colecciones-cms-source, [class*="tabs-colecciones-cms-source"]'));
     if (allSources.length) {
       const unclaimed = allSources.find(s => !s.getAttribute('data-claimed-by') || s.getAttribute('data-claimed-by') === instanceId);
       if (unclaimed) {
@@ -2024,13 +2046,14 @@
 
   // 7. Inicializador principal del widget (soporta multiples instancias)
   function initTabsColeccionesWidget() {
-    const targets = document.querySelectorAll('.jypesa-tabs-colecciones-widget-container, [data-jypesa-tabs-colecciones-widget], #jypesa-tabs-colecciones-widget');
+    const targets = document.querySelectorAll('.jypesa-tabs-colecciones-widget-container, [data-jypesa-tabs-colecciones-widget], [id="jypesa-tabs-colecciones-widget"], #jypesa-tabs-colecciones-widget');
     if (!targets.length) return;
 
     targets.forEach(target => {
       if (target.getAttribute('data-initialized') === 'true') return;
 
-      const instanceId = 'jtypesa-inst-' + (__jypesaInstanceCounter++);
+      window.__jypesaTabsInstanceCounter = (window.__jypesaTabsInstanceCounter || 0) + 1;
+      const instanceId = 'jtypesa-inst-' + window.__jypesaTabsInstanceCounter;
       target.setAttribute('data-instance-id', instanceId);
       target.setAttribute('data-initialized', 'true');
 
