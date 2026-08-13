@@ -1299,7 +1299,7 @@
         items = [source];
       } else {
         // En caso de que no tenga w-dyn-item (por ejemplo, maquetación manual o modificada)
-        items = Array.from(source.querySelectorAll('.w-dyn-item, div')).filter(el => el.querySelector('.jypesa-tabs-prod-name'));
+        items = Array.from(source.querySelectorAll('.w-dyn-item, div')).filter(el => el.querySelector('.jypesa-tabs-prod-name, .jypesa-prod-name, .jypesa-tabs-col-name, .jypesa-col-name'));
         // Quitar duplicados si hay anidación
         items = items.filter((el, idx, self) => !self.some((other, oIdx) => oIdx !== idx && other.contains(el)));
       }
@@ -1411,17 +1411,17 @@
     };
 
     // Leer la marca/colección padre desde el primer elemento
-    const parentBrandEl = source.querySelector('.jypesa-tabs-col-parent-brand');
+    const parentBrandEl = source.querySelector('.jypesa-tabs-col-parent-brand, .jypesa-col-parent-brand');
     const parentBrand = getElText(parentBrandEl);
 
     const collectionsMap = {};
 
     items.forEach(item => {
       // Detectar si existe una Pestaña Padre (ej: "Botanicus" o "Botella 300 ml")
-      const parentTabEl = item.querySelector('.jypesa-tabs-col-tab-group, .jypesa-tabs-col-parent-tab, .jypesa-tabs-parent-tab, .jypesa-tabs-col-parent-brand');
+      const parentTabEl = item.querySelector('.jypesa-tabs-col-tab-group, .jypesa-tabs-col-parent-tab, .jypesa-tabs-parent-tab, .jypesa-tabs-col-parent-brand, .jypesa-col-parent-brand');
       const parentTabName = getElText(parentTabEl);
 
-      const rawColNameEl = item.querySelector('.jypesa-tabs-col-name');
+      const rawColNameEl = item.querySelector('.jypesa-tabs-col-name, .jypesa-col-name, .jypesa-coltabs-col-name, [data-col-name]');
       const rawColName = getElText(rawColNameEl);
 
       let colName = '';
@@ -1442,7 +1442,7 @@
       let colOrderNum = getColOrderVal(item);
 
       if (!collectionsMap[colName]) {
-        const descEl = item.querySelector('.jypesa-tabs-col-desc');
+        const descEl = item.querySelector('.jypesa-tabs-col-desc, .jypesa-col-desc, .jypesa-coltabs-col-desc, [data-col-desc]');
         collectionsMap[colName] = {
           name: colName,
           id: makeSlug(colName),
@@ -1457,16 +1457,16 @@
         }
       }
 
-      const subNameEl = item.querySelector('.jypesa-tabs-subcol-name, .jypesa-tabs-col-subgroup, .jypesa-tabs-subgroup-name, .jypesa-tabs-col-variant');
+      const subNameEl = item.querySelector('.jypesa-tabs-subcol-name, .jypesa-subcol-name, .jypesa-tabs-col-subgroup, .jypesa-tabs-subgroup-name, .jypesa-tabs-col-variant, .jypesa-col-variant');
       const explicitSubName = getElText(subNameEl);
       const subName = explicitSubName || subNameFromCol;
 
       // Extraer Firma Olfativa / Logo para garantizar claves de subgrupo verdaderamente aisladas
-      const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-tabs-col-logo-img');
-      const moodEl = item.querySelector('.jypesa-tabs-col-mood');
-      const salidaEl = item.querySelector('.jypesa-tabs-col-notes-salida');
-      const corazonEl = item.querySelector('.jypesa-tabs-col-notes-corazon');
-      const fondoEl = item.querySelector('.jypesa-tabs-col-notes-fondo');
+      const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-col-logo, .jypesa-tabs-col-logo-img, .jypesa-col-logo-img');
+      const moodEl = item.querySelector('.jypesa-tabs-col-mood, .jypesa-col-mood, [data-mood]');
+      const salidaEl = item.querySelector('.jypesa-tabs-col-notes-salida, .jypesa-col-notes-salida, .jypesa-tabs-salida, .jypesa-col-salida');
+      const corazonEl = item.querySelector('.jypesa-tabs-col-notes-corazon, .jypesa-col-notes-corazon, .jypesa-tabs-corazon, .jypesa-col-corazon');
+      const fondoEl = item.querySelector('.jypesa-tabs-col-notes-fondo, .jypesa-col-notes-fondo, .jypesa-tabs-fondo, .jypesa-col-fondo');
       
       let logoSrc = logoEl ? (logoEl.getAttribute('src') || logoEl.getAttribute('data-src') || '') : '';
       let moodText = getElText(moodEl);
@@ -1485,7 +1485,7 @@
       }
 
       if (!collectionsMap[colName].subgroupsMap[subKey]) {
-        const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-tabs-col-logo-img');
+        const logoEl = item.querySelector('.jypesa-tabs-col-logo, .jypesa-col-logo, .jypesa-tabs-col-logo-img, .jypesa-col-logo-img');
         let logoSrc = '';
         let logoAlt = subName || colName;
         if (logoEl) {
@@ -1509,13 +1509,13 @@
           }
         }
 
-        const moodEl = item.querySelector('.jypesa-tabs-col-mood');
-        const familiaEl = item.querySelector('.jypesa-tabs-col-familia, .jypesa-tabs-col-notes-familia, .jypesa-tabs-col-familia-olfativa');
-        const refillEl = item.querySelector('.jypesa-tabs-col-refill');
-        const salidaEl = item.querySelector('.jypesa-tabs-col-notes-salida');
-        const corazonEl = item.querySelector('.jypesa-tabs-col-notes-corazon');
-        const fondoEl = item.querySelector('.jypesa-tabs-col-notes-fondo');
-        const subDescEl = item.querySelector('.jypesa-tabs-subcol-desc');
+        const moodEl = item.querySelector('.jypesa-tabs-col-mood, .jypesa-col-mood, [data-mood]');
+        const familiaEl = item.querySelector('.jypesa-tabs-col-familia, .jypesa-col-familia, .jypesa-tabs-col-notes-familia, .jypesa-tabs-col-familia-olfativa, .jypesa-col-familia-olfativa');
+        const refillEl = item.querySelector('.jypesa-tabs-col-refill, .jypesa-col-refill, [data-refill]');
+        const salidaEl = item.querySelector('.jypesa-tabs-col-notes-salida, .jypesa-col-notes-salida, .jypesa-tabs-salida, .jypesa-col-salida');
+        const corazonEl = item.querySelector('.jypesa-tabs-col-notes-corazon, .jypesa-col-notes-corazon, .jypesa-tabs-corazon, .jypesa-col-corazon');
+        const fondoEl = item.querySelector('.jypesa-tabs-col-notes-fondo, .jypesa-col-notes-fondo, .jypesa-tabs-fondo, .jypesa-col-fondo');
+        const subDescEl = item.querySelector('.jypesa-tabs-subcol-desc, .jypesa-subcol-desc');
 
         collectionsMap[colName].subgroupsMap[subKey] = {
           key: subKey,
@@ -1534,16 +1534,16 @@
         };
       }
 
-      const prodNameEl = item.querySelector('.jypesa-tabs-prod-name');
+      const prodNameEl = item.querySelector('.jypesa-tabs-prod-name, .jypesa-prod-name, .jypesa-scol-prod-name, [data-prod-name]');
       if (prodNameEl) {
         const prodName = getElText(prodNameEl);
-        const skuEl = item.querySelector('.jypesa-tabs-prod-sku');
-        const weightEl = item.querySelector('.jypesa-tabs-prod-weight');
-        const packagingEl = item.querySelector('.jypesa-tabs-prod-packaging');
-        const qtyEl = item.querySelector('.jypesa-tabs-prod-qty');
-        const imgEl = item.querySelector('.jypesa-tabs-prod-img');
-        const linkEl = item.querySelector('.jypesa-tabs-prod-link');
-        const amazonEl = item.querySelector('.jypesa-tabs-prod-amazon-link, .jypesa-tabs-prod-buy-link, .jypesa-tabs-prod-amazon');
+        const skuEl = item.querySelector('.jypesa-tabs-prod-sku, .jypesa-prod-sku, [data-prod-sku]');
+        const weightEl = item.querySelector('.jypesa-tabs-prod-weight, .jypesa-prod-weight, [data-prod-weight]');
+        const packagingEl = item.querySelector('.jypesa-tabs-prod-packaging, .jypesa-prod-packaging, [data-prod-packaging]');
+        const qtyEl = item.querySelector('.jypesa-tabs-prod-qty, .jypesa-prod-qty, [data-prod-qty]');
+        const imgEl = item.querySelector('.jypesa-tabs-prod-img, .jypesa-prod-img, [data-prod-img]');
+        const linkEl = item.querySelector('.jypesa-tabs-prod-link, .jypesa-prod-link, [data-prod-link]');
+        const amazonEl = item.querySelector('.jypesa-tabs-prod-amazon-link, .jypesa-prod-amazon-link, .jypesa-tabs-prod-buy-link, .jypesa-tabs-prod-amazon');
 
         let amazonLink = '';
         if (amazonEl) {
