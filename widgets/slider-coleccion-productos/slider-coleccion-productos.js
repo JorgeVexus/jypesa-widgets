@@ -41,7 +41,7 @@
     flex-direction: row;
     align-items: center;
     gap: 20px;
-    max-width: 60vw;
+    max-width: min(850px, 70vw);
     flex: 1;
     min-width: 0;
     color: #506D85;
@@ -52,10 +52,14 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    width: 54px;
+    height: 54px;
     box-sizing: border-box;
   }
 
   .jypesa-scol-header-img {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     display: block;
     flex-shrink: 0;
@@ -335,43 +339,66 @@
   ════════════════════════════════════════ */
   @media (max-width: 768px) {
     .jypesa-scol-header-row {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      gap: 10px !important;
+      margin-bottom: 20px !important;
     }
     .jypesa-scol-header-content {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 12px;
-      max-width: 60vw;
-      flex: 1;
-      min-width: 0;
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 10px !important;
+      max-width: calc(100% - 90px) !important;
+      flex: 1 !important;
+      min-width: 0 !important;
+    }
+    .jypesa-scol-header-img-wrap {
+      width: 38px !important;
+      height: 38px !important;
+      min-width: 38px !important;
+      flex-shrink: 0 !important;
+    }
+    .jypesa-scol-header-img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 38px !important;
+      max-height: 38px !important;
+      object-fit: contain !important;
+      display: block !important;
+    }
+    .jypesa-scol-header-texts {
+      flex: 1 !important;
+      min-width: 0 !important;
+      overflow: hidden !important;
     }
     .jypesa-scol-controls-row {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
+      display: flex !important;
+      justify-content: flex-end !important;
+      align-items: center !important;
+      gap: 8px !important;
+      flex-shrink: 0 !important;
+      width: 80px !important;
     }
     .jypesa-scol-arrow-btn {
-      width: 40px;
-      height: 40px;
+      width: 36px !important;
+      height: 36px !important;
+      min-width: 36px !important;
+      flex-shrink: 0 !important;
     }
     .jypesa-scol-arrow-btn svg {
-      width: 40px;
-      height: 40px;
+      width: 36px !important;
+      height: 36px !important;
     }
     .jypesa-scol-header-title {
-      font-size: clamp(16px, 4vw, 22px);
-      line-height: 1.15;
+      font-size: clamp(14px, 3.8vw, 18px) !important;
+      line-height: 1.15 !important;
     }
     .jypesa-scol-header-desc {
-      font-size: clamp(10px, 2.5vw, 12px);
+      font-size: clamp(9px, 2.2vw, 11px) !important;
+      line-height: 1.2 !important;
     }
   }
 
