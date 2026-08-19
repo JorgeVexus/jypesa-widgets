@@ -78,6 +78,27 @@ test('English Elements links use /en/standar/elements on desktop and mobile', ()
   assert.doesNotMatch(englishHtml, /href="\/en\/colecciones\/estandar\/elements"/);
 });
 
+test('All English product collection links map correctly without /colecciones/', () => {
+  const englishHtml = renderNavigation('en');
+  assert.doesNotMatch(englishHtml, /href="\/en\/colecciones\//);
+  assert.match(englishHtml, /href="\/en\/standar\/tea-leaf"/);
+  assert.match(englishHtml, /href="\/en\/standar\/rain-forest"/);
+  assert.match(englishHtml, /href="\/en\/standar\/almond-olive"/);
+  assert.match(englishHtml, /href="\/en\/superior\/cava"/);
+  assert.match(englishHtml, /href="\/en\/superior\/biogena"/);
+  assert.match(englishHtml, /href="\/en\/superior\/lavarino-cosso"/);
+  assert.match(englishHtml, /href="\/en\/superior\/dove"/);
+  assert.match(englishHtml, /href="\/en\/superior\/tresseme"/);
+  assert.match(englishHtml, /href="\/en\/premium\/vervan"/);
+  assert.match(englishHtml, /href="\/en\/premium\/hawaiian-tropic"/);
+  assert.match(englishHtml, /href="\/en\/premium\/for-all-folks"/);
+  assert.match(englishHtml, /href="\/en\/premium\/persea"/);
+  assert.match(englishHtml, /href="\/en\/premium\/agavia"/);
+  assert.match(englishHtml, /href="\/en\/premium\/botanicus"/);
+  assert.match(englishHtml, /href="\/en\/premium\/botanicaromatica"/);
+  assert.match(englishHtml, /href="\/en\/luxury\/xinu"/);
+});
+
 test('English Sustainability links use /en/sustainability and preserve section hashes', () => {
   const englishHtml = renderNavigation('en');
   const spanishHtml = renderNavigation('es');

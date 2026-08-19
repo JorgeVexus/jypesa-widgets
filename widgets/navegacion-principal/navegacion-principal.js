@@ -758,6 +758,16 @@
       if (base === '/contacto') return '/en/contact' + (rawHash ? '#' + rawHash : '');
       if (base === '/desarollo-personalizado') return '/en/custom-development' + (rawHash ? '#' + rawHash : '');
       if (base === '/colecciones/estandar/elements') return '/en/standar/elements' + (rawHash ? '#' + rawHash : '');
+      if (base.startsWith('/colecciones/')) {
+        const productPath = base.slice('/colecciones/'.length);
+        if (productPath.startsWith('estandar/')) {
+          return '/en/standar/' + productPath.slice('estandar/'.length) + (rawHash ? '#' + rawHash : '');
+        }
+        if (productPath.startsWith('lujo/')) {
+          return '/en/luxury/' + productPath.slice('lujo/'.length) + (rawHash ? '#' + rawHash : '');
+        }
+        return '/en/' + productPath + (rawHash ? '#' + rawHash : '');
+      }
       if (base === '/sustentabilidad') return '/en/sustainability' + (rawHash ? '#' + rawHash : '');
       if (base === '/soluciones') {
         const enHash = rawHash ? (SOLUCIONES_HASH_MAP_EN[rawHash] || rawHash) : '';
