@@ -54,7 +54,66 @@
 </head>
 <body>
 
-  <!-- DEMO 0: Con Título, Descripción y Color Figma (#72A877) -->
+  <!-- DEMO 0: Header con Logo/Imagen + Título + Subtítulo (Estilo captura naranja) -->
+  <div class="page-section">
+    <div class="section-bg" style="background: #e67e00;">
+      <span class="demo-label" style="background: #143048;">DEMO LOGO / IMAGEN — data-header-img + Título + Subtítulo</span>
+      <div data-jypesa-scol-widget
+           data-header-img="https://cdn.prod.website-files.com/66956dcbe4a9a0840b2d6a50/6698651ce502844caec1586a_flame-icon.svg"
+           data-header-title="Limpieza e iluminación facial en casa estancia."
+           data-header-desc="VIAJE DE NEGOCIOS | VACACIONES"
+           data-header-color="#143048">
+      </div>
+    </div>
+  </div>
+
+  <hr class="demo-divider">
+
+  <!-- DEMO CMS: Tomando la imagen y datos directo desde la clase dentro de la colección CMS -->
+  <div class="page-section">
+    <div class="section-bg" style="background: #f4efe8;">
+      <span class="demo-label" style="background: #506D85;">DESDE CMS — con .jypesa-scol-cms-header-img dentro del collection item</span>
+
+      <!-- CMS Source simulado (se ocultará automáticamente) -->
+      <div class="jypesa-scol-cms-source">
+        <div class="w-dyn-item">
+          <!-- Imagen de encabezado / marca colocada dentro del item -->
+          <img class="jypesa-scol-cms-header-img" src="https://cdn.prod.website-files.com/66956dcbe4a9a0840b2d6a50/6698651ce502844caec1586a_flame-icon.svg" alt="Botanicus Icon">
+          <div class="jypesa-scol-cms-header-title">Alternativas Naturales y Empaque Ecológico</div>
+          <div class="jypesa-scol-cms-header-desc">Ofrecemos productos sostenibles hechos de recursos renovables y empaques 100% reciclables.</div>
+          <div class="jypesa-scol-cms-header-color">#506D85</div>
+
+          <!-- Datos del producto 1 -->
+          <div class="jypesa-scol-prod-name">Nude Air</div>
+          <div class="jypesa-scol-prod-type">Desodorante en crema</div>
+          <div class="jypesa-scol-prod-sku">5013-AD10</div>
+          <div class="jypesa-scol-prod-spec1">35 gr</div>
+          <img class="jypesa-scol-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b532f0542e28e5b3ec0e1_collection-img-almond.avif" alt="Nude Air">
+        </div>
+        <div class="w-dyn-item">
+          <div class="jypesa-scol-prod-name">Citronella Guard</div>
+          <div class="jypesa-scol-prod-type">Repelente natural de insectos</div>
+          <div class="jypesa-scol-prod-sku">5013-AD10</div>
+          <div class="jypesa-scol-prod-spec1">60 ml</div>
+          <img class="jypesa-scol-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d60d15698c25225221_collection-img-elements.avif" alt="Citronella Guard">
+        </div>
+        <div class="w-dyn-item">
+          <div class="jypesa-scol-prod-name">Sea Soul</div>
+          <div class="jypesa-scol-prod-type">Exfoliante corporal reafirmante</div>
+          <div class="jypesa-scol-prod-sku">5013-AD08</div>
+          <div class="jypesa-scol-prod-spec1">50 ml</div>
+          <img class="jypesa-scol-prod-img" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a0b58d6f624fb94a50edfe1_collection-img-amenidades.avif" alt="Sea Soul">
+        </div>
+      </div>
+
+      <!-- Widget contenedor -->
+      <div data-jypesa-scol-widget></div>
+    </div>
+  </div>
+
+  <hr class="demo-divider">
+
+  <!-- DEMO 1: Con Título, Descripción y Color Figma (#72A877) -->
   <div class="page-section">
     <div class="section-bg" style="background: #e6ded3;">
       <span class="demo-label" style="background: #72A877;">FIGMA DESIGN — Título + Descripción + Color #72A877</span>

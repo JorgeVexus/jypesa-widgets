@@ -29,20 +29,46 @@
   .jypesa-scol-header-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     gap: 24px;
     width: 100%;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
     box-sizing: border-box;
   }
 
   .jypesa-scol-header-content {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-width: 850px;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+    max-width: 900px;
     flex: 1;
     color: #506D85;
+  }
+
+  .jypesa-scol-header-img-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .jypesa-scol-header-img {
+    width: auto;
+    height: 52px;
+    max-width: 80px;
+    max-height: 56px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .jypesa-scol-header-texts {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
   }
 
   .jypesa-scol-header-title {
@@ -60,7 +86,7 @@
   .jypesa-scol-header-desc {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
-    font-size: clamp(14px, 1.1vw, 16.5px);
+    font-size: clamp(13px, 1vw, 15.5px);
     line-height: 1.4;
     color: inherit;
     margin: 0;
@@ -93,7 +119,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 12px;
+    gap: 20px;
     box-sizing: border-box;
     flex-shrink: 0;
   }
@@ -313,10 +339,19 @@
     .jypesa-scol-header-row {
       flex-direction: column;
       align-items: flex-start;
-      gap: 16px;
+      gap: 18px;
+    }
+    .jypesa-scol-header-content {
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .jypesa-scol-header-img {
+      height: 42px;
+      max-width: 60px;
     }
     .jypesa-scol-controls-row {
       align-self: flex-end;
+      gap: 16px;
     }
   }
 
@@ -483,34 +518,65 @@
 
   // ─── 4. LEER ENCABEZADO (CMS O ATRIBUTOS) ───────────────────────────────────
   function readHeaderData(target, source) {
-    const getAttr = (name) => {
-      let val = target.getAttribute(name);
-      if (!val && target.parentElement) {
-        val = target.parentElement.getAttribute(name);
+    const getAttr = (...names) => {
+      for (const name of names) {
+        let val = target.getAttribute(name);
+        if (!val && target.parentElement) {
+          val = target.parentElement.getAttribute(name);
+        }
+        if (!val && source) {
+          val = source.getAttribute(name);
+        }
+        if (val) return val.trim().replace(/^['"]|['"]$/g, '');
       }
-      if (!val && source) {
-        val = source.getAttribute(name);
-      }
-      return val ? val.trim().replace(/^['"]|['"]$/g, '') : '';
+      return '';
     };
+
     const getCms = (cls) => {
       if (!source) return '';
       const el = source.querySelector(cls);
       return el ? el.textContent.trim() : '';
     };
+
     const getCmsAttr = (cls, attr) => {
       if (!source) return '';
       const el = source.querySelector(cls);
       return el ? (el.getAttribute(attr) || '').trim() : '';
     };
 
-    const title = getAttr('data-header-title') || getCms('.jypesa-scol-cms-header-title');
-    const desc = getAttr('data-header-desc') || getCms('.jypesa-scol-cms-header-desc');
-    const btnText = getAttr('data-header-btn-text') || getCms('.jypesa-scol-cms-header-btn-text');
-    const btnUrl = getAttr('data-header-btn-url') || getCmsAttr('.jypesa-scol-cms-header-btn-url', 'href') || getCms('.jypesa-scol-cms-header-btn-url');
-    const color = getAttr('data-header-color') || getCms('.jypesa-scol-cms-header-color');
+    const getCmsImg = (...classes) => {
+      const allSelectors = classes.join(', ');
+      // 1. Buscar en source (o dentro de sus items .w-dyn-item)
+      let el = source ? source.querySelector(allSelectors) : null;
+      // 2. Si no, buscar en el target
+      if (!el && target) el = target.querySelector(allSelectors);
+      // 3. Si no, buscar en el padre de target
+      if (!el && target && target.parentElement) el = target.parentElement.querySelector(allSelectors);
 
-    return { title, desc, btnText, btnUrl, color };
+      if (el) {
+        if (el.tagName === 'IMG') {
+          return (el.getAttribute('src') || el.src || '').trim();
+        }
+        const dataSrc = el.getAttribute('data-src') || el.getAttribute('src');
+        if (dataSrc) return dataSrc.trim();
+        const bg = (el.style && el.style.backgroundImage) || '';
+        const m = bg.match(/url\(['"]?(.*?)['"]?\)/);
+        if (m && m[1]) return m[1].trim();
+        const txt = el.textContent ? el.textContent.trim() : '';
+        if (txt.match(/^https?:\/\/|^\/|^\.\//)) return txt;
+      }
+      return '';
+    };
+
+    const title = getAttr('data-header-title', 'data-title') || getCms('.jypesa-scol-cms-header-title');
+    const desc = getAttr('data-header-desc', 'data-desc', 'data-header-subtitle', 'data-subtitle') || getCms('.jypesa-scol-cms-header-desc, .jypesa-scol-cms-header-subtitle');
+    const btnText = getAttr('data-header-btn-text', 'data-btn-text') || getCms('.jypesa-scol-cms-header-btn-text');
+    const btnUrl = getAttr('data-header-btn-url', 'data-btn-url') || getCmsAttr('.jypesa-scol-cms-header-btn-url', 'href') || getCms('.jypesa-scol-cms-header-btn-url');
+    const color = getAttr('data-header-color', 'data-color') || getCms('.jypesa-scol-cms-header-color');
+    const imgSrc = getAttr('data-header-img', 'data-header-image', 'data-header-icon', 'data-brand-img', 'data-brand-icon') ||
+      getCmsImg('.jypesa-scol-cms-header-img', '.jypesa-scol-header-img', '.jypesa-scol-cms-header-icon', '.jypesa-scol-header-icon', '.jypesa-scol-cms-brand-img', '.jypesa-scol-brand-img', '.jypesa-scol-cms-brand-icon', '.jypesa-scol-brand-icon');
+
+    return { title, desc, btnText, btnUrl, color, imgSrc };
   }
 
   // ─── 5. LEER PRODUCTOS DEL CMS ──────────────────────────────────────────────
@@ -734,18 +800,25 @@
       )
       .join('');
 
-    const hasHeaderContent = headerData.title || headerData.desc || headerData.btnText;
+    const hasHeaderContent = headerData.title || headerData.desc || headerData.btnText || headerData.imgSrc;
     const colorStyle = headerData.color ? ` style="color: ${headerData.color};"` : '';
     const btnStyle = headerData.color ? ` style="color: ${headerData.color}; border-color: ${headerData.color};"` : '';
 
     return `
-      <!-- Header row con Título, Descripción, Botón opcional y Flechas alineadas a la derecha -->
+      <!-- Header row con Título, Descripción, Imagen/Logo opcional y Flechas alineadas a la derecha -->
       <div class="jypesa-scol-header-row">
         ${hasHeaderContent ? `
           <div class="jypesa-scol-header-content">
-            ${headerData.title ? `<h2 class="jypesa-scol-header-title"${colorStyle}>${headerData.title}</h2>` : ''}
-            ${headerData.desc ? `<p class="jypesa-scol-header-desc"${colorStyle}>${headerData.desc}</p>` : ''}
-            ${headerData.btnText ? `<a href="${headerData.btnUrl || '#'}" class="jypesa-scol-header-btn"${btnStyle}>${headerData.btnText}</a>` : ''}
+            ${headerData.imgSrc ? `
+              <div class="jypesa-scol-header-img-wrap">
+                <img src="${headerData.imgSrc}" alt="${headerData.title || 'Colección'}" class="jypesa-scol-header-img" loading="lazy">
+              </div>
+            ` : ''}
+            <div class="jypesa-scol-header-texts">
+              ${headerData.title ? `<h2 class="jypesa-scol-header-title"${colorStyle}>${headerData.title}</h2>` : ''}
+              ${headerData.desc ? `<p class="jypesa-scol-header-desc"${colorStyle}>${headerData.desc}</p>` : ''}
+              ${headerData.btnText ? `<a href="${headerData.btnUrl || '#'}" class="jypesa-scol-header-btn"${btnStyle}>${headerData.btnText}</a>` : ''}
+            </div>
           </div>
         ` : '<div></div>'}
 
