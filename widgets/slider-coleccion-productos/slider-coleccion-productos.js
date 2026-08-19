@@ -40,7 +40,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 18px;
+    gap: 20px;
     max-width: 900px;
     flex: 1;
     color: #506D85;
@@ -51,13 +51,15 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    width: clamp(52px, 4.5vw, 68px);
+    height: clamp(52px, 4.5vw, 68px);
   }
 
   .jypesa-scol-header-img {
-    width: auto;
-    height: 52px;
-    max-width: 80px;
-    max-height: 56px;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
     display: block;
     flex-shrink: 0;
@@ -573,10 +575,13 @@
     const btnText = getAttr('data-header-btn-text', 'data-btn-text') || getCms('.jypesa-scol-cms-header-btn-text');
     const btnUrl = getAttr('data-header-btn-url', 'data-btn-url') || getCmsAttr('.jypesa-scol-cms-header-btn-url', 'href') || getCms('.jypesa-scol-cms-header-btn-url');
     const color = getAttr('data-header-color', 'data-color') || getCms('.jypesa-scol-cms-header-color');
+    const imgSize = getAttr('data-header-img-size', 'data-img-size');
+    const imgWidth = getAttr('data-header-img-width', 'data-img-width');
+    const imgHeight = getAttr('data-header-img-height', 'data-img-height');
     const imgSrc = getAttr('data-header-img', 'data-header-image', 'data-header-icon', 'data-brand-img', 'data-brand-icon') ||
       getCmsImg('.jypesa-scol-cms-header-img', '.jypesa-scol-header-img', '.jypesa-scol-cms-header-icon', '.jypesa-scol-header-icon', '.jypesa-scol-cms-brand-img', '.jypesa-scol-brand-img', '.jypesa-scol-cms-brand-icon', '.jypesa-scol-brand-icon');
 
-    return { title, desc, btnText, btnUrl, color, imgSrc };
+    return { title, desc, btnText, btnUrl, color, imgSrc, imgSize, imgWidth, imgHeight };
   }
 
   // ─── 5. LEER PRODUCTOS DEL CMS ──────────────────────────────────────────────
@@ -804,13 +809,28 @@
     const colorStyle = headerData.color ? ` style="color: ${headerData.color};"` : '';
     const btnStyle = headerData.color ? ` style="color: ${headerData.color}; border-color: ${headerData.color};"` : '';
 
+    let imgWrapStyle = '';
+    const imgStyles = [];
+    if (headerData.imgSize) {
+      imgStyles.push(`width: ${headerData.imgSize}; height: ${headerData.imgSize}; min-width: ${headerData.imgSize}; max-width: ${headerData.imgSize}; max-height: ${headerData.imgSize};`);
+    }
+    if (headerData.imgWidth) {
+      imgStyles.push(`width: ${headerData.imgWidth}; min-width: ${headerData.imgWidth}; max-width: ${headerData.imgWidth};`);
+    }
+    if (headerData.imgHeight) {
+      imgStyles.push(`height: ${headerData.imgHeight}; max-height: ${headerData.imgHeight};`);
+    }
+    if (imgStyles.length) {
+      imgWrapStyle = ` style="${imgStyles.join(' ')}"`;
+    }
+
     return `
       <!-- Header row con Título, Descripción, Imagen/Logo opcional y Flechas alineadas a la derecha -->
       <div class="jypesa-scol-header-row">
         ${hasHeaderContent ? `
           <div class="jypesa-scol-header-content">
             ${headerData.imgSrc ? `
-              <div class="jypesa-scol-header-img-wrap">
+              <div class="jypesa-scol-header-img-wrap"${imgWrapStyle}>
                 <img src="${headerData.imgSrc}" alt="${headerData.title || 'Colección'}" class="jypesa-scol-header-img" loading="lazy">
               </div>
             ` : ''}
