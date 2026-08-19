@@ -47,22 +47,28 @@
   }
 
   .jypesa-scol-header-img-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: clamp(52px, 4.5vw, 68px);
-    height: clamp(52px, 4.5vw, 68px);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    width: 60px !important;
+    height: 60px !important;
+    min-width: 60px !important;
+    min-height: 60px !important;
+    max-width: 180px !important;
+    box-sizing: border-box !important;
   }
 
   .jypesa-scol-header-img {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    display: block;
-    flex-shrink: 0;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
+    max-width: 180px !important;
+    max-height: 80px !important;
+    object-fit: contain !important;
+    display: block !important;
+    flex-shrink: 0 !important;
   }
 
   .jypesa-scol-header-texts {
@@ -557,10 +563,21 @@
 
       if (el) {
         if (el.tagName === 'IMG') {
-          return (el.getAttribute('src') || el.src || '').trim();
+          const directSrc = el.getAttribute('src') || el.getAttribute('data-src') || el.getAttribute('data-original-src');
+          if (directSrc && directSrc !== '#' && directSrc.trim()) {
+            return directSrc.trim();
+          }
+          const srcset = el.getAttribute('srcset');
+          if (srcset) {
+            const firstSrc = srcset.split(',')[0].trim().split(' ')[0];
+            if (firstSrc) return firstSrc.trim();
+          }
+          if (el.src && el.src !== '#' && !el.src.endsWith('#')) {
+            return el.src.trim();
+          }
         }
         const dataSrc = el.getAttribute('data-src') || el.getAttribute('src');
-        if (dataSrc) return dataSrc.trim();
+        if (dataSrc && dataSrc !== '#') return dataSrc.trim();
         const bg = (el.style && el.style.backgroundImage) || '';
         const m = bg.match(/url\(['"]?(.*?)['"]?\)/);
         if (m && m[1]) return m[1].trim();
