@@ -47,21 +47,17 @@
   }
 
   .jypesa-scol-header-img-wrap {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-shrink: 0 !important;
-    width: 60px !important;
-    height: 60px !important;
-    box-sizing: border-box !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
   }
 
   .jypesa-scol-header-img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important;
-    display: block !important;
-    flex-shrink: 0 !important;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
   }
 
   .jypesa-scol-header-texts {
@@ -345,14 +341,6 @@
     .jypesa-scol-header-content {
       align-items: flex-start;
       gap: 14px;
-    }
-    .jypesa-scol-header-img-wrap {
-      width: 48px !important;
-      height: 48px !important;
-    }
-    .jypesa-scol-header-img {
-      width: 100% !important;
-      height: 100% !important;
     }
     .jypesa-scol-controls-row {
       align-self: flex-end;
