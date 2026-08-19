@@ -41,9 +41,8 @@
     flex-direction: row;
     align-items: center;
     gap: 20px;
-    max-width: min(850px, 70vw);
+    max-width: 900px;
     flex: 1;
-    min-width: 0;
     color: #506D85;
   }
 
@@ -52,14 +51,10 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 54px;
-    height: 54px;
     box-sizing: border-box;
   }
 
   .jypesa-scol-header-img {
-    width: 100%;
-    height: 100%;
     object-fit: contain;
     display: block;
     flex-shrink: 0;
@@ -343,61 +338,58 @@
       flex-direction: row !important;
       justify-content: space-between !important;
       align-items: center !important;
-      gap: 10px !important;
+      gap: 12px !important;
       margin-bottom: 20px !important;
     }
     .jypesa-scol-header-content {
       display: flex !important;
       flex-direction: row !important;
       align-items: center !important;
-      gap: 10px !important;
-      max-width: calc(100% - 90px) !important;
+      gap: 12px !important;
+      max-width: 60vw !important;
       flex: 1 !important;
       min-width: 0 !important;
     }
     .jypesa-scol-header-img-wrap {
-      width: 38px !important;
-      height: 38px !important;
-      min-width: 38px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
       flex-shrink: 0 !important;
+      width: 60vw !important;
+      box-sizing: border-box !important;
     }
     .jypesa-scol-header-img {
-      width: 100% !important;
-      height: 100% !important;
-      max-width: 38px !important;
-      max-height: 38px !important;
       object-fit: contain !important;
       display: block !important;
+      flex-shrink: 0 !important;
     }
     .jypesa-scol-header-texts {
       flex: 1 !important;
       min-width: 0 !important;
-      overflow: hidden !important;
     }
     .jypesa-scol-controls-row {
       display: flex !important;
       justify-content: flex-end !important;
       align-items: center !important;
-      gap: 8px !important;
+      gap: 10px !important;
       flex-shrink: 0 !important;
-      width: 80px !important;
     }
     .jypesa-scol-arrow-btn {
-      width: 36px !important;
-      height: 36px !important;
-      min-width: 36px !important;
+      width: 38px !important;
+      height: 38px !important;
+      min-width: 38px !important;
       flex-shrink: 0 !important;
     }
     .jypesa-scol-arrow-btn svg {
-      width: 36px !important;
-      height: 36px !important;
+      width: 38px !important;
+      height: 38px !important;
     }
     .jypesa-scol-header-title {
-      font-size: clamp(14px, 3.8vw, 18px) !important;
+      font-size: clamp(14px, 3.8vw, 19px) !important;
       line-height: 1.15 !important;
     }
     .jypesa-scol-header-desc {
-      font-size: clamp(9px, 2.2vw, 11px) !important;
+      font-size: clamp(9px, 2.3vw, 11.5px) !important;
       line-height: 1.2 !important;
     }
   }
