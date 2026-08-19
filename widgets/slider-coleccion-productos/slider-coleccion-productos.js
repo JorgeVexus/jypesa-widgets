@@ -41,8 +41,9 @@
     flex-direction: row;
     align-items: center;
     gap: 20px;
-    max-width: 900px;
+    max-width: 60vw;
     flex: 1;
+    min-width: 0;
     color: #506D85;
   }
 
@@ -334,17 +335,43 @@
   ════════════════════════════════════════ */
   @media (max-width: 768px) {
     .jypesa-scol-header-row {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 18px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
     }
     .jypesa-scol-header-content {
-      align-items: flex-start;
-      gap: 14px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      max-width: 60vw;
+      flex: 1;
+      min-width: 0;
     }
     .jypesa-scol-controls-row {
-      align-self: flex-end;
-      gap: 16px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .jypesa-scol-arrow-btn {
+      width: 40px;
+      height: 40px;
+    }
+    .jypesa-scol-arrow-btn svg {
+      width: 40px;
+      height: 40px;
+    }
+    .jypesa-scol-header-title {
+      font-size: clamp(16px, 4vw, 22px);
+      line-height: 1.15;
+    }
+    .jypesa-scol-header-desc {
+      font-size: clamp(10px, 2.5vw, 12px);
     }
   }
 
