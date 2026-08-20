@@ -10,6 +10,7 @@ function renderWidget(file, targetId, lang) {
     getAttribute(name) {
       return name === 'data-lang' ? lang ?? null : null;
     },
+    setAttribute(name, value) {},
     querySelectorAll() {
       return [];
     },
@@ -34,6 +35,9 @@ function renderWidget(file, targetId, lang) {
         appendChild() {}
       };
     },
+    createTextNode(text) {
+      return { textContent: text };
+    },
     getElementById(id) {
       return id === targetId ? target : null;
     },
@@ -41,13 +45,21 @@ function renderWidget(file, targetId, lang) {
       return null;
     },
     querySelectorAll() {
-      return [];
+      return [target];
+    },
+    documentElement: {
+      getAttribute() {
+        return null;
+      }
     },
     addEventListener() {}
   };
 
   const context = {
-    window: { matchMedia: () => ({ matches: true }) },
+    window: {
+      location: { pathname: '/' },
+      matchMedia: () => ({ matches: true })
+    },
     document,
     console,
     setTimeout(fn) {
@@ -85,6 +97,13 @@ const widgets = [
     es: 'Un solo proceso',
     en: 'One process',
     forbidden: ['múltiples soluciones', 'Desarrollo de fórmula', 'Desde cero', 'Innovación aplicada', 'Alternativas sostenibles']
+  },
+  {
+    file: 'widgets/cards/cards-widget.js',
+    id: 'jypesa-cards-widget',
+    es: 'Producción',
+    en: 'Production',
+    forbidden: ['Desarrollo y fabricación', 'Creación de productos', 'Colaboración con marcas', 'Saber más', 'Ver colecciones']
   }
 ];
 
@@ -116,3 +135,17 @@ for (const widget of widgets) {
     }
   });
 }
+
+test('widgets/cards/cards-widget.js links to /en/custom-development for English mode', () => {
+  const file = path.join(ROOT, 'widgets/cards/cards-widget.js');
+  const enHtml = renderWidget(file, 'jypesa-cards-widget', 'en');
+  const esHtml = renderWidget(file, 'jypesa-cards-widget', 'es');
+
+  assert.match(enHtml, /href="\/en\/custom-development"/);
+  assert.doesNotMatch(enHtml, /href="\/en\/desarollo-personalizado"/);
+  assert.doesNotMatch(enHtml, /href="\/desarollo-personalizado"/);
+
+  assert.match(esHtml, /href="\/desarollo-personalizado"/);
+  assert.doesNotMatch(esHtml, /href="\/en\/custom-development"/);
+});
+

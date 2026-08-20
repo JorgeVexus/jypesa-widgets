@@ -78,25 +78,33 @@ test('English Elements links use /en/standar/elements on desktop and mobile', ()
   assert.doesNotMatch(englishHtml, /href="\/en\/colecciones\/estandar\/elements"/);
 });
 
-test('All English product collection links map correctly without /colecciones/', () => {
+test('English product collection links map correctly and only include the 11 target collections', () => {
   const englishHtml = renderNavigation('en');
   assert.doesNotMatch(englishHtml, /href="\/en\/colecciones\//);
+  
+  // Included in English
+  assert.match(englishHtml, /href="\/en\/standar\/elements"/);
   assert.match(englishHtml, /href="\/en\/standar\/tea-leaf"/);
   assert.match(englishHtml, /href="\/en\/standar\/rain-forest"/);
   assert.match(englishHtml, /href="\/en\/standar\/almond-olive"/);
   assert.match(englishHtml, /href="\/en\/superior\/cava"/);
   assert.match(englishHtml, /href="\/en\/superior\/biogena"/);
   assert.match(englishHtml, /href="\/en\/superior\/lavarino-cosso"/);
-  assert.match(englishHtml, /href="\/en\/superior\/dove"/);
-  assert.match(englishHtml, /href="\/en\/superior\/tresseme"/);
   assert.match(englishHtml, /href="\/en\/premium\/vervan"/);
   assert.match(englishHtml, /href="\/en\/premium\/hawaiian-tropic"/);
-  assert.match(englishHtml, /href="\/en\/premium\/for-all-folks"/);
   assert.match(englishHtml, /href="\/en\/premium\/persea"/);
   assert.match(englishHtml, /href="\/en\/premium\/agavia"/);
-  assert.match(englishHtml, /href="\/en\/premium\/botanicus"/);
-  assert.match(englishHtml, /href="\/en\/premium\/botanicaromatica"/);
-  assert.match(englishHtml, /href="\/en\/luxury\/xinu"/);
+  assert.match(englishHtml, /href="\/en\/premium\/valquer"/);
+
+  // Excluded in English
+  assert.doesNotMatch(englishHtml, /href="\/en\/superior\/dove"/);
+  assert.doesNotMatch(englishHtml, /href="\/en\/superior\/tresseme"/);
+  assert.doesNotMatch(englishHtml, /href="\/en\/premium\/for-all-folks"/);
+  assert.doesNotMatch(englishHtml, /href="\/en\/premium\/botanicus"/);
+  assert.doesNotMatch(englishHtml, /href="\/en\/premium\/botanicaromatica"/);
+  assert.doesNotMatch(englishHtml, /href="\/en\/luxury\/xinu"/);
+  assert.doesNotMatch(englishHtml, /href="\/en\/sistemas-de-dispensacion"/);
+  assert.doesNotMatch(englishHtml, /href="\/en\/accesorios"/);
 });
 
 test('English Sustainability links use /en/sustainability and preserve section hashes', () => {
@@ -110,24 +118,41 @@ test('English Sustainability links use /en/sustainability and preserve section h
   assert.match(spanishHtml, /href="\/sustentabilidad" class="nav-link">Sustentabilidad<\/a>/);
 });
 
-test('Smart Order is rendered in Spanish desktop navigation only', () => {
+test('Smart Order is rendered in Spanish desktop navigation only, and Shop is rendered in English desktop only', () => {
   const spanishHtml = renderNavigation('es');
   const englishHtml = renderNavigation('en');
-  const navActionsStart = spanishHtml.indexOf('<div class="nav-actions">');
-  const mobileOverlayStart = spanishHtml.indexOf('<div class="mobile-overlay"');
-  const spanishDesktopActions = spanishHtml.slice(navActionsStart, mobileOverlayStart);
-  const spanishMobileOverlay = spanishHtml.slice(mobileOverlayStart);
+  
+  const navActionsStartEs = spanishHtml.indexOf('<div class="nav-actions">');
+  const mobileOverlayStartEs = spanishHtml.indexOf('<div class="mobile-overlay"');
+  const spanishDesktopActions = spanishHtml.slice(navActionsStartEs, mobileOverlayStartEs);
+  const spanishMobileOverlay = spanishHtml.slice(mobileOverlayStartEs);
+  
   const smartOrderAnchor = spanishDesktopActions.match(
     /<a href="https:\/\/sm\.jypesa\.com\/jypesa\/public\/login" class="smart-order" target="_blank" rel="noopener noreferrer">([\s\S]*?)<\/a>/
   );
 
-  assert.notEqual(navActionsStart, -1);
-  assert.notEqual(mobileOverlayStart, -1);
+  assert.notEqual(navActionsStartEs, -1);
+  assert.notEqual(mobileOverlayStartEs, -1);
   assert.ok(smartOrderAnchor, 'Spanish nav-actions must contain the complete Smart Order link');
   assert.match(smartOrderAnchor[1], /<svg\b[^>]*>[\s\S]*?<\/svg>/);
   assert.match(smartOrderAnchor[1], /<path\b[^>]*><\/path>/);
   assert.match(smartOrderAnchor[1], /<circle\b[^>]*><\/circle>/);
   assert.match(smartOrderAnchor[1], /\sSmart order\s/);
   assert.doesNotMatch(spanishMobileOverlay, /smart-order|sm\.jypesa\.com|Smart order/i);
-  assert.doesNotMatch(englishHtml, /smart-order|sm\.jypesa\.com|Smart Order/i);
+  assert.doesNotMatch(spanishDesktopActions, /\bShop\b/);
+
+  // English desktop actions
+  const navActionsStartEn = englishHtml.indexOf('<div class="nav-actions">');
+  const mobileOverlayStartEn = englishHtml.indexOf('<div class="mobile-overlay"');
+  const englishDesktopActions = englishHtml.slice(navActionsStartEn, mobileOverlayStartEn);
+  const englishMobileOverlay = englishHtml.slice(mobileOverlayStartEn);
+
+  const shopAnchor = englishDesktopActions.match(
+    /<a href="\/en\/shop" class="smart-order nav-shop" target="_blank" rel="noopener noreferrer">([\s\S]*?)<\/a>/
+  );
+  assert.ok(shopAnchor, 'English nav-actions must contain the Shop link');
+  assert.match(shopAnchor[1], /<svg\b[^>]*>[\s\S]*?<\/svg>/);
+  assert.match(shopAnchor[1], /\sShop\s/);
+  assert.doesNotMatch(englishHtml, /sm\.jypesa\.com|Smart order|Smart Order/);
+  assert.doesNotMatch(englishMobileOverlay, /\bShop\b/);
 });

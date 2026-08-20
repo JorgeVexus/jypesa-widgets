@@ -272,7 +272,7 @@
         title: 'Production',
         desc: 'Development and manufacturing of amenities with quality control at every stage.',
         btnText: 'Learn More',
-        link: '/en/desarollo-personalizado',
+        link: '/en/custom-development',
         img: imgProduccion,
         alt: 'Production Jypesa'
       },
@@ -280,7 +280,7 @@
         title: 'Private Label',
         desc: "Creation of customized products aligned with each client's identity.",
         btnText: 'Learn More',
-        link: '/en/desarollo-personalizado',
+        link: '/en/custom-development',
         img: imgPrivateLabel,
         alt: 'Private Label Jypesa'
       },
@@ -288,7 +288,7 @@
         title: 'Licenses',
         desc: 'Collaboration with recognized brands to offer differentiated collections.',
         btnText: 'Learn More',
-        link: '/en/desarollo-personalizado',
+        link: '/en/custom-development',
         img: imgLicencias,
         alt: 'Licenses Jypesa'
       }

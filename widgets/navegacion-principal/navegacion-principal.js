@@ -666,6 +666,7 @@
       sustainability: "Sustainability",
       resources: "Resources",
       smartOrder: "Smart Order",
+      shop: "Shop",
       contact: "Contact Us",
 
       // Megamenú Productos
@@ -783,50 +784,54 @@
   function buildWidgetHtml(lang) {
     const t = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.es;
     const u = url => buildUrl(url, lang);
-    const smartOrderLink = lang === 'es' ? `
+    const actionButton = lang === 'es' ? `
             <a href="https://sm.jypesa.com/jypesa/public/login" class="smart-order" target="_blank" rel="noopener noreferrer">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 ${t.smartOrder}
             </a>
-` : '';
+` : `
+            <a href="${u('/shop')}" class="smart-order nav-shop" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                ${t.shop || 'Shop'}
+            </a>
+`;
 
-    return `
-<div class="jypesa-nav-principal-widget">
-<nav class="jypesa-nav" id="nav">
-    <div class="nav-container">
-        <a href="${u('/')}" class="logo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="132" height="32" viewBox="0 0 132 32" fill="none" style="display:block;">
-              <g clip-path="url(#clip0_716_31440)">
-                <path d="M54.8289 10.5108H43.4157V31.6971H45.9821V22.7321H54.8289C59.1727 22.7321 61.6652 20.4981 61.6652 16.6047C61.6652 12.7114 59.1727 10.5085 54.8289 10.5085V10.5108ZM54.9208 20.3645H45.9821V12.8784H54.9208C57.7293 12.8784 59.0382 14.0633 59.0382 16.6069C59.0382 19.1506 57.7293 20.3645 54.9208 20.3645Z" fill="currentColor"/>
-                <path d="M100.475 20.4981L93.4481 19.155C91.0364 18.7006 90.1264 17.8476 90.2071 16.1169C90.3617 13.0499 94.2864 12.5911 96.6107 12.5911C100.379 12.5911 102.624 14.0477 103.288 16.9188L103.353 17.1972L105.816 16.2283C104.85 12.3416 101.64 10.2078 96.7138 10.2078C91.2247 10.2078 87.811 12.4018 87.5802 16.0813C87.43 18.9924 89.2119 20.8144 92.8743 21.4959L99.9033 22.839C102.943 23.3981 103.274 24.7322 103.198 25.9639C103.142 26.8682 102.97 29.6168 96.5726 29.6168C92.3498 29.6168 89.9673 28.0287 89.2859 24.7634L89.2298 24.4939L86.7553 25.4673C87.7371 29.7437 91.0835 32 96.4695 32C102.261 32 105.583 29.8729 105.825 26.0085C106.009 23.0617 104.209 21.2064 100.477 20.4959L100.475 20.4981Z" fill="currentColor"/>
-                <path d="M118.321 10.5108L107.562 31.6971H110.371L113.831 24.8236H125.733L129.16 31.6971H132L121.212 10.5108H118.319H118.321ZM114.995 22.4871L119.782 13.0254L124.543 22.4871H114.995Z" fill="currentColor"/>
-                <path d="M13.3049 24.2355C13.3049 26.9395 11.0926 29.1379 8.37159 29.1379H1.01087L0 31.6971H8.37159C12.5114 31.6971 15.8803 28.3494 15.8803 24.2355V10.5085H13.3049V24.2355Z" fill="currentColor"/>
-                <path d="M68.674 21.9147H82.129V19.547H66.1076V31.6971H82.5571V29.3294H68.674V21.9147Z" fill="currentColor"/>
-                <path d="M82.129 10.5108H66.1076V12.8784H82.129V10.5108Z" fill="currentColor"/>
-                <path d="M22.4543 10.5108H19.2199L27.327 21.1039H30.5614L22.4543 10.5108Z" fill="currentColor"/>
-                <path d="M28 31.1971H30.7547L42.9075 -0.5H40.1506L28 31.1971Z" fill="currentColor"/>
-                <path d="M129.7 14.7984C130.33 14.7984 130.877 14.5868 131.325 14.1703C131.774 13.7515 132.002 13.2415 132.002 12.6534C132.002 12.0654 131.776 11.5531 131.325 11.1366C130.877 10.7224 130.332 10.5108 129.7 10.5108C129.068 10.5108 128.524 10.7201 128.075 11.1366C127.625 11.5531 127.396 12.0632 127.396 12.6534C127.396 13.2437 127.625 13.7537 128.073 14.1703C128.521 14.5868 129.068 14.7984 129.698 14.7984H129.7ZM128.45 11.5019C128.793 11.1834 129.214 11.023 129.7 11.023C130.187 11.023 130.606 11.1834 130.949 11.5019C131.294 11.8227 131.462 12.1991 131.462 12.6534C131.462 13.1078 131.289 13.4887 130.949 13.805C130.606 14.1235 130.187 14.2861 129.7 14.2861C129.214 14.2861 128.795 14.1235 128.45 13.805C128.102 13.4842 127.934 13.1056 127.934 12.6534C127.934 12.2013 128.102 11.8227 128.45 11.5019Z" fill="currentColor"/>
-                <path d="M129.447 12.8205H129.631L130.196 13.7092H130.754L130.113 12.7269C130.37 12.6 130.5 12.3973 130.5 12.1256C130.5 11.8249 130.346 11.4641 129.608 11.4641H128.949V13.7092H129.447V12.8205ZM129.447 11.8939H129.611C130.005 11.8939 130.005 12.0699 130.005 12.1456C130.005 12.2525 129.983 12.3216 129.936 12.3528C129.904 12.375 129.815 12.4107 129.568 12.4107C129.517 12.4107 129.476 12.4107 129.447 12.4107V11.8962V11.8939Z" fill="currentColor"/>
-              </g>
-              <defs>
-                <clipPath id="clip0_716_31440">
-                  <rect width="132" height="32" fill="white"/>
-                </clipPath>
-              </defs>
-            </svg>
-        </a>
-
-        <ul class="nav-links">
-            <li class="nav-link-item"><a href="${u('/nosotros')}" class="nav-link">${t.about}</a></li>
-            <li class="nav-link-item">
-                <span class="nav-link">${t.products}</span>
-                <div class="mega-menu">
-                    <div class="mega-content">
-                        <div class="visual-block" id="v-block">
-                            <img id="img-1" class="active" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1efc9fb63da3bbe96f_Elements%20menu%C3%8C%C2%81.webp" alt="">
-                            <img id="img-2" class="inactive" src="" alt="">
-                            <div class="visual-overlay"></div>
+    const desktopProductsHtml = lang === 'en' ? `
+                        <div class="links-container">
+                            <div class="category-block">
+                                <p class="cat-label">${t.catCollections}</p>
+                                <div class="sections-row">
+                                    <div class="menu-section">
+                                        <div class="section-header">${t.secStandard}</div>
+                                        <ul class="options-list">
+                                            <li><a href="${u('/colecciones/estandar/elements')}" class="option-link" data-p="Elements">Elements</a></li>
+                                            <li><a href="${u('/colecciones/estandar/tea-leaf')}" class="option-link" data-p="Tea Leaf">Tea Leaf</a></li>
+                                            <li><a href="${u('/colecciones/estandar/rain-forest')}" class="option-link" data-p="Rainforest">Rainforest</a></li>
+                                            <li><a href="${u('/colecciones/estandar/almond-olive')}" class="option-link" data-p="Almond">A&O</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">${t.secSuperior}</div>
+                                        <ul class="options-list">
+                                            <li><a href="${u('/colecciones/superior/cava')}" class="option-link" data-p="Cava">Cava</a></li>
+                                            <li><a href="${u('/colecciones/superior/biogena')}" class="option-link" data-p="Biogena">Biogena</a></li>
+                                            <li><a href="${u('/colecciones/superior/lavarino-cosso')}" class="option-link" data-p="Lavarino">Lavarino Cosso</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-section">
+                                        <div class="section-header">${t.secPremium}</div>
+                                        <ul class="options-list">
+                                            <li><a href="${u('/colecciones/premium/vervan')}" class="option-link" data-p="Vervan">Vervan</a></li>
+                                            <li><a href="${u('/colecciones/premium/hawaiian-tropic')}" class="option-link" data-p="Hawaiian">Hawaiian</a></li>
+                                            <li><a href="${u('/colecciones/premium/persea')}" class="option-link" data-p="Persea">Persea</a></li>
+                                            <li><a href="${u('/colecciones/premium/agavia')}" class="option-link" data-p="Agavia">Agavia</a></li>
+                                            <li><a href="${u('/colecciones/premium/valquer')}" class="option-link" data-p="Valquer">Valquer</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+` : `
                         <div class="links-container">
                             <div class="category-block">
                                 <p class="cat-label">${t.catCollections}</p>
@@ -887,6 +892,101 @@
                                 </div>
                             </div>
                         </div>
+`;
+
+    const mobileProductsHtml = lang === 'en' ? `
+                <div class="mob-cat-title">${t.catCollections}</div>
+                <div class="mob-subcat-title">${t.secStandard}</div>
+                <a href="${u('/colecciones/estandar/elements')}" class="mob-link">Elements</a>
+                <a href="${u('/colecciones/estandar/tea-leaf')}" class="mob-link">Tea Leaf</a>
+                <a href="${u('/colecciones/estandar/rain-forest')}" class="mob-link">Rainforest</a>
+                <a href="${u('/colecciones/estandar/almond-olive')}" class="mob-link">A&O</a>
+
+                <div class="mob-subcat-title">${t.secSuperior}</div>
+                <a href="${u('/colecciones/superior/cava')}" class="mob-link">Cava</a>
+                <a href="${u('/colecciones/superior/biogena')}" class="mob-link">Biogena</a>
+                <a href="${u('/colecciones/superior/lavarino-cosso')}" class="mob-link">Lavarino Cosso</a>
+
+                <div class="mob-subcat-title">${t.secPremium}</div>
+                <a href="${u('/colecciones/premium/vervan')}" class="mob-link">Vervan</a>
+                <a href="${u('/colecciones/premium/hawaiian-tropic')}" class="mob-link">Hawaiian</a>
+                <a href="${u('/colecciones/premium/persea')}" class="mob-link">Persea</a>
+                <a href="${u('/colecciones/premium/agavia')}" class="mob-link">Agavia</a>
+                <a href="${u('/colecciones/premium/valquer')}" class="mob-link">Valquer</a>
+` : `
+                <div class="mob-cat-title">${t.catCollections}</div>
+                <div class="mob-subcat-title">${t.secStandard}</div>
+                <a href="${u('/colecciones/estandar/elements')}" class="mob-link">Elements</a>
+                <a href="${u('/colecciones/estandar/tea-leaf')}" class="mob-link">Tea Leaf</a>
+                <a href="${u('/colecciones/estandar/rain-forest')}" class="mob-link">Rainforest</a>
+                <a href="${u('/colecciones/estandar/almond-olive')}" class="mob-link">Almond & Olive</a>
+
+                <div class="mob-subcat-title">${t.secSuperior}</div>
+                <a href="${u('/colecciones/superior/cava')}" class="mob-link">Cava</a>
+                <a href="${u('/colecciones/superior/biogena')}" class="mob-link">Biogena</a>
+                <a href="${u('/colecciones/superior/lavarino-cosso')}" class="mob-link">Lavarino Cosso</a>
+                <a href="${u('/colecciones/superior/dove')}" class="mob-link">Dove</a>
+                <a href="${u('/colecciones/superior/tresseme')}" class="mob-link">Tresemme</a>
+
+                <div class="mob-subcat-title">${t.secPremium}</div>
+                <a href="${u('/colecciones/premium/vervan')}" class="mob-link">Vervan</a>
+                <a href="${u('/colecciones/premium/hawaiian-tropic')}" class="mob-link">Hawaiian Tropic</a>
+                <a href="${u('/colecciones/premium/for-all-folks')}" class="mob-link">For All Folks</a>
+                <a href="${u('/colecciones/premium/persea')}" class="mob-link">Persea</a>
+                <a href="${u('/colecciones/premium/agavia')}" class="mob-link">Agavia</a>
+                <a href="${u('/colecciones/premium/botanicus')}" class="mob-link">Botanicus</a>
+                <a href="${u('/colecciones/premium/botanicaromatica')}" class="mob-link">Botanicaromatica</a>
+
+                <div class="mob-subcat-title">${t.secLuxury}</div>
+                <a href="${u('/colecciones/lujo/xinu')}" class="mob-link">Xinu</a>
+
+                <div class="mob-cat-title">${t.catDispensers}</div>
+                <a href="${u('/sistemas-de-dispensacion#soportes')}" class="mob-link">${t.secSupports}</a>
+                <a href="${u('/sistemas-de-dispensacion#sistemas')}" class="mob-link">${t.secDispensingSystems}</a>
+
+                <div class="mob-cat-title">${t.catAccessories}</div>
+                <a href="${u('/accesorios#lavarino')}" class="mob-link">Lavarino</a>
+                <a href="${u('/accesorios')}" class="mob-link">Nocean</a>
+`;
+
+    return `
+<div class="jypesa-nav-principal-widget">
+<nav class="jypesa-nav" id="nav">
+    <div class="nav-container">
+        <a href="${u('/')}" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="132" height="32" viewBox="0 0 132 32" fill="none" style="display:block;">
+              <g clip-path="url(#clip0_716_31440)">
+                <path d="M54.8289 10.5108H43.4157V31.6971H45.9821V22.7321H54.8289C59.1727 22.7321 61.6652 20.4981 61.6652 16.6047C61.6652 12.7114 59.1727 10.5085 54.8289 10.5085V10.5108ZM54.9208 20.3645H45.9821V12.8784H54.9208C57.7293 12.8784 59.0382 14.0633 59.0382 16.6069C59.0382 19.1506 57.7293 20.3645 54.9208 20.3645Z" fill="currentColor"/>
+                <path d="M100.475 20.4981L93.4481 19.155C91.0364 18.7006 90.1264 17.8476 90.2071 16.1169C90.3617 13.0499 94.2864 12.5911 96.6107 12.5911C100.379 12.5911 102.624 14.0477 103.288 16.9188L103.353 17.1972L105.816 16.2283C104.85 12.3416 101.64 10.2078 96.7138 10.2078C91.2247 10.2078 87.811 12.4018 87.5802 16.0813C87.43 18.9924 89.2119 20.8144 92.8743 21.4959L99.9033 22.839C102.943 23.3981 103.274 24.7322 103.198 25.9639C103.142 26.8682 102.97 29.6168 96.5726 29.6168C92.3498 29.6168 89.9673 28.0287 89.2859 24.7634L89.2298 24.4939L86.7553 25.4673C87.7371 29.7437 91.0835 32 96.4695 32C102.261 32 105.583 29.8729 105.825 26.0085C106.009 23.0617 104.209 21.2064 100.477 20.4959L100.475 20.4981Z" fill="currentColor"/>
+                <path d="M118.321 10.5108L107.562 31.6971H110.371L113.831 24.8236H125.733L129.16 31.6971H132L121.212 10.5108H118.319H118.321ZM114.995 22.4871L119.782 13.0254L124.543 22.4871H114.995Z" fill="currentColor"/>
+                <path d="M13.3049 24.2355C13.3049 26.9395 11.0926 29.1379 8.37159 29.1379H1.01087L0 31.6971H8.37159C12.5114 31.6971 15.8803 28.3494 15.8803 24.2355V10.5085H13.3049V24.2355Z" fill="currentColor"/>
+                <path d="M68.674 21.9147H82.129V19.547H66.1076V31.6971H82.5571V29.3294H68.674V21.9147Z" fill="currentColor"/>
+                <path d="M82.129 10.5108H66.1076V12.8784H82.129V10.5108Z" fill="currentColor"/>
+                <path d="M22.4543 10.5108H19.2199L27.327 21.1039H30.5614L22.4543 10.5108Z" fill="currentColor"/>
+                <path d="M28 31.1971H30.7547L42.9075 -0.5H40.1506L28 31.1971Z" fill="currentColor"/>
+                <path d="M129.7 14.7984C130.33 14.7984 130.877 14.5868 131.325 14.1703C131.774 13.7515 132.002 13.2415 132.002 12.6534C132.002 12.0654 131.776 11.5531 131.325 11.1366C130.877 10.7224 130.332 10.5108 129.7 10.5108C129.068 10.5108 128.524 10.7201 128.075 11.1366C127.625 11.5531 127.396 12.0632 127.396 12.6534C127.396 13.2437 127.625 13.7537 128.073 14.1703C128.521 14.5868 129.068 14.7984 129.698 14.7984H129.7ZM128.45 11.5019C128.793 11.1834 129.214 11.023 129.7 11.023C130.187 11.023 130.606 11.1834 130.949 11.5019C131.294 11.8227 131.462 12.1991 131.462 12.6534C131.462 13.1078 131.289 13.4887 130.949 13.805C130.606 14.1235 130.187 14.2861 129.7 14.2861C129.214 14.2861 128.795 14.1235 128.45 13.805C128.102 13.4842 127.934 13.1056 127.934 12.6534C127.934 12.2013 128.102 11.8227 128.45 11.5019Z" fill="currentColor"/>
+                <path d="M129.447 12.8205H129.631L130.196 13.7092H130.754L130.113 12.7269C130.37 12.6 130.5 12.3973 130.5 12.1256C130.5 11.8249 130.346 11.4641 129.608 11.4641H128.949V13.7092H129.447V12.8205ZM129.447 11.8939H129.611C130.005 11.8939 130.005 12.0699 130.005 12.1456C130.005 12.2525 129.983 12.3216 129.936 12.3528C129.904 12.375 129.815 12.4107 129.568 12.4107C129.517 12.4107 129.476 12.4107 129.447 12.4107V11.8962V11.8939Z" fill="currentColor"/>
+              </g>
+              <defs>
+                <clipPath id="clip0_716_31440">
+                  <rect width="132" height="32" fill="white"/>
+                </clipPath>
+              </defs>
+            </svg>
+        </a>
+
+        <ul class="nav-links">
+            <li class="nav-link-item"><a href="${u('/nosotros')}" class="nav-link">${t.about}</a></li>
+            <li class="nav-link-item">
+                <span class="nav-link">${t.products}</span>
+                <div class="mega-menu">
+                    <div class="mega-content">
+                        <div class="visual-block" id="v-block">
+                            <img id="img-1" class="active" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69e28e1efc9fb63da3bbe96f_Elements%20menu%C3%8C%C2%81.webp" alt="">
+                            <img id="img-2" class="inactive" src="" alt="">
+                            <div class="visual-overlay"></div>
+                        </div>
+${desktopProductsHtml}
                     </div>
                 </div>
             </li>
@@ -1052,7 +1152,7 @@
                     </a>
                 </div>
             </div>
-            ${smartOrderLink}
+            ${actionButton}
             <a href="${u('/contacto')}" class="btn-contact">${t.contact}</a>
         </div>
 
@@ -1072,39 +1172,7 @@
         <li class="mob-item">
             <div class="mob-trigger">${t.products} <span>+</span></div>
             <div class="mob-submenu">
-                <div class="mob-cat-title">${t.catCollections}</div>
-                <div class="mob-subcat-title">${t.secStandard}</div>
-                <a href="${u('/colecciones/estandar/elements')}" class="mob-link">Elements</a>
-                <a href="${u('/colecciones/estandar/tea-leaf')}" class="mob-link">Tea Leaf</a>
-                <a href="${u('/colecciones/estandar/rain-forest')}" class="mob-link">Rainforest</a>
-                <a href="${u('/colecciones/estandar/almond-olive')}" class="mob-link">Almond & Olive</a>
-
-                <div class="mob-subcat-title">${t.secSuperior}</div>
-                <a href="${u('/colecciones/superior/cava')}" class="mob-link">Cava</a>
-                <a href="${u('/colecciones/superior/biogena')}" class="mob-link">Biogena</a>
-                <a href="${u('/colecciones/superior/lavarino-cosso')}" class="mob-link">Lavarino Cosso</a>
-                <a href="${u('/colecciones/superior/dove')}" class="mob-link">Dove</a>
-                <a href="${u('/colecciones/superior/tresseme')}" class="mob-link">Tresemme</a>
-
-                <div class="mob-subcat-title">${t.secPremium}</div>
-                <a href="${u('/colecciones/premium/vervan')}" class="mob-link">Vervan</a>
-                <a href="${u('/colecciones/premium/hawaiian-tropic')}" class="mob-link">Hawaiian Tropic</a>
-                <a href="${u('/colecciones/premium/for-all-folks')}" class="mob-link">For All Folks</a>
-                <a href="${u('/colecciones/premium/persea')}" class="mob-link">Persea</a>
-                <a href="${u('/colecciones/premium/agavia')}" class="mob-link">Agavia</a>
-                <a href="${u('/colecciones/premium/botanicus')}" class="mob-link">Botanicus</a>
-                <a href="${u('/colecciones/premium/botanicaromatica')}" class="mob-link">Botanicaromatica</a>
-
-                <div class="mob-subcat-title">${t.secLuxury}</div>
-                <a href="${u('/colecciones/lujo/xinu')}" class="mob-link">Xinu</a>
-
-                <div class="mob-cat-title">${t.catDispensers}</div>
-                <a href="${u('/sistemas-de-dispensacion#soportes')}" class="mob-link">${t.secSupports}</a>
-                <a href="${u('/sistemas-de-dispensacion#sistemas')}" class="mob-link">${t.secDispensingSystems}</a>
-
-                <div class="mob-cat-title">${t.catAccessories}</div>
-                <a href="${u('/accesorios#lavarino')}" class="mob-link">Lavarino</a>
-                <a href="${u('/accesorios')}" class="mob-link">Nocean</a>
+${mobileProductsHtml}
             </div>
         </li>
         <li class="mob-item">
@@ -1348,6 +1416,19 @@
           t.parentElement.classList.toggle('open');
         });
       }
+    });
+
+    target.querySelectorAll('.lang-option').forEach(option => {
+      option.addEventListener('click', () => {
+        const href = (option.getAttribute('href') || '').toLowerCase();
+        try {
+          if (href.startsWith('/en')) {
+            localStorage.setItem('jypesa_lang', 'en');
+          } else {
+            localStorage.setItem('jypesa_lang', 'es');
+          }
+        } catch (e) {}
+      });
     });
 
     if (mOverlay) {
