@@ -1,0 +1,86 @@
+<!-- ========================================================================= -->
+<!-- JYPESA — Auto Language Detection & Redirect Script (Custom Code Head)    -->
+<!-- Pegar este bloque en: Webflow > Site Settings > Custom Code > Head Code  -->
+<!-- ========================================================================= -->
+<script>
+(function () {
+  'use strict';
+
+  // 1. Evitar redirección para bots/crawlers de motores de búsqueda (SEO)
+  var botPattern = /googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest|slackbot|vkShare|W3C_Validator/i;
+  if (botPattern.test(navigator.userAgent)) return;
+
+  var pathname = window.location.pathname.replace(/\/$/, '') || '/';
+  var search = window.location.search;
+  var hash = window.location.hash;
+
+  // 2. Soporte para forzar idioma por URL (ej: ?lang=en o ?lang=es)
+  var urlParams = new URLSearchParams(search);
+  var queryLang = urlParams.get('lang');
+  if (queryLang === 'en' || queryLang === 'es') {
+    try {
+      localStorage.setItem('jypesa_lang', queryLang);
+    } catch (e) {}
+  }
+
+  // 3. Obtener preferencia guardada en localStorage
+  var savedLang = null;
+  try {
+    savedLang = localStorage.getItem('jypesa_lang');
+  } catch (e) {}
+
+  // 4. Si no hay preferencia guardada, detectar el idioma del navegador/celular
+  var targetLang = savedLang;
+  if (!targetLang) {
+    var rawLanguages = navigator.languages || [navigator.language || navigator.userLanguage || 'es'];
+    var isEnglish = false;
+    for (var i = 0; i < rawLanguages.length; i++) {
+      var langCode = (rawLanguages[i] || '').toLowerCase();
+      if (langCode.startsWith('en')) {
+        isEnglish = true;
+        break;
+      }
+      if (langCode.startsWith('es')) {
+        isEnglish = false;
+        break;
+      }
+    }
+    targetLang = isEnglish ? 'en' : 'es';
+  }
+
+  var isCurrentlyEn = pathname.startsWith('/en');
+
+  // Si el usuario debe estar en inglés y está actualmente en español:
+  if (targetLang === 'en' && !isCurrentlyEn) {
+    var targetUrl = getEnglishUrl(pathname);
+    if (targetUrl && targetUrl !== pathname) {
+      window.location.replace(targetUrl + search + hash);
+    }
+  }
+
+  // Mapeo inteligente de rutas de Español -> Inglés
+  function getEnglishUrl(path) {
+    if (path === '/' || path === '' || path === '/inicio') return '/en/home';
+    if (path === '/nosotros') return '/en/about-us';
+    if (path === '/contacto') return '/en/contact';
+    if (path === '/desarollo-personalizado') return '/en/custom-development';
+    if (path === '/sustentabilidad') return '/en/sustainability';
+    if (path === '/soluciones') return '/en/solutions';
+
+    // Mapeo de Colecciones de Productos
+    if (path.startsWith('/colecciones/')) {
+      var prod = path.slice('/colecciones/'.length);
+      if (prod.startsWith('estandar/')) {
+        return '/en/standar/' + prod.slice('estandar/'.length);
+      }
+      if (prod.startsWith('lujo/')) {
+        return '/en/luxury/' + prod.slice('lujo/'.length);
+      }
+      return '/en/' + prod;
+    }
+
+    // Ruta por defecto si es otra página
+    return '/en' + path;
+  }
+})();
+</script>

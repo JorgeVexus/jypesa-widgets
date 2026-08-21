@@ -830,6 +830,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="category-block-bottom">
+                                <div class="dispensadores-col">
+                                    <p class="cat-label">${t.catDispensers}</p>
+                                    <div class="dispensadores-row">
+                                        <a href="${u('/sistemas-de-dispensacion#soportes')}" class="option-link" data-p="Soportes">${t.secSupports}</a>
+                                        <a href="${u('/sistemas-de-dispensacion#sistemas')}" class="option-link" data-p="Sistemas">${t.secDispensingSystems}</a>
+                                    </div>
+                                </div>
+                                <div class="accesorios-col">
+                                    <a href="${u('/accesorios')}" class="cat-label-link"><p class="cat-label">${t.catAccessories}</p></a>
+                                    <div class="accesorios-row">
+                                        <a href="${u('/accesorios#lavarino')}" class="option-link" data-p="LavarinoAccesorios">Lavarino</a>
+                                        <a href="${u('/accesorios')}" class="option-link" data-p="Nocean">Nocean</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 ` : `
                         <div class="links-container">
@@ -913,6 +929,14 @@
                 <a href="${u('/colecciones/premium/persea')}" class="mob-link">Persea</a>
                 <a href="${u('/colecciones/premium/agavia')}" class="mob-link">Agavia</a>
                 <a href="${u('/colecciones/premium/valquer')}" class="mob-link">Valquer</a>
+
+                <div class="mob-cat-title">${t.catDispensers}</div>
+                <a href="${u('/sistemas-de-dispensacion#soportes')}" class="mob-link">${t.secSupports}</a>
+                <a href="${u('/sistemas-de-dispensacion#sistemas')}" class="mob-link">${t.secDispensingSystems}</a>
+
+                <div class="mob-cat-title">${t.catAccessories}</div>
+                <a href="${u('/accesorios#lavarino')}" class="mob-link">Lavarino</a>
+                <a href="${u('/accesorios')}" class="mob-link">Nocean</a>
 ` : `
                 <div class="mob-cat-title">${t.catCollections}</div>
                 <div class="mob-subcat-title">${t.secStandard}</div>

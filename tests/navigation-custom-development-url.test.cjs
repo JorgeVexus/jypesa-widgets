@@ -96,6 +96,12 @@ test('English product collection links map correctly and only include the 11 tar
   assert.match(englishHtml, /href="\/en\/premium\/agavia"/);
   assert.match(englishHtml, /href="\/en\/premium\/valquer"/);
 
+  // Dispensers and Accessories included in English
+  assert.match(englishHtml, /href="\/en\/sistemas-de-dispensacion#soportes"/);
+  assert.match(englishHtml, /href="\/en\/sistemas-de-dispensacion#sistemas"/);
+  assert.match(englishHtml, /href="\/en\/accesorios#lavarino"/);
+  assert.match(englishHtml, /href="\/en\/accesorios"/);
+
   // Excluded in English
   assert.doesNotMatch(englishHtml, /href="\/en\/superior\/dove"/);
   assert.doesNotMatch(englishHtml, /href="\/en\/superior\/tresseme"/);
@@ -103,8 +109,6 @@ test('English product collection links map correctly and only include the 11 tar
   assert.doesNotMatch(englishHtml, /href="\/en\/premium\/botanicus"/);
   assert.doesNotMatch(englishHtml, /href="\/en\/premium\/botanicaromatica"/);
   assert.doesNotMatch(englishHtml, /href="\/en\/luxury\/xinu"/);
-  assert.doesNotMatch(englishHtml, /href="\/en\/sistemas-de-dispensacion"/);
-  assert.doesNotMatch(englishHtml, /href="\/en\/accesorios"/);
 });
 
 test('English Sustainability links use /en/sustainability and preserve section hashes', () => {
