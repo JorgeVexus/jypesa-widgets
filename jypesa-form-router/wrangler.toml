@@ -1,0 +1,7 @@
+name = "jypesa-contact-router"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Set these with:
+#   wrangler secret put RESEND_API_KEY
+#   wrangler secret put WEBHOOK_SHARED_SECRET   (recommended — protects the endpoint)

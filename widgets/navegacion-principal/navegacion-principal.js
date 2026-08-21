@@ -822,7 +822,6 @@
                                         <div class="section-header">${t.secPremium}</div>
                                         <ul class="options-list">
                                             <li><a href="${u('/colecciones/premium/vervan')}" class="option-link" data-p="Vervan">Vervan</a></li>
-                                            <li><a href="${u('/colecciones/premium/hawaiian-tropic')}" class="option-link" data-p="Hawaiian">Hawaiian</a></li>
                                             <li><a href="${u('/colecciones/premium/persea')}" class="option-link" data-p="Persea">Persea</a></li>
                                             <li><a href="${u('/colecciones/premium/agavia')}" class="option-link" data-p="Agavia">Agavia</a></li>
                                             <li><a href="${u('/colecciones/premium/valquer')}" class="option-link" data-p="Valquer">Valquer</a></li>
@@ -925,7 +924,6 @@
 
                 <div class="mob-subcat-title">${t.secPremium}</div>
                 <a href="${u('/colecciones/premium/vervan')}" class="mob-link">Vervan</a>
-                <a href="${u('/colecciones/premium/hawaiian-tropic')}" class="mob-link">Hawaiian</a>
                 <a href="${u('/colecciones/premium/persea')}" class="mob-link">Persea</a>
                 <a href="${u('/colecciones/premium/agavia')}" class="mob-link">Agavia</a>
                 <a href="${u('/colecciones/premium/valquer')}" class="mob-link">Valquer</a>

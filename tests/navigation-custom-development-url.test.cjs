@@ -78,7 +78,7 @@ test('English Elements links use /en/standar/elements on desktop and mobile', ()
   assert.doesNotMatch(englishHtml, /href="\/en\/colecciones\/estandar\/elements"/);
 });
 
-test('English product collection links map correctly and only include the 11 target collections', () => {
+test('English product collection links map correctly and only include the 10 target collections', () => {
   const englishHtml = renderNavigation('en');
   assert.doesNotMatch(englishHtml, /href="\/en\/colecciones\//);
   
@@ -91,7 +91,6 @@ test('English product collection links map correctly and only include the 11 tar
   assert.match(englishHtml, /href="\/en\/superior\/biogena"/);
   assert.match(englishHtml, /href="\/en\/superior\/lavarino-cosso"/);
   assert.match(englishHtml, /href="\/en\/premium\/vervan"/);
-  assert.match(englishHtml, /href="\/en\/premium\/hawaiian-tropic"/);
   assert.match(englishHtml, /href="\/en\/premium\/persea"/);
   assert.match(englishHtml, /href="\/en\/premium\/agavia"/);
   assert.match(englishHtml, /href="\/en\/premium\/valquer"/);
@@ -105,6 +104,7 @@ test('English product collection links map correctly and only include the 11 tar
   // Excluded in English
   assert.doesNotMatch(englishHtml, /href="\/en\/superior\/dove"/);
   assert.doesNotMatch(englishHtml, /href="\/en\/superior\/tresseme"/);
+  assert.doesNotMatch(englishHtml, /href="\/en\/premium\/hawaiian-tropic"/);
   assert.doesNotMatch(englishHtml, /href="\/en\/premium\/for-all-folks"/);
   assert.doesNotMatch(englishHtml, /href="\/en\/premium\/botanicus"/);
   assert.doesNotMatch(englishHtml, /href="\/en\/premium\/botanicaromatica"/);
