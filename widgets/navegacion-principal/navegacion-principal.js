@@ -771,6 +771,7 @@
       }
       if (base === '/sustentabilidad') return '/en/sustainability' + (rawHash ? '#' + rawHash : '');
       if (base === '/sistemas-de-dispensacion') return '/en/dispensing-systems' + (rawHash ? '#' + rawHash : '');
+      if (base === '/accesorios') return '/en/accessories' + (rawHash ? '#' + rawHash : '');
       if (base === '/soluciones') {
         const enHash = rawHash ? (SOLUCIONES_HASH_MAP_EN[rawHash] || rawHash) : '';
         return '/en/solutions' + (enHash ? '#' + enHash : '');
