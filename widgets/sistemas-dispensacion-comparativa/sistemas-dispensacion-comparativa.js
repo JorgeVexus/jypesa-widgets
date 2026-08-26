@@ -715,6 +715,17 @@
 
       const imgEl = item.querySelector('.jypesa-disp-img-main');
 
+      // Fallback: lee una URL en texto plano desde un elemento marcador
+      // data-jypesa-role="..." cuando el binding nativo de imagen/enlace del
+      // CMS no está disponible (limitación conocida del Designer API de
+      // Webflow para bindear Image/Link dentro de un Collection List item).
+      const getUrlFromRole = (role) => {
+        const el = item.querySelector(`[data-jypesa-role="${role}"]`);
+        if (!el) return '';
+        const txt = el.textContent.trim();
+        return txt && txt !== '#' ? txt : '';
+      };
+
       dispensers.push({
         name: name,
         badge: get('.jypesa-disp-badge') || 'Economy',
@@ -726,33 +737,57 @@
         material: get('.jypesa-disp-material') || '-',
         seguridad: get('.jypesa-disp-seguridad') || '-',
         desc: get('.jypesa-disp-desc') || '',
-        imgMain: getImgSrc('.jypesa-disp-img-main'),
+        imgMain: getImgSrc('.jypesa-disp-img-main') || getUrlFromRole('img-main-url'),
         variants: variants,
-        guiaLink: getLink('.jypesa-disp-guia-link'),
-        fichaLink: getLink('.jypesa-disp-ficha-link')
+        guiaLink: getLink('.jypesa-disp-guia-link') || getUrlFromRole('guia-url'),
+        fichaLink: getLink('.jypesa-disp-ficha-link') || getUrlFromRole('ficha-url')
       });
     });
 
     return dispensers.length ? dispensers : null;
   }
 
+  // 5. Textos de interfaz (i18n) — controlado por el atributo data-lang="en"
+  const UI_TEXT = {
+    es: {
+      empty: 'No hay dispensadores disponibles en esta categoría.',
+      guideBtn: 'Descargar guía de instalación',
+      techBtn: 'Descargar ficha técnica',
+      specCodigo: 'Código',
+      specCapacidad: 'Capacidad',
+      specMaterial: 'Material',
+      specSeguridad: 'Seguridad'
+    },
+    en: {
+      empty: 'No dispensers available in this category.',
+      guideBtn: 'Download installation guide',
+      techBtn: 'Download technical sheet',
+      specCodigo: 'Code',
+      specCapacidad: 'Capacity',
+      specMaterial: 'Material',
+      specSeguridad: 'Security'
+    }
+  };
+
   // 5. Construir el HTML de los items del grid
-  function buildGridHtml(dispensers) {
+  function buildGridHtml(dispensers, lang) {
+    const t = UI_TEXT[lang] || UI_TEXT.es;
+
     if (!dispensers.length) {
-      return `<div class="jypesa-sdc-empty">No hay dispensadores disponibles en esta categoría.</div>`;
+      return `<div class="jypesa-sdc-empty">${t.empty}</div>`;
     }
 
     return dispensers.map(disp => {
       const guideButton = disp.guiaLink
         ? `<a href="${disp.guiaLink}" target="_blank" class="jypesa-sdc-btn jypesa-sdc-btn-primary">
-             Descargar guía de instalación
+             ${t.guideBtn}
              ${downloadIcon}
            </a>`
         : '';
 
       const techButton = disp.fichaLink
         ? `<a href="${disp.fichaLink}" target="_blank" class="jypesa-sdc-btn jypesa-sdc-btn-secondary">
-             Descargar ficha técnica
+             ${t.techBtn}
              ${downloadIcon}
            </a>`
         : '';
@@ -808,19 +843,19 @@
             
             <div class="jypesa-sdc-specs">
               <div class="jypesa-sdc-spec-item">
-                <span class="jypesa-sdc-spec-label">Código</span>
+                <span class="jypesa-sdc-spec-label">${t.specCodigo}</span>
                 <span class="jypesa-sdc-spec-value">${disp.codigo}</span>
               </div>
               <div class="jypesa-sdc-spec-item">
-                <span class="jypesa-sdc-spec-label">Capacidad</span>
+                <span class="jypesa-sdc-spec-label">${t.specCapacidad}</span>
                 <span class="jypesa-sdc-spec-value">${disp.capacidad}</span>
               </div>
               <div class="jypesa-sdc-spec-item">
-                <span class="jypesa-sdc-spec-label">Material</span>
+                <span class="jypesa-sdc-spec-label">${t.specMaterial}</span>
                 <span class="jypesa-sdc-spec-value">${disp.material}</span>
               </div>
               <div class="jypesa-sdc-spec-item">
-                <span class="jypesa-sdc-spec-label">Seguridad</span>
+                <span class="jypesa-sdc-spec-label">${t.specSeguridad}</span>
                 <span class="jypesa-sdc-spec-value">${disp.seguridad}</span>
               </div>
             </div>
@@ -873,11 +908,14 @@
       }
 
       // Ocultar wrapper fuente del CMS si existe
-      const cmsSource = target.querySelector('.jypesa-sdc-cms-source') || 
+      const cmsSource = target.querySelector('.jypesa-sdc-cms-source') ||
                         document.querySelector('.jypesa-sdc-cms-source');
       if (cmsSource) {
         cmsSource.style.display = 'none';
       }
+
+      // Idioma de interfaz (etiquetas fijas: specs, botones, estado vacío)
+      const lang = (target.getAttribute('data-lang') || 'es').toLowerCase();
 
       // Estructurar el marcado general del Widget (Header + Grid + Dots)
       target.innerHTML = `
@@ -889,7 +927,7 @@
             <p class="jypesa-sdc-subtitle">${descToUse}</p>
           </div>
           <div class="jypesa-sdc-grid">
-            ${buildGridHtml(dataToUse)}
+            ${buildGridHtml(dataToUse, lang)}
           </div>
           <div class="jypesa-sdc-dots"></div>
         </div>
