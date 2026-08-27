@@ -831,7 +831,6 @@
                                             <li><a href="${u('/colecciones/premium/vervan')}" class="option-link" data-p="Vervan">Vervan</a></li>
                                             <li><a href="${u('/colecciones/premium/persea')}" class="option-link" data-p="Persea">Persea</a></li>
                                             <li><a href="${u('/colecciones/premium/agavia')}" class="option-link" data-p="Agavia">Agavia</a></li>
-                                            <li><a href="${u('/colecciones/premium/valquer')}" class="option-link" data-p="Valquer">Valquer</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -933,7 +932,6 @@
                 <a href="${u('/colecciones/premium/vervan')}" class="mob-link">Vervan</a>
                 <a href="${u('/colecciones/premium/persea')}" class="mob-link">Persea</a>
                 <a href="${u('/colecciones/premium/agavia')}" class="mob-link">Agavia</a>
-                <a href="${u('/colecciones/premium/valquer')}" class="mob-link">Valquer</a>
 
                 <div class="mob-cat-title">${t.catDispensers}</div>
                 <a href="${u('/sistemas-de-dispensacion#soportes')}" class="mob-link">${t.secSupports}</a>
