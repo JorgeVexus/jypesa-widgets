@@ -233,17 +233,16 @@
   left: 0;
   bottom: calc(100% + 10px);
   min-width: 190px;
-  max-width: 300px;
-  background: rgba(255, 255, 255, 0.85);
+  max-width: min(440px, 80vw);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(14px) saturate(180%);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 10px;
   box-shadow: 0 10px 28px rgba(10, 40, 60, 0.18);
-  padding: 10px 12px;
+  padding: 10px 14px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2px 18px;
+  gap: 4px 20px;
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px) scale(0.97);
@@ -262,9 +261,8 @@
   font-family: 'Rubik', sans-serif;
   font-size: 12px;
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 1.5;
   color: var(--jypesa-cg-text-city);
-  white-space: nowrap;
   cursor: pointer;
   transition: color 0.15s ease, transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -549,9 +547,9 @@
               <span class="jypesa-cg-group-title" style="color: ${group.color};">${escapeHtml(displayGroupName)}</span>
             </div>
             <span class="jypesa-cg-group-count" style="color: ${group.color};">${locations.length}</span>
-            <svg class="jypesa-cg-group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"></polyline></svg>
+            <svg class="jypesa-cg-group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
-          <div class="jypesa-cg-group-dropdown">
+          <div class="jypesa-cg-group-dropdown" style="grid-template-columns: repeat(${locations.length > 6 ? 2 : 1}, minmax(0, 1fr));">
             ${locations.map(function (location) {
               return `<span class="jypesa-cg-city-link" data-idx="${location.idx}">${escapeHtml(locationLabel(location, lang))}</span>`;
             }).join('')}
