@@ -404,6 +404,42 @@
     'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7274bc85f259d8bfe18c_botanicaromatica%2017.avif'
   ];
 
+  // Logos de fallback para Marquee (versión en inglés)
+  // Solo las marcas que siguen presentes en la navbar en inglés (sin Dove, Tresemmé,
+  // Hawaiian Tropic, For All Folks, Valquer, Xinu ni Botanicaromatica).
+  const fallbackLogosEn = [
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e72767d30050a400a0bcf_elements%2001.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7276ffc51ee72ae73f41_tea%20leaf%2002.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7277d307b0bb54574407_rainforest%2003.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7276abf0ec18d6aaecf4_ayo%2004.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e727745701dd685b875ec_cava-logo%2005.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7275910f1612b878c54a_biogena_logo%202%2006.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7275a1b09e5bf135c618_lavarino_logo%202%2007.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e727573dce274159f2ee3_vervan_logo%202%2010.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e727481172bebada70930_persea%20logo%2013.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7274062c939df35cb162_agavia%20logo%2014.avif'
+  ];
+
+  // Palabras clave de las marcas que ya no están en la navbar en inglés,
+  // para filtrarlas también si los logos vienen del CMS en vez del fallback.
+  const EN_EXCLUDED_LOGO_KEYWORDS = [
+    'dove_logo', 'dove-logo',
+    'tresemme-logo', 'tresemme_logo',
+    'hawaiian-tropic', 'hawaiian_tropic',
+    'faf_logo', 'faf-logo',
+    'valquer', 'valque',
+    'xinu_logo', 'xinu-logo',
+    'botanicaromatica'
+  ];
+
+  function filterLogosForLang(logos, lang) {
+    if (lang !== 'en' || !logos) return logos;
+    return logos.filter(function (src) {
+      const lower = src.toLowerCase();
+      return !EN_EXCLUDED_LOGO_KEYWORDS.some(function (keyword) { return lower.includes(keyword); });
+    });
+  }
+
   // ─── LEER LOGOS DESDE EL CMS DE WEBFLOW ──────────────────────────────────────
   function readLogosFromCMS() {
     const sourceContainer = document.querySelector(
@@ -531,9 +567,11 @@
       return;
     }
 
-    const cmsLogos = readLogosFromCMS();
-    const logos = cmsLogos || fallbackLogos;
-    const copy = CONTENT[resolveLanguage(target)];
+    const lang = resolveLanguage(target);
+    const cmsLogos = filterLogosForLang(readLogosFromCMS(), lang);
+    const fallback = lang === 'en' ? fallbackLogosEn : fallbackLogos;
+    const logos = (cmsLogos && cmsLogos.length) ? cmsLogos : fallback;
+    const copy = CONTENT[lang];
     const marqueeHtml = buildMarqueeHtml(logos, copy);
 
     target.innerHTML = buildWidgetHtml(marqueeHtml, copy);
