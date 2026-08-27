@@ -98,6 +98,54 @@
     'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7274bc85f259d8bfe18c_botanicaromatica%2017.avif'
   ];
 
+  // ─── 2b. LOGOS DE FALLBACK PARA LA VERSIÓN EN INGLÉS ───────────────────────
+  // Solo las marcas que siguen presentes en la navbar en inglés (sin Dove, Tresemmé,
+  // Hawaiian Tropic, For All Folks, Valquer, Xinu ni Botanicaromatica).
+  const fallbackLogosEn = [
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e72767d30050a400a0bcf_elements%2001.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7276ffc51ee72ae73f41_tea%20leaf%2002.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7277d307b0bb54574407_rainforest%2003.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7276abf0ec18d6aaecf4_ayo%2004.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e727745701dd685b875ec_cava-logo%2005.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7275910f1612b878c54a_biogena_logo%202%2006.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7275a1b09e5bf135c618_lavarino_logo%202%2007.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e727573dce274159f2ee3_vervan_logo%202%2010.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e727481172bebada70930_persea%20logo%2013.avif',
+    'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a4e7274062c939df35cb162_agavia%20logo%2014.avif'
+  ];
+
+  // Palabras clave de las marcas que ya no están en la navbar en inglés,
+  // para filtrarlas también si los logos vienen del CMS en vez del fallback.
+  const EN_EXCLUDED_LOGO_KEYWORDS = [
+    'dove_logo', 'dove-logo',
+    'tresemme-logo', 'tresemme_logo',
+    'hawaiian-tropic', 'hawaiian_tropic',
+    'faf_logo', 'faf-logo',
+    'valquer', 'valque',
+    'xinu_logo', 'xinu-logo',
+    'botanicaromatica'
+  ];
+
+  function filterLogosForLang(logos, lang) {
+    if (lang !== 'en' || !logos) return logos;
+    return logos.filter((src) => {
+      const lower = src.toLowerCase();
+      return !EN_EXCLUDED_LOGO_KEYWORDS.some((keyword) => lower.includes(keyword));
+    });
+  }
+
+  // Resuelve el idioma igual que el resto de los widgets de Jypesa:
+  // data-lang en el target > lang del <html> > prefijo /en en la URL > 'es' por defecto.
+  function resolveLanguage(target) {
+    let lang = (target.getAttribute('data-lang') || '').toLowerCase().trim();
+    if (lang === 'en' || lang === 'es') return lang;
+
+    const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+    if (htmlLang.startsWith('en')) return 'en';
+    if (window.location.pathname.toLowerCase().startsWith('/en')) return 'en';
+    return 'es';
+  }
+
   // ─── 3. LEER LOGOS DESDE EL CMS DE WEBFLOW ───────────────────────────────────
   function readLogosFromCMS() {
     const sourceContainer = document.querySelector('.jypesa-partners-marquee-cms-source');
@@ -152,15 +200,19 @@
     );
     if (!targets.length) return;
 
-    // Leer del CMS (Si existe, sino fallback)
-    const cmsLogos = readLogosFromCMS();
-    const sourceLogos = cmsLogos || fallbackLogos;
-
-    const itemsHtml = generateInfiniteLogosTrack(sourceLogos);
-
     targets.forEach((target) => {
       if (target.getAttribute('data-initialized') === 'true') return;
       target.setAttribute('data-initialized', 'true');
+
+      // Leer el idioma para mostrar solo las marcas vigentes en ese idioma (ej: data-lang="en")
+      const lang = resolveLanguage(target);
+
+      // Leer del CMS (Si existe, sino fallback), filtrando marcas descontinuadas en inglés
+      const cmsLogos = filterLogosForLang(readLogosFromCMS(), lang);
+      const fallback = lang === 'en' ? fallbackLogosEn : fallbackLogos;
+      const sourceLogos = (cmsLogos && cmsLogos.length) ? cmsLogos : fallback;
+
+      const itemsHtml = generateInfiniteLogosTrack(sourceLogos);
 
       // Leer la duración del scroll desde el data attribute (ej: data-duration="30s")
       const duration = target.getAttribute('data-duration') || '40s';
