@@ -39,7 +39,8 @@
   border-bottom: 1px solid rgba(0,0,0,0.03);
 }
 
-.jypesa-nav-principal-widget .jypesa-nav.scrolled {
+.jypesa-nav-principal-widget .jypesa-nav.scrolled,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light {
   background: rgba(255, 255, 255, 0.98);
   box-shadow: 0 2px 10px rgba(0,0,0,0.02);
 }
@@ -282,7 +283,11 @@
 .jypesa-nav-principal-widget .jypesa-nav.scrolled .logo,
 .jypesa-nav-principal-widget .jypesa-nav.scrolled .nav-link,
 .jypesa-nav-principal-widget .jypesa-nav.scrolled .action-icon,
-.jypesa-nav-principal-widget .jypesa-nav.scrolled .smart-order {
+.jypesa-nav-principal-widget .jypesa-nav.scrolled .smart-order,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light .logo,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light .nav-link,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light .action-icon,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light .smart-order {
   color: #506D85;
 }
 
@@ -1485,6 +1490,12 @@ ${mobileProductsHtml}
       }
 
       target.innerHTML = buildWidgetHtml(lang);
+
+      const colorVariant = (target.getAttribute('data-color') || '').toLowerCase().trim();
+      if (colorVariant === 'white' || colorVariant === 'light') {
+        const nav = target.querySelector('#nav');
+        if (nav) nav.classList.add('jypesa-nav-light');
+      }
 
       setupNavEvents(target, lang);
     });

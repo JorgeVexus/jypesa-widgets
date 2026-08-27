@@ -7,16 +7,16 @@
      type acepta: 'oficina' | 'planta' | 'cedis' | 'contacto'
      ========================================================== */
   const LOCATIONS = [
-    { id: 1, type: 'oficina', name: 'Jypesa Oficinas Corporativas México', address: 'Av. Acueducto 2100, Colinas de San Javier, 45110 Guadalajara, Jal., México', phone: '+52 33 4040 2081', email: 'cercadeti@jypesa.com', lat: 20.7043, lng: -103.4130, isDefault: true },
-    { id: 2, type: 'planta', name: 'Jypesa Planta Guadalajara', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal., México', phone: '+52 33 3540 2939', email: 'cercadeti@jypesa.com', lat: 20.6355, lng: -103.2953 },
-    { id: 3, type: 'cedis', name: 'Jypesa CEDIS Playa del Carmen', address: 'Carr. Cancún - Tulum 7499, Luis Donaldo Colosio, 77710 Playa del Carmen, Q.R., México', phone: '+52 984 109 2042', email: 'cercadeti@jypesa.com', lat: 20.6105, lng: -87.0733 },
-    { id: 4, type: 'contacto', name: 'Jypesa Caribe', email: 'ventascaribe@jypesa.com', lat: 18.5601, lng: -68.3725 },
-    { id: 5, type: 'contacto', name: 'Jypesa Centroamérica', email: 'centroamerica@jypesa.com', lat: 14.6349, lng: -90.5069 },
-    { id: 6, type: 'contacto', name: 'Jypesa Perú', email: 'ventasperu@jypesa.com', lat: -12.0464, lng: -77.0428 },
-    { id: 7, type: 'contacto', name: 'Jypesa Colombia', email: 'ventascolombia@jypesa.com', lat: 4.7110, lng: -74.0721 },
-    { id: 8, type: 'contacto', name: 'Jypesa Chile', email: 'ventaschile@jypesa.com', lat: -33.4489, lng: -70.6693 },
-    { id: 9, type: 'contacto', name: 'Jypesa USA', phone: '+1 800-482-2127', email: 'contactusa@jypesa.com', lat: 32.7767, lng: -96.7970 },
-    { id: 10, type: 'contacto', name: 'Jypesa Europa', email: 'contactoeu@jypesa.com', lat: 38.3452, lng: -0.4810 },
+    { id: 1, type: 'oficina', nameEs: 'Jypesa Oficinas Corporativas México', nameEn: 'Jypesa Corporate Offices Mexico', address: 'Av. Acueducto 2100, Colinas de San Javier, 45110 Guadalajara, Jal., México', phone: '+52 33 4040 2081', email: 'cercadeti@jypesa.com', lat: 20.7043, lng: -103.4130, isDefault: true },
+    { id: 2, type: 'planta', nameEs: 'Jypesa Planta Guadalajara', nameEn: 'Jypesa Guadalajara Plant', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal., México', phone: '+52 33 3540 2939', email: 'cercadeti@jypesa.com', lat: 20.6355, lng: -103.2953 },
+    { id: 3, type: 'cedis', nameEs: 'Jypesa CEDIS Playa del Carmen', nameEn: 'Jypesa CEDIS Playa del Carmen', address: 'Carr. Cancún - Tulum 7499, Luis Donaldo Colosio, 77710 Playa del Carmen, Q.R., México', phone: '+52 984 109 2042', email: 'cercadeti@jypesa.com', lat: 20.6105, lng: -87.0733 },
+    { id: 4, type: 'contacto', nameEs: 'Jypesa Caribe', nameEn: 'Jypesa Caribbean', email: 'ventascaribe@jypesa.com', lat: 18.5601, lng: -68.3725 },
+    { id: 5, type: 'contacto', nameEs: 'Jypesa Centroamérica', nameEn: 'Jypesa Central America', email: 'centroamerica@jypesa.com', lat: 14.6349, lng: -90.5069 },
+    { id: 6, type: 'contacto', nameEs: 'Jypesa Perú', nameEn: 'Jypesa Peru', email: 'ventasperu@jypesa.com', lat: -12.0464, lng: -77.0428 },
+    { id: 7, type: 'contacto', nameEs: 'Jypesa Colombia', nameEn: 'Jypesa Colombia', email: 'ventascolombia@jypesa.com', lat: 4.7110, lng: -74.0721 },
+    { id: 8, type: 'contacto', nameEs: 'Jypesa Chile', nameEn: 'Jypesa Chile', email: 'ventaschile@jypesa.com', lat: -33.4489, lng: -70.6693 },
+    { id: 9, type: 'contacto', nameEs: 'Jypesa USA', nameEn: 'Jypesa USA', phone: '+1 800-482-2127', email: 'contactusa@jypesa.com', lat: 32.7767, lng: -96.7970 },
+    { id: 10, type: 'contacto', nameEs: 'Jypesa Europa', nameEn: 'Jypesa Europe', email: 'contactoeu@jypesa.com', lat: 38.3452, lng: -0.4810 },
   ];
 
   /* ==========================================================
@@ -616,6 +616,10 @@
     return lang === 'en' ? (loc.hoursEn || '') : (loc.hoursEs || '');
   }
 
+  function getName(loc, lang) {
+    return (lang === 'en' ? loc.nameEn : loc.nameEs) || loc.nameEs || loc.nameEn || '';
+  }
+
   function initPresenciaInternacionalWidget() {
     const targets = document.querySelectorAll(
       '#jypesa-presencia-internacional-widget, [data-jypesa-presencia-internacional-widget], .jypesa-presencia-internacional-widget, .jypesa-presencia-internacional-widget-container'
@@ -664,7 +668,7 @@
         const activeTypes = getActiveTypes();
         return LOCATIONS.filter(loc => {
           const matchesType = activeTypes.length === 0 || activeTypes.includes(loc.type);
-          const matchesQuery = !query || loc.name.toLowerCase().includes(query) || (loc.address && loc.address.toLowerCase().includes(query));
+          const matchesQuery = !query || getName(loc, lang).toLowerCase().includes(query) || (loc.address && loc.address.toLowerCase().includes(query));
           return matchesType && matchesQuery;
         });
       }
@@ -692,7 +696,7 @@
           const hours = getHours(loc, lang);
           return `
           <div class="jypesa-pi-item${loc.id === activeId ? ' active' : ''}" data-id="${loc.id}">
-            <p class="jypesa-pi-item-name">${loc.name}</p>
+            <p class="jypesa-pi-item-name">${getName(loc, lang)}</p>
             ${loc.address ? `<div class="jypesa-pi-item-row">${ICONS.pin}<span>${loc.address}</span></div>` : ''}
             ${loc.phone ? `<div class="jypesa-pi-item-row">${ICONS.phone}<a href="tel:${loc.phone.replace(/[\s+]+/g, '')}">${loc.phone}</a></div>` : ''}
             ${loc.email ? `<div class="jypesa-pi-item-row">${ICONS.mail}<a href="mailto:${loc.email}">${loc.email}</a></div>` : ''}
@@ -724,7 +728,7 @@
       function popupHtml(loc) {
         const hours = getHours(loc, lang);
         return `
-          <div class="jypesa-pi-popup-name">${loc.name}</div>
+          <div class="jypesa-pi-popup-name">${getName(loc, lang)}</div>
           ${loc.address ? `<div class="jypesa-pi-popup-row">${ICONS.pin}<span>${loc.address}</span></div>` : ''}
           ${loc.phone ? `<div class="jypesa-pi-popup-row">${ICONS.phone}<a href="tel:${loc.phone.replace(/[\s+]+/g, '')}">${loc.phone}</a></div>` : ''}
           ${loc.email ? `<div class="jypesa-pi-popup-row">${ICONS.mail}<a href="mailto:${loc.email}">${loc.email}</a></div>` : ''}
