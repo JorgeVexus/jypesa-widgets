@@ -3,20 +3,20 @@
   window.__JypesaPresenciaInternacionalWidgetInitialized = true;
 
   /* ==========================================================
-     DATOS DE LOCACIONES (PLACEHOLDER)
-     Reemplaza este arreglo con el listado real de JYPESA.
-     type acepta: 'oficina' | 'distribuidor' | 'cedis'
-     ========================================================== */
-  /* ==========================================================
-     DATOS DE LOCACIONES (PLACEHOLDER BILINGÜE)
+     DATOS DE LOCACIONES
+     type acepta: 'oficina' | 'planta' | 'cedis' | 'contacto'
      ========================================================== */
   const LOCATIONS = [
-    { id: 1, type: 'oficina', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 22.1565, lng: -100.9855, isDefault: true },
-    { id: 2, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 25.6866, lng: -100.3161 },
-    { id: 3, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 25.4260, lng: -101.0053 },
-    { id: 4, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 22.7709, lng: -102.5832 },
-    { id: 5, type: 'cedis', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 21.9623, lng: -99.6134 },
-    { id: 6, type: 'distribuidor', name: 'Jypesa Hospitality', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal.', phone: '+52 33 3540 2939', hoursEs: 'Abierto ahora • Cierra a las 20:00 hrs', hoursEn: 'Open Now • Closes at 8:00 PM', lat: 22.2331, lng: -97.8614 },
+    { id: 1, type: 'oficina', name: 'Jypesa Oficinas Corporativas México', address: 'Av. Acueducto 2100, Colinas de San Javier, 45110 Guadalajara, Jal., México', phone: '+52 33 4040 2081', email: 'cercadeti@jypesa.com', lat: 20.7043, lng: -103.4130, isDefault: true },
+    { id: 2, type: 'planta', name: 'Jypesa Planta Guadalajara', address: 'C. Cernícalo 155, La Aurora, 44460 Guadalajara, Jal., México', phone: '+52 33 3540 2939', email: 'cercadeti@jypesa.com', lat: 20.6355, lng: -103.2953 },
+    { id: 3, type: 'cedis', name: 'Jypesa CEDIS Playa del Carmen', address: 'Carr. Cancún - Tulum 7499, Luis Donaldo Colosio, 77710 Playa del Carmen, Q.R., México', phone: '+52 984 109 2042', email: 'cercadeti@jypesa.com', lat: 20.6105, lng: -87.0733 },
+    { id: 4, type: 'contacto', name: 'Jypesa Caribe', email: 'ventascaribe@jypesa.com', lat: 18.5601, lng: -68.3725 },
+    { id: 5, type: 'contacto', name: 'Jypesa Centroamérica', email: 'centroamerica@jypesa.com', lat: 14.6349, lng: -90.5069 },
+    { id: 6, type: 'contacto', name: 'Jypesa Perú', email: 'ventasperu@jypesa.com', lat: -12.0464, lng: -77.0428 },
+    { id: 7, type: 'contacto', name: 'Jypesa Colombia', email: 'ventascolombia@jypesa.com', lat: 4.7110, lng: -74.0721 },
+    { id: 8, type: 'contacto', name: 'Jypesa Chile', email: 'ventaschile@jypesa.com', lat: -33.4489, lng: -70.6693 },
+    { id: 9, type: 'contacto', name: 'Jypesa USA', phone: '+1 800-482-2127', email: 'contactusa@jypesa.com', lat: 32.7767, lng: -96.7970 },
+    { id: 10, type: 'contacto', name: 'Jypesa Europa', email: 'contactoeu@jypesa.com', lat: 38.3452, lng: -0.4810 },
   ];
 
   /* ==========================================================
@@ -31,16 +31,18 @@
       filtersBtn: 'Filtros',
       filterOptions: {
         oficina: 'Oficinas',
-        distribuidor: 'Distribuidor',
-        cedis: 'CEDIS'
+        planta: 'Plantas',
+        cedis: 'CEDIS',
+        contacto: 'Contacto regional'
       },
       countText: function(count, word) { return `${count} <em>${word}</em> cerca tuyo`; },
       emptyMessage: 'No encontramos locaciones con esos filtros.',
       fullscreenLabel: 'Pantalla completa',
       typeLabels: {
         oficina: { singular: 'oficina', plural: 'oficinas' },
-        distribuidor: { singular: 'distribuidor', plural: 'distribuidores' },
+        planta: { singular: 'planta', plural: 'plantas' },
         cedis: { singular: 'CEDIS', plural: 'CEDIS' },
+        contacto: { singular: 'contacto', plural: 'contactos' },
       }
     },
     en: {
@@ -51,16 +53,18 @@
       filtersBtn: 'Filters',
       filterOptions: {
         oficina: 'Offices',
-        distribuidor: 'Distributors',
-        cedis: 'CEDIS'
+        planta: 'Plants',
+        cedis: 'CEDIS',
+        contacto: 'Regional Contact'
       },
       countText: function(count, word) { return `${count} <em>${word}</em> Near You`; },
       emptyMessage: 'No locations found with those filters.',
       fullscreenLabel: 'Fullscreen',
       typeLabels: {
-        oficina: { singular: 'Location', plural: 'Locations' },
-        distribuidor: { singular: 'Location', plural: 'Locations' },
-        cedis: { singular: 'Location', plural: 'Locations' },
+        oficina: { singular: 'Office', plural: 'Offices' },
+        planta: { singular: 'Plant', plural: 'Plants' },
+        cedis: { singular: 'CEDIS', plural: 'CEDIS' },
+        contacto: { singular: 'Contact', plural: 'Contacts' },
       }
     }
   };
@@ -150,6 +154,14 @@
   border-color: var(--jypesa-pi-blue);
 }
 
+.jypesa-pi-search input {
+  transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.jypesa-pi-search input:active {
+  transform: scale(0.997);
+}
+
 .jypesa-pi-search svg {
   position: absolute;
   right: 14px;
@@ -199,6 +211,11 @@
   font-weight: 500;
   color: var(--jypesa-pi-dark);
   padding: 4px 0;
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.jypesa-pi-filters-btn:active {
+  transform: scale(0.96);
 }
 
 .jypesa-pi-filters-btn svg {
@@ -210,7 +227,9 @@
   top: 100%;
   right: 0;
   margin-top: 8px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid var(--jypesa-pi-border);
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
@@ -219,14 +238,15 @@
   z-index: 20;
   visibility: hidden;
   opacity: 0;
-  transform: translateY(-6px);
-  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  transform: translateY(-6px) scale(0.98);
+  transform-origin: top right;
+  transition: opacity 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.2s;
 }
 
 .jypesa-pi-filters-dropdown.open {
   visibility: visible;
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .jypesa-pi-filter-option {
@@ -272,12 +292,16 @@
   border-bottom: 1px solid #ECEFF1;
   cursor: pointer;
   border-radius: 6px;
-  transition: background 0.2s ease;
+  transition: background 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .jypesa-pi-item:hover,
 .jypesa-pi-item.active {
   background: var(--jypesa-pi-bg-soft);
+}
+
+.jypesa-pi-item:active {
+  transform: scale(0.99);
 }
 
 .jypesa-pi-item-name {
@@ -352,10 +376,15 @@
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   color: var(--jypesa-pi-dark);
+  transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .jypesa-pi-fullscreen-btn:hover {
   color: var(--jypesa-pi-blue);
+}
+
+.jypesa-pi-fullscreen-btn:active {
+  transform: scale(0.92);
 }
 
 .jypesa-pi-marker .jypesa-pi-pin {
@@ -407,8 +436,25 @@
   border-top-color: var(--jypesa-pi-slate);
 }
 
+.jypesa-pi-marker.type-planta .jypesa-pi-pin-circle {
+  background: var(--jypesa-pi-success);
+}
+
+.jypesa-pi-marker.type-planta .jypesa-pi-pin::after {
+  border-top-color: var(--jypesa-pi-success);
+}
+
 .jypesa-pi-marker.active .jypesa-pi-pin-circle {
   box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+}
+
+.jypesa-pi-pin-circle,
+.jypesa-pi-pin::after {
+  transition: background-color 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-top-color 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1), transform 0.25s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.jypesa-pi-marker.active .jypesa-pi-pin-circle {
+  transform: scale(1.05);
 }
 
 .jypesa-pi-popup .leaflet-popup-content-wrapper {
@@ -475,6 +521,19 @@
     max-height: none;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .jypesa-pi-pin-circle,
+  .jypesa-pi-pin::after,
+  .jypesa-pi-item,
+  .jypesa-pi-filters-btn,
+  .jypesa-pi-filters-dropdown,
+  .jypesa-pi-fullscreen-btn,
+  .jypesa-pi-search input {
+    transition-duration: 0.01ms !important;
+    transform: none !important;
+  }
+}
 `;
 
   const styleEl = document.createElement('style');
@@ -485,6 +544,7 @@
     search: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>`,
     pin: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
     phone: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>`,
+    mail: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22 6 12 13 2 6"></polyline></svg>`,
     filters: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>`,
     expand: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>`,
     check: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`,
@@ -511,8 +571,9 @@
         </button>
         <div class="jypesa-pi-filters-dropdown" id="pi-filters-dropdown">
           <label class="jypesa-pi-filter-option"><input type="checkbox" value="oficina"> ${t.filterOptions.oficina}</label>
-          <label class="jypesa-pi-filter-option"><input type="checkbox" value="distribuidor"> ${t.filterOptions.distribuidor}</label>
+          <label class="jypesa-pi-filter-option"><input type="checkbox" value="planta"> ${t.filterOptions.planta}</label>
           <label class="jypesa-pi-filter-option"><input type="checkbox" value="cedis"> ${t.filterOptions.cedis}</label>
+          <label class="jypesa-pi-filter-option"><input type="checkbox" value="contacto"> ${t.filterOptions.contacto}</label>
         </div>
       </div>
 
@@ -551,10 +612,8 @@
   }
 
   function getHours(loc, lang) {
-    if (lang === 'en') {
-      return loc.hoursEn || 'Open Now • Closes at 8:00 PM';
-    }
-    return loc.hoursEs || loc.hours || 'Abierto ahora • Cierra a las 20:00 hrs';
+    if (!loc.hoursEs && !loc.hoursEn) return '';
+    return lang === 'en' ? (loc.hoursEn || '') : (loc.hoursEs || '');
   }
 
   function initPresenciaInternacionalWidget() {
@@ -605,7 +664,7 @@
         const activeTypes = getActiveTypes();
         return LOCATIONS.filter(loc => {
           const matchesType = activeTypes.length === 0 || activeTypes.includes(loc.type);
-          const matchesQuery = !query || loc.name.toLowerCase().includes(query) || loc.address.toLowerCase().includes(query);
+          const matchesQuery = !query || loc.name.toLowerCase().includes(query) || (loc.address && loc.address.toLowerCase().includes(query));
           return matchesType && matchesQuery;
         });
       }
@@ -629,14 +688,18 @@
           return;
         }
 
-        listEl.innerHTML = filtered.map(loc => `
+        listEl.innerHTML = filtered.map(loc => {
+          const hours = getHours(loc, lang);
+          return `
           <div class="jypesa-pi-item${loc.id === activeId ? ' active' : ''}" data-id="${loc.id}">
             <p class="jypesa-pi-item-name">${loc.name}</p>
-            <div class="jypesa-pi-item-row">${ICONS.pin}<span>${loc.address}</span></div>
-            <div class="jypesa-pi-item-row">${ICONS.phone}<a href="tel:${loc.phone.replace(/[\s+]+/g, '')}">${loc.phone}</a></div>
-            <div class="jypesa-pi-item-hours">${getHours(loc, lang)}</div>
+            ${loc.address ? `<div class="jypesa-pi-item-row">${ICONS.pin}<span>${loc.address}</span></div>` : ''}
+            ${loc.phone ? `<div class="jypesa-pi-item-row">${ICONS.phone}<a href="tel:${loc.phone.replace(/[\s+]+/g, '')}">${loc.phone}</a></div>` : ''}
+            ${loc.email ? `<div class="jypesa-pi-item-row">${ICONS.mail}<a href="mailto:${loc.email}">${loc.email}</a></div>` : ''}
+            ${hours ? `<div class="jypesa-pi-item-hours">${hours}</div>` : ''}
           </div>
-        `).join('');
+        `;
+        }).join('');
 
         listEl.querySelectorAll('.jypesa-pi-item').forEach(item => {
           item.addEventListener('click', () => {
@@ -659,11 +722,13 @@
       }
 
       function popupHtml(loc) {
+        const hours = getHours(loc, lang);
         return `
           <div class="jypesa-pi-popup-name">${loc.name}</div>
-          <div class="jypesa-pi-popup-row">${ICONS.pin}<span>${loc.address}</span></div>
-          <div class="jypesa-pi-popup-row">${ICONS.phone}<a href="tel:${loc.phone.replace(/[\s+]+/g, '')}">${loc.phone}</a></div>
-          <div class="jypesa-pi-popup-hours">${getHours(loc, lang)}</div>
+          ${loc.address ? `<div class="jypesa-pi-popup-row">${ICONS.pin}<span>${loc.address}</span></div>` : ''}
+          ${loc.phone ? `<div class="jypesa-pi-popup-row">${ICONS.phone}<a href="tel:${loc.phone.replace(/[\s+]+/g, '')}">${loc.phone}</a></div>` : ''}
+          ${loc.email ? `<div class="jypesa-pi-popup-row">${ICONS.mail}<a href="mailto:${loc.email}">${loc.email}</a></div>` : ''}
+          ${hours ? `<div class="jypesa-pi-popup-hours">${hours}</div>` : ''}
         `;
       }
 
@@ -713,9 +778,10 @@
           attributionControl: true,
         });
 
-        window.L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+          subdomains: 'abc',
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(map);
 
         LOCATIONS.forEach(loc => {

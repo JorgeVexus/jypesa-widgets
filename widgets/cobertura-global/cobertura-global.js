@@ -160,12 +160,11 @@
   border-radius: 8px;
 }
 
-.jypesa-cg-overlay .jypesa-cg-cities { display: none; }
-
 .jypesa-cg-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  position: relative;
 }
 
 .jypesa-cg-group-header {
@@ -173,6 +172,19 @@
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.jypesa-cg-group-header:active {
+  transform: scale(0.98);
 }
 
 .jypesa-cg-group-title-wrap {
@@ -203,23 +215,71 @@
   line-height: 1;
 }
 
-.jypesa-cg-cities {
-  display: flex;
-  gap: 28px;
+.jypesa-cg-group-chevron {
+  width: 10px;
+  height: 10px;
+  margin-left: 1px;
+  flex-shrink: 0;
+  opacity: 0.65;
+  transition: transform 0.3s cubic-bezier(0.34, 1.3, 0.64, 1);
 }
 
-.jypesa-cg-cities-col,
-.jypesa-cg-cities-single {
+.jypesa-cg-group.open .jypesa-cg-group-chevron {
+  transform: rotate(180deg);
+}
+
+.jypesa-cg-group-dropdown {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  min-width: 190px;
+  max-width: 300px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(10, 40, 60, 0.18);
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 18px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.97);
+  transform-origin: bottom left;
+  transition: opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.22s;
+  z-index: 20;
+}
+
+.jypesa-cg-group.open .jypesa-cg-group-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.jypesa-cg-city-link {
   font-family: 'Rubik', sans-serif;
   font-size: 12px;
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.7;
   color: var(--jypesa-cg-text-city);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.jypesa-cg-bottom-row {
-  display: flex;
-  gap: 24px;
+.jypesa-cg-city-link:hover {
+  color: #1a2e3f;
+}
+
+.jypesa-cg-city-link:active {
+  transform: scale(0.96);
+}
+
+.jypesa-cg-city-link.jypesa-cg-city-active {
+  color: #1a2e3f;
+  font-weight: 600;
 }
 
 .jypesa-cg-group-bottom {
@@ -320,6 +380,17 @@
   font-weight: 400;
   line-height: 1.7;
   color: var(--jypesa-cg-text-city);
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.jypesa-cg-mob-city:active {
+  transform: scale(0.96);
+}
+
+.jypesa-cg-mob-city.jypesa-cg-city-active {
+  color: #1a2e3f;
+  font-weight: 600;
 }
 
 @keyframes jypesaCgFadeUp {
@@ -376,6 +447,18 @@
   .jypesa-cg-mob-city { font-size: 10.5px; }
   .jypesa-cg-mob-group { padding: 0.7rem 0; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .jypesa-cg-group-dropdown,
+  .jypesa-cg-group-chevron,
+  .jypesa-cg-group-header,
+  .jypesa-cg-city-link,
+  .jypesa-cg-mob-city,
+  .jypesa-cg-tooltip {
+    transition-duration: 0.01ms !important;
+    transform: none !important;
+  }
+}
 `;
 
   const styleEl = document.createElement('style');
@@ -411,7 +494,9 @@
   }
 
   function groupLocations(groupName) {
-    return LOCATIONS.filter(function (location) { return location.type === groupName; });
+    return LOCATIONS
+      .map(function (location, idx) { return Object.assign({}, location, { idx: idx }); })
+      .filter(function (location) { return location.type === groupName; });
   }
 
   function localizedValue(value, lang) {
@@ -455,23 +540,20 @@
     return GROUP_PRIORITY.map(function (groupName, groupIndex) {
       const group = GROUPS[groupName];
       const locations = groupLocations(groupName);
-      const midpoint = Math.ceil(locations.length / 2);
-      const columns = locations.length > 8 ? [locations.slice(0, midpoint), locations.slice(midpoint)] : [locations];
       const displayGroupName = (texts && texts.groups && texts.groups[groupName]) ? texts.groups[groupName] : groupName;
       return `
-        <div class="jypesa-cg-group${groupIndex ? ' jypesa-cg-group-bottom' : ''}">
-          <div class="jypesa-cg-group-header">
+        <div class="jypesa-cg-group${groupIndex ? ' jypesa-cg-group-bottom' : ''}" data-group="${groupName}">
+          <button type="button" class="jypesa-cg-group-header" aria-expanded="false">
             <div class="jypesa-cg-group-title-wrap">
               ${pinSvg(group.color, 'jypesa-cg-mask-group-' + groupIndex, 'jypesa-cg-pin')}
               <span class="jypesa-cg-group-title" style="color: ${group.color};">${escapeHtml(displayGroupName)}</span>
             </div>
             <span class="jypesa-cg-group-count" style="color: ${group.color};">${locations.length}</span>
-          </div>
-          <div class="jypesa-cg-cities">
-            ${columns.map(function (column) {
-              return `<div class="jypesa-cg-cities-col">${column.map(function (location) {
-                return escapeHtml(locationLabel(location, lang));
-              }).join('<br>')}</div>`;
+            <svg class="jypesa-cg-group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"></polyline></svg>
+          </button>
+          <div class="jypesa-cg-group-dropdown">
+            ${locations.map(function (location) {
+              return `<span class="jypesa-cg-city-link" data-idx="${location.idx}">${escapeHtml(locationLabel(location, lang))}</span>`;
             }).join('')}
           </div>
         </div>`;
@@ -494,7 +576,7 @@
           </div>
           <div class="jypesa-cg-mob-cities">
             ${locations.map(function (location) {
-              return `<span class="jypesa-cg-mob-city">${escapeHtml(locationLabel(location, lang))}</span>`;
+              return `<span class="jypesa-cg-mob-city" data-idx="${location.idx}">${escapeHtml(locationLabel(location, lang))}</span>`;
             }).join('')}
           </div>
         </div>`;
@@ -645,6 +727,8 @@
       const PIN_SIZE = 20;
       const headY = -PIN_SIZE * PIN_HEAD_OFFSET_RATIO;
       const headR = PIN_SIZE * PIN_HEAD_RADIUS_RATIO;
+      const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const markerNodes = {};
 
       markers.forEach(function (m, i) {
         const coords = projection([m.lon, m.lat]);
@@ -662,7 +746,7 @@
           .attr('cx', 0).attr('cy', headY).attr('r', PIN_SIZE * 0.62)
           .attr('fill', 'transparent');
 
-        g.append('circle')
+        const pulseRing = g.append('circle')
           .attr('class', 'jypesa-cg-pulse-ring')
           .attr('cx', 0).attr('cy', headY).attr('r', headR)
           .attr('fill', 'none').attr('stroke', m.color).attr('stroke-width', 1).attr('opacity', 0);
@@ -675,28 +759,44 @@
           .attr('viewBox', '0 0 27 27')
           .html(pinIconInner(m.color, maskId));
 
-        function handleEnter(ev) {
+        function grow(ev) {
           showTT(ev, m);
-          iconG.transition().duration(160).attr('transform', 'scale(1.35)').attr('filter', 'url(#jypesa-cg-glow)');
-          g.select('.jypesa-cg-pulse-ring').transition().duration(160).attr('r', headR * 1.5).attr('opacity', 0.35);
+          const scale = reduceMotion ? 1.12 : 1.35;
+          iconG.transition().duration(reduceMotion ? 1 : 160).attr('transform', 'scale(' + scale + ')').attr('filter', reduceMotion ? null : 'url(#jypesa-cg-glow)');
+          pulseRing.transition().duration(reduceMotion ? 1 : 160).attr('r', headR * 1.5).attr('opacity', reduceMotion ? 0 : 0.35);
         }
 
-        g.on('mouseenter', handleEnter);
+        function shrink() {
+          iconG.transition().duration(reduceMotion ? 1 : 180).attr('transform', 'scale(1)').attr('filter', null);
+          pulseRing.transition().duration(reduceMotion ? 1 : 180).attr('r', headR).attr('opacity', 0);
+        }
+
+        g.on('mouseenter', grow);
         g.on('mousemove', function (ev) { posTT(ev); });
-        g.on('mouseleave', function () {
-          scheduleHideTT();
-          iconG.transition().duration(180).attr('transform', 'scale(1)').attr('filter', null);
-          g.select('.jypesa-cg-pulse-ring').transition().duration(180).attr('r', headR).attr('opacity', 0);
-        });
+        g.on('mouseleave', function () { scheduleHideTT(); shrink(); });
 
         g.on('touchstart', function (ev) {
           ev.preventDefault();
           const touch = ev.touches[0];
-          handleEnter({ clientX: touch.clientX, clientY: touch.clientY });
+          grow({ clientX: touch.clientX, clientY: touch.clientY });
         });
 
-        g.attr('opacity', 0).transition().delay(300 + i * 55).duration(450).attr('opacity', 1);
+        g.attr('opacity', 0).transition().delay(reduceMotion ? 0 : 300 + i * 55).duration(reduceMotion ? 1 : 450).attr('opacity', 1);
+
+        markerNodes[i] = { g: g, grow: grow, shrink: shrink };
       });
+
+      target.__cgHighlight = function (idx) {
+        const entry = markerNodes[idx];
+        if (!entry) return;
+        const rect = entry.g.node().getBoundingClientRect();
+        window.clearTimeout(entry.__collapseTimer);
+        entry.grow({ clientX: rect.left + rect.width / 2, clientY: rect.top });
+        entry.__collapseTimer = window.setTimeout(function () {
+          entry.shrink();
+          scheduleHideTT();
+        }, 1800);
+      };
     }).catch(function (err) { console.error('[jypesa-cobertura-global] error cargando mapa:', err); });
 
     window.addEventListener('scroll', hideTT);
@@ -736,6 +836,45 @@
       target.classList.add('jypesa-cobertura-global-widget');
       const texts = staticTextsByLang[lang] || staticTextsByLang.es;
       target.innerHTML = buildWidgetHtml(texts, lang);
+
+      const groupEls = target.querySelectorAll('.jypesa-cg-group');
+      groupEls.forEach(function (groupEl) {
+        const header = groupEl.querySelector('.jypesa-cg-group-header');
+        if (!header) return;
+        header.addEventListener('click', function () {
+          const willOpen = !groupEl.classList.contains('open');
+          groupEls.forEach(function (g) {
+            g.classList.remove('open');
+            const btn = g.querySelector('.jypesa-cg-group-header');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+          });
+          if (willOpen) {
+            groupEl.classList.add('open');
+            header.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+
+      document.addEventListener('click', function (ev) {
+        if (!target.contains(ev.target) || !ev.target.closest('.jypesa-cg-group')) {
+          groupEls.forEach(function (g) { g.classList.remove('open'); });
+        }
+      });
+
+      function setActiveCity(idx) {
+        target.querySelectorAll('.jypesa-cg-city-active').forEach(function (n) { n.classList.remove('jypesa-cg-city-active'); });
+        target.querySelectorAll('[data-idx="' + idx + '"]').forEach(function (n) { n.classList.add('jypesa-cg-city-active'); });
+      }
+
+      target.querySelectorAll('.jypesa-cg-city-link, .jypesa-cg-mob-city').forEach(function (el) {
+        el.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          const idx = Number(el.getAttribute('data-idx'));
+          if (Number.isNaN(idx)) return;
+          setActiveCity(idx);
+          if (target.__cgHighlight) target.__cgHighlight(idx);
+        });
+      });
 
       loadMapLibs(function () { renderMap(target, texts, lang); });
     });
