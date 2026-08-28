@@ -429,7 +429,7 @@
       subtitle: 'Dispensing Systems',
       desc: 'Dispensers that combine aesthetics, practicality, and sustainability to improve the presentation and management of amenities in hotels.',
       btnText: 'View Dispensing Systems',
-      btnLink: '/en/sistemas-de-dispensacion',
+      btnLink: 'https://jypesausa.com/dispensing-systems',
       images: [
         'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a517650cc0f99d3d0a0d182_elements%2003.avif', // Izquierda 1
         'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a51765121c2aa4efdc14b0b_elements%2004.avif', // Izquierda 2
@@ -663,6 +663,8 @@
       if (lang !== 'en' && lang !== 'es') {
         const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
         if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.hostname.toLowerCase().includes('jypesausa.com')) {
           lang = 'en';
         } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
           lang = 'en';

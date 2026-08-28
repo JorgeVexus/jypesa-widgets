@@ -48,39 +48,51 @@
     targetLang = isEnglish ? 'en' : 'es';
   }
 
-  var isCurrentlyEn = pathname.startsWith('/en');
+  // El inglés ahora vive en un dominio separado (jypesausa.com), no bajo /en.
+  var isOnUsaSite = window.location.hostname.toLowerCase().indexOf('jypesausa.com') !== -1;
 
-  // Si el usuario debe estar en inglés y está actualmente en español:
-  if (targetLang === 'en' && !isCurrentlyEn) {
+  // Si el usuario debe estar en inglés y no está ya en el sitio en inglés:
+  if (targetLang === 'en' && !isOnUsaSite) {
     var targetUrl = getEnglishUrl(pathname);
-    if (targetUrl && targetUrl !== pathname) {
+    if (targetUrl) {
       window.location.replace(targetUrl + search + hash);
     }
   }
 
-  // Mapeo inteligente de rutas de Español -> Inglés
+  // Mapeo inteligente de rutas de Español (jypesa.com) -> Inglés (jypesausa.com)
   function getEnglishUrl(path) {
-    if (path === '/' || path === '' || path === '/inicio') return '/en/home';
-    if (path === '/nosotros') return '/en/about-us';
-    if (path === '/contacto') return '/en/contact';
-    if (path === '/desarollo-personalizado') return '/en/custom-development';
-    if (path === '/sustentabilidad') return '/en/sustainability';
-    if (path === '/soluciones') return '/en/solutions';
+    var USA_ORIGIN = 'https://jypesausa.com';
+    if (path === '/' || path === '' || path === '/inicio') return USA_ORIGIN + '/';
+    if (path === '/nosotros') return USA_ORIGIN + '/about-us';
+    if (path === '/contacto') return USA_ORIGIN + '/contact';
+    if (path === '/desarollo-personalizado') return USA_ORIGIN + '/custom-development';
+    if (path === '/sustentabilidad') return USA_ORIGIN + '/sustainability';
+    if (path === '/sistemas-de-dispensacion') return USA_ORIGIN + '/dispensing-systems';
+    if (path === '/accesorios') return USA_ORIGIN + '/accessories';
+    if (path === '/soluciones') return USA_ORIGIN + '/solutions';
+    if (path === '/blogs') return USA_ORIGIN + '/blogs';
+    if (path === '/shop') return USA_ORIGIN + '/shop';
 
     // Mapeo de Colecciones de Productos
     if (path.startsWith('/colecciones/')) {
       var prod = path.slice('/colecciones/'.length);
       if (prod.startsWith('estandar/')) {
-        return '/en/standar/' + prod.slice('estandar/'.length);
+        return USA_ORIGIN + '/collections/standar/' + prod.slice('estandar/'.length);
+      }
+      if (prod.startsWith('superior/')) {
+        return USA_ORIGIN + '/collections/superior/' + prod.slice('superior/'.length);
+      }
+      if (prod.startsWith('premium/')) {
+        return USA_ORIGIN + '/collections/premium/' + prod.slice('premium/'.length);
       }
       if (prod.startsWith('lujo/')) {
-        return '/en/luxury/' + prod.slice('lujo/'.length);
+        return USA_ORIGIN + '/collections/luxury/' + prod.slice('lujo/'.length);
       }
-      return '/en/' + prod;
+      return USA_ORIGIN + '/collections/' + prod;
     }
 
     // Ruta por defecto si es otra página
-    return '/en' + path;
+    return USA_ORIGIN + path;
   }
 })();
 </script>

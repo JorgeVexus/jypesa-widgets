@@ -1359,6 +1359,8 @@
         const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
         if (htmlLang.startsWith('en')) {
           lang = 'en';
+        } else if (window.location.hostname.toLowerCase().includes('jypesausa.com')) {
+          lang = 'en';
         } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
           lang = 'en';
         } else {

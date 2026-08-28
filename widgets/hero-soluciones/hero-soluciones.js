@@ -476,7 +476,7 @@
       line1: 'We create products', line2: 'tailored', line3: 'to your brand',
       description: 'We develop custom amenities from concept through production, aligned with each client’s identity and needs.',
       primaryCta: 'Develop my project', secondaryCta: 'Contact an advisor',
-      contactUrl: '/en/contact', imageAlt: 'Jypesa — Custom Development', partnerAlt: 'Partner logo'
+      contactUrl: 'https://jypesausa.com/contact', imageAlt: 'Jypesa — Custom Development', partnerAlt: 'Partner logo'
     }
   };
 

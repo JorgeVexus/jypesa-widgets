@@ -272,7 +272,7 @@
         title: 'Production',
         desc: 'Development and manufacturing of amenities with quality control at every stage.',
         btnText: 'Learn More',
-        link: '/en/custom-development',
+        link: 'https://jypesausa.com/custom-development',
         img: imgProduccion,
         alt: 'Production Jypesa'
       },
@@ -280,7 +280,7 @@
         title: 'Private Label',
         desc: "Creation of customized products aligned with each client's identity.",
         btnText: 'Learn More',
-        link: '/en/custom-development',
+        link: 'https://jypesausa.com/custom-development',
         img: imgPrivateLabel,
         alt: 'Private Label Jypesa'
       },
@@ -288,7 +288,7 @@
         title: 'Licenses',
         desc: 'Collaboration with recognized brands to offer differentiated collections.',
         btnText: 'Learn More',
-        link: '/en/custom-development',
+        link: 'https://jypesausa.com/custom-development',
         img: imgLicencias,
         alt: 'Licenses Jypesa'
       }
@@ -338,6 +338,8 @@
       if (lang !== 'en' && lang !== 'es') {
         const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
         if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.hostname.toLowerCase().includes('jypesausa.com')) {
           lang = 'en';
         } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
           lang = 'en';

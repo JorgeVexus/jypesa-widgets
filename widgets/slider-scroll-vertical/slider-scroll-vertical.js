@@ -608,7 +608,7 @@
       introDesc: 'At Jypesa we develop solutions for the hospitality industry that integrate innovation, quality, and environmental responsibility.<br><br>Through responsible materials, refillable systems, and optimized processes, we seek to reduce the environmental impact of amenities used in hotels and hospitality spaces.',
       mobileIntroDesc: 'At Jypesa we develop solutions for the hospitality industry that integrate innovation, quality, and environmental responsibility.',
       btnText: 'Learn More',
-      btnLink: '/en/sustainability'
+      btnLink: 'https://jypesausa.com/sustainability'
     }
   };
 
@@ -1061,6 +1061,8 @@
       if (lang !== 'en' && lang !== 'es') {
         const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
         if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.hostname.toLowerCase().includes('jypesausa.com')) {
           lang = 'en';
         } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
           lang = 'en';
