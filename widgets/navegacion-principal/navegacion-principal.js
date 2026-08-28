@@ -759,31 +759,37 @@
     const rawHash = parts.length > 1 ? parts[1] : '';
 
     if (lang === 'en') {
-      if (base === '/' || base === '') return '/en/home' + (rawHash ? '#' + rawHash : '');
-      if (base === '/nosotros') return '/en/about-us' + (rawHash ? '#' + rawHash : '');
-      if (base === '/contacto') return '/en/contact' + (rawHash ? '#' + rawHash : '');
-      if (base === '/desarollo-personalizado') return '/en/custom-development' + (rawHash ? '#' + rawHash : '');
-      if (base === '/colecciones/estandar/elements') return '/en/standar/elements' + (rawHash ? '#' + rawHash : '');
+      const USA_ORIGIN = 'https://jypesausa.com';
+      if (base === '/' || base === '') return USA_ORIGIN + '/' + (rawHash ? '#' + rawHash : '');
+      if (base === '/nosotros') return USA_ORIGIN + '/about-us' + (rawHash ? '#' + rawHash : '');
+      if (base === '/contacto') return USA_ORIGIN + '/contact' + (rawHash ? '#' + rawHash : '');
+      if (base === '/desarollo-personalizado') return USA_ORIGIN + '/custom-development' + (rawHash ? '#' + rawHash : '');
       if (base.startsWith('/colecciones/')) {
         const productPath = base.slice('/colecciones/'.length);
         if (productPath.startsWith('estandar/')) {
-          return '/en/standar/' + productPath.slice('estandar/'.length) + (rawHash ? '#' + rawHash : '');
+          return USA_ORIGIN + '/collections/standar/' + productPath.slice('estandar/'.length) + (rawHash ? '#' + rawHash : '');
+        }
+        if (productPath.startsWith('superior/')) {
+          return USA_ORIGIN + '/collections/superior/' + productPath.slice('superior/'.length) + (rawHash ? '#' + rawHash : '');
+        }
+        if (productPath.startsWith('premium/')) {
+          return USA_ORIGIN + '/collections/premium/' + productPath.slice('premium/'.length) + (rawHash ? '#' + rawHash : '');
         }
         if (productPath.startsWith('lujo/')) {
-          return '/en/luxury/' + productPath.slice('lujo/'.length) + (rawHash ? '#' + rawHash : '');
+          return USA_ORIGIN + '/collections/luxury/' + productPath.slice('lujo/'.length) + (rawHash ? '#' + rawHash : '');
         }
-        return '/en/' + productPath + (rawHash ? '#' + rawHash : '');
+        return USA_ORIGIN + '/collections/' + productPath + (rawHash ? '#' + rawHash : '');
       }
-      if (base === '/sustentabilidad') return '/en/sustainability' + (rawHash ? '#' + rawHash : '');
-      if (base === '/sistemas-de-dispensacion') return '/en/dispensing-systems' + (rawHash ? '#' + rawHash : '');
-      if (base === '/accesorios') return '/en/accessories' + (rawHash ? '#' + rawHash : '');
+      if (base === '/sustentabilidad') return USA_ORIGIN + '/sustainability' + (rawHash ? '#' + rawHash : '');
+      if (base === '/sistemas-de-dispensacion') return USA_ORIGIN + '/dispensing-systems' + (rawHash ? '#' + rawHash : '');
+      if (base === '/accesorios') return USA_ORIGIN + '/accessories' + (rawHash ? '#' + rawHash : '');
       if (base === '/soluciones') {
         const enHash = rawHash ? (SOLUCIONES_HASH_MAP_EN[rawHash] || rawHash) : '';
-        return '/en/solutions' + (enHash ? '#' + enHash : '');
+        return USA_ORIGIN + '/solutions' + (enHash ? '#' + enHash : '');
       }
-      if (base.startsWith('/en/') || base === '/en') return url;
-      const prefixed = '/en' + (base.startsWith('/') ? base : '/' + base);
-      return prefixed + (rawHash ? '#' + rawHash : '');
+      if (base === '/blogs') return USA_ORIGIN + '/blogs' + (rawHash ? '#' + rawHash : '');
+      if (base === '/shop') return USA_ORIGIN + '/shop' + (rawHash ? '#' + rawHash : '');
+      return USA_ORIGIN + base + (rawHash ? '#' + rawHash : '');
     }
     return url;
   }
@@ -1169,11 +1175,11 @@ ${desktopProductsHtml}
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                 </button>
                 <div class="lang-dropdown-menu">
-                    <a href="/" class="lang-option ${lang === 'es' ? 'active' : ''}">
+                    <a href="https://jypesa.com" class="lang-option ${lang === 'es' ? 'active' : ''}">
                         <span class="lang-flag">🇲🇽</span>
                         <span class="lang-name">Español</span>
                     </a>
-                    <a href="/en/home" class="lang-option ${lang === 'en' ? 'active' : ''}">
+                    <a href="https://jypesausa.com" class="lang-option ${lang === 'en' ? 'active' : ''}">
                         <span class="lang-flag">🇺🇸</span>
                         <span class="lang-name">English</span>
                     </a>
@@ -1258,9 +1264,9 @@ ${mobileProductsHtml}
         </li>
         <li class="mob-item mob-lang-item" style="padding: 20px 0; border-top: 1px solid rgba(0,0,0,0.06);">
             <div style="display: flex; gap: 16px; align-items: center; justify-content: center;">
-                <a href="/" class="mob-lang-btn ${lang === 'es' ? 'active' : ''}">Español</a>
+                <a href="https://jypesa.com" class="mob-lang-btn ${lang === 'es' ? 'active' : ''}">Español</a>
                 <span style="color: #bbb;">|</span>
-                <a href="/en/home" class="mob-lang-btn ${lang === 'en' ? 'active' : ''}">English</a>
+                <a href="https://jypesausa.com" class="mob-lang-btn ${lang === 'en' ? 'active' : ''}">English</a>
             </div>
         </li>
         <li class="mob-item" style="padding: 20px 0 40px;">
@@ -1449,7 +1455,7 @@ ${mobileProductsHtml}
       option.addEventListener('click', () => {
         const href = (option.getAttribute('href') || '').toLowerCase();
         try {
-          if (href.startsWith('/en')) {
+          if (href.includes('jypesausa.com') || href.startsWith('/en')) {
             localStorage.setItem('jypesa_lang', 'en');
           } else {
             localStorage.setItem('jypesa_lang', 'es');
@@ -1479,6 +1485,8 @@ ${mobileProductsHtml}
       if (lang !== 'en' && lang !== 'es') {
         const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
         if (htmlLang.startsWith('en')) {
+          lang = 'en';
+        } else if (window.location.hostname.toLowerCase().includes('jypesausa.com')) {
           lang = 'en';
         } else if (window.location.pathname.toLowerCase().startsWith('/en')) {
           lang = 'en';
