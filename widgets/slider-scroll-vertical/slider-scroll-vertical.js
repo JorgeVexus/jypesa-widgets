@@ -111,17 +111,27 @@
     color: var(--jypesa-sust-slate);
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: 18px;
-    letter-spacing: 0.9px;
-    padding: 15px 30px;
+    font-size: 14px;
+    letter-spacing: 0.7px;
+    margin: 0;
+    padding: 15px 17px;
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    min-height: 40px;
+    max-width: none;
+    max-height: 40px;
+    overflow: visible;
     border-radius: 6px;
     text-decoration: none;
     transition: all 0.3s ease;
     border: none;
     outline: none;
     cursor: pointer;
-    margin-top: 5px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    box-sizing: border-box;
+    line-height: 1;
+    white-space: nowrap;
   }
 
   .jypesa-sust-btn:hover {
@@ -445,8 +455,7 @@
       gap: 15px;
     }
     .jypesa-sust-btn {
-      font-size: 15px;
-      padding: 12px 24px;
+      font-size: 14px;
     }
     .jypesa-sust-divider {
       margin: 50px 0;
@@ -486,7 +495,6 @@
     }
     .jypesa-sust-btn {
       font-size: 14px;
-      padding: 10px 20px;
     }
     .jypesa-sust-divider {
       margin: 35px 0;
