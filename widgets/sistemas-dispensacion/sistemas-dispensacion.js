@@ -297,24 +297,32 @@
 
   .jypesa-disp-split-mobile-dots {
     display: flex;
-    gap: 8px;
     justify-content: center;
-    margin-top: 20px;
+    align-items: center;
+    gap: 6px;
+    margin-top: 18px;
+    width: 100%;
   }
 
   .jypesa-disp-split-mobile-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: rgba(80, 109, 133, 0.25);
+    height: 5px;
+    width: 30px;
+    border-radius: 0;
+    background-color: rgba(72, 169, 197, 0.35);
     border: none;
+    outline: none;
+    padding: 0;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
+  }
+
+  .jypesa-disp-split-mobile-dot:hover {
+    background-color: rgba(72, 169, 197, 0.6);
   }
 
   .jypesa-disp-split-mobile-dot.active {
-    background-color: var(--jypesa-disp-slate);
-    transform: scale(1.2);
+    background-color: #48a9c5;
+    transform: none;
   }
 
   /* ── RESPONSIVIDAD GENERAL ── */
