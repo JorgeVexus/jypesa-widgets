@@ -40,9 +40,16 @@
 }
 
 .jypesa-nav-principal-widget .jypesa-nav.scrolled,
-.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light {
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-white,
+.jypesa-nav-principal-widget .jypesa-nav.menu-open {
   background: rgba(255, 255, 255, 0.98);
   box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+
+.jypesa-nav-principal-widget .jypesa-nav.menu-open {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
 /* Hover en la parte superior: fondo blanco (sin glass) igual que en scroll */
@@ -287,8 +294,32 @@
 .jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light .logo,
 .jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light .nav-link,
 .jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light .action-icon,
-.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light .smart-order {
-  color: #506D85;
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light .smart-order,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-white .logo,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-white .nav-link,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-white .action-icon,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-white .smart-order,
+.jypesa-nav-principal-widget .jypesa-nav.menu-open .logo,
+.jypesa-nav-principal-widget .jypesa-nav.menu-open .nav-link,
+.jypesa-nav-principal-widget .jypesa-nav.menu-open .action-icon,
+.jypesa-nav-principal-widget .jypesa-nav.menu-open .smart-order {
+  color: #506D85 !important;
+}
+
+.jypesa-nav-principal-widget .jypesa-nav.scrolled .logo svg path,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light .logo svg path,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-white .logo svg path,
+.jypesa-nav-principal-widget .jypesa-nav.menu-open .logo svg path {
+  fill: currentColor;
+}
+
+/* Menú hamburguesa (y botón 'X' cuando esté abierto) siempre azul en fondo blanco */
+.jypesa-nav-principal-widget .jypesa-nav.scrolled .hamburger span,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-light .hamburger span,
+.jypesa-nav-principal-widget .jypesa-nav.jypesa-nav-white .hamburger span,
+.jypesa-nav-principal-widget .jypesa-nav.menu-open .hamburger span,
+.jypesa-nav-principal-widget .hamburger.active span {
+  background: #506D85 !important;
 }
 
 .jypesa-nav-principal-widget .mega-menu {
@@ -583,6 +614,10 @@
   .jypesa-nav-principal-widget .nav-container {
     height: 70px;
     padding: 0 24px;
+  }
+
+  .jypesa-nav-principal-widget .mobile-overlay {
+    padding-top: 85px;
   }
 }
 `;
@@ -1408,6 +1443,7 @@ ${mobileProductsHtml}
           ticking = true;
         }
       }, { passive: true });
+      onScroll();
     }
 
     if (images[0] && images[1]) {
@@ -1497,8 +1533,18 @@ ${mobileProductsHtml}
 
       target.innerHTML = buildWidgetHtml(lang);
 
-      const colorVariant = (target.getAttribute('data-color') || '').toLowerCase().trim();
-      if (colorVariant === 'white' || colorVariant === 'light') {
+      const colorVariant = (
+        target.getAttribute('data-color') ||
+        target.getAttribute('data-variant') ||
+        target.getAttribute('data-theme') ||
+        target.getAttribute('data-header-color') ||
+        ''
+      ).toLowerCase().trim();
+      if (colorVariant === 'white' || colorVariant === 'light' || colorVariant === 'blanco') {
+        const nav = target.querySelector('#nav');
+        if (nav) nav.classList.add('jypesa-nav-light');
+      }
+      if (target.classList.contains('jypesa-nav-light') || target.classList.contains('nav-light') || target.classList.contains('white')) {
         const nav = target.querySelector('#nav');
         if (nav) nav.classList.add('jypesa-nav-light');
       }
