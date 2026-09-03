@@ -78,6 +78,41 @@
   transition: background 1.2s ease;
 }
 
+/* Breadcrumb de navegación (arriba a la izquierda) */
+.jypesa-hero-breadcrumb {
+  position: absolute;
+  top: clamp(20px, 4vh, 40px);
+  left: clamp(20px, 4vw, 40px);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.jypesa-hero-breadcrumb a {
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.jypesa-hero-breadcrumb a:hover {
+  color: #ffffff;
+}
+
+.jypesa-hero-breadcrumb span.jypesa-hero-breadcrumb-current {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+}
+
+.jypesa-hero-breadcrumb span.jypesa-hero-breadcrumb-sep {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+}
+
 /* Contenedor del Texto & Logo Central */
 .jypesa-hero-center-content {
   position: absolute;
@@ -388,6 +423,12 @@
 }
 
 @media (max-width: 480px) {
+  .jypesa-hero-breadcrumb {
+    font-size: 12px;
+    top: 16px;
+    left: 16px;
+  }
+
   .jypesa-hero-top {
     height: 50vh;
     min-height: 350px;
@@ -473,6 +514,9 @@
   // Diccionario Bilingüe para Hero Widget
   const heroTexts = {
     es: {
+      homeLabel: 'Inicio',
+      homeHref: '/',
+      currentLabel: 'Nosotros',
       sobreText: 'Sobre',
       kpis: [
         {
@@ -502,6 +546,9 @@
       ]
     },
     en: {
+      homeLabel: 'Home',
+      homeHref: '/',
+      currentLabel: 'About Us',
       sobreText: 'About',
       kpis: [
         {
@@ -542,6 +589,11 @@
       <img src="${heroImage}" alt="Nosotros Jypesa Hero" />
     </div>
     <div class="jypesa-hero-overlay"></div>
+    <nav class="jypesa-hero-breadcrumb" aria-label="Breadcrumb">
+      <a href="${t.homeHref}">${t.homeLabel}</a>
+      <span class="jypesa-hero-breadcrumb-sep">&rsaquo;</span>
+      <span class="jypesa-hero-breadcrumb-current">${t.currentLabel}</span>
+    </nav>
     <div class="jypesa-hero-center-content">
       <div class="jypesa-hero-sobre-wrapper">
         <p class="jypesa-hero-sobre">${t.sobreText}</p>

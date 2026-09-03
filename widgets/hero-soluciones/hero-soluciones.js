@@ -61,6 +61,41 @@
   pointer-events: none;
 }
 
+/* ── BREADCRUMB DE NAVEGACIÓN ─────────────────────────────────────────────── */
+.jhs-breadcrumb {
+  position: absolute;
+  top: clamp(20px, 4vh, 40px);
+  left: clamp(24px, 5vw, 92px);
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.jhs-breadcrumb a {
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.jhs-breadcrumb a:hover {
+  color: #ffffff;
+}
+
+.jhs-breadcrumb span.jhs-breadcrumb-current {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+}
+
+.jhs-breadcrumb span.jhs-breadcrumb-sep {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+}
+
 /* ── SECCIÓN DE CONTENIDO PRINCIPAL (IZQUIERDA) ─────────────────────────────── */
 .jhs-main-content {
   position: relative;
@@ -357,6 +392,12 @@
 }
 
 @media (max-width: 600px) {
+  .jhs-breadcrumb {
+    font-size: 12px;
+    top: 16px;
+    left: 20px;
+  }
+
   .jhs-title-block {
     margin-bottom: 80px;
   }
@@ -470,13 +511,15 @@
       line1: 'Creamos productos', line2: 'a la medida', line3: 'de tu marca',
       description: 'Desarrollamos amenidades personalizadas desde la conceptualización hasta la producción, alineadas a la identidad y necesidades de cada cliente.',
       primaryCta: 'Desarrollar mi proyecto', secondaryCta: 'Contactar a un asesor',
-      contactUrl: '/contacto', imageAlt: 'Jypesa — Desarrollo Personalizado', partnerAlt: 'Logo de socio'
+      contactUrl: '/contacto', imageAlt: 'Jypesa — Desarrollo Personalizado', partnerAlt: 'Logo de socio',
+      homeLabel: 'Inicio', homeHref: '/', currentLabel: 'Desarrollo Personalizado'
     },
     en: {
       line1: 'We create products', line2: 'tailored', line3: 'to your brand',
       description: 'We develop custom amenities from concept through production, aligned with each client’s identity and needs.',
       primaryCta: 'Develop my project', secondaryCta: 'Contact an advisor',
-      contactUrl: 'https://jypesausa.com/contact', imageAlt: 'Jypesa — Custom Development', partnerAlt: 'Partner logo'
+      contactUrl: 'https://jypesausa.com/contact', imageAlt: 'Jypesa — Custom Development', partnerAlt: 'Partner logo',
+      homeLabel: 'Home', homeHref: '/', currentLabel: 'Custom Development'
     }
   };
 
@@ -512,6 +555,13 @@
 
   <!-- Overlay sutil izquierda -->
   <div class="jhs-overlay"></div>
+
+  <!-- Breadcrumb de navegación -->
+  <nav class="jhs-breadcrumb" aria-label="Breadcrumb">
+    <a href="${copy.homeHref}">${copy.homeLabel}</a>
+    <span class="jhs-breadcrumb-sep">&rsaquo;</span>
+    <span class="jhs-breadcrumb-current">${copy.currentLabel}</span>
+  </nav>
 
   <!-- Contenido Principal -->
   <div class="jhs-main-content">
