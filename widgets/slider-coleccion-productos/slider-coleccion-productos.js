@@ -297,8 +297,11 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-    margin-top: 20px;
+    margin-top: 24px;
     width: 100%;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
   }
 
   .jypesa-scol-dot {
@@ -312,6 +315,23 @@
     border: none;
     padding: 0;
     outline: none;
+    position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Área táctil ampliada de 36px x 36px para toque fácil en celular */
+  .jypesa-scol-dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    pointer-events: auto;
   }
 
   .jypesa-scol-dot.active {
@@ -925,29 +945,74 @@
 
     const getStep = () => {
       const card = track.querySelector('.jypesa-scol-card');
-      return card ? card.getBoundingClientRect().width + 20 : 330;
+      return card && card.offsetWidth > 0 ? card.offsetWidth + 20 : 330;
     };
 
-    if (prevBtn)
+    const scrollToIdx = (idx) => {
+      const cards = track.querySelectorAll('.jypesa-scol-card');
+      const card = cards[idx];
+      if (!card) return;
+
+      const isMobile = window.innerWidth <= 768;
+      let targetLeft = card.offsetLeft;
+
+      if (isMobile) {
+        // En móvil las tarjetas tienen scroll-snap-align: center
+        targetLeft = card.offsetLeft - (track.clientWidth - card.clientWidth) / 2;
+      }
+
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      const finalLeft = Math.max(0, Math.min(maxScroll, targetLeft));
+
+      track.scrollTo({ left: finalLeft, behavior: 'smooth' });
+    };
+
+    if (prevBtn) {
       prevBtn.addEventListener('click', () =>
         track.scrollBy({ left: -getStep(), behavior: 'smooth' })
       );
-    if (nextBtn)
+    }
+    if (nextBtn) {
       nextBtn.addEventListener('click', () =>
         track.scrollBy({ left: getStep(), behavior: 'smooth' })
       );
+    }
 
     dots.forEach((dot, idx) => {
-      dot.addEventListener('click', () =>
-        track.scrollTo({ left: idx * getStep(), behavior: 'smooth' })
-      );
+      const handleSelect = (e) => {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        scrollToIdx(idx);
+      };
+
+      dot.addEventListener('click', handleSelect);
+      dot.addEventListener('touchend', handleSelect, { passive: false });
     });
 
     const onScroll = () => {
       const sl = track.scrollLeft;
       const max = track.scrollWidth - track.clientWidth;
-      const step = getStep();
-      const active = Math.min(total - 1, Math.max(0, Math.round(sl / step)));
+      const isMobile = window.innerWidth <= 768;
+      const cards = track.querySelectorAll('.jypesa-scol-card');
+
+      let active = 0;
+      if (cards.length && isMobile && track.clientWidth > 0) {
+        const centerLine = sl + track.clientWidth / 2;
+        let minDiff = Infinity;
+        cards.forEach((c, i) => {
+          const cardCenter = c.offsetLeft + c.clientWidth / 2;
+          const diff = Math.abs(cardCenter - centerLine);
+          if (diff < minDiff) {
+            minDiff = diff;
+            active = i;
+          }
+        });
+      } else {
+        const step = getStep();
+        active = Math.min(total - 1, Math.max(0, Math.round(sl / step)));
+      }
 
       dots.forEach((d, i) => d.classList.toggle('active', i === active));
 
@@ -955,8 +1020,29 @@
       if (nextBtn) nextBtn.classList.toggle('disabled', sl >= max - 5);
     };
 
-    track.addEventListener('scroll', onScroll);
+    track.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+
+    // Detección cuando el contenedor se hace visible (ej. pestañas de Webflow)
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            onScroll();
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(widget);
+    }
+
+    // Sincronización al cambiar de tabs en Webflow
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.closest && e.target.closest('.w-tab-link, [data-w-tab], .tab-link')) {
+        setTimeout(onScroll, 100);
+        setTimeout(onScroll, 350);
+      }
+    });
+
     setTimeout(onScroll, 200);
   }
 
