@@ -335,9 +335,39 @@
   }
 
   .jypesa-scol-dot.active {
-    background: #48a9c5;
+    background: var(--scol-dot-active-color, #48a9c5);
     width: 20px;
     border-radius: 100px;
+  }
+
+  /* ── VARIANTE DOTS BLANCOS (data-color="white", data-dots-color="white", data-theme="white") ── */
+  .jypesa-scol-widget.jypesa-scol-dots-white .jypesa-scol-dot,
+  .jypesa-scol-dots-bar.jypesa-scol-dots-white .jypesa-scol-dot,
+  .jypesa-scol-dots-white .jypesa-scol-dot,
+  [data-color="white"] .jypesa-scol-dot,
+  [data-color="#fff"] .jypesa-scol-dot,
+  [data-color="#ffffff"] .jypesa-scol-dot,
+  [data-dots-color="white"] .jypesa-scol-dot,
+  [data-dots-color="#fff"] .jypesa-scol-dot,
+  [data-dots-color="#ffffff"] .jypesa-scol-dot,
+  [data-dots="white"] .jypesa-scol-dot,
+  [data-theme="white"] .jypesa-scol-dot {
+    background: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  .jypesa-scol-widget.jypesa-scol-dots-white .jypesa-scol-dot.active,
+  .jypesa-scol-dots-bar.jypesa-scol-dots-white .jypesa-scol-dot.active,
+  .jypesa-scol-dots-white .jypesa-scol-dot.active,
+  [data-color="white"] .jypesa-scol-dot.active,
+  [data-color="#fff"] .jypesa-scol-dot.active,
+  [data-color="#ffffff"] .jypesa-scol-dot.active,
+  [data-dots-color="white"] .jypesa-scol-dot.active,
+  [data-dots-color="#fff"] .jypesa-scol-dot.active,
+  [data-dots-color="#ffffff"] .jypesa-scol-dot.active,
+  [data-dots="white"] .jypesa-scol-dot.active,
+  [data-theme="white"] .jypesa-scol-dot.active {
+    background: #ffffff !important;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25) !important;
   }
 
   /* ── EMPTY STATE ── */
@@ -643,13 +673,14 @@
     const btnText = getAttr('data-header-btn-text', 'data-btn-text') || getCms('.jypesa-scol-cms-header-btn-text');
     const btnUrl = getAttr('data-header-btn-url', 'data-btn-url') || getCmsAttr('.jypesa-scol-cms-header-btn-url', 'href') || getCms('.jypesa-scol-cms-header-btn-url');
     const color = getAttr('data-header-color', 'data-color') || getCms('.jypesa-scol-cms-header-color');
+    const dotsColor = getAttr('data-dots-color', 'data-dots', 'data-dot-color') || getCms('.jypesa-scol-cms-dots-color');
     const imgSize = getAttr('data-header-img-size', 'data-img-size');
     const imgWidth = getAttr('data-header-img-width', 'data-img-width');
     const imgHeight = getAttr('data-header-img-height', 'data-img-height');
     const imgSrc = getAttr('data-header-img', 'data-header-image', 'data-header-icon', 'data-brand-img', 'data-brand-icon') ||
       getCmsImg('.jypesa-scol-cms-header-img', '.jypesa-scol-header-img', '.jypesa-scol-cms-header-icon', '.jypesa-scol-header-icon', '.jypesa-scol-cms-brand-img', '.jypesa-scol-brand-img', '.jypesa-scol-cms-brand-icon', '.jypesa-scol-brand-icon');
 
-    return { title, desc, btnText, btnUrl, color, imgSrc, imgSize, imgWidth, imgHeight };
+    return { title, desc, btnText, btnUrl, color, dotsColor, imgSrc, imgSize, imgWidth, imgHeight };
   }
 
   // ─── 5. LEER PRODUCTOS DEL CMS ──────────────────────────────────────────────
@@ -860,7 +891,7 @@
     `;
   }
 
-  function buildWidgetHtml(products, headerData, uid) {
+  function buildWidgetHtml(products, headerData, uid, isWhiteDots) {
     if (!products.length) {
       return `<div class="jypesa-scol-empty">No hay productos disponibles.</div>`;
     }
@@ -928,7 +959,7 @@
       </div>
 
       <!-- Dots solo movil -->
-      <div class="jypesa-scol-dots-bar">
+      <div class="jypesa-scol-dots-bar${isWhiteDots ? ' jypesa-scol-dots-white' : ''}">
         ${dots}
       </div>
     `;
@@ -1076,9 +1107,23 @@
         if (filtered.length) products = filtered;
       }
 
+      const rawDotsColor = (
+        target.getAttribute('data-dots-color') ||
+        target.getAttribute('data-dots') ||
+        target.getAttribute('data-color') ||
+        target.getAttribute('data-theme') ||
+        headerData.dotsColor ||
+        ''
+      ).toLowerCase().trim();
+
+      const isWhiteDots = rawDotsColor === 'white' || rawDotsColor === '#fff' || rawDotsColor === '#ffffff';
+
       const wrapper = document.createElement('div');
-      wrapper.className = 'jypesa-scol-widget';
-      wrapper.innerHTML = buildWidgetHtml(products, headerData, uid);
+      wrapper.className = 'jypesa-scol-widget' + (isWhiteDots ? ' jypesa-scol-dots-white' : '');
+      if (rawDotsColor && !isWhiteDots) {
+        wrapper.style.setProperty('--scol-dot-active-color', rawDotsColor);
+      }
+      wrapper.innerHTML = buildWidgetHtml(products, headerData, uid, isWhiteDots);
       target.appendChild(wrapper);
 
       setupInteractions(wrapper, products.length);
