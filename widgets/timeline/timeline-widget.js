@@ -327,9 +327,11 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100% !important;
+    width: 2px !important;
     height: 0%;
-    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #48A9C5;
+    transition: height 0.12s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: height;
   }
   
   .jypesa-timeline .timeline-item {
@@ -364,22 +366,22 @@
   
   .jypesa-timeline .timeline-body {
     width: 100%;
-    padding-left: 16px;
-    border-left: 2px solid #48A9C5;
-    transform: translateX(-16px);
+    padding-left: 0 !important;
+    border-left: none !important;
+    transform: none;
     min-height: auto; /* Reiniciar en móvil */
   }
   
   .jypesa-timeline .timeline-item.active .timeline-body,
   .jypesa-timeline .timeline-item.visited .timeline-body {
-    border-left-width: 3px;
-    padding-left: 15px;
-    transform: translateX(0) !important;
+    border-left: none !important;
+    padding-left: 0 !important;
+    transform: none !important;
   }
 
   .jypesa-timeline-wrap.js-animate-entry .timeline-item .timeline-year,
   .jypesa-timeline-wrap.js-animate-entry .timeline-item .timeline-body {
-    transform: translateX(0);
+    transform: none;
   }
 }
 
@@ -387,6 +389,18 @@
   .jypesa-timeline .timeline-year { font-size: 38px; }
   .jypesa-timeline .timeline-body h3 { font-size: 17px; }
   .jypesa-timeline .timeline-body p { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jypesa-timeline .timeline-year,
+  .jypesa-timeline .timeline-dot,
+  .jypesa-timeline .timeline-body,
+  .jypesa-timeline .timeline-progress,
+  .jypesa-timeline .dot-ring {
+    transition: opacity 0.2s ease !important;
+    animation: none !important;
+    transform: none !important;
+  }
 }
 `;
 
@@ -477,11 +491,12 @@
   function setupTimelineInteractions(target) {
     const wrap = target.querySelector('.jypesa-timeline-wrap');
     const items = target.querySelectorAll('.timeline-item');
+    const dots = target.querySelectorAll('.timeline-dot');
     const progress = target.querySelector('.timeline-progress');
     const timeline = target.querySelector('.jypesa-timeline');
 
     let autoplayInterval = null;
-    const AUTOPLAY_DELAY = 2800; // Avanza cada 2.8 segundos de forma automática
+    const AUTOPLAY_DELAY = 2800; // Avanza cada 2.8 segundos de forma automática (solo desktop)
 
     const isMobile = () => window.innerWidth <= 768;
 
@@ -506,15 +521,11 @@
     }
 
     function updateProgress(el) {
-      const idx = parseInt(el.dataset.index, 10);
-      const total = items.length - 1;
       if (isMobile()) {
-        const rect = timeline.getBoundingClientRect();
-        const itemRect = el.getBoundingClientRect();
-        const pct = (itemRect.top - rect.top + itemRect.height / 2) / rect.height;
-        progress.style.width = '2px';
-        progress.style.height = Math.min(pct * 100, 100) + '%';
+        updateMobileScroll();
       } else {
+        const idx = parseInt(el.dataset.index, 10);
+        const total = items.length - 1;
         const pct = (idx / total) * 100;
         progress.style.height = '2px';
         progress.style.width = pct + '%';
@@ -522,6 +533,7 @@
     }
 
     function startAutoplay() {
+      if (isMobile()) return; // Autoplay exclusivo de versión desktop
       stopAutoplay();
       autoplayInterval = setInterval(() => {
         const active = target.querySelector('.timeline-item.active');
@@ -541,11 +553,87 @@
       }
     }
 
+    // ─── CONTROL POR SCROLL FLUIDO EN MÓVIL (/apple-design) ───────────
+    function updateMobileScroll() {
+      if (!isMobile()) return;
+
+      const triggerY = window.innerHeight * 0.55;
+      let activeIdx = 0;
+
+      // Detección directa del hito alcanzado por el punto focal de lectura
+      items.forEach((item, idx) => {
+        const dot = dots[idx] || item;
+        const rect = dot.getBoundingClientRect();
+        const dotCenter = rect.top + rect.height / 2;
+        if (dotCenter <= triggerY) {
+          activeIdx = idx;
+        }
+      });
+
+      // Actualizar estados activo y recorrido según el scroll
+      items.forEach((item, idx) => {
+        if (idx === activeIdx) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+
+        if (idx <= activeIdx) {
+          item.classList.add('visited');
+        } else {
+          item.classList.remove('visited');
+        }
+      });
+
+      // Progreso continuo y fluido de la línea vertical conectando el primer al último dot
+      if (dots.length >= 2) {
+        const firstRect = dots[0].getBoundingClientRect();
+        const lastRect = dots[dots.length - 1].getBoundingClientRect();
+        const firstCenter = firstRect.top + firstRect.height / 2;
+        const lastCenter = lastRect.top + lastRect.height / 2;
+        const totalDistance = lastCenter - firstCenter;
+
+        if (totalDistance > 0) {
+          let progressPct = ((triggerY - firstCenter) / totalDistance) * 100;
+          progressPct = Math.max(0, Math.min(100, progressPct));
+          progress.style.width = '2px';
+          progress.style.height = progressPct.toFixed(1) + '%';
+        }
+      }
+    }
+
+    let scrollTicking = false;
+    function onScrollMobile() {
+      if (!isMobile()) return;
+      if (!scrollTicking) {
+        requestAnimationFrame(() => {
+          updateMobileScroll();
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScrollMobile, { passive: true });
+
     // Event Listeners y pausa de Autoplay al interactuar (click o teclado)
     items.forEach(item => {
       item.addEventListener('click', () => {
-        stopAutoplay();
-        activateItem(item);
+        if (isMobile()) {
+          const idx = parseInt(item.dataset.index, 10);
+          const dot = dots[idx] || item;
+          const rect = dot.getBoundingClientRect();
+          const triggerY = window.innerHeight * 0.55;
+          const targetY = (window.pageYOffset || document.documentElement.scrollTop) + (rect.top + rect.height / 2 - triggerY);
+          window.scrollTo({
+            top: targetY,
+            behavior: 'smooth'
+          });
+          activateItem(item);
+        } else {
+          stopAutoplay();
+          activateItem(item);
+        }
       });
       item.addEventListener('keydown', e => {
         stopAutoplay();
@@ -574,23 +662,30 @@
           if (entry.isIntersecting) {
             wrap.classList.add('js-animate-entry');
 
-            // Cargar primer dot y activar autoplay tras terminar la entrada del primer item
-            setTimeout(() => {
-              activateItem(items[0]);
-              startAutoplay();
-            }, 300);
+            if (isMobile()) {
+              updateMobileScroll();
+            } else {
+              setTimeout(() => {
+                activateItem(items[0]);
+                startAutoplay();
+              }, 300);
+            }
 
             observer.disconnect();
           }
         });
-      }, { threshold: 0.2 });
+      }, { threshold: 0.15 });
       observer.observe(wrap);
     } else {
       wrap.classList.add('js-animate-entry');
-      setTimeout(() => {
-        activateItem(items[0]);
-        startAutoplay();
-      }, 300);
+      if (isMobile()) {
+        updateMobileScroll();
+      } else {
+        setTimeout(() => {
+          activateItem(items[0]);
+          startAutoplay();
+        }, 300);
+      }
     }
 
     // Recalcular progreso en resize
@@ -598,10 +693,21 @@
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        const active = target.querySelector('.timeline-item.active');
-        if (active) updateProgress(active);
-      }, 200);
+        if (isMobile()) {
+          stopAutoplay();
+          updateMobileScroll();
+        } else {
+          const active = target.querySelector('.timeline-item.active') || items[0];
+          activateItem(active);
+          startAutoplay();
+        }
+      }, 150);
     });
+
+    // Inicialización inmediata si es móvil al cargar
+    if (isMobile()) {
+      updateMobileScroll();
+    }
   }
 
   function initTimeline() {
