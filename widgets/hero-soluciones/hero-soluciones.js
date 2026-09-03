@@ -61,19 +61,27 @@
   pointer-events: none;
 }
 
-/* ── BREADCRUMB DE NAVEGACIÓN ─────────────────────────────────────────────── */
+/* ── BREADCRUMB DE NAVEGACIÓN (arriba del título, no pegado al navbar) ──────── */
 .jhs-breadcrumb {
-  position: absolute;
-  top: clamp(20px, 4vh, 40px);
-  left: clamp(24px, 5vw, 92px);
-  z-index: 11;
+  position: relative;
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 8px;
+  margin-bottom: clamp(16px, 3vh, 28px);
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.01em;
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.jhs-widget.jhs-anim-line1 .jhs-breadcrumb {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .jhs-breadcrumb a {
@@ -394,8 +402,7 @@
 @media (max-width: 600px) {
   .jhs-breadcrumb {
     font-size: 12px;
-    top: 16px;
-    left: 20px;
+    margin-bottom: 14px;
   }
 
   .jhs-title-block {
@@ -556,15 +563,15 @@
   <!-- Overlay sutil izquierda -->
   <div class="jhs-overlay"></div>
 
-  <!-- Breadcrumb de navegación -->
-  <nav class="jhs-breadcrumb" aria-label="Breadcrumb">
-    <a href="${copy.homeHref}">${copy.homeLabel}</a>
-    <span class="jhs-breadcrumb-sep">&rsaquo;</span>
-    <span class="jhs-breadcrumb-current">${copy.currentLabel}</span>
-  </nav>
-
   <!-- Contenido Principal -->
   <div class="jhs-main-content">
+
+    <!-- Breadcrumb de navegación -->
+    <nav class="jhs-breadcrumb" aria-label="Breadcrumb">
+      <a href="${copy.homeHref}">${copy.homeLabel}</a>
+      <span class="jhs-breadcrumb-sep">&rsaquo;</span>
+      <span class="jhs-breadcrumb-current">${copy.currentLabel}</span>
+    </nav>
 
     <!-- Bloque de Títulos -->
     <div class="jhs-title-block">
