@@ -358,6 +358,7 @@
       width: 100%;
       padding: 0 40px;
       margin-top: 32px;
+      min-height: auto !important;
     }
 
     /* Panels: stacked pero ocultos, sin posición absolute */
@@ -425,6 +426,7 @@
     .jht-right {
       padding: 0 24px;
       margin-top: 24px;
+      min-height: auto !important;
     }
 
     .jht-tab-btn {
@@ -446,7 +448,7 @@
     /* Imágenes a tamaño de tarjeta móvil */
     .jht-images {
       margin: 0 -24px;
-      padding: 4px 24px 16px;
+      padding: 4px 24px 8px;
       scroll-padding: 0 24px;
     }
 
@@ -455,6 +457,12 @@
       width: calc(100vw - 72px);
       max-width: 340px;
       height: 280px;
+    }
+
+    /* Ajustar padding-bottom de la sección contenedora Webflow */
+    #hoteleria.section,
+    .section.colecciones {
+      padding-bottom: 24px !important;
     }
   }
 
@@ -498,6 +506,7 @@
     .jht-right {
       padding: 0 16px;
       margin-top: 20px;
+      min-height: auto !important;
     }
 
     .jht-panel {
@@ -512,7 +521,7 @@
     /* Imágenes full width con snap */
     .jht-images {
       margin: 0 -16px;
-      padding: 4px 16px 20px;
+      padding: 4px 16px 8px;
       scroll-padding: 0 16px;
       gap: 12px;
     }
@@ -522,16 +531,28 @@
       max-width: 100%;
       height: 240px;
     }
+
+    /* Ajustar padding-bottom de la sección contenedora Webflow en mobile pequeño */
+    #hoteleria.section,
+    .section.colecciones {
+      padding-bottom: 16px !important;
+    }
   }
 
-  /* ── Dots de paginación para carrusel de imágenes (mobile) ── */
+  /* Ocultar dots en desktop por defecto */
+  .jht-dots {
+    display: none;
+  }
+
+  /* ── Dots de paginación para carrusel de imágenes (mobile/tablet) ── */
   @media (max-width: 1100px) {
     .jht-dots {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 7px;
-      margin-top: 16px;
+      margin-top: 14px;
+      margin-bottom: 0;
     }
 
     .jht-dot {
@@ -549,11 +570,6 @@
       width: 22px;
       border-radius: 100px;
     }
-  }
-
-  /* Ocultar dots en desktop */
-  .jht-dots {
-    display: none;
   }
 
   /* Ocultar listas fuente del CMS de Webflow para que no rendericen texto/imágenes sin estilo */
