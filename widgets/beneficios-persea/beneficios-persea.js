@@ -167,6 +167,16 @@
     document.head.appendChild(style);
   }
 
+  function isValidImgSrc(src) {
+    if (!src || typeof src !== 'string') return false;
+    var trimmed = src.trim();
+    if (!trimmed || trimmed === '#' || trimmed === 'about:blank' || trimmed.toLowerCase() === 'none') return false;
+    if (typeof window !== 'undefined' && window.location) {
+      if (trimmed === window.location.href || trimmed === window.location.pathname) return false;
+    }
+    return true;
+  }
+
   function buildHtml(centralImg, lang) {
     var isEnglish = lang === 'en';
     var benefits = isEnglish ? BENEFITS_EN : BENEFITS_ES;
@@ -182,6 +192,11 @@
         '</div>';
     }).join('');
 
+    var soapImgHtml = '';
+    if (centralImg && isValidImgSrc(centralImg)) {
+      soapImgHtml = '<img class="bp-soap" src="' + centralImg + '" alt="' + (isEnglish ? 'Persea soap' : 'Jabón Persea') + '" onerror="this.style.display=\'none\';">';
+    }
+
     return '' +
       '<div class="bp-widget">' +
         '<div class="bp-widget-inner">' +
@@ -189,8 +204,8 @@
             '<h2 class="bp-title">' + (isEnglish ? 'Benefits' : 'Beneficios') + '</h2>' +
             '<p class="bp-slogan"><span class="bp-slogan-desktop-spaces">                   </span>' + (isEnglish ? 'that make a difference' : 'que marcan la diferencia') + '</p>' +
           '</div>' +
-          '<div class="bp-stage">' +
-            '<img class="bp-soap" src="' + (centralImg || SOAP_IMG) + '" alt="' + (isEnglish ? 'Persea soap' : 'Jabón Persea') + '">' +
+          '<div class="bp-stage' + (!soapImgHtml ? ' bp-no-central-img' : '') + '">' +
+            soapImgHtml +
             items +
           '</div>' +
         '</div>' +
@@ -289,11 +304,30 @@
     var bgImgEl = source.querySelector('.jypesa-beneficios-col-bg-img');
     var textColorEl = source.querySelector('.jypesa-beneficios-col-text-color');
 
-    var centralImg = centralImgEl ? (centralImgEl.getAttribute('src') || centralImgEl.src) : null;
-    var bgImg = bgImgEl ? (bgImgEl.getAttribute('src') || bgImgEl.src) : null;
+    var centralImg = null;
+    if (centralImgEl) {
+      var rawSrc = centralImgEl.getAttribute('src');
+      if (isValidImgSrc(rawSrc)) {
+        centralImg = rawSrc.trim();
+      } else if (isValidImgSrc(centralImgEl.src)) {
+        centralImg = centralImgEl.src.trim();
+      }
+    }
+
+    var bgImg = null;
+    if (bgImgEl) {
+      var rawBg = bgImgEl.getAttribute('src');
+      if (isValidImgSrc(rawBg)) {
+        bgImg = rawBg.trim();
+      } else if (isValidImgSrc(bgImgEl.src)) {
+        bgImg = bgImgEl.src.trim();
+      }
+    }
+
     var textColor = textColorEl ? textColorEl.textContent.trim() : null;
 
     return {
+      hasCMS: true,
       centralImg: centralImg,
       bgImg: bgImg,
       textColor: textColor
@@ -316,11 +350,28 @@
       var customBgImg = target.getAttribute('data-bg-img');
       var customTextColor = target.getAttribute('data-text-color');
 
-      var centralImg = customCentralImg || (cmsData && cmsData.centralImg) || SOAP_IMG;
+      var centralImg = null;
+      if (target.hasAttribute('data-central-img')) {
+        centralImg = isValidImgSrc(customCentralImg) ? customCentralImg.trim() : null;
+      } else if (cmsData) {
+        // Si hay CMS en la página, usar la imagen del CMS si existe; si no se cargó en el CMS, NO mostrar nada
+        centralImg = cmsData.centralImg;
+      } else {
+        // Solo como fallback por defecto si no hay CMS ni atributo
+        centralImg = SOAP_IMG;
+      }
+
       var bgImg = customBgImg || (cmsData && cmsData.bgImg) || 'https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a567e82b6dd63d7d58888a8_background%20beneficios%20persea.webp';
       var textColor = customTextColor || (cmsData && cmsData.textColor) || null;
 
       target.innerHTML = buildHtml(centralImg, getLang(target));
+
+      var soapImg = target.querySelector('.bp-soap');
+      if (soapImg) {
+        soapImg.addEventListener('error', function () {
+          this.style.display = 'none';
+        });
+      }
 
       var widgetEl = target.querySelector('.bp-widget');
       if (widgetEl) {
