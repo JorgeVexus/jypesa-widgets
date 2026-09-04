@@ -1063,7 +1063,7 @@ ${desktopProductsHtml}
                 <div class="mega-menu">
                     <div class="mega-content">
                         <div class="visual-block">
-                            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5a92ddf931dcfaf8fb4bce_soluciones%20menu.avif" alt="Soluciones">
+                            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a443587bbde5974f8d192b0_hoteleria%20card.avif" alt="${t.solutions}">
                             <div class="visual-overlay"></div>
                         </div>
                         <div class="links-container">
@@ -1128,7 +1128,7 @@ ${desktopProductsHtml}
                 <div class="mega-menu">
                     <div class="mega-content">
                         <div class="visual-block">
-                            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5a9443a95ace5546670f65_sustentabilidad%20menu.avif" alt="Sustentabilidad">
+                            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5a9443a95ace5546670f65_sustentabilidad%20menu.avif" alt="${t.sustainability}">
                             <div class="visual-overlay"></div>
                         </div>
                         <div class="links-container">
@@ -1174,7 +1174,7 @@ ${desktopProductsHtml}
                 <div class="mega-menu">
                     <div class="mega-content">
                         <div class="visual-block">
-                            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5a948117207012f5176ae5_recurso%20menu.avif" alt="Recursos">
+                            <img src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a5a948117207012f5176ae5_recurso%20menu.avif" alt="${t.resources}">
                             <div class="visual-overlay"></div>
                         </div>
                         <div class="links-container">
