@@ -287,6 +287,21 @@
     var refresh = function () { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); };
     window.addEventListener('load', refresh);
     setTimeout(refresh, 400);
+    setTimeout(refresh, 1500);
+
+    // Otros widgets de la página (tabs con CMS, imágenes, fuentes) pueden
+    // terminar de renderizar y cambiar el alto del documento después de que
+    // este widget ya calculó su posición de pin, dejando el trigger
+    // desalineado (brinco/salto al hacer scroll). Un ResizeObserver sobre
+    // <body> detecta esos cambios de alto y refresca ScrollTrigger.
+    if (typeof ResizeObserver !== 'undefined') {
+      var resizeRefreshTimer = null;
+      var ro = new ResizeObserver(function () {
+        clearTimeout(resizeRefreshTimer);
+        resizeRefreshTimer = setTimeout(refresh, 150);
+      });
+      ro.observe(document.body);
+    }
   }
 
   // Leer imágenes y configuraciones desde un listado dinámico del CMS en la página
