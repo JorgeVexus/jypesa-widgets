@@ -1224,6 +1224,81 @@
       });
     });
 
+    // ─── Soporte para Deep Linking (Abrir tab desde URL hash o ?tab=) ────────
+    function cleanAlpha(str) {
+      if (!str) return '';
+      return decodeURIComponent(str)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '');
+    }
+
+    function slugify(str) {
+      if (!str) return '';
+      return decodeURIComponent(str)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function checkUrlHash() {
+      const rawHash = (window.location.hash || '').replace('#', '').trim();
+      const urlParams = new URLSearchParams(window.location.search);
+      const rawParam = (urlParams.get('tab') || '').trim();
+      const targetVal = rawHash || rawParam;
+
+      if (!targetVal) return;
+
+      const tSlug = slugify(targetVal);
+      const tAlpha = cleanAlpha(targetVal);
+
+      // Mapeo bilingüe cruzado para permitir enlazar en ES o EN independientemente del idioma activo
+      const bilingualAliases = {
+        'estandar': 'standard',
+        'standard': 'estandar',
+        'lujo': 'luxury',
+        'luxury': 'lujo'
+      };
+      const aliasSlug = bilingualAliases[tSlug] || bilingualAliases[tAlpha] || '';
+      const aliasAlpha = cleanAlpha(aliasSlug);
+
+      const buttons = Array.from(tabButtons);
+      const match = buttons.find(btn => {
+        const tabId = btn.getAttribute('data-tab') || '';
+        const labelText = btn.textContent || '';
+
+        const idSlug = slugify(tabId);
+        const idAlpha = cleanAlpha(tabId);
+        const lblSlug = slugify(labelText);
+        const lblAlpha = cleanAlpha(labelText);
+
+        return (
+          idSlug === tSlug ||
+          lblSlug === tSlug ||
+          idAlpha === tAlpha ||
+          lblAlpha === tAlpha ||
+          (aliasSlug && (idSlug === aliasSlug || idAlpha === aliasAlpha || lblSlug === aliasSlug || lblAlpha === aliasAlpha)) ||
+          (tAlpha.length >= 3 && (idAlpha.includes(tAlpha) || lblAlpha.includes(tAlpha) || tAlpha.includes(idAlpha) || tAlpha.includes(lblAlpha)))
+        );
+      });
+
+      if (match) {
+        const targetTabId = match.getAttribute('data-tab');
+        activateTab(targetTabId);
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      }
+    }
+
+    checkUrlHash();
+    setTimeout(checkUrlHash, 300);
+    window.addEventListener('hashchange', checkUrlHash);
+
+
     contentPanels.forEach(panel => {
       const container = panel.querySelector('.jypesa-coltabs-products-container');
       const nextBtn = panel.querySelector('.next-btn');
