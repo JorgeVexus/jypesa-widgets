@@ -1258,6 +1258,7 @@
       // Mapeo bilingüe cruzado para permitir enlazar en ES o EN independientemente del idioma activo
       const bilingualAliases = {
         'estandar': 'standard',
+        'standar': 'standard',
         'standard': 'estandar',
         'lujo': 'luxury',
         'luxury': 'lujo'

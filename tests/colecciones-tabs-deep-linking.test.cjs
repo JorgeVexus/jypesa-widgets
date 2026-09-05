@@ -16,7 +16,9 @@ test('colecciones-tabs has deep linking and hash change listener', () => {
 test('colecciones-tabs supports bilingual cross-linking aliases', () => {
   assert.match(js, /bilingualAliases/, 'bilingualAliases map must exist');
   assert.match(js, /'estandar':\s*'standard'/, 'estandar -> standard alias');
+  assert.match(js, /'standar':\s*'standard'/, 'standar -> standard alias');
   assert.match(js, /'standard':\s*'estandar'/, 'standard -> estandar alias');
   assert.match(js, /'lujo':\s*'luxury'/, 'lujo -> luxury alias');
   assert.match(js, /'luxury':\s*'lujo'/, 'luxury -> lujo alias');
 });
+
