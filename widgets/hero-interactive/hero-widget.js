@@ -78,49 +78,6 @@
   transition: background 1.2s ease;
 }
 
-/* Breadcrumb de navegación (arriba del título, no pegado al navbar) */
-.jypesa-hero-breadcrumb {
-  position: relative;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
-  margin-bottom: clamp(16px, 3vh, 28px);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.jypesa-hero-widget.phase-2 .jypesa-hero-breadcrumb {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.jypesa-hero-breadcrumb a {
-  color: rgba(255, 255, 255, 0.72);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.jypesa-hero-breadcrumb a:hover {
-  color: #ffffff;
-}
-
-.jypesa-hero-breadcrumb span.jypesa-hero-breadcrumb-current {
-  color: rgba(255, 255, 255, 0.95);
-  font-weight: 600;
-}
-
-.jypesa-hero-breadcrumb span.jypesa-hero-breadcrumb-sep {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 12px;
-}
-
 /* Contenedor del Texto & Logo Central */
 .jypesa-hero-center-content {
   position: absolute;
@@ -131,21 +88,7 @@
   width: 90%;
   max-width: 480px;
   pointer-events: none;
-  display: flex;
-  flex-direction: column;
   transition: top 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-/* Agrupa el logo y el texto "Sobre" para que el breadcrumb quede siempre arriba,
-   sin importar el offset absoluto usado para sobreponer "Sobre" al logo. */
-.jypesa-hero-logo-stack {
-  position: relative;
-  width: 100%;
-  /* "Sobre" se sobrepone hacia arriba del logo (ver .jypesa-hero-sobre-wrapper);
-     este margen empuja el bloque lo suficiente para que ese espacio no invada
-     el breadcrumb de arriba. Debe igualar la altura de .jypesa-hero-sobre-wrapper
-     en cada breakpoint. */
-  margin-top: 110px;
 }
 
 /* Contenedor del Logotipo Jypesa */
@@ -389,7 +332,6 @@
   .jypesa-hero-center-content { max-width: 400px; }
   .jypesa-hero-sobre { font-size: 80px; }
   .jypesa-hero-sobre-wrapper { height: 90px; }
-  .jypesa-hero-logo-stack { margin-top: 90px; }
   .jypesa-stat-number { font-size: 52px; }
   .jypesa-stat-suffix { font-size: 22px; }
   .jypesa-stat-heading { font-size: 16px; }
@@ -443,15 +385,9 @@
   .jypesa-hero-center-content { max-width: 320px; }
   .jypesa-hero-sobre { font-size: 64px; }
   .jypesa-hero-sobre-wrapper { height: 75px; }
-  .jypesa-hero-logo-stack { margin-top: 75px; }
 }
 
 @media (max-width: 480px) {
-  .jypesa-hero-breadcrumb {
-    font-size: 12px;
-    margin-bottom: 14px;
-  }
-
   .jypesa-hero-top {
     height: 50vh;
     min-height: 350px;
@@ -472,9 +408,6 @@
   .jypesa-hero-sobre-wrapper {
     height: 50px;
     bottom: calc(100% - 4px);
-  }
-  .jypesa-hero-logo-stack {
-    margin-top: 50px;
   }
 
   .jypesa-stats-grid {
@@ -540,9 +473,6 @@
   // Diccionario Bilingüe para Hero Widget
   const heroTexts = {
     es: {
-      homeLabel: 'Inicio',
-      homeHref: '/',
-      currentLabel: 'Nosotros',
       sobreText: 'Sobre',
       kpis: [
         {
@@ -572,9 +502,6 @@
       ]
     },
     en: {
-      homeLabel: 'Home',
-      homeHref: '/',
-      currentLabel: 'About Us',
       sobreText: 'About',
       kpis: [
         {
@@ -616,18 +543,11 @@
     </div>
     <div class="jypesa-hero-overlay"></div>
     <div class="jypesa-hero-center-content">
-      <nav class="jypesa-hero-breadcrumb" aria-label="Breadcrumb">
-        <a href="${t.homeHref}">${t.homeLabel}</a>
-        <span class="jypesa-hero-breadcrumb-sep">&rsaquo;</span>
-        <span class="jypesa-hero-breadcrumb-current">${t.currentLabel}</span>
-      </nav>
-      <div class="jypesa-hero-logo-stack">
-        <div class="jypesa-hero-sobre-wrapper">
-          <p class="jypesa-hero-sobre">${t.sobreText}</p>
-        </div>
-        <div class="jypesa-hero-logo-wrapper">
-          <img src="${logoJypesaSvgUrl}" class="jypesa-hero-logo-svg" alt="Jypesa Logo" />
-        </div>
+      <div class="jypesa-hero-sobre-wrapper">
+        <p class="jypesa-hero-sobre">${t.sobreText}</p>
+      </div>
+      <div class="jypesa-hero-logo-wrapper">
+        <img src="${logoJypesaSvgUrl}" class="jypesa-hero-logo-svg" alt="Jypesa Logo" />
       </div>
     </div>
     
