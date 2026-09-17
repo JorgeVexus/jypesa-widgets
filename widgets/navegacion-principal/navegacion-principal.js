@@ -759,15 +759,13 @@
       catResources: "RESOURCES",
       secCommercialMaterial: "Commercial Materials",
       optDownloadableCatalogs: "Downloadable Catalogs",
-      urlDownloadableCatalogs: "https://jypesa.aflip.in/hojas-de-venta",
+      urlDownloadableCatalogs: "https://jypesa.aflip.in/jypesausa-sellsheets",
       optFullCollectionsCatalog: "Complete Collections Catalog",
       urlFullCollectionsCatalog: "https://jypesa.aflip.in/collections-catalog",
       optGreenCredentials: "Sustainability Credentials",
       urlGreenCredentials: "https://jypesa.aflip.in/Sustainability-credentials",
       secContentTrends: "Content & Trends",
-      optBlog: "Blog",
-      optAmenitiesGuide: "Hotel Amenities Guide",
-      urlAmenitiesGuide: "https://jypesa.aflip.in/guia-amenidades-hoteleras"
+      optBlog: "Blog"
     }
   };
 
@@ -823,7 +821,7 @@
         return USA_ORIGIN + '/solutions' + (enHash ? '#' + enHash : '');
       }
       if (base === '/blogs') return USA_ORIGIN + '/blogs' + (rawHash ? '#' + rawHash : '');
-      if (base === '/shop') return USA_ORIGIN + '/shop' + (rawHash ? '#' + rawHash : '');
+      if (base === '/shop') return 'https://shop.jypesausa.com' + (rawHash ? '#' + rawHash : '');
       return USA_ORIGIN + base + (rawHash ? '#' + rawHash : '');
     }
     return url;
@@ -1193,7 +1191,7 @@ ${desktopProductsHtml}
                                         <div class="section-header">${t.secContentTrends}</div>
                                         <ul class="options-list">
                                             <li><a href="${u('/blogs')}" class="option-link">${t.optBlog}</a></li>
-                                            <li><a href="${t.urlAmenitiesGuide}" target="_blank" rel="noopener noreferrer" class="option-link">${t.optAmenitiesGuide}</a></li>
+                                            ${t.urlAmenitiesGuide && t.optAmenitiesGuide ? `<li><a href="${t.urlAmenitiesGuide}" target="_blank" rel="noopener noreferrer" class="option-link">${t.optAmenitiesGuide}</a></li>` : ''}
                                         </ul>
                                     </div>
                                 </div>
@@ -1294,7 +1292,7 @@ ${mobileProductsHtml}
                 <a href="${t.urlGreenCredentials}" target="_blank" rel="noopener noreferrer" class="mob-link">${t.optGreenCredentials}</a>
                 <div class="mob-cat-title">${t.secContentTrends}</div>
                 <a href="${u('/blogs')}" class="mob-link">${t.optBlog}</a>
-                <a href="${t.urlAmenitiesGuide}" target="_blank" rel="noopener noreferrer" class="mob-link">${t.optAmenitiesGuide}</a>
+                ${t.urlAmenitiesGuide && t.optAmenitiesGuide ? `<a href="${t.urlAmenitiesGuide}" target="_blank" rel="noopener noreferrer" class="mob-link">${t.optAmenitiesGuide}</a>` : ''}
             </div>
         </li>
         <li class="mob-item mob-lang-item" style="padding: 20px 0; border-top: 1px solid rgba(0,0,0,0.06);">
