@@ -72,8 +72,8 @@
   <div class="demo-bar">
     <span class="demo-brand">JYPESA CARDS &bull; WEBFLOW EMBED PREVIEW</span>
     <div style="display: flex; gap: 8px;">
-      <button class="demo-btn active" onclick="switchLang('es')" style="background: #506D85; color: #fff; border: 1px solid #777; padding: 4px 10px; border-radius: 4px; cursor: pointer;">Español (data-lang="es")</button>
-      <button class="demo-btn" onclick="switchLang('en')" style="background: #fff; color: #506D85; border: 1px solid #777; padding: 4px 10px; border-radius: 4px; cursor: pointer;">English (data-lang="en")</button>
+      <button class="demo-btn active" id="btn-es" onclick="switchLang('es')" style="background: #506D85; color: #fff; border: 1px solid #777; padding: 4px 10px; border-radius: 4px; cursor: pointer;">Español (data-lang="es")</button>
+      <button class="demo-btn" id="btn-en" onclick="switchLang('en')" style="background: #fff; color: #506D85; border: 1px solid #777; padding: 4px 10px; border-radius: 4px; cursor: pointer;">English (data-lang="en")</button>
     </div>
   </div>
 
@@ -93,6 +93,24 @@
   </div>
 
   <script>
+    function updateBtnStyles(lang) {
+      const btnEs = document.getElementById('btn-es');
+      const btnEn = document.getElementById('btn-en');
+      if (btnEs && btnEn) {
+        if (lang === 'en') {
+          btnEn.style.background = '#506D85';
+          btnEn.style.color = '#fff';
+          btnEs.style.background = '#fff';
+          btnEs.style.color = '#506D85';
+        } else {
+          btnEs.style.background = '#506D85';
+          btnEs.style.color = '#fff';
+          btnEn.style.background = '#fff';
+          btnEn.style.color = '#506D85';
+        }
+      }
+    }
+
     function switchLang(lang) {
       const widget = document.getElementById('jypesa-cards-widget');
       if (!widget) return;
@@ -101,11 +119,32 @@
       widget.innerHTML = '';
       window.__JypesaCardsWidgetInitialized = false;
 
-      if (typeof initCards === 'function') {
-        initCards();
+      updateBtnStyles(lang);
+      try {
+        const url = new URL(window.location);
+        url.searchParams.set('lang', lang);
+        window.history.replaceState({}, '', url);
+      } catch (e) {}
+
+      if (typeof window.initCards === 'function') {
+        window.initCards();
       } else {
-        location.reload();
+        const oldScript = document.querySelector('script[src*="cards-widget.js"]');
+        if (oldScript) {
+          const newScript = document.createElement('script');
+          newScript.src = './widgets/cards/cards-widget.js?t=' + Date.now();
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        }
       }
+    }
+
+    // Check initial language from URL (?lang=en)
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialLang = urlParams.get('lang');
+    if (initialLang === 'en') {
+      const widget = document.getElementById('jypesa-cards-widget');
+      if (widget) widget.setAttribute('data-lang', 'en');
+      updateBtnStyles('en');
     }
   </script>
 

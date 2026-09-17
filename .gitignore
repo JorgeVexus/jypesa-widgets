@@ -4,5 +4,7 @@
 node_modules
 .DS_Store
 /assets/*
+!/assets/images-widgets/
+!/assets/images-widgets/**
 server.cjs
 

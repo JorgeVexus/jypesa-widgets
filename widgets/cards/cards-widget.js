@@ -233,6 +233,30 @@
   const imgPrivateLabel = "https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69fa4c519a629b382ee5f884_Product-Image.png";
   const imgLicencias = "https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69fa4c51ab013c1db7e3825f_Product-Image.png";
 
+  // Resolver basePath para assets locales / producción (Vercel)
+  let basePath = 'https://jypesa-widgets.vercel.app/';
+  if (typeof document !== 'undefined') {
+    const currentScript = document.currentScript || (() => {
+      const scripts = document.getElementsByTagName ? document.getElementsByTagName('script') : [];
+      for (let i = 0; i < scripts.length; i++) {
+        if (scripts[i].src && scripts[i].src.includes('cards-widget.js')) return scripts[i];
+      }
+      return null;
+    })();
+
+    if (currentScript && currentScript.src) {
+      const src = currentScript.src;
+      const idx = src.indexOf('widgets/cards');
+      if (idx !== -1) {
+        basePath = src.substring(0, idx);
+      }
+    } else if (typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+      basePath = './';
+    }
+  }
+
+  const imgLicenciasEn = basePath + 'assets/images-widgets/Img-per.webp';
+
   const arrowSvg = `
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -289,7 +313,7 @@
         desc: 'Collaboration with recognized brands to offer differentiated collections.',
         btnText: 'Learn More',
         link: 'https://jypesausa.com/custom-development',
-        img: imgLicencias,
+        img: imgLicenciasEn,
         alt: 'Licenses Jypesa'
       }
     ]
@@ -354,6 +378,8 @@
   }
 
   // Cargar widget
+  window.initCards = initCards;
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initCards);
   } else {
