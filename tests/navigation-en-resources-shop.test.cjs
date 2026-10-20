@@ -95,3 +95,25 @@ test('English navigation Shop button links directly to https://shop.jypesausa.co
   );
   assert.doesNotMatch(html, /href="https:\/\/jypesausa\.com\/shop"/);
 });
+
+test('Mobile navigation renders Smart Order in Spanish and Shop in English above contact button', () => {
+  const esHtml = renderNav('es');
+  const enHtml = renderNav('en');
+
+  // Spanish mobile assertions
+  assert.match(
+    esHtml,
+    /<a href="https:\/\/sm\.jypesa\.com\/jypesa\/public\/login" class="mob-btn-action mob-btn-smart-order" target="_blank" rel="noopener noreferrer">/
+  );
+  assert.match(esHtml, /<li class="mob-item mob-actions-item"[^>]*>[\s\S]*?mob-btn-smart-order[\s\S]*?btn-contact/);
+  assert.doesNotMatch(esHtml, /mob-btn-shop/);
+
+  // English mobile assertions
+  assert.match(
+    enHtml,
+    /<a href="https:\/\/shop\.jypesausa\.com" class="mob-btn-action mob-btn-shop" target="_blank" rel="noopener noreferrer">/
+  );
+  assert.match(enHtml, /<li class="mob-item mob-actions-item"[^>]*>[\s\S]*?mob-btn-shop[\s\S]*?btn-contact/);
+  assert.doesNotMatch(enHtml, /mob-btn-smart-order/);
+  assert.doesNotMatch(enHtml, /sm\.jypesa\.com/);
+});

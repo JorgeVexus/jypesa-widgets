@@ -132,12 +132,37 @@
     </div>
 
     <div class="content-box">
-      <h2>Actualización de Enlaces</h2>
+      <h2>Actualización de Enlaces y Versión Móvil</h2>
       <p>
-        El botón de <strong>Smart Order</strong> ha sido configurado para redirigir directamente al sitio externo <code>https://sm.jypesa.com/jypesa/public/login</code> abriéndose en una pestaña nueva. Los enlaces de Sistemas de Dispensación y Accesorios enrutan a las direcciones relativas correspondientes del dominio actual de producción.
+        El botón de <strong>Smart Order</strong> (en español) redirige a <code>https://sm.jypesa.com/jypesa/public/login</code>, mientras que en inglés se muestra el botón <strong>Shop</strong> enlazando a <code>https://shop.jypesausa.com</code>. Ahora ambos botones se muestran también de forma responsiva en la <strong>versión móvil</strong> dentro del menú desplegable, situados de manera destacada justo arriba del botón de Contáctanos.
       </p>
     </div>
   </div>
+
+  <!-- Switch flotante para probar idiomas en preview -->
+  <div style="position: fixed; bottom: 24px; right: 24px; z-index: 9999; background: rgba(20, 28, 38, 0.95); border: 1px solid rgba(255,255,255,0.15); border-radius: 30px; padding: 6px 12px; display: flex; gap: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); backdrop-filter: blur(10px);">
+    <button id="btn-lang-es" onclick="changeLang('es')" style="padding: 6px 14px; border-radius: 20px; border: none; cursor: pointer; font-weight: 600; font-size: 13px; color: #fff; background: transparent; transition: all 0.2s;">🇲🇽 ES</button>
+    <button id="btn-lang-en" onclick="changeLang('en')" style="padding: 6px 14px; border-radius: 20px; border: none; cursor: pointer; font-weight: 600; font-size: 13px; color: #fff; background: transparent; transition: all 0.2s;">🇺🇸 EN</button>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialLang = urlParams.get('lang') || 'es';
+    const widgetEl = document.getElementById('jypesa-nav-principal-widget');
+    widgetEl.setAttribute('data-lang', initialLang);
+
+    if (initialLang === 'en') {
+      document.getElementById('btn-lang-en').style.background = '#48A9C5';
+    } else {
+      document.getElementById('btn-lang-es').style.background = '#48A9C5';
+    }
+
+    function changeLang(lang) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', lang);
+      window.location.href = url.toString();
+    }
+  </script>
 
   <!-- Cargar Widget JS -->
   <script src="./navegacion-principal.js"></script>

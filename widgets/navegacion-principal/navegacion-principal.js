@@ -601,6 +601,37 @@
   font-weight: 500;
 }
 
+.jypesa-nav-principal-widget .mob-btn-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  transition: var(--transition);
+  cursor: pointer;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+.jypesa-nav-principal-widget .mob-btn-action:hover {
+  background: rgba(72, 169, 197, 0.08);
+  border-color: var(--secondary);
+  color: var(--secondary);
+  transform: translateY(-1px);
+}
+
+.jypesa-nav-principal-widget .mob-btn-action svg {
+  flex-shrink: 0;
+}
+
 @media (max-width: 1200px) {
   .jypesa-nav-principal-widget .nav-links,
   .jypesa-nav-principal-widget .nav-actions {
@@ -839,6 +870,18 @@
             <a href="${u('/shop')}" class="smart-order nav-shop" target="_blank" rel="noopener noreferrer">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                 ${t.shop || 'Shop'}
+            </a>
+`;
+
+    const mobileActionButton = lang === 'es' ? `
+            <a href="https://sm.jypesa.com/jypesa/public/login" class="mob-btn-action mob-btn-smart-order" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>${t.smartOrder}</span>
+            </a>
+` : `
+            <a href="${u('/shop')}" class="mob-btn-action mob-btn-shop" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span>${t.shop || 'Shop'}</span>
             </a>
 `;
 
@@ -1302,7 +1345,8 @@ ${mobileProductsHtml}
                 <a href="https://jypesausa.com" class="mob-lang-btn ${lang === 'en' ? 'active' : ''}">English</a>
             </div>
         </li>
-        <li class="mob-item" style="padding: 20px 0 40px;">
+        <li class="mob-item mob-actions-item" style="padding: 20px 0 40px; border-bottom: none;">
+            ${mobileActionButton}
             <a href="${u('/contacto')}" class="btn-contact" style="display: block; text-align: center;">${t.contact}</a>
         </li>
     </ul>
@@ -1542,7 +1586,7 @@ ${mobileProductsHtml}
         const nav = target.querySelector('#nav');
         if (nav) nav.classList.add('jypesa-nav-light');
       }
-      if (target.classList.contains('jypesa-nav-light') || target.classList.contains('nav-light') || target.classList.contains('white')) {
+      if (target.classList && (target.classList.contains('jypesa-nav-light') || target.classList.contains('nav-light') || target.classList.contains('white'))) {
         const nav = target.querySelector('#nav');
         if (nav) nav.classList.add('jypesa-nav-light');
       }
