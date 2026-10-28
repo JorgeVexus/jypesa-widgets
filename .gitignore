@@ -7,4 +7,5 @@ node_modules
 !/assets/images-widgets/
 !/assets/images-widgets/**
 server.cjs
-
+jypesa-widgets-repo/
+jypesa-widgets-repo

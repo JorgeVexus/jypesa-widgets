@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Documentación de Widgets — JYPESA</title>
+  <link rel="icon" type="image/svg+xml" href="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a441a5d045393e9bab3f309_logo%20jypesa%20svg.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@400;500;600;700&family=Rubik:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #506D85;
+      --primary-dark: #374E61;
+      --primary-light: #EEF7FA;
+      --blue: #0088BD;
+      --cyan: #48A9C5;
+      --teal: #9EF4F5;
+      --green: #4AA25D;
+      --amber: #FBB31F;
+      --bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --text: #1E293B;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --border-focus: #48A9C5;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(80, 109, 133, 0.08);
+      --shadow-lg: 0 12px 32px rgba(80, 109, 133, 0.12);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      color: var(--text);
+      background-color: var(--bg);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER SUPERIOR ────────────────────────────────────── */
+    header.portal-header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .brand-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.3px;
+    }
+
+    .brand-title span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ECFDF5;
+      color: #065F46;
+      border: 1px solid #A7F3D0;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-status .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10B981;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .btn-portal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-portal-primary {
+      background: var(--cyan);
+      color: #FFFFFF;
+      border: 1px solid transparent;
+    }
+
+    .btn-portal-primary:hover {
+      background: #3996B0;
+      transform: translateY(-1px);
+    }
+
+    .btn-portal-outline {
+      background: #FFFFFF;
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-portal-outline:hover {
+      background: var(--primary-light);
+      border-color: var(--cyan);
+      color: var(--blue);
+    }
+
+    /* ── BARRA DE BÚSQUEDA Y FILTROS ────────────────────────── */
+    .search-filter-bar {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+    }
+
+    .search-filter-inner {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 280px;
+      max-width: 480px;
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      width: 18px;
+      height: 18px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px 10px 42px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-family: 'Rubik', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      outline: none;
+      transition: var(--transition);
+      background: var(--bg);
+    }
+
+    .search-box input:focus {
+      border-color: var(--cyan);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(72, 169, 197, 0.15);
+    }
+
+    .filter-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .pill-btn {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .pill-btn:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .pill-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* ── LAYOUT PRINCIPAL (2 COLUMNAS) ──────────────────────── */
+    .portal-main {
+      flex: 1;
+      max-width: 1600px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+      align-items: flex-start;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 1024px) {
+      .portal-main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── COLUMNA IZQUIERDA: LISTA DE WIDGETS ────────────────── */
+    .sidebar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      max-height: calc(100vh - 180px);
+      position: sticky;
+      top: 100px;
+    }
+
+    .sidebar-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FDFEFE;
+    }
+
+    .sidebar-header h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .widget-count-badge {
+      font-size: 0.75rem;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .widget-list-scroll {
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .widget-item {
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      text-align: left;
+      background: transparent;
+      width: 100%;
+    }
+
+    .widget-item:hover {
+      background: var(--primary-light);
+      border-color: rgba(72, 169, 197, 0.3);
+    }
+
+    .widget-item.active {
+      background: #F0F9FF;
+      border-color: var(--cyan);
+      box-shadow: 0 2px 6px rgba(72, 169, 197, 0.15);
+    }
+
+    .widget-item-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+
+    .widget-item.active .widget-item-icon {
+      background: var(--cyan);
+      color: #FFFFFF;
+    }
+
+    .widget-item-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .widget-item-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .widget-item.active .widget-item-title {
+      color: var(--blue);
+    }
+
+    .widget-item-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+
+    .widget-item-tags {
+      display: flex;
+      gap: 4px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag-mini {
+      font-size: 0.68rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 500;
+      background: #F1F5F9;
+      color: var(--text-muted);
+    }
+
+    .tag-mini.cms {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .tag-mini.bilingual {
+      background: #E0E7FF;
+      color: #3730A3;
+    }
+
+    /* ── COLUMNA DERECHA: DETALLE DEL WIDGET ────────────────── */
+    .detail-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .detail-hero {
+      padding: 28px 32px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .detail-header-left {
+      flex: 1;
+      min-width: 320px;
+    }
+
+    .detail-category-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+    }
+
+    .detail-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .detail-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 800px;
+    }
+
+    .detail-badges {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .badge-feature {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-feature.production {
+      background: #EEF7FA;
+      color: var(--blue);
+      border: 1px solid rgba(72, 169, 197, 0.3);
+    }
+
+    .badge-feature.cms {
+      background: #FEF3C7;
+      color: #B45309;
+      border: 1px solid #FDE68A;
+    }
+
+    .badge-feature.lang {
+      background: #EDE9FE;
+      color: #6D28D9;
+      border: 1px solid #DDD6FE;
+    }
+
+    .detail-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    @media (max-width: 768px) {
+      .detail-actions {
+        width: 100%;
+        align-items: stretch;
+      }
+    }
+
+    .btn-copy-embed {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #FFFFFF;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(80, 109, 133, 0.2);
+      transition: var(--transition);
+    }
+
+    .btn-copy-embed:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(80, 109, 133, 0.3);
+    }
+
+    .btn-preview-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #FFFFFF;
+      color: var(--cyan);
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .btn-preview-link:hover {
+      background: var(--primary-light);
+      border-color: var(--cyan);
+    }
+
+    /* ── TABS DE CONTENIDO DEL DETALLE ──────────────────────── */
+    .detail-tabs-nav {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: #FFFFFF;
+      padding: 0 32px;
+      gap: 24px;
+      overflow-x: auto;
+    }
+
+    .detail-tab-btn {
+      padding: 16px 0;
+      border: none;
+      background: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .detail-tab-btn:hover {
+      color: var(--primary);
+    }
+
+    .detail-tab-btn.active {
+      color: var(--blue);
+    }
+
+    .detail-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--cyan);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .detail-content {
+      padding: 32px;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── BLOQUES DE CÓDIGO Y ESTILOS DE DOCUMENTACIÓN ───────── */
+    .code-block-container {
+      position: relative;
+      margin: 16px 0 24px 0;
+      border-radius: var(--radius-sm);
+      background: #0F172A;
+      overflow: hidden;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .code-block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px;
+      background: #1E293B;
+      border-bottom: 1px solid #334155;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #94A3B8;
+    }
+
+    .btn-copy-code {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #E2E8F0;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-copy-code:hover {
+      background: var(--cyan);
+      border-color: var(--cyan);
+      color: #FFFFFF;
+    }
+
+    pre code {
+      display: block;
+      padding: 16px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #E2E8F0;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 24px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title:first-child {
+      margin-top: 0;
+    }
+
+    p.guide-text {
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    /* Tablas elegantes */
+    .table-container {
+      overflow-x: auto;
+      margin: 16px 0 24px 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    table.guide-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    table.guide-table th {
+      background: #F8FAFC;
+      padding: 12px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: var(--primary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    table.guide-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: #334155;
+    }
+
+    table.guide-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.guide-table tr:hover td {
+      background: #F8FAFC;
+    }
+
+    .badge-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      background: #F1F5F9;
+      color: #0F172A;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #E2E8F0;
+    }
+
+    /* Caja de alerta / tip */
+    .callout-box {
+      border-left: 4px solid var(--cyan);
+      background: #F0F9FF;
+      padding: 14px 18px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 20px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .callout-box svg {
+      width: 20px;
+      height: 20px;
+      color: var(--cyan);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .callout-box-text {
+      font-size: 0.88rem;
+      color: #0369A1;
+      line-height: 1.5;
+    }
+
+    /* Vista previa interactiva */
+    .preview-frame-container {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: #FFFFFF;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview-frame-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .preview-viewport-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-viewport {
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .btn-viewport.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    .iframe-wrapper {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      background: #FFFFFF;
+      display: flex;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .iframe-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: width 0.3s ease;
+    }
+
+    /* ── TOAST NOTIFICATION ─────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 14px 22px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 9999;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast svg {
+      width: 18px;
+      height: 18px;
+      color: #10B981;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer.portal-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="portal-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <img class="brand-logo" src="https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/6a441a5d045393e9bab3f309_logo%20jypesa%20svg.svg" alt="JYPESA Logo">
+        <div class="brand-divider"></div>
+        <div class="brand-title">
+          <h1>Portal de Documentación de Widgets</h1>
+          <span>Ecosistema Webflow — JYPESA México & USA</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="badge-status">
+          <span class="dot"></span>
+          <span>Vercel Producción Activo</span>
+        </div>
+        <a href="https://github.com/JorgeVexus/jypesa-widgets" target="_blank" rel="noopener noreferrer" class="btn-portal btn-portal-outline">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <span>Repositorio GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SEARCH & FILTER BAR -->
+  <div class="search-filter-bar">
+    <div class="search-filter-inner">
+      <div class="search-box">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" id="widgetSearchInput" placeholder="Buscar widget por nombre, funcionalidad o clase CSS...">
+      </div>
+
+      <div class="filter-pills" id="categoryFilterContainer">
+        <button class="pill-btn active" data-category="all">Todos (20)</button>
+        <button class="pill-btn" data-category="nav">Navegación & Header</button>
+        <button class="pill-btn" data-category="catalog">Catálogo & Productos</button>
+        <button class="pill-btn" data-category="maps">Mapas & Cobertura</button>
+        <button class="pill-btn" data-category="hero">Hero & Secciones</button>
+        <button class="pill-btn" data-category="carousel">Carruseles & Sliders</button>
+        <button class="pill-btn" data-category="form">Formularios</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN 2-COLUMN VIEW -->
+  <main class="portal-main">
+    
+    <!-- LEFT SIDEBAR: LIST OF WIDGETS -->
+    <aside class="sidebar-card">
+      <div class="sidebar-header">
+        <h2>Listado de Widgets</h2>
+        <span class="widget-count-badge" id="visibleWidgetCount">20 disponibles</span>
+      </div>
+      <div class="widget-list-scroll" id="widgetListContainer">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </aside>
+
+    <!-- RIGHT COLUMN: DETAIL PROFILE -->
+    <section class="detail-card" id="widgetDetailContainer">
+      <!-- Rendered via JavaScript -->
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="portal-footer">
+    <p>JYPESA Widgets Portal • Desarrollado para integración con Webflow CMS • Soporte Bilingüe Español / English</p>
+  </footer>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toastNotification">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+    <span id="toastMessage">¡Código copiado al portapapeles!</span>
+  </div>
+
+  <!-- JAVASCRIPT DATA & APP LOGIC -->
+  <script>
+    // BASE CDN URL EN VERCEL
+    const VERCEL_CDN = "https://jypesa-widgets.vercel.app";
+
+    // CATÁLOGO COMPLETO DE LOS 20 WIDGETS
+    const WIDGETS_DATA = [
+      {
+        id: "navegacion-principal",
+        name: "Navegación Principal (Mega Menú)",
+        category: "nav",
+        shortDesc: "Navbar responsive con efecto vidrio, mega menú de soluciones y selector bilingüe.",
+        location: "Header Global (Todas las páginas)",
+        repoPath: "widgets/navegacion-principal/navegacion-principal.js",
+        previewUrl: "widgets/navegacion-principal/preview.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Contenedor del Navbar -->
+<div id="jypesa-nav-principal-widget" data-lang="es"></div>
+
+<!-- Script en Vercel -->
+<script src="${VERCEL_CDN}/widgets/navegacion-principal/navegacion-principal.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Fuerza el idioma del menú, textos y botones." },
+          { name: "data-theme", values: "'white' | 'light'", desc: "Aplica fondo blanco fijo en páginas de fondo claro." }
+        ],
+        howToEdit: `Abre 'widgets/navegacion-principal/navegacion-principal.js':
+- Enlaces de escritorio y móvil: líneas ~1300 a 1450 en el arreglo 'menuItems'.
+- Botón Smart Order (Español): enlaza a 'https://sm.jypesa.com/jypesa/public/login'.
+- Botón Shop (Inglés): enlaza a 'https://shop.jypesausa.com'.`,
+        cmsTable: null
+      },
+      {
+        id: "tabs-colecciones-productos",
+        name: "Tabs Colecciones Productos (Catálogo)",
+        category: "catalog",
+        shortDesc: "Catálogo estrella con navegación fija por colección, pirámide olfativa y tarjetas de producto.",
+        location: "Páginas de Colecciones (/colecciones, /collections)",
+        repoPath: "widgets/tabs-colecciones-productos/tabs-colecciones-productos.js",
+        previewUrl: "tabs-colecciones-productos.html",
+        hasCms: true,
+        bilingual: true,
+        embedCode: `<!-- Contenedor del Catálogo de Colecciones -->
+<div class="jypesa-tabs-colecciones-widget" data-cms-source="#mi-coleccion-cms" data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/tabs-colecciones-productos/tabs-colecciones-productos.js"><\/script>`,
+        attributes: [
+          { name: "data-cms-source", values: "ID o clase CSS", desc: "Identificador de la lista de colección oculta en Webflow." },
+          { name: "data-lang", values: "'es' | 'en'", desc: "Idioma para las insignias ('RELLENABLE' / 'REFILLABLE') y títulos." }
+        ],
+        howToEdit: `Los datos se gestionan desde el CMS de Webflow. Si requieres cambiar la presentación por defecto (fallback), edita 'defaultCollections' en las líneas ~1059 a 1150 de 'tabs-colecciones-productos.js'.`,
+        cmsTable: [
+          { cls: ".jypesa-tabs-col-name", type: "Texto", desc: "Nombre de la Colección (ej: Elements)" },
+          { cls: ".jypesa-tabs-col-order", type: "Texto", desc: "Número para ordenar pestañas (ej: 1, 2)" },
+          { cls: ".jypesa-tabs-col-logo", type: "Imagen", desc: "Logo de la colección/marca" },
+          { cls: ".jypesa-tabs-col-mood", type: "Texto", desc: "Firma olfativa (ej: Cítrico, herbal)" },
+          { cls: ".jypesa-tabs-col-notes-salida", type: "Texto", desc: "Notas de Salida de la fragancia" },
+          { cls: ".jypesa-tabs-col-notes-corazon", type: "Texto", desc: "Notas de Corazón de la fragancia" },
+          { cls: ".jypesa-tabs-col-notes-fondo", type: "Texto", desc: "Notas de Fondo de la fragancia" },
+          { cls: ".jypesa-tabs-col-refill", type: "Texto", desc: "'RELLENABLE' o 'NO RELLENABLE'" },
+          { cls: ".jypesa-tabs-prod-name", type: "Texto", desc: "Nombre del producto (ej: Jabón Facial)" },
+          { cls: ".jypesa-tabs-prod-sku", type: "Texto", desc: "Código SKU del producto" },
+          { cls: ".jypesa-tabs-prod-weight", type: "Texto", desc: "Gramaje o capacidad (ej: 28 gr | 0.9 oz)" },
+          { cls: ".jypesa-tabs-prod-qty", type: "Texto", desc: "Piezas por caja (ej: 300 pzs/Caja)" },
+          { cls: ".jypesa-tabs-prod-img", type: "Imagen", desc: "Fotografía del producto" }
+        ]
+      },
+      {
+        id: "partners-marquee",
+        name: "Carrusel Infinito de Marcas (Partners Marquee)",
+        category: "carousel",
+        shortDesc: "Marquee continuo y fluido de logotipos con autoreplicación para pantallas panorámicas.",
+        location: "Home, Footer y Páginas de Solución",
+        repoPath: "widgets/partners-marquee/partners-marquee.js",
+        previewUrl: "widgets/partners-marquee/preview.html",
+        hasCms: true,
+        bilingual: true,
+        embedCode: `<!-- Contenedor del Carrusel Infinito -->
+<div class="jypesa-partners-marquee-widget" data-duration="35s"></div>
+
+<!-- Script en Vercel (Cargar una sola vez en la página) -->
+<script src="${VERCEL_CDN}/widgets/partners-marquee/partners-marquee.js"><\/script>`,
+        attributes: [
+          { name: "data-duration", values: "Ej: '25s', '35s', '45s'", desc: "Controla la velocidad del ciclo horizontal." }
+        ],
+        howToEdit: `Para alimentar dinámicamente con Webflow CMS, agrega una Collection List en la página con estilo 'display: none;' y clase '.jypesa-partners-marquee-cms-source'. El script detecta los logos y los clona en bucle perfecto.`,
+        cmsTable: [
+          { cls: ".jypesa-partners-marquee-cms-source", type: "Collection Wrapper", desc: "Contenedor de la lista en Webflow con 'display: none;'" },
+          { cls: ".jypesa-partners-marquee-cms-img", type: "Imagen", desc: "Logotipo de la marca o aliado" }
+        ]
+      },
+      {
+        id: "hero-interactive",
+        name: "Hero Interactivo con KPIs (Página Nosotros)",
+        category: "hero",
+        shortDesc: "Portada animada con logotipo central de Jypesa y 4 tarjetas de KPIs expandibles.",
+        location: "Página Nosotros (/nosotros y /about-us)",
+        repoPath: "widgets/hero-interactive/hero-widget.js",
+        previewUrl: "hero.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Contenedor del Hero -->
+<div id="jypesa-hero-widget" data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/hero-interactive/hero-widget.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Cambia títulos y cifras entre español e inglés." }
+        ],
+        howToEdit: `Abre 'widgets/hero-interactive/hero-widget.js' en las líneas ~475 a 520.
+Encontrarás el diccionario 'heroTexts' con los 4 KPIs:
+- '+50 años de experiencia'
+- '+21 países'
+- '7,000 m² de infraestructura'
+- '3 continentes de alcance'`,
+        cmsTable: null
+      },
+      {
+        id: "cobertura-global",
+        name: "Cobertura Global (Mapa Mundial SVG)",
+        category: "maps",
+        shortDesc: "Mapa vectorial del mundo con pines animados por pulsación y panel lateral interactivo.",
+        location: "Home y Página Nosotros",
+        repoPath: "widgets/cobertura-global/cobertura-global.js",
+        previewUrl: "cobertura-global.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Contenedor del Mapa Mundial -->
+<div id="jypesa-cobertura-global-widget" data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/cobertura-global/cobertura-global.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Traduce países, ciudades y categorías del mapa." }
+        ],
+        howToEdit: `Abre 'widgets/cobertura-global/cobertura-global.js' en las líneas ~17 a 38.
+Edita el arreglo 'LOCATIONS':
+- 'representativeOffices': Azul (#0089C1)
+- 'jypesaFactories': Verde (#4AA25D)
+- 'associatedFactories': Amarillo (#FBB31F)
+Indica latitud ('lat') y longitud ('lon') para posicionar el pin.`,
+        cmsTable: null
+      },
+      {
+        id: "presencia-internacional",
+        name: "Presencia Internacional (Mapa Leaflet)",
+        category: "maps",
+        shortDesc: "Mapa interactivo navegable con buscador de ciudades, filtros por tipo y tarjetas con llamada directa.",
+        location: "Página de Contacto y Distribuidores",
+        repoPath: "widgets/presencia-internacional/presencia-internacional.js",
+        previewUrl: "presencia-internacional.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Contenedor del Mapa Interactivo -->
+<div id="jypesa-presencia-internacional-widget" data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/presencia-internacional/presencia-internacional.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Idioma del buscador, etiquetas y tarjetas." }
+        ],
+        howToEdit: `Abre 'widgets/presencia-internacional/presencia-internacional.js' en las líneas ~9 a 20.
+En el arreglo 'LOCATIONS' agrega o edita sucursales con:
+- 'type': 'oficina' | 'planta' | 'cedis' | 'contacto'
+- 'nameEs' y 'nameEn': Nombre bilingüe
+- 'address', 'phone', 'email'
+- 'lat' y 'lng': Coordenadas geográficas`,
+        cmsTable: null
+      },
+      {
+        id: "sistemas-dispensacion",
+        name: "Sistemas de Dispensación (Scroll Split)",
+        category: "hero",
+        shortDesc: "Efecto scroll de columnas opuestas resaltando la reducción de residuos plásticos.",
+        location: "Página Sistemas de Dispensación",
+        repoPath: "widgets/sistemas-dispensacion/sistemas-dispensacion.js",
+        previewUrl: "widgets/sistemas-dispensacion/preview.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Contenedor del Scroll Split -->
+<div class="jypesa-sistemas-dispensacion-widget" data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/sistemas-dispensacion/sistemas-dispensacion.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Traduce el texto y botón hacia /dispensing-systems." }
+        ],
+        howToEdit: `Abre 'widgets/sistemas-dispensacion/sistemas-dispensacion.js':
+- Las 4 imágenes se configuran en las líneas ~25 a 45.
+- Los textos centrales y enlaces se configuran en las líneas ~30 a 50.`,
+        cmsTable: null
+      },
+      {
+        id: "sistemas-dispensacion-comparativa",
+        name: "Dispensación Comparativa (Catálogo)",
+        category: "catalog",
+        shortDesc: "Catálogo técnico con selección de botellas, especificaciones y enlaces de descarga PDF.",
+        location: "Página Sistemas de Dispensación",
+        repoPath: "widgets/sistemas-dispensacion-comparativa/sistemas-dispensacion-comparativa.js",
+        previewUrl: "widgets/sistemas-dispensacion-comparativa/preview.html",
+        hasCms: true,
+        bilingual: true,
+        embedCode: `<!-- Sección 1: Sistemas de dispensación -->
+<div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Sistemas de dispensación"></div>
+
+<!-- Sección 2: Soportes -->
+<div class="jypesa-sistemas-dispensacion-comparativa" data-category-filter="Soportes"></div>
+
+<!-- Script único al final de la página -->
+<script src="${VERCEL_CDN}/widgets/sistemas-dispensacion-comparativa/sistemas-dispensacion-comparativa.js"><\/script>`,
+        attributes: [
+          { name: "data-category-filter", values: "'Sistemas de dispensación' | 'Soportes' | 'Complementos'", desc: "Filtra automáticamente qué productos mostrar en ese bloque." },
+          { name: "data-lang", values: "'es' | 'en'", desc: "Traduce etiquetas y botones de descarga." }
+        ],
+        howToEdit: `Los productos provienen de una lista de colección oculta con clase '.jypesa-sdc-cms-source'.`,
+        cmsTable: [
+          { cls: ".jypesa-disp-name", type: "Texto", desc: "Nombre del dispensador (ej: Easy Snap)" },
+          { cls: ".jypesa-disp-categoria", type: "Texto", desc: "Categoría exacta para filtrado" },
+          { cls: ".jypesa-disp-badge", type: "Texto", desc: "Badge de línea (ej: Economy / Premium)" },
+          { cls: ".jypesa-disp-capacidad", type: "Texto", desc: "Capacidad (ej: 400 ml / 13.5 oz)" },
+          { cls: ".jypesa-disp-material", type: "Texto", desc: "Material (ej: HDPE Reciclable)" },
+          { cls: ".jypesa-disp-img-main", type: "Imagen", desc: "Foto principal" },
+          { cls: ".jypesa-disp-guia-link", type: "Enlace", desc: "URL a Guía de Instalación (PDF)" },
+          { cls: ".jypesa-disp-ficha-link", type: "Enlace", desc: "URL a Ficha Técnica (PDF)" }
+        ]
+      },
+      {
+        id: "slider-scroll-vertical",
+        name: "Deslizador Vertical de Sustentabilidad",
+        category: "hero",
+        shortDesc: "Recorrido de scroll fijo por los 4 pilares de sustentabilidad: Nocean, Refill, Reciclado y Certificaciones.",
+        location: "Página Sustentabilidad (/sustentabilidad)",
+        repoPath: "widgets/slider-scroll-vertical/slider-scroll-vertical.js",
+        previewUrl: "widgets/slider-scroll-vertical/preview.html",
+        hasCms: true,
+        bilingual: true,
+        embedCode: `<!-- Contenedor del Deslizador Vertical -->
+<div data-jypesa-sustentabilidad-widget data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/slider-scroll-vertical/slider-scroll-vertical.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Muestra las diapositivas en español o inglés." }
+        ],
+        howToEdit: `Se puede alimentar con una colección en Webflow con clase '.jypesa-sust-cms-source' o usar las 4 diapositivas oficiales integradas en el script.`,
+        cmsTable: [
+          { cls: ".jypesa-sust-prod-index", type: "Texto", desc: "Número indicador (ej: 01, 02)" },
+          { cls: ".jypesa-sust-prod-title", type: "Texto", desc: "Título de la diapositiva" },
+          { cls: ".jypesa-sust-prod-desc", type: "Texto", desc: "Descripción del pilar" },
+          { cls: ".jypesa-sust-prod-img", type: "Imagen", desc: "Fotografía lateral" },
+          { cls: ".jypesa-sust-prod-logo", type: "Imagen (Opcional)", desc: "Logo especial (ej: Nocean)" }
+        ]
+      },
+      {
+        id: "hoteleria-tabs",
+        name: "Pestañas de Hotelería por Segmento",
+        category: "catalog",
+        shortDesc: "Pestañas para Hoteles Independientes, Cadenas y Grupos Hoteleros con galería de 3 imágenes.",
+        location: "Página de Soluciones (/soluciones)",
+        repoPath: "widgets/hoteleria-tabs/hoteleria-tabs.js",
+        previewUrl: "hoteleria-tabs.html",
+        hasCms: true,
+        bilingual: true,
+        embedCode: `<!-- Contenedor de Pestañas de Hotelería -->
+<div id="jypesa-hoteleria-tabs-widget" data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/hoteleria-tabs/hoteleria-tabs.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Idioma del contenido." }
+        ],
+        howToEdit: `Edita 'FALLBACK_DATA_BY_LANG' en las líneas ~587 a 650 de 'hoteleria-tabs.js' para actualizar textos o imágenes sin CMS.`,
+        cmsTable: [
+          { cls: ".jht-cms-tab-name", type: "Texto", desc: "Nombre de la pestaña (ej: Cadenas hoteleras)" },
+          { cls: ".jht-cms-tab-desc", type: "Texto", desc: "Texto descriptivo de la propuesta de valor" },
+          { cls: ".jht-cms-tab-img-1", type: "Imagen", desc: "Foto 1 del carrusel" }
+        ]
+      },
+      {
+        id: "beneficios-persea",
+        name: "Beneficios Persea (Dial Circular)",
+        category: "hero",
+        shortDesc: "Animación de 11 sellos de beneficio orgánico y vegano rodeando el producto central en forma de reloj.",
+        location: "Página de Colección Persea",
+        repoPath: "widgets/beneficios-persea/beneficios-persea.js",
+        previewUrl: "widgets/beneficios-persea/preview.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Contenedor de Beneficios Persea -->
+<div 
+  id="jypesa-beneficios-persea-widget" 
+  data-lang="es"
+  data-central-img="URL_IMAGEN_BOTELLA_CENTRAL"
+  data-text-color="#506D85">
+</div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/beneficios-persea/beneficios-persea.js"><\/script>`,
+        attributes: [
+          { name: "data-central-img", values: "URL de imagen", desc: "Permite cambiar la botella o jabón central." },
+          { name: "data-text-color", values: "Código de color Hex", desc: "Color del texto de los 11 puntos." },
+          { name: "data-lang", values: "'es' | 'en'", desc: "Traduce los 11 beneficios." }
+        ],
+        howToEdit: `Abre 'widgets/beneficios-persea/beneficios-persea.js' en las líneas ~11 a 37 para editar la redacción de los 11 beneficios ('BENEFITS_ES' y 'BENEFITS_EN').`,
+        cmsTable: null
+      },
+      {
+        id: "timeline",
+        name: "Línea de Tiempo Histórica (Timeline)",
+        category: "hero",
+        shortDesc: "Hitos y trayectoria de JYPESA desde 1976 con barra de progreso luminosa y reproducción automática.",
+        location: "Página Nosotros (/nosotros)",
+        repoPath: "widgets/timeline/timeline-widget.js",
+        previewUrl: "timeline.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Contenedor del Timeline -->
+<div data-jypesa-timeline-widget data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/timeline/timeline-widget.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Traduce los títulos y relatos históricos." }
+        ],
+        howToEdit: `Abre 'widgets/timeline/timeline-widget.js' en las líneas ~430 a 460 para cambiar años, títulos y descripciones de cada hito.`,
+        cmsTable: null
+      },
+      {
+        id: "proceso",
+        name: "Proceso de Producción (8 Etapas)",
+        category: "hero",
+        shortDesc: "Ruta metodológica 'De la idea a la producción' con línea SVG interactiva en scroll.",
+        location: "Página Desarrollo Personalizado",
+        repoPath: "widgets/proceso/proceso-widget.js",
+        previewUrl: "proceso.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Contenedor de Proceso -->
+<div id="jypesa-proceso-widget" data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/proceso/proceso-widget.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Traduce las 8 etapas del proceso." }
+        ],
+        howToEdit: `Abre 'widgets/proceso/proceso-widget.js' en las líneas ~10 a 43 para cambiar el nombre y detalle de cada uno de los 8 pasos.`,
+        cmsTable: null
+      },
+      {
+        id: "cards",
+        name: "Tarjetas de Capacidades / Negocio",
+        category: "hero",
+        shortDesc: "Tres tarjetas interactivas para las divisiones: Producción, Private Label y Licencias.",
+        location: "Home y Página Nosotros",
+        repoPath: "widgets/cards/cards-widget.js",
+        previewUrl: "cards.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Contenedor de Cards -->
+<div id="jypesa-cards-widget" data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/cards/cards-widget.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Traduce las 3 tarjetas y enlaces de destino." }
+        ],
+        howToEdit: `Abre 'widgets/cards/cards-widget.js' en las líneas ~280 a 320 para actualizar fotos, textos y botones.`,
+        cmsTable: null
+      },
+      {
+        id: "hero-soluciones",
+        name: "Hero Desarrollo Personalizado",
+        category: "hero",
+        shortDesc: "Hero con animación Ken Burns, titular de alto impacto y marquee de partners incorporado.",
+        location: "Página Desarrollo Personalizado",
+        repoPath: "widgets/hero-soluciones/hero-soluciones.js",
+        previewUrl: "widgets/hero-soluciones/preview.html",
+        hasCms: true,
+        bilingual: true,
+        embedCode: `<!-- Contenedor del Hero -->
+<div id="jypesa-hero-soluciones-widget" data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/hero-soluciones/hero-soluciones.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Traduce títulos y llamados a la acción." }
+        ],
+        howToEdit: `Reutiliza automáticamente los logos de la colección '.jypesa-partners-marquee-cms-source' si está presente en la página.`,
+        cmsTable: null
+      },
+      {
+        id: "sustentabilidad",
+        name: "Sustentabilidad e Innovación Aplicada",
+        category: "hero",
+        shortDesc: "Bloque comparativo interactivo entre formulación química y desarrollo de empaque sustentable.",
+        location: "Página de Sustentabilidad",
+        repoPath: "widgets/sustentabilidad/sustentabilidad-widget.js",
+        previewUrl: "sustentabilidad.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Contenedor de Sustentabilidad -->
+<div id="jypesa-sustentabilidad-widget" data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/sustentabilidad/sustentabilidad-widget.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Traduce términos técnicos de formulación." }
+        ],
+        howToEdit: `Abre 'widgets/sustentabilidad/sustentabilidad-widget.js' en las líneas ~10 a 43 ('ENGLISH_COPY').`,
+        cmsTable: null
+      },
+      {
+        id: "slider-certificaciones",
+        name: "Slider de Certificaciones y Normas",
+        category: "carousel",
+        shortDesc: "Carrusel de sellos internacionales (ISO 22716, Cruelty Free, Carbon Neutral).",
+        location: "Páginas de Sustentabilidad y Calidad",
+        repoPath: "widgets/slider certificaciones new/slider-certificaciones.js",
+        previewUrl: "slider-certificaciones.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Contenedor de Certificaciones -->
+<div id="gpk-slider-certificaciones-widget-root" data-lang="es"></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/slider%20certificaciones%20new/slider-certificaciones.js"><\/script>`,
+        attributes: [
+          { name: "data-lang", values: "'es' | 'en'", desc: "Traduce insignias y descripciones de auditoría." }
+        ],
+        howToEdit: `Abre 'widgets/slider certificaciones new/slider-certificaciones.js' para actualizar sellos y normas.`,
+        cmsTable: null
+      },
+      {
+        id: "colecciones-hoteleria",
+        name: "Carrusel de Colecciones Recomendadas",
+        category: "carousel",
+        shortDesc: "Carrusel horizontal con flechas circulares de navegación para líneas de amenidades.",
+        location: "Páginas de Segmentos (/soluciones)",
+        repoPath: "widgets/colecciones-hoteleria/colecciones-hoteleria.js",
+        previewUrl: "widgets/colecciones-hoteleria/index.html",
+        hasCms: false,
+        bilingual: false,
+        embedCode: `<!-- Contenedor del Carrusel -->
+<div data-jypesa-colecciones-hoteleria-widget></div>
+
+<!-- Script del Widget -->
+<script src="${VERCEL_CDN}/widgets/colecciones-hoteleria/colecciones-hoteleria.js"><\/script>`,
+        attributes: [],
+        howToEdit: `Disponible también en variantes para 'colecciones-empresarial', 'colecciones-institucional' y 'colecciones-canal-comercial'.`,
+        cmsTable: null
+      },
+      {
+        id: "contacto-multiselect",
+        name: "Selector Múltiple para Formulario de Contacto",
+        category: "form",
+        shortDesc: "Convierte el select nativo de Webflow en un dropdown con casillas agrupadas por línea comercial.",
+        location: "Página de Contacto (/contacto y /contact)",
+        repoPath: "widgets/contacto-multiselect/contacto-multiselect.js",
+        previewUrl: "widgets/contacto-multiselect/index.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Incluir en el Footer Code de la página de contacto -->
+<link rel="stylesheet" href="${VERCEL_CDN}/widgets/contacto-multiselect/contacto-multiselect.css">
+<script src="${VERCEL_CDN}/widgets/contacto-multiselect/contacto-multiselect.js"><\/script>`,
+        attributes: [
+          { name: "ID del Select", values: "id='coleccion-interes' o id='collection-interest'", desc: "El widget se conecta automáticamente al select con este ID." }
+        ],
+        howToEdit: `Abre 'widgets/contacto-multiselect/contacto-multiselect.js':
+- En las líneas ~20 a 34 edita las categorías (Estándar, Superior, Premium) y los nombres de las marcas disponibles.`,
+        cmsTable: null
+      },
+      {
+        id: "language-detector",
+        name: "Detector de Idioma y Redirección (Head Script)",
+        category: "nav",
+        shortDesc: "Script para Webflow Site Settings que detecta el idioma del navegador y redirige a jypesausa.com.",
+        location: "Webflow Site Settings > Custom Code > Head Code",
+        repoPath: "widgets/language-detector/language-detector.html",
+        previewUrl: "widgets/language-detector/language-detector.html",
+        hasCms: false,
+        bilingual: true,
+        embedCode: `<!-- Pegar en Webflow > Site Settings > Custom Code > Head Code -->
+<script src="${VERCEL_CDN}/widgets/language-detector/language-detector.html"><\/script>`,
+        attributes: [],
+        howToEdit: `Abre 'widgets/language-detector/language-detector.html' para añadir nuevas páginas traducidas al mapa de rutas ('routes').`,
+        cmsTable: null
+      }
+    ];
+
+    // ESTADO DE LA APLICACIÓN
+    let currentWidgetId = "navegacion-principal";
+    let activeCategory = "all";
+    let searchQuery = "";
+    let activeTab = "embed";
+    let currentViewport = "desktop";
+
+    // ELEMENTOS DOM
+    const widgetListContainer = document.getElementById("widgetListContainer");
+    const widgetDetailContainer = document.getElementById("widgetDetailContainer");
+    const widgetSearchInput = document.getElementById("widgetSearchInput");
+    const categoryFilterContainer = document.getElementById("categoryFilterContainer");
+    const visibleWidgetCount = document.getElementById("visibleWidgetCount");
+    const toastNotification = document.getElementById("toastNotification");
+    const toastMessage = document.getElementById("toastMessage");
+
+    // INICIALIZACIÓN
+    function init() {
+      renderWidgetList();
+      renderWidgetDetail();
+      setupEventListeners();
+    }
+
+    // FILTRADO DE WIDGETS
+    function getFilteredWidgets() {
+      return WIDGETS_DATA.filter(w => {
+        const matchesCategory = activeCategory === "all" || w.category === activeCategory;
+        const q = searchQuery.toLowerCase().trim();
+        const matchesSearch = !q || 
+          w.name.toLowerCase().includes(q) || 
+          w.shortDesc.toLowerCase().includes(q) || 
+          w.location.toLowerCase().includes(q) ||
+          w.id.toLowerCase().includes(q);
+        return matchesCategory && matchesSearch;
+      });
+    }
+
+    // RENDERIZAR LISTA LATERAL
+    function renderWidgetList() {
+      const filtered = getFilteredWidgets();
+      visibleWidgetCount.textContent = `${filtered.length} disponible${filtered.length === 1 ? '' : 's'}`;
+
+      if (filtered.length === 0) {
+        widgetListContainer.innerHTML = `
+          <div style="padding: 24px; text-align: center; color: #94A3B8; font-size: 0.85rem;">
+            No se encontraron widgets con ese criterio.
+          </div>`;
+        return;
+      }
+
+      // Si el seleccionado no está en la lista filtrada, seleccionar el primero
+      if (!filtered.some(w => w.id === currentWidgetId)) {
+        currentWidgetId = filtered[0].id;
+      }
+
+      widgetListContainer.innerHTML = filtered.map(w => {
+        const isActive = w.id === currentWidgetId;
+        return `
+          <button class="widget-item ${isActive ? 'active' : ''}" onclick="selectWidget('${w.id}')">
+            <div class="widget-item-icon">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+              </svg>
+            </div>
+            <div class="widget-item-text">
+              <div class="widget-item-title">${escapeHtml(w.name)}</div>
+              <div class="widget-item-desc">${escapeHtml(w.location)}</div>
+              <div class="widget-item-tags">
+                ${w.hasCms ? '<span class="tag-mini cms">CMS</span>' : '<span class="tag-mini">Estático</span>'}
+                ${w.bilingual ? '<span class="tag-mini bilingual">ES / EN</span>' : ''}
+              </div>
+            </div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    // RENDERIZAR DETALLE DEL WIDGET SELECCIONADO
+    function renderWidgetDetail() {
+      const widget = WIDGETS_DATA.find(w => w.id === currentWidgetId);
+      if (!widget) return;
+
+      const categoryLabels = {
+        nav: "Navegación & Header",
+        catalog: "Catálogo & Productos",
+        maps: "Mapas & Cobertura",
+        hero: "Hero & Secciones",
+        carousel: "Carruseles & Sliders",
+        form: "Formularios"
+      };
+
+      widgetDetailContainer.innerHTML = `
+        <div class="detail-hero">
+          <div class="detail-header-left">
+            <div class="detail-category-badge">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"/></svg>
+              ${categoryLabels[widget.category] || 'Widget'}
+            </div>
+            <h2 class="detail-title">${escapeHtml(widget.name)}</h2>
+            <p class="detail-subtitle">${escapeHtml(widget.shortDesc)}</p>
+
+            <div class="detail-badges">
+              <span class="badge-feature production">
+                <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Producción Vercel
+              </span>
+              ${widget.hasCms ? `
+                <span class="badge-feature cms">
+                  <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
+                  Conexión Webflow CMS
+                </span>` : `
+                <span class="badge-feature" style="background:#F1F5F9; color:#475569;">
+                  Widget Autónomo Estático
+                </span>`}
+              ${widget.bilingual ? `
+                <span class="badge-feature lang">
+                  <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389c-.188-.196-.373-.396-.554-.6a19.098 19.098 0 01-3.16 3.02 1 1 0 11-1.228-1.574 17.11 17.11 0 002.812-2.708 17.202 17.202 0 01-1.448-3.333H3a1 1 0 110-2h3V3a1 1 0 011-1zm1.332 6.13a16.8 16.8 0 001.077-2.13H5.59a15.202 15.202 0 001.144 2.13h1.598zM14 6a1 1 0 011 1v1h2a1 1 0 110 2h-1.078c-.287 1.482-.876 2.87-1.72 4.073l1.85 1.85a1 1 0 11-1.414 1.414l-1.85-1.85a8.956 8.956 0 01-3.072 1.587 1 1 0 11-.532-1.928 6.963 6.963 0 002.39-1.233L9.293 11.5a1 1 0 011.414-1.414l1.385 1.385A6.974 6.974 0 0013.078 10H11a1 1 0 110-2h3V7a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+                  Bilingüe (ES / EN)
+                </span>` : ''}
+            </div>
+          </div>
+
+          <div class="detail-actions">
+            <button class="btn-copy-embed" onclick="copyWidgetEmbed('${widget.id}')">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>
+              <span>Copiar Código Embed</span>
+            </button>
+            <a href="${widget.previewUrl}" target="_blank" class="btn-preview-link">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              <span>Abrir en Pestaña Nueva</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- TABS DE DETALLE -->
+        <div class="detail-tabs-nav">
+          <button class="detail-tab-btn ${activeTab === 'embed' ? 'active' : ''}" onclick="switchDetailTab('embed')">
+            <span>📋 Código & Atributos</span>
+          </button>
+          <button class="detail-tab-btn ${activeTab === 'edit' ? 'active' : ''}" onclick="switchDetailTab('edit')">
+            <span>⚙️ Cómo Editar en Código</span>
+          </button>
+          ${widget.hasCms ? `
+            <button class="detail-tab-btn ${activeTab === 'cms' ? 'active' : ''}" onclick="switchDetailTab('cms')">
+              <span>🗄️ Colección CMS Webflow</span>
+            </button>` : ''}
+          <button class="detail-tab-btn ${activeTab === 'preview' ? 'active' : ''}" onclick="switchDetailTab('preview')">
+            <span>👁️ Vista Previa en Vivo</span>
+          </button>
+        </div>
+
+        <!-- CONTENIDO DEL TAB -->
+        <div class="detail-content">
+          
+          <!-- TAB 1: CÓDIGO EMBED & ATRIBUTOS -->
+          <div class="tab-panel ${activeTab === 'embed' ? 'active' : ''}" id="panel-embed">
+            <h3 class="section-title">1. Código Embed para Webflow</h3>
+            <p class="guide-text">Agrega un elemento <strong>Embed HTML</strong> en tu página de Webflow donde quieras que aparezca el widget y pega el siguiente bloque:</p>
+
+            <div class="code-block-container">
+              <div class="code-block-header">
+                <span>HTML EMBED</span>
+                <button class="btn-copy-code" onclick="copyWidgetEmbed('${widget.id}')">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                  Copiar
+                </button>
+              </div>
+              <pre><code>${escapeHtml(widget.embedCode)}</code></pre>
+            </div>
+
+            ${widget.attributes && widget.attributes.length > 0 ? `
+              <h3 class="section-title">2. Atributos Configurables Opcionales</h3>
+              <p class="guide-text">Puedes agregar los siguientes atributos al contenedor HTML del widget para personalizar su comportamiento:</p>
+              
+              <div class="table-container">
+                <table class="guide-table">
+                  <thead>
+                    <tr>
+                      <th>Atributo HTML</th>
+                      <th>Valores Posibles</th>
+                      <th>Descripción</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${widget.attributes.map(attr => `
+                      <tr>
+                        <td><span class="badge-code">${escapeHtml(attr.name)}</span></td>
+                        <td><strong>${escapeHtml(attr.values)}</strong></td>
+                        <td>${escapeHtml(attr.desc)}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            ` : ''}
+
+            <div class="callout-box">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+              <div class="callout-box-text">
+                <strong>¿Dónde se ubica en el sitio web?</strong> ${escapeHtml(widget.location)}. Todos los scripts son seguros, no interfieren con otros plugins de Webflow y descargan sus fuentes oficiales automáticamente.
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: CÓMO EDITAR EN CÓDIGO -->
+          <div class="tab-panel ${activeTab === 'edit' ? 'active' : ''}" id="panel-edit">
+            <h3 class="section-title">Ruta del archivo en el repositorio</h3>
+            <p class="guide-text">Para realizar ajustes directos en la programación o en los textos predeterminados, edita el archivo en:</p>
+            <div class="code-block-container" style="margin-bottom: 20px;">
+              <div class="code-block-header"><span>UBICACIÓN</span></div>
+              <pre><code>${escapeHtml(widget.repoPath)}</code></pre>
+            </div>
+
+            <h3 class="section-title">Instrucciones de edición</h3>
+            <div style="background: #F8FAFC; border: 1px solid var(--border); padding: 18px 22px; border-radius: var(--radius-sm); font-size: 0.9rem; line-height: 1.7; color: #334155; white-space: pre-line;">
+              ${escapeHtml(widget.howToEdit)}
+            </div>
+
+            <div class="callout-box">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+              <div class="callout-box-text">
+                <strong>Despliegue automático:</strong> Al hacer commit y push a la rama <code>master</code> de GitHub, Vercel compila y distribuye los archivos actualizados a nivel global en menos de 1 minuto.
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: CMS WEBFLOW (SI APLICA) -->
+          ${widget.hasCms ? `
+            <div class="tab-panel ${activeTab === 'cms' ? 'active' : ''}" id="panel-cms">
+              <h3 class="section-title">Mapeo de Clases para Webflow CMS</h3>
+              <p class="guide-text">Agrega una <strong>Collection List</strong> en Webflow conectada a tu colección. Oculta el contenedor con <code>display: none;</code> y asigna las siguientes clases a los elementos dentro del ítem dinámico (<code>w-dyn-item</code>):</p>
+
+              <div class="table-container">
+                <table class="guide-table">
+                  <thead>
+                    <tr>
+                      <th>Clase CSS en Webflow</th>
+                      <th>Tipo de Elemento</th>
+                      <th>Campo a Enlazar en el CMS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${(widget.cmsTable || []).map(row => `
+                      <tr>
+                        <td><span class="badge-code">${escapeHtml(row.cls)}</span></td>
+                        <td>${escapeHtml(row.type)}</td>
+                        <td>${escapeHtml(row.desc)}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- TAB 4: VISTA PREVIA EN VIVO -->
+          <div class="tab-panel ${activeTab === 'preview' ? 'active' : ''}" id="panel-preview">
+            <div class="preview-frame-container">
+              <div class="preview-frame-header">
+                <div style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">
+                  Vista Previa Interactiva en Vivo
+                </div>
+                <div class="preview-viewport-controls">
+                  <button class="btn-viewport ${currentViewport === 'desktop' ? 'active' : ''}" onclick="setViewport('desktop')">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    Desktop (100%)
+                  </button>
+                  <button class="btn-viewport ${currentViewport === 'tablet' ? 'active' : ''}" onclick="setViewport('tablet')">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    Tablet (768px)
+                  </button>
+                  <button class="btn-viewport ${currentViewport === 'mobile' ? 'active' : ''}" onclick="setViewport('mobile')">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    Mobile (390px)
+                  </button>
+                </div>
+              </div>
+
+              <div class="iframe-wrapper" id="iframeWrapper">
+                <iframe id="previewIframe" src="${widget.previewUrl}" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    // ACCIONES DE INTERACCIÓN
+    function selectWidget(id) {
+      currentWidgetId = id;
+      renderWidgetList();
+      renderWidgetDetail();
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    function switchDetailTab(tabName) {
+      activeTab = tabName;
+      document.querySelectorAll('.detail-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+      const activeBtn = Array.from(document.querySelectorAll('.detail-tab-btn')).find(b => b.onclick.toString().includes(tabName));
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const targetPanel = document.getElementById(`panel-${tabName}`);
+      if (targetPanel) targetPanel.classList.add('active');
+    }
+
+    function setViewport(size) {
+      currentViewport = size;
+      document.querySelectorAll('.btn-viewport').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = Array.from(document.querySelectorAll('.btn-viewport')).find(b => b.onclick.toString().includes(size));
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const iframe = document.getElementById("previewIframe");
+      if (!iframe) return;
+
+      if (size === 'desktop') {
+        iframe.style.width = '100%';
+      } else if (size === 'tablet') {
+        iframe.style.width = '768px';
+      } else if (size === 'mobile') {
+        iframe.style.width = '390px';
+      }
+    }
+
+    function copyWidgetEmbed(widgetId) {
+      const widget = WIDGETS_DATA.find(w => w.id === widgetId);
+      if (!widget) return;
+
+      navigator.clipboard.writeText(widget.embedCode).then(() => {
+        showToast(`¡Código embed de "${widget.name}" copiado!`);
+      }).catch(err => {
+        console.error("Error al copiar:", err);
+      });
+    }
+
+    function showToast(message) {
+      toastMessage.textContent = message;
+      toastNotification.classList.add("show");
+      setTimeout(() => {
+        toastNotification.classList.remove("show");
+      }, 3000);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function setupEventListeners() {
+      // Búsqueda en vivo
+      widgetSearchInput.addEventListener("input", (e) => {
+        searchQuery = e.target.value;
+        renderWidgetList();
+      });
+
+      // Filtro por categorías
+      categoryFilterContainer.addEventListener("click", (e) => {
+        const btn = e.target.closest(".pill-btn");
+        if (!btn) return;
+        categoryFilterContainer.querySelectorAll(".pill-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeCategory = btn.getAttribute("data-category");
+        renderWidgetList();
+      });
+    }
+
+    // Arrancar la app al cargar el DOM
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
