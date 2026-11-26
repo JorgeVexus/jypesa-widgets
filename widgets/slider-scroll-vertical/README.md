@@ -13,7 +13,7 @@ Agrega un bloque de **Embed HTML** en Webflow en la sección donde desees render
 <div data-jypesa-sustentabilidad-widget></div>
 
 <!-- 2. Cargar el script desde Vercel (Producción) -->
-<script src="https://jypesa-widgets.vercel.app/widgets/slider-scroll-vertical/slider-scroll-vertical.js"></script>
+<script src="https://jypesa-widgets.pages.dev/widgets/slider-scroll-vertical/slider-scroll-vertical.js"></script>
 ```
 
 ---

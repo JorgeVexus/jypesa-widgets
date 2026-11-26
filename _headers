@@ -1,0 +1,10 @@
+/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET,OPTIONS
+  Access-Control-Allow-Headers: Content-Type
+
+# Imagenes pesadas: 7 dias de cache en navegador
+/widgets/assets/images/*
+  Cache-Control: public, max-age=604800
+/widgets/:widget/images/*
+  Cache-Control: public, max-age=604800

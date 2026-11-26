@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
-function renderCardsWidget(lang, scriptSrc = 'https://jypesa-widgets.vercel.app/widgets/cards/cards-widget.js') {
+function renderCardsWidget(lang, scriptSrc = 'https://jypesa-widgets.pages.dev/widgets/cards/cards-widget.js') {
   const filePath = path.resolve(__dirname, '../widgets/cards/cards-widget.js');
   const code = fs.readFileSync(filePath, 'utf8');
 
@@ -55,7 +55,7 @@ function renderCardsWidget(lang, scriptSrc = 'https://jypesa-widgets.vercel.app/
 
   const window = {
     location: {
-      hostname: 'jypesa-widgets.vercel.app',
+      hostname: 'jypesa-widgets.pages.dev',
       pathname: '/'
     }
   };
@@ -81,7 +81,7 @@ test('cards-widget.js keeps original image for Licencias in Spanish', () => {
 test('cards-widget.js uses Img-per.webp for Licenses in English', () => {
   const html = renderCardsWidget('en');
   assert.match(html, /<h3 class="jypesa-card-title">Licenses<\/h3>/);
-  assert.match(html, /src="https:\/\/jypesa-widgets\.vercel\.app\/assets\/images-widgets\/Img-per\.webp"/);
+  assert.match(html, /src="https:\/\/jypesa-widgets.pages.dev\/assets\/images-widgets\/Img-per\.webp"/);
   assert.doesNotMatch(html, /69fa4c51ab013c1db7e3825f_Product-Image\.png/);
 });
 

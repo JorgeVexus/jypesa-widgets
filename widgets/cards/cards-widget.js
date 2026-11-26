@@ -234,7 +234,7 @@
   const imgLicencias = "https://cdn.prod.website-files.com/69d7c3721733f0f4aaa00b42/69fa4c51ab013c1db7e3825f_Product-Image.png";
 
   // Resolver basePath para assets locales / producción (Vercel)
-  let basePath = 'https://jypesa-widgets.vercel.app/';
+  let basePath = 'https://jypesa-widgets.pages.dev/';
   if (typeof document !== 'undefined') {
     const currentScript = document.currentScript || (() => {
       const scripts = document.getElementsByTagName ? document.getElementsByTagName('script') : [];

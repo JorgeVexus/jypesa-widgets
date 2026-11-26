@@ -11,7 +11,7 @@
     if (hostname === "localhost" || hostname === "127.0.0.1") {
       return new URL(widgetPath + "/", origin).href;
     }
-    return "https://jypesa-widgets.vercel.app" + widgetPath + "/";
+    return "https://jypesa-widgets.pages.dev" + widgetPath + "/";
   }
 
   var baseURL = resolveBaseURL(

@@ -85,5 +85,5 @@ En las diferentes partes de tu página donde quieras mostrar cada sección, colo
 Coloca el siguiente script al final del body en tu página de Webflow (o justo debajo de tu último embed):
 
 ```html
-<script src="https://jypesa-widgets.vercel.app/widgets/sistemas-dispensacion-comparativa/sistemas-dispensacion-comparativa.js"></script>
+<script src="https://jypesa-widgets.pages.dev/widgets/sistemas-dispensacion-comparativa/sistemas-dispensacion-comparativa.js"></script>
 ```

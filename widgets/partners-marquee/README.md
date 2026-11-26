@@ -16,7 +16,7 @@ Agrega un bloque de **Embed HTML** en Webflow en las secciones donde desees rend
 <!-- <div class="jypesa-partners-marquee-widget" data-duration="25s"></div> -->
 
 <!-- Cargar el script desde Vercel (Cargar solo una vez en la página) -->
-<script src="https://jypesa-widgets.vercel.app/widgets/partners-marquee/partners-marquee.js"></script>
+<script src="https://jypesa-widgets.pages.dev/widgets/partners-marquee/partners-marquee.js"></script>
 ```
 
 ---

@@ -13,7 +13,7 @@ Agrega un bloque de **Embed HTML** en Webflow en la sección donde desees render
 <div class="jypesa-sistemas-dispensacion-widget"></div>
 
 <!-- Cargar el script desde Vercel (Producción) -->
-<script src="https://jypesa-widgets.vercel.app/widgets/sistemas-dispensacion/sistemas-dispensacion.js"></script>
+<script src="https://jypesa-widgets.pages.dev/widgets/sistemas-dispensacion/sistemas-dispensacion.js"></script>
 ```
 
 ---
