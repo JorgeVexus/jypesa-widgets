@@ -733,7 +733,7 @@
       about: "About Us",
       products: "Products",
       solutions: "Solutions",
-      customDev: "Custom Development",
+      customDev: "Private Label",
       sustainability: "Sustainability",
       resources: "Resources",
       smartOrder: "Smart Order",
